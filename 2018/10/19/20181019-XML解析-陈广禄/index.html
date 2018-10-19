@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>XML解析 · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">XML解析</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            XML解析
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3.2k</span>阅读时长: <span class="post-count reading-time">15 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/10/19</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Java中xml解析"><a href="#Java中xml解析" class="headerlink" title="Java中xml解析"></a>Java中xml解析</h1><hr>
+<p>#概述<br>一般情况下服务器端返回给客户端的数据主要包括三种类型，字符串，此处输入代码xml，json，什么是XML？可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。特点，可读性强，传输效率低。它只有字典一种数据格式，是一种树型存储结构，必须有根节点，逐级嵌套（用树的思想来思考），不像JSON一样是键值对存储数据，不过也稍微有那样的意思，XML是用标签和值来存储数据。XML数据写入（保存）文件可以数据的持久性，便于网络传输。实际应用场景比较少，相反json解析用的比较广泛。目前还有一些免费的接口还是会返回xml形式数据，因此学习xml解析还是有必要的！<br>官网提供的xml解析方式有三种： 1.Dom解析。2.Sax解析。3.Pull解析。<br>解析步骤：</p>
+<blockquote>
+<ul>
+<li>在Assets文件夹中模拟创建XML数据</li>
+<li>创建对应XML的Bean对象</li>
+<li>开始解析</li>
+</ul>
+</blockquote>
+<p>扩展方法：分别为JDOM解析、DOM4J。他们是在基础方法中扩展出来的。</p>
+<blockquote>
+<p>######[注释]：需要导入相应的jar包依赖。</p>
+</blockquote>
+<p>在Assets文件夹中模拟创建XML文件<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;bookstore&gt;</span><br><span class="line">    &lt;book id=<span class="string">"1"</span>&gt;</span><br><span class="line">        &lt;name&gt;骆驼祥子&lt;/name&gt;</span><br><span class="line">        &lt;author&gt;小陈&lt;/author&gt;</span><br><span class="line">        &lt;year&gt;2010&lt;/year&gt;</span><br><span class="line">        &lt;price&gt;86&lt;/price&gt;</span><br><span class="line">    &lt;/book&gt;</span><br><span class="line">    &lt;book id=<span class="string">"2"</span>&gt;</span><br><span class="line">        &lt;name&gt;老人与海&lt;/name&gt;</span><br><span class="line">        &lt;author&gt;小万&lt;/author&gt;</span><br><span class="line">        &lt;year&gt;2008&lt;/year&gt;</span><br><span class="line">        &lt;price&gt;100&lt;/price&gt;</span><br><span class="line">        &lt;language&gt;English&lt;/language&gt;</span><br><span class="line">    &lt;/book&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bookstore&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="一、Dom解析"><a href="#一、Dom解析" class="headerlink" title="一、Dom解析"></a>一、Dom解析</h2><p>优点：<br>1.形成了树形结构，有助于更好的理解、掌握，容易编写。<br>缺点：<br>1.将整个xml文件加载到内存中，解析时是一次性读取，对内存消耗比价大。<br>2.针对于一些大型数据结构，如果xml文件较大时，影响解析性能导致内存溢出等情况。因此不推荐！</p>
+<p>#####代码实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        String fileName = <span class="string">"aa.xml"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            InputStream in = getResources().getAssets().open(fileName);</span><br><span class="line">            dom2xml(in);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> List&lt;BOOK&gt; <span class="title">dom2xml</span><span class="params">(InputStream is)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        List&lt;BOOK&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      <span class="comment">//创建DocumentBuilderFactory对象</span></span><br><span class="line">        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();</span><br><span class="line">        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();</span><br><span class="line">        <span class="comment">//documentBuilder的parse的方法加载xml</span></span><br><span class="line">        Document document = documentBuilder.parse(is);</span><br><span class="line">        <span class="comment">//获取标签</span></span><br><span class="line">        NodeList booklist = document.getElementsByTagName(<span class="string">"book"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; booklist.getLength(); i++) &#123;</span><br><span class="line">            <span class="comment">//获取book节点</span></span><br><span class="line">             Node book_item = booklist.item(i);</span><br><span class="line">            BOOK book = <span class="keyword">new</span> BOOK();</span><br><span class="line">            <span class="comment">//获取book节点的属性所有集合</span></span><br><span class="line">            NamedNodeMap attributes = book_item.getAttributes();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; attributes.getLength(); j++) &#123;</span><br><span class="line">                Node attributeItem = attributes.item(j);</span><br><span class="line">                String nodeName = attributeItem.getNodeName();</span><br><span class="line">                String nodeValue = attributeItem.getNodeValue();</span><br><span class="line">                System.out.println(<span class="string">"属性名为："</span>+nodeName);</span><br><span class="line">                System.out.println(<span class="string">"属性值为："</span>+nodeValue);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            NodeList childNodes = book_item.getChildNodes();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; childNodes.getLength(); k++) &#123;</span><br><span class="line">                Node childItem = childNodes.item(k);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"name"</span>.equals(childItem.getNodeName())) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"名字："</span>+childItem.getFirstChild().getNodeValue());</span><br><span class="line">                    book.setName(childItem.getFirstChild().getNodeValue());</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"author"</span>.equals(childItem.getNodeName())) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"作者："</span>+childItem.getFirstChild().getNodeValue());</span><br><span class="line">                    book.setAuthor(childItem.getFirstChild().getNodeValue());</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"year"</span>.equals(childItem.getNodeName())) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"年份："</span>+childItem.getFirstChild().getNodeValue());</span><br><span class="line">                    book.setYear(childItem.getFirstChild().getNodeValue());</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"price"</span>.equals(childItem.getNodeName())) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"价格："</span>+childItem.getFirstChild().getNodeValue());</span><br><span class="line">                    book.setPrice(childItem.getFirstChild().getNodeValue());</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"language"</span>.equals(childItem.getNodeName())) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"语言："</span>+childItem.getFirstChild().getNodeValue());</span><br><span class="line">                    book.setLanguage(childItem.getFirstChild().getNodeValue());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            list.add(book);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>#####运行结果为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">I/System.out: 属性名为：id</span><br><span class="line">I/System.out: 属性值为：<span class="number">1</span></span><br><span class="line">I/System.out: 名字：骆驼祥子</span><br><span class="line">I/System.out: 作者：小陈</span><br><span class="line">I/System.out: 年份：<span class="number">2010</span></span><br><span class="line">I/System.out: 价格：<span class="number">86</span></span><br><span class="line">I/System.out: 属性名为：id</span><br><span class="line">I/System.out: 属性值为：<span class="number">2</span></span><br><span class="line">I/System.out: 名字：老人与海</span><br><span class="line">I/System.out: 作者：小万</span><br><span class="line">I/System.out: 年份：<span class="number">2008</span></span><br><span class="line">I/System.out: 价格：<span class="number">100</span></span><br><span class="line">I/System.out: 语言：English</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、SAX解析"><a href="#二、SAX解析" class="headerlink" title="二、SAX解析"></a>二、SAX解析</h2><p>通过自己创建的一个Handler类去逐个分析每一个节点，按顺序从最外层至里层依次进行。<br>优点：<br>1.相对于Dom解析，对内存消耗比较小。<br>2.适用于只处理XML文件中的数据。<br>3.SAX解析XML文件采用的是事件驱动，它并不需要解析完整个文档，而是按内容顺序解析文档的过程<br>缺点：<br>1.编码起来比较麻烦。代码量较大。不易编码<br>2.很难同时访问XML文件中的多处不同数据。</p>
+<p>#####代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        String fileName = <span class="string">"aa.xml"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            InputStream in = getResources().getAssets().open(fileName);</span><br><span class="line">            sax2xml(in);</span><br><span class="line">            System.out.println(sax2xml(in).size() + <span class="string">"开始"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">sax2xml</span><span class="params">(InputStream is)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SAXParserFactory factory = SAXParserFactory.newInstance();</span><br><span class="line">        <span class="comment">//获取SAXParser解析实例，</span></span><br><span class="line">        SAXParser sp = factory.newSAXParser();</span><br><span class="line">        <span class="comment">//新建解析处理器</span></span><br><span class="line">        MyHandler handler = <span class="keyword">new</span> MyHandler();</span><br><span class="line">        <span class="comment">//将解析交给处理器</span></span><br><span class="line">        sp.parse(is, handler);</span><br><span class="line">        <span class="comment">//返回List</span></span><br><span class="line">        <span class="keyword">return</span> handler.getList();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> <span class="keyword">extends</span> <span class="title">DefaultHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> List&lt;Book&gt; list;</span><br><span class="line">        <span class="keyword">private</span> Book book;</span><br><span class="line">        <span class="comment">//用于存储读取的临时变量</span></span><br><span class="line">        <span class="keyword">private</span> String tempString;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 每读到一个元素就调用该方法</span></span><br><span class="line"><span class="comment">         * 用来遍历xml文件开始标签</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> uri</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> localName</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> qName      属性名</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> attributes</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@throws</span> SAXException</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startElement</span><span class="params">(String uri, String localName, String qName, Attributes attributes)</span> <span class="keyword">throws</span> SAXException </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"book"</span>.equals(qName)) &#123;</span><br><span class="line"></span><br><span class="line">                System.out.println(<span class="string">"+++++++++"</span> + <span class="string">"开始遍历某一本书内容"</span> + <span class="string">"+++++++++"</span>);</span><br><span class="line">                <span class="comment">//读到student标签</span></span><br><span class="line">                book = <span class="keyword">new</span> Book();</span><br><span class="line">                String value = attributes.getValue(<span class="string">"id"</span>);</span><br><span class="line">                System.out.println(<span class="string">"属性值："</span> + value);</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; attributes.getLength(); i++) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"第"</span> + (i + <span class="number">1</span>) + <span class="string">"个属性名是:"</span> + attributes.getQName(i));</span><br><span class="line">                    System.out.println(<span class="string">"第"</span> + (i + <span class="number">1</span>) + <span class="string">"个属性值是:"</span> + attributes.getValue(i));</span><br><span class="line">                    <span class="keyword">if</span> (attributes.getQName(i).equals(<span class="string">"id"</span>)) &#123;</span><br><span class="line">                        book.setId(attributes.getValue(i));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//获取节点名</span></span><br><span class="line">                <span class="keyword">if</span> (!qName.equals(<span class="string">"book"</span>) &amp;&amp; !qName.equals(<span class="string">"bookstore"</span>)) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"节点名："</span> + qName);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">super</span>.startElement(uri, localName, qName, attributes);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 读到元素的结尾调用</span></span><br><span class="line"><span class="comment">         * 用来遍历xml文件结束标签</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> uri</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> localName</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> qName</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@throws</span> SAXException</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">endElement</span><span class="params">(String uri, String localName, String qName)</span> <span class="keyword">throws</span> SAXException </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (qName.equals(<span class="string">"name"</span>)) &#123;</span><br><span class="line">                book.setName(tempString);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equals(<span class="string">"author"</span>)) &#123;</span><br><span class="line">                book.setAuthor(tempString);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equals(<span class="string">"year"</span>)) &#123;</span><br><span class="line">                book.setYear(tempString);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equals(<span class="string">"price"</span>)) &#123;</span><br><span class="line">                book.setPrice(tempString);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equals(<span class="string">"language"</span>)) &#123;</span><br><span class="line">                book.setLanguage(tempString);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equals(<span class="string">"book"</span>)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"+++++++++"</span> + <span class="string">"结束遍历某一本书内容"</span> + <span class="string">"+++++++++"</span>);</span><br><span class="line">                 list.add(book);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">super</span>.endElement(uri, localName, qName);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 解析到文档开始调用，一般做初始化操作</span></span><br><span class="line"><span class="comment">         * 用来标志解析开始</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@throws</span> SAXException</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startDocument</span><span class="params">()</span> <span class="keyword">throws</span> SAXException </span>&#123;</span><br><span class="line">            list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">super</span>.startDocument();</span><br><span class="line">            System.out.println(<span class="string">"SAX解开始"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 解析到文档末尾调用，一般做回收操作</span></span><br><span class="line"><span class="comment">         * 标志解析结束</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@throws</span> SAXException</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">endDocument</span><span class="params">()</span> <span class="keyword">throws</span> SAXException </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.endDocument();</span><br><span class="line">            System.out.println(<span class="string">"SAX解结束"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 读到属性内容调用</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> ch</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> start</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> length</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@throws</span> SAXException</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">characters</span><span class="params">(<span class="keyword">char</span>[] ch, <span class="keyword">int</span> start, <span class="keyword">int</span> length)</span> <span class="keyword">throws</span> SAXException </span>&#123;</span><br><span class="line">            <span class="comment">//获取节点值</span></span><br><span class="line">            tempString = <span class="keyword">new</span> String(ch, start, length);</span><br><span class="line">            <span class="keyword">super</span>.characters(ch, start, length);</span><br><span class="line">            <span class="keyword">if</span> (!tempString.trim().equals(<span class="string">""</span>)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"节点值："</span> + tempString);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取该List</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> List&lt;Book&gt; <span class="title">getList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>#####运行结果为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">I/System.out: SAX解开始</span><br><span class="line">I/System.out: +++++++++开始遍历某一本书内容+++++++++</span><br><span class="line">I/System.out: 属性值：<span class="number">1</span></span><br><span class="line">I/System.out: 第<span class="number">1</span>个属性名是:id</span><br><span class="line">I/System.out: 第<span class="number">1</span>个属性值是:<span class="number">1</span></span><br><span class="line">I/System.out: 节点值：骆驼祥子</span><br><span class="line">I/System.out: 节点值：小陈</span><br><span class="line">I/System.out: 节点值：<span class="number">2010</span></span><br><span class="line">I/System.out: 节点值：<span class="number">86</span></span><br><span class="line">I/System.out: +++++++++结束遍历某一本书内容+++++++++</span><br><span class="line">I/System.out: +++++++++开始遍历某一本书内容+++++++++</span><br><span class="line">I/System.out: 属性值：<span class="number">2</span></span><br><span class="line">I/System.out: 第<span class="number">1</span>个属性名是:id</span><br><span class="line">I/System.out: 第<span class="number">1</span>个属性值是:<span class="number">2</span></span><br><span class="line">I/System.out: 节点值：骆驼祥子</span><br><span class="line">I/System.out: 节点值：小万</span><br><span class="line">I/System.out: 节点值：<span class="number">2008</span></span><br><span class="line">I/System.out: 节点值：<span class="number">100</span></span><br><span class="line">I/System.out: 节点值：English</span><br><span class="line">I/System.out: +++++++++结束遍历某一本书内容+++++++++</span><br><span class="line">I/System.out: SAX解结束</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、PULL解析"><a href="#三、PULL解析" class="headerlink" title="三、PULL解析"></a>三、PULL解析</h2><p>解决了Dom和Sax的所有问题，相对较好。也是官方强烈推荐的一款解析框架。</p>
+<p>#####代码实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            InputStream in = getResources().getAssets().open(<span class="string">"aa.xml"</span>);</span><br><span class="line">           List&lt;Student&gt; listResult = pull2xml(in);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; listResult.size(); i++) &#123;</span><br><span class="line">                 System.out.println(<span class="string">"名字"</span> + listResult.get(i).getName());</span><br><span class="line">                System.out.println(<span class="string">"作者："</span> + listResult.get(i).getAuthor());</span><br><span class="line">                System.out.println(<span class="string">"年份："</span> + listResult.get(i).getYear());</span><br><span class="line">                System.out.println(<span class="string">"价格："</span> + listResult.get(i).getPrice());</span><br><span class="line">                System.out.println(<span class="string">"语言："</span> + listResult.get(i).getLanguage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">pull2xml</span><span class="params">(InputStream is)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        List&lt;Student&gt; list = <span class="keyword">null</span>;</span><br><span class="line">        Student student = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//创建xmlPull解析器</span></span><br><span class="line">        XmlPullParser parser = Xml.newPullParser();</span><br><span class="line">        <span class="comment">///初始化xmlPull解析器</span></span><br><span class="line">        parser.setInput(is, <span class="string">"utf-8"</span>);</span><br><span class="line">        <span class="comment">//读取文件的类型</span></span><br><span class="line">        <span class="keyword">int</span> type = parser.getEventType();</span><br><span class="line">        <span class="comment">//无限判断文件类型进行读取</span></span><br><span class="line">        <span class="keyword">while</span> (type != XmlPullParser.END_DOCUMENT) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">                <span class="comment">//开始标签</span></span><br><span class="line">                <span class="keyword">case</span> XmlPullParser.START_TAG:</span><br><span class="line">                    <span class="keyword">if</span> (<span class="string">"students"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"student"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        student = <span class="keyword">new</span> Student();</span><br><span class="line">                        String id = parser.getAttributeValue(<span class="keyword">null</span>, <span class="string">"id"</span>);</span><br><span class="line">                        student.setId(id);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"name"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        <span class="comment">//获取sex属性</span></span><br><span class="line">                        String sex = parser.getAttributeValue(<span class="keyword">null</span>, <span class="string">"sex"</span>);</span><br><span class="line">                        student.setSex(sex);</span><br><span class="line">                        <span class="comment">//获取name值</span></span><br><span class="line">                        String name = parser.nextText();</span><br><span class="line">                        student.setName(name);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"nickName"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        <span class="comment">//获取nickName值</span></span><br><span class="line">                        String nickName = parser.nextText();</span><br><span class="line">                        student.setNickName(nickName);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"author"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        <span class="comment">//获取nickName值</span></span><br><span class="line">                        String author = parser.nextText();</span><br><span class="line">                        student.setAuthor(author);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"year"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        <span class="comment">//获取nickName值</span></span><br><span class="line">                        String year = parser.nextText();</span><br><span class="line">                        student.setYear(year);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"price"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        <span class="comment">//获取nickName值</span></span><br><span class="line">                        String price = parser.nextText();</span><br><span class="line">                        student.setPrice(price);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"language"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        <span class="comment">//获取nickName值</span></span><br><span class="line">                        String language = parser.nextText();</span><br><span class="line">                        student.setLanguage(language);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">//结束标签</span></span><br><span class="line">                <span class="keyword">case</span> XmlPullParser.END_TAG:</span><br><span class="line">                    <span class="keyword">if</span> (<span class="string">"student"</span>.equals(parser.getName())) &#123;</span><br><span class="line">                        list.add(student);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//继续往下读取标签类型</span></span><br><span class="line">            type = parser.next();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>#####运行结果为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">I/System.out: 名字：骆驼祥子</span><br><span class="line">I/System.out: 作者：小陈</span><br><span class="line">I/System.out: 年份：<span class="number">2010</span></span><br><span class="line">I/System.out: 价格：<span class="number">86</span></span><br><span class="line">I/System.out: 名字：老人与海</span><br><span class="line">I/System.out: 作者：小万</span><br><span class="line">I/System.out: 年份：<span class="number">2008</span></span><br><span class="line">I/System.out: 价格：<span class="number">100</span></span><br><span class="line">I/System.out: 语言：English</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、JDOM解析"><a href="#四、JDOM解析" class="headerlink" title="四、JDOM解析"></a>四、JDOM解析</h2><p>优点：<br>1.没有向下兼容的限制，因此比DOM简单<br>2.速度快，易于使用，具有SAX的JAVA规则</p>
+<p>缺点：<br>1.不支持于DOM中相应的遍历包<br>2.不能处理大于内存的文档</p>
+<p>#####代码实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        String fileName = <span class="string">"aa.xml"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            InputStream in = getResources().getAssets().open(fileName);</span><br><span class="line">               jdom(in);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;BOOK&gt; <span class="title">jdom</span><span class="params">(InputStream in)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        List&lt;BOOK&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        SAXBuilder saxBuilder = <span class="keyword">new</span> SAXBuilder();</span><br><span class="line">        <span class="comment">//通过saxBuilder的build方法将xml加载进来</span></span><br><span class="line">        Document document = saxBuilder.build(in);</span><br><span class="line">        <span class="comment">//获取根节点</span></span><br><span class="line">        Element rootElement = (Element) document.getRootElement();</span><br><span class="line">        <span class="comment">//获取根节点下的子节点集合</span></span><br><span class="line">        List&lt;Element&gt; bookList = rootElement.getChildren();</span><br><span class="line">        <span class="keyword">for</span> (Element element : bookList) &#123;</span><br><span class="line">            BOOK book = <span class="keyword">new</span> BOOK();</span><br><span class="line">            List&lt;Attribute&gt; attrList = element.getAttributes();</span><br><span class="line">            <span class="keyword">for</span> (Attribute attr : attrList) &#123;</span><br><span class="line"></span><br><span class="line">                String name = attr.getName();</span><br><span class="line">                String value = attr.getValue();</span><br><span class="line">                System.out.println(<span class="string">"属性名："</span> + name + <span class="string">"----属性值："</span> + value);</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"id"</span>.equals(name)) &#123;</span><br><span class="line">                    book.setId(value);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            List&lt;Element&gt; childrens = element.getChildren();</span><br><span class="line">            <span class="keyword">for</span> (Element child : childrens) &#123;</span><br><span class="line"></span><br><span class="line">                String name = child.getName();</span><br><span class="line">                String value = child.getValue();</span><br><span class="line">                System.out.println(<span class="string">"节点值："</span> + name + <span class="string">"-----节点值"</span> + value);</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"name"</span>.equals(name)) &#123;</span><br><span class="line">                    book.setName(value);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"author"</span>.equals(name)) &#123;</span><br><span class="line">                    book.setAuthor(value);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"year"</span>.equals(name)) &#123;</span><br><span class="line">                    book.setYear(value);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"price"</span>.equals(name)) &#123;</span><br><span class="line">                    book.setPrice(value);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"language"</span>.equals(name)) &#123;</span><br><span class="line">                    book.setLanguage(value);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            list.add(book);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>#####运行结果为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">I/System.out: 属性名：id----属性值：<span class="number">1</span></span><br><span class="line">I/System.out: 节点值：name-----节点值骆驼祥子</span><br><span class="line">I/System.out: 节点值：author-----节点值小陈</span><br><span class="line">I/System.out: 节点值：year-----节点值<span class="number">2010</span></span><br><span class="line">I/System.out: 节点值：price-----节点值<span class="number">86</span></span><br><span class="line">I/System.out: 属性名：id----属性值：<span class="number">2</span></span><br><span class="line">I/System.out: 节点值：name-----节点值骆驼祥子</span><br><span class="line">I/System.out: 节点值：author-----节点值小万</span><br><span class="line">I/System.out: 节点值：year-----节点值<span class="number">2008</span></span><br><span class="line">I/System.out: 节点值：price-----节点值<span class="number">100</span></span><br><span class="line">I/System.out: 节点值：language-----节点值English</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、DOM4J解析"><a href="#五、DOM4J解析" class="headerlink" title="五、DOM4J解析"></a>五、DOM4J解析</h2><p>1.DOM4J 是一个非常非常优秀的Java XML API，具有性能优异、功能强大和极端易用使用的特点，同时它也是一个开放源代码的软件。<br>2.它合并了许多超出基本的XML文档表示功能<br>如今越来越多的 Java 软件都在使用 DOM4J 来读写 XML，特别值得一提的是连 Sun 的 JAXM 也在用 DOM4J。 因此是非常值得推荐的一款软件。</p>
+<p>#####代码实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        SAXReader reader = <span class="keyword">new</span> SAXReader();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">// 通过reader对象的read方法加载books.xml文件,获取docuemnt对象。</span></span><br><span class="line">			Document document = reader.read(<span class="keyword">new</span> File(<span class="string">"src/res/books.xml"</span>));</span><br><span class="line">			<span class="comment">// 通过document对象获取根节点bookstore</span></span><br><span class="line">			Element bookStore = document.getRootElement();</span><br><span class="line">			<span class="comment">// 通过element对象的elementIterator方法获取迭代器</span></span><br><span class="line">			Iterator it = bookStore.elementIterator();</span><br><span class="line">			<span class="comment">// 遍历迭代器，获取根节点中的信息（书籍）</span></span><br><span class="line">			<span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">				System.out.println(<span class="string">"=====开始遍历某一本书====="</span>);</span><br><span class="line">				Element book = (Element) it.next();</span><br><span class="line">				<span class="comment">// 获取book的属性名以及 属性值</span></span><br><span class="line">				List&lt;Attribute&gt; bookAttrs = book.attributes();</span><br><span class="line">				<span class="keyword">for</span> (Attribute attr : bookAttrs) &#123;</span><br><span class="line">					System.out.println(<span class="string">"属性名："</span> + attr.getName() + <span class="string">"--属性值："</span></span><br><span class="line">							+ attr.getValue());</span><br><span class="line">				&#125;</span><br><span class="line">				Iterator itt = book.elementIterator();</span><br><span class="line">				<span class="keyword">while</span> (itt.hasNext()) &#123;</span><br><span class="line">					Element bookChild = (Element) itt.next();</span><br><span class="line">					System.out.println(<span class="string">"节点名："</span> + bookChild.getName() + <span class="string">"--节点值："</span> + bookChild.getStringValue());</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.println(<span class="string">"=====结束遍历某一本书====="</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (DocumentException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>上述代码就是xmL常用的五大解析方法。感谢你花费时间阅读这篇文章，祝你生活愉快！</p>
+<p>作者 [@陈广禄]<br>2018 年 10月 18日    </p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" title= "DIST-Vue-SuperMap">
+                    <div class="prevTitle">DIST-Vue-SuperMap</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java中xml解析"><span class="toc-number">1.</span> <span class="toc-text">Java中xml解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Dom解析"><span class="toc-number">1.1.</span> <span class="toc-text">一、Dom解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、SAX解析"><span class="toc-number">1.2.</span> <span class="toc-text">二、SAX解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、PULL解析"><span class="toc-number">1.3.</span> <span class="toc-text">三、PULL解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、JDOM解析"><span class="toc-number">1.4.</span> <span class="toc-text">四、JDOM解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、DOM4J解析"><span class="toc-number">1.5.</span> <span class="toc-text">五、DOM4J解析</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 23
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
