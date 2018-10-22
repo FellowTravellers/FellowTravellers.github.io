@@ -346,27 +346,24 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/08/Android性能优化的分析/" >
+        <a class="abstract-title" href = "/2018/10/22/Java 8 之fail-fast机制-万世威/" >
             
-                <span>Android 性能优化的分析</span>
+                <span>Java 8 之fail-fast机制</span>
         </a>
         <div class="abstract-content">
-            性能分析概述  编辑不合标准的应用程序性能会产生软件或网络问题。为确保软件满足或超过设计的期望值，有必要分析应用程序的性能以发现潜在的问题。这个过程被称为“性能分析”。它包括检查应用程序以确保每个组件有效地工作，并根据设计密切注视处理器的使用、网络和系统服务、存储和输入/输出(I/O)。
-1.Android App优化之性能分析工具图例：
-&lt;img src=http://thyrsi.com/t6/378/1538286566x-1404793035.png /&gt;
-2.Android App优化之提升App启动速度之理论基础不同专题加载方式启动速度对比：
-&lt;img sr...
+            Fail-fast机制一、简介fail-fast 机制是java集合(Collection)中的一种错误机制。当多个线程对同一个集合的内容进行操作时，就可能会产生fail-fast事件。例如：当某一个线程A通过iterator去遍历某集合的过程中，若该集合的内容被其他线程所改变了；那么线程A访问集合时，就会抛出ConcurrentModificationException异常，产生fail-fast事件。
+二、示例1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/08</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
     
 </div>
             
@@ -379,289 +376,66 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >
+        <a class="abstract-title" href = "/2018/10/22/Java 8 之collection细节/" >
             
-                <span>Cesium技术分享</span>
+                <span>Java 8 之collection细节</span>
         </a>
         <div class="abstract-content">
+            Collection细节一、指定初始容量二、asList的缺陷2.1 避免使用基本数据类型数组转换为列表12345678public class Test &#123;	public static void main(String[] args) &#123;        		int[] ints = &#123;1,2,3,4,5&#125;;        		List list = Arrays.asList(ints);        		System.out.println("list'size：" + list.size());    	&#125;&#125;outPut...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
+            </div>
+            <!-- tags  -->
             
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/22/Java 8 之 enum 枚举 - 万世威/" >
+            
+                <span>Java 8 之enum枚举</span>
+        </a>
+        <div class="abstract-content">
+            Enum 枚举123public enum Color &#123;    RED, YELLOW, BLUE;&#125;
+==说明：==
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "3D">3D</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >
-            
-                <span>消息推送(iOS)</span>
-        </a>
-        <div class="abstract-content">
-            APNS的推送机制首先我们看一下苹果官方给出的对IOS推送机制的解释。如下图
+使用的是enum关键字而不是class
+多个枚举变量之间用 逗号 隔开
+枚举变量名大写，多个单词之间用 _ 隔开。  如。 ALL_NUM…
+定义完枚举变量后， 用分号 结束。如果只有枚举变量，而没有自定义变量，分号可以省略。
+使用  只需要【类名.变量名】就可以了，和使用静态变量一样。 
 
-Provider就是我们自己程序的后台服务器，APNS是Apple Push Notification Service的缩写，也就是苹果的推送服务器。上图可以分为三个阶段：第一阶段：应用程序的服务器端把要发送的消息、目的iPhone的标识打包，发给APNS。第二阶段：APNS在自身的已注册Push服务的iPhone列表中，查找有相应标识的iPhone，并把消息发送到iPhone。第三阶段：iPhone把发来的消息传递给相应的应用程序，并且按照设定弹出Push通知。
-APNS推送通知的详细工作流程下面这张图是说...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >
-            
-                <span>矢量切片 &amp; MMPK</span>
-        </a>
-        <div class="abstract-content">
-            矢量切片 &amp; MMPK基于ArcGIS SDK100 的新特性1. 矢量切片1.1 定义1.1.0 栅格数据以二维矩阵的形式来表示地理空间信息的数据结构，其中数据的最小存在单元是以像素的形式存在，可以理解为和图片的组织结构类似，以分辨率等特征作为精度的定义标准。
+方法：
+values()
 
-1.1.1 矢量数据试图利用点、线、面等几何要素来表现这个世界，其数据结构紧凑精准，数据图形质量好，有利于地理信息检索与网络传输等。其中矢量数据的最小单元是以点的形式存在，点构成线，线组成面，面构造出体
+这个方法会返回包括所有枚举变量的数组 
 
-1.1.2 传统金字塔
-1.1.3 矢量切片
-1.2 矢量切片优势1.2.1 矢量与栅格根据数据组织结构方式的不同...
+12345678910for (Color color : Color.values(...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/23</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >
-            
-                <span>多级List View的实现</span>
-        </a>
-        <div class="abstract-content">
-            1. 摘要走查主题：Android 多级ListView的设计与实现主讲人员：王凯伟参加人员：杨龙、万峥嵘、汪洋。走查时间：2017年6月23日星期五下午16:00到17：30走查地点：公司负一楼
-2. 走查内容2.1常规做法ListView为多级的显示方式，与此类似的有文件系统、省市区分级等等，类似于B树。最新效果图如下：其中通过Adapter适配到ListView上的数据结构大致如下：
-2.2一般会有两种数据存储形式A.  通过索引连接树的节点：某一点通过索引将所有点联系，类似于链表，任何两点间没有直接关系，如果要得到某个点需要算法和当前表/总表来遍历。存储效率高但遍历较耗时。
-&l...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/06/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >
-            
-                <span>地名、专题、场景收藏</span>
-        </a>
-        <div class="abstract-content">
-            一、    收藏模型1、收藏类型enum FavoriteType: Int {
-   case Theme = 0     // 专题
-   case Scene = 1     // 场景
-   case Place = 2     // 地名
- }
-2、收藏数据模型class Archive: NSObject, NSCoding {
-    var type: FavoriteType?
-    var ID: String?
-    var name: String?
-    var createDate: String?
-    var pointX: Double?
-   ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/04/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/03/31/Android简单使用及快速入门/" >
-            
-                <span>Android 简单使用及快速入门</span>
-        </a>
-        <div class="abstract-content">
-            开发前的准备：1.配置java环境2.下载安装jdk、下载sdk3.下载开发工具：android studio 、eclipse4.项目运行设备：模拟器、手机、平板电脑5.Android基本常识：比如：四大组件的了解等…自行补脑!开发场景：1.新建项目启动流程2.项目维护常用步骤android studio 项目结构 ：
-&lt;img src=http://thyrsi.com/t6/377/1538203420x-1404781090.png /&gt;  eclipse 项目结构: &lt;img src=http://thyrsi.com/t6/377/1538203534x-1...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/03/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >
-            
-                <span>移动在线缓存</span>
-        </a>
-        <div class="abstract-content">
-            移动在线缓存一.在线缓存的必要性   众所周知，移动一张图目前包含两个应用场景：在线和离线。在线场景中，多用户共用数据，与云服务同步，实时性较强。而后者为单用户使用数据，无实时性要求，不常更新，需要数据拷贝，数据也能保证一定的隐秘性。那么在线缓存的应用场景突出在哪里呢？
-###1.在线离线一体化目前移动一张图的在线离线需要在登录时用户手动切换。而数据方面二者并不是同步的，在数据管理方面存在一定的弊端。而通过在线缓存即可实现多用户同步数据，具有较强的数据实时性,数据也便于云端管理。
-###2. 方便用户操作。
-用户在在线与离线的应用场景中可以自由切换,比如在线过程中，临时切换，并不需要返回...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/03/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >
-            
-                <span>Jenkins For iOS</span>
-        </a>
-        <div class="abstract-content">
-            Jenkins for iOS with Fastlane and SVN
-一、搭建环境Jenkins的安装需要JDK环境，JDK安装方法自行参考网络。Jenkins的安装有两种方式，一种是java包安装，另一种是pkg可执行程序（两种安装后的配置一样，pkg安装会在电脑上多出一个用户）。本文采用war包 + tomcat安装方法。
-1   安装Java环境，请自行下载安装
-2   安装tomcat,打开官网地址
-2.1    将下载的zip包解压（可以重命名），把解压后的文件夹放到 /Library下。
-2.2    在终端启动Tomcat服务器，这里首先cd到Tomcat的bin目录...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/02/17/AndroidRecyclerView使用解析/" >
-            
-                <span>Android Recycler View 使用解析</span>
-        </a>
-        <div class="abstract-content">
-            移动应用团队代码走查（20170217）1 摘要走查主题：Android RecyclerView  使用解析主讲人员：肖健参加人员：杨龙、万峥嵘、汪洋。走查时间：2017年2月17日星期五下午16:00到17：30走查地点：公司负一楼2 走查内容2.1 RecyclerView简介  在android L的预览版中，最新的v7支持包新添加了两个控件：RecyclerView和CardView。今天讲解的RecyclerView是经典的ListView的进化与升          华，与ListView比起来具有高度的解耦、更加灵活的特性，但也因此引入了一定的复杂性。
-2.2 Recyc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/02/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
     
 </div>
             
