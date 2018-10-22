@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>DIST-Vue-SuperMap · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">DIST-Vue-SuperMap</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            DIST-Vue-SuperMap
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "3D">3D</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.6k</span>阅读时长: <span class="post-count reading-time">13 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/10/12</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="DIST-VUE-SUPERMAP"><a href="#DIST-VUE-SUPERMAP" class="headerlink" title="DIST VUE SUPERMAP"></a>DIST VUE SUPERMAP</h1><p><br></p>
+<p align="center">基于 VUE 2.x 的 SuperMap iClient 3D for WebGL(built on Cesium)组件</p>
+
+
+
+
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p style="text-indent:2em;">SuperMap iClient 3D for WebGL 一款在服务式 GIS 架构体系中， 无任何插件，跨浏览器的客户端产品。它基于Cesium开源框架,面向 HTML 5 的三维应用开发，快速构建内容丰富、响应迅速、体验流畅的三维真空间应用。支持加载：</p>
+
+<ul>
+<li>SuperMap iServer 服务</li>
+<li>地图服务</li>
+<li>数据服务</li>
+<li>量算服务</li>
+<li>查询服务</li>
+<li>空间关系服务</li>
+<li>专题图服务</li>
+<li>空间分析服务类</li>
+<li>SuperMap 云服务</li>
+<li>OGC 标准的服务 (WMS、WFS、WMTS、KML)</li>
+<li>其他第三方服务，如天地图等</li>
+</ul>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><h3 id="2-1-NPM"><a href="#2-1-NPM" class="headerlink" title="2.1 NPM"></a>2.1 NPM</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install dist-3d-loader --save</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-CDN"><a href="#2-2-CDN" class="headerlink" title="2.2 CDN"></a>2.2 CDN</h3><ul>
+<li>待完善</li>
+</ul>
+<h2 id="3-快速上手"><a href="#3-快速上手" class="headerlink" title="3. 快速上手"></a>3. 快速上手</h2><h3 id="3-1-使用"><a href="#3-1-使用" class="headerlink" title="3.1 使用"></a>3.1 使用</h3><h4 id="3-1-1-全局注册"><a href="#3-1-1-全局注册" class="headerlink" title="3.1.1 全局注册"></a>3.1.1 全局注册</h4><p>全局注册将一次性引入超图 Cesium 组件库的所有组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Loader <span class="keyword">from</span> <span class="string">'dist-3d-loader'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Loader, &#123;</span><br><span class="line">  <span class="comment">// cesiumPath 是指引用的Cesium的文件夹路径， 如</span></span><br><span class="line">  <span class="comment">//cesiumPath: './static/Cesium'</span></span><br><span class="line">  <span class="comment">//在线引用</span></span><br><span class="line">  cesiumPath: <span class="string">'http://elb-zentao-361931552.cn-northwest-1.elb.amazonaws.com.cn:5335/xdata/FellowTravellers/DIST-3D-Loader/tree/master/docs/Cesium'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">sm-viewer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">sm-viewer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">.content &#123;</span></span><br><span class="line"><span class="undefined">  background-color: #f9f9f9;</span></span><br><span class="line"><span class="undefined">  position: absolute;</span></span><br><span class="line"><span class="undefined">  top: 0;</span></span><br><span class="line"><span class="undefined">  bottom: 0;</span></span><br><span class="line"><span class="undefined">  left: 0;</span></span><br><span class="line"><span class="undefined">  right: 0;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-1-2-局部注册"><a href="#3-1-2-局部注册" class="headerlink" title="3.1.2 局部注册"></a>3.1.2 局部注册</h4><p>如果有按需引入组件的需要，可以选择局部注册超图 Cesium 组件，这将减少工程打包后的容量尺寸。局部注册的 <code>SmViewer</code> 组件<strong>必须</strong>声明 <code>cesiumPath</code> 属性。所有的独立组件均存放在 <code>DIST-3D-Loader/components</code> 文件夹下，按需引用即可。由于未编译的 ES 模块不能在大多数浏览器中直接运行，如果引入组件时发生运行时错误，请检查 webpack 的 loader 配置，确认 <code>include</code> 和 <code>exclude</code> 选项命中了组件库。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sm-viewer</span> <span class="attr">cesiumPath</span>=<span class="string">"YOUR_CESIUM_LIB_PATH"</span>&gt;</span><span class="tag">&lt;/<span class="name">sm-viewer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> SmViewer <span class="keyword">from</span> <span class="string">'DIST-3D-Loader/components/cesium/viewer.vue'</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    SmViewer</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">.content &#123;</span></span><br><span class="line"><span class="undefined">  background-color: #f9f9f9;</span></span><br><span class="line"><span class="undefined">  position: absolute;</span></span><br><span class="line"><span class="undefined">  top: 0;</span></span><br><span class="line"><span class="undefined">  bottom: 0;</span></span><br><span class="line"><span class="undefined">  left: 0;</span></span><br><span class="line"><span class="undefined">  right: 0;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-1-3-CDN-全局注册"><a href="#3-1-3-CDN-全局注册" class="headerlink" title="3.1.3 CDN 全局注册"></a>3.1.3 CDN 全局注册</h4><ul>
+<li>待完善</li>
+</ul>
+<h3 id="3-2-常见问题"><a href="#3-2-常见问题" class="headerlink" title="3.2 常见问题"></a>3.2 常见问题</h3><ul>
+<li><code>SmViewer</code> 组件容器本身是一个空的块级元素，如果容器不定义高度，<code>viewer</code>将渲染在一个高度为 0 不可见的容器内。</li>
+<li>该项目是通过动态添加<code>script</code>标签引入<code>Cesium</code> 的，因此 <code>SmViewer</code> 组件及其所有子组件的渲染是异步的。因此，请使用在组件的 <code>ready</code> 事件来执行场景 API 加载完毕后才能执行的代码，不要试图在 vue 自身的生命周期中调用 <code>Cesium</code> 类，更不要在这些时机修改 model 层。</li>
+</ul>
+<h4 id="3-2-1-错误用法"><a href="#3-2-1-错误用法" class="headerlink" title="3.2.1 错误用法"></a>3.2.1 错误用法</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">sm-viewer</span> <span class="attr">:animation</span>=<span class="string">"animation"</span> <span class="attr">:camera</span>=<span class="string">"camera"</span>&gt;</span><span class="tag">&lt;/<span class="name">sm-viewer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      camera: &#123;</span></span><br><span class="line"><span class="undefined">        position: &#123;</span></span><br><span class="line"><span class="undefined">          longitude: 121.50109,</span></span><br><span class="line"><span class="undefined">          latitude: 31.23691,</span></span><br><span class="line"><span class="undefined">          height: 2000</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        heading: 360,</span></span><br><span class="line"><span class="undefined">        pitch: -90,</span></span><br><span class="line"><span class="undefined">        roll: 0</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="javascript">      animation: <span class="literal">false</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  mounted () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.camera.position.longitude = <span class="number">121.50109</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.camera.position.latitude = <span class="number">31.23691</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.camera.position.height = <span class="number">500</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.animation = <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-2-2-正确用法"><a href="#3-2-2-正确用法" class="headerlink" title="3.2.2 正确用法"></a>3.2.2 正确用法</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">sm-viewer</span> <span class="attr">:animation</span>=<span class="string">"animation"</span> <span class="attr">:camera</span>=<span class="string">"camera"</span> @<span class="attr">ready</span>=<span class="string">"ready"</span>&gt;</span><span class="tag">&lt;/<span class="name">baidu-map</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      camera: &#123;</span></span><br><span class="line"><span class="undefined">        position: &#123;</span></span><br><span class="line"><span class="undefined">          longitude: 121.50109,</span></span><br><span class="line"><span class="undefined">          latitude: 31.23691,</span></span><br><span class="line"><span class="undefined">          height: 2000</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        heading: 360,</span></span><br><span class="line"><span class="undefined">        pitch: -90,</span></span><br><span class="line"><span class="undefined">        roll: 0</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="javascript">      animation: <span class="literal">false</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    ready (param) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.camera.position.longitude = <span class="number">121.50109</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.camera.position.latitude = <span class="number">31.23691</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.camera.position.height = <span class="number">500</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.animation = <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-2-3-Hello-world"><a href="#3-2-3-Hello-world" class="headerlink" title="3.2.3 Hello world"></a>3.2.3 Hello world</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">sm-viewer</span> <span class="attr">class</span>=<span class="string">"viewer"</span> <span class="attr">:animation</span>=<span class="string">"true"</span> <span class="attr">:camera</span>=<span class="string">"camera"</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">sm-viewer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      camera: &#123;</span></span><br><span class="line"><span class="undefined">        position: &#123;</span></span><br><span class="line"><span class="undefined">          longitude: 121.50109,</span></span><br><span class="line"><span class="undefined">          latitude: 31.23691,</span></span><br><span class="line"><span class="undefined">          height: 1000</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        heading: 360,</span></span><br><span class="line"><span class="undefined">        pitch: -90,</span></span><br><span class="line"><span class="undefined">        roll: 0</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">.viewer &#123;</span></span><br><span class="line"><span class="undefined">  width: 100%;</span></span><br><span class="line"><span class="undefined">  height: 400px;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;doc-preview&gt;
+  &lt;template&gt;
+    &lt;sm-viewer class=&quot;viewer&quot; :animation=&quot;true&quot; :camera=&quot;camera&quot; @ready=&quot;ready&quot;&gt;
+    &lt;/sm-viewer&gt;
+  &lt;/template&gt;
+  &lt;script&gt;
+  export default {
+    data () {
+      return {
+        camera: {
+          position: {
+            longitude: 121.50109,
+            latitude: 31.23691,
+            height: 100000
+          },
+          heading: 360,
+          pitch: -90,
+          roll: 0
+        }
+      }
+    },
+    methods: {
+      ready (param) {
+        let imageryLayers = param.viewer.imageryLayers
+           let imagery = new Cesium.TiandituImageryProvider({
+            mapStyle : Cesium.TiandituMapsStyle.IMG_C
+        })
+        imageryLayers.addImageryProvider(imagery)
+        let labelImagery = new Cesium.TiandituImageryProvider({
+            mapStyle : Cesium.TiandituMapsStyle.CIA_C
+        })
+        imageryLayers.addImageryProvider(labelImagery)
+        param.viewer.entities.add({
+          id: &apos;Cesium欢迎你&apos;,
+          position: param.Cesium.Cartesian3.fromDegrees(121.50109, 31.23691, 100),
+          billboard: new param.Cesium.BillboardGraphics({
+            image: &apos;http://elb-zentao-361931552.cn-northwest-1.elb.amazonaws.com.cn:5335/xdata/SH2017GH131/front-end/DIST-3D-Loader/blob/master/docs/favicon.png&apos;,
+            scale: 0.1
+          }),
+          label: new param.Cesium.LabelGraphics ({
+            text: &apos;Welcome to Shanghai&apos;,
+            font: &apos;24px sans-serif&apos;,
+            horizontalOrigin: 1,
+            outlineColor: new Cesium.Color(0, 0, 0, 1),
+            outlineWidth: 2,
+            pixelOffset: new Cesium.Cartesian2(17, -5),
+            style: Cesium.LabelStyle.FILL
+          })
+        })
+      }
+    }
+  }
+  &lt;/script&gt;
+  &lt;style&gt;
+  .viewer {
+    width: 100%;
+    height: 400px;
+  }
+  &lt;/style&gt;
+&lt;/doc-preview&gt;
+</code></pre><h3 id="4-基础"><a href="#4-基础" class="headerlink" title="4. 基础"></a>4. 基础</h3><h4 id="4-1-全局组件事件"><a href="#4-1-全局组件事件" class="headerlink" title="4.1 全局组件事件"></a>4.1 全局组件事件</h4><table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ready</td>
+<td>{Cesium, viewer}</td>
+<td>viewer组件渲染完毕时触发，返回一个Cesium的核心类和viewer实例。该项目组件是异步加载，请<strong>不要</strong>尝试在组件的生命周期中访问 Cesium 核心类和 viewer 实例，如有需要，请在所需组件的 <code>ready</code> 事件回调函数的参数中获取。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-2-全局组件实例方法"><a href="#4-2-全局组件实例方法" class="headerlink" title="4.2 全局组件实例方法"></a>4.2 全局组件实例方法</h4><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>load</td>
+<td></td>
+<td>组件加载时执行的抽象方法。</td>
+</tr>
+<tr>
+<td>unload</td>
+<td></td>
+<td>组件卸载时执行的抽象方法。</td>
+</tr>
+<tr>
+<td>reload</td>
+<td></td>
+<td>完成一次组件卸载 / 重新加载的方法。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-3-常量"><a href="#4-3-常量" class="headerlink" title="4.3 常量"></a>4.3 常量</h4><ul>
+<li>待完善</li>
+</ul>
+<h4 id="4-4-私有类型"><a href="#4-4-私有类型" class="headerlink" title="4.4 私有类型"></a>4.4 私有类型</h4><h5 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h5><p>用于描述场景中点的经纬度。</p>
+<h6 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  longitude: <span class="built_in">Number</span>,</span><br><span class="line">  latitude: <span class="built_in">Number</span>,</span><br><span class="line">  height: <span class="built_in">Number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-4-参考"><a href="#4-4-参考" class="headerlink" title="4.4 参考"></a>4.4 参考</h3><blockquote>
+<p><a href="http://support.supermap.com.cn:8090/webgl/Build/Documentation/index.html" target="_blank" rel="noopener">超图WebGL3D官方文档</a></p>
+</blockquote>
+<h2 id="5-场景容器"><a href="#5-场景容器" class="headerlink" title="5. 场景容器"></a>5. 场景容器</h2><p><code>SmViewer</code>是用于构建 Cesium 应用程序的基础部件，它将所有标准的 Cesium 部件组合成一个可重复使用的包。 此部件通常可以利用 mixin 来扩展，以此增加对各种应用程序有用的功能函数。\<br>场景容器的实质是通过 Cesium.Viewer 初始化的一个 DOM 节点，用于挂载其他 DOM 节点或者组件。此部件初始化完成后默认会有 Cesiumwidget, dataSources、 如果需要二次开发或者手动控制其子组件，可以在 <code>ready</code> 事件中使用返回的 <code>Cesium</code> 和 <code>Viewer</code> 实例进行手动控制。</p>
+<p>每一个 Viewer 都会自动初始化一个 CesiumWidget.</p>
+<h3 id="5-1-实例属性"><a href="#5-1-实例属性" class="headerlink" title="5.1 实例属性"></a>5.1 实例属性</h3><h4 id="静态属性"><a href="#静态属性" class="headerlink" title="静态属性"></a>静态属性</h4><p>仅且可以初始化配置，不支持响应式。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>navigation Instructions InitiallyVisible</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> True if the navigation instructions should initially be visible, or false if the should not be shown until the user explicitly clicks the button.</td>
+</tr>
+<tr>
+<td>scene3DOnly</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> When true, each geometry instance will only be rendered in 3D to save GPU memory.</td>
+</tr>
+<tr>
+<td>clockViewModel</td>
+<td>ClockViewModel</td>
+<td>new ClockViewModel (options.clock)</td>
+<td><code>optional</code> The clock view model to use to control current time.</td>
+</tr>
+<tr>
+<td>selected Imagery Provider View Model</td>
+<td>ProviderViewModel</td>
+<td></td>
+<td><code>optional</code> The view model for the current base imagery layer, if not supplied the first available base layer is used. This value is only valid if options.baseLayerPicker is set to true.</td>
+</tr>
+<tr>
+<td>imagery Provider View Models</td>
+<td>Array.\<providerviewmodel></providerviewmodel></td>
+<td>createDefaultImagery ProviderViewModels()</td>
+<td><code>optional</code> The array of ProviderViewModels to be selectable from the BaseLayerPicker. This value is only valid if options.baseLayerPicker is set to true.</td>
+</tr>
+<tr>
+<td>selected Terrain Provider View Model</td>
+<td>ProviderViewModel</td>
+<td></td>
+<td><code>optional</code> The view model for the current base terrain layer, if not supplied the first available base layer is used. This value is only valid if options.baseLayerPicker is set to true.</td>
+</tr>
+<tr>
+<td>terrain Provider View Models</td>
+<td>Array.\<providerviewmodel></providerviewmodel></td>
+<td>createDefaultTerrain ProviderViewModels()</td>
+<td><code>optional</code> The array of ProviderViewModels to be selectable from the BaseLayerPicker. This value is only valid if options.baseLayerPicker is set to true.</td>
+</tr>
+<tr>
+<td>imagery Provider</td>
+<td>ImageryProvider</td>
+<td>new BingMapsImagery Provider()</td>
+<td><code>optional</code> The imagery provider to use. This value is only valid if options.baseLayerPicker is set to false.</td>
+</tr>
+<tr>
+<td>terrain Provider</td>
+<td>TerrainProvider</td>
+<td>new Ellipsoid TerrainProvider()</td>
+<td><code>optional</code> The terrain provider to use</td>
+</tr>
+<tr>
+<td>skyBox</td>
+<td>SkyBox</td>
+<td></td>
+<td><code>optional</code> The skybox used to render the stars. When undefined, the default stars are used.</td>
+</tr>
+<tr>
+<td>skyAtmosphere</td>
+<td>SkyAtmosphere</td>
+<td></td>
+<td><code>optional</code> Blue sky, and the glow around the Earth’s limb. Set to false to turn it off.</td>
+</tr>
+<tr>
+<td>fullscreen Element</td>
+<td>Element &#124; String</td>
+<td>document.body</td>
+<td><code>optional</code> The element or id to be placed into fullscreen mode when the full screen button is pressed.</td>
+</tr>
+<tr>
+<td>use Default Render Loop</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>optional</code> True if this widget should control the render loop, false otherwise.</td>
+</tr>
+<tr>
+<td>targetFrameRate</td>
+<td>Number</td>
+<td></td>
+<td><code>optional</code> The target frame rate when using the default render loop.</td>
+</tr>
+<tr>
+<td>show Render Loop Errors</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>optional</code> If true, this widget will automatically display an HTML panel to the user containing the error, if a render loop error occurs.</td>
+</tr>
+<tr>
+<td>automatically Track DataSource Clocks</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>optional</code> If true, this widget will automatically track the clock settings of newly added DataSources, updating if the DataSource’s clock changes. Set this to false if you want to configure the clock independently.</td>
+</tr>
+<tr>
+<td>contextOptions</td>
+<td>Object</td>
+<td><code>optional</code></td>
+<td>Context and WebGL creation properties corresponding to options passed to Scene.</td>
+</tr>
+<tr>
+<td>mapProjection</td>
+<td>MapProjection</td>
+<td>new Geographic Projection()</td>
+<td><code>optional</code> The map projection to use in 2D and Columbus View modes.</td>
+</tr>
+<tr>
+<td>globe</td>
+<td>Globe</td>
+<td>new Globe (mapProjection.ellipsoid)</td>
+<td><code>optional</code> The globe to use in the scene. If set to false, no globe will be added.</td>
+</tr>
+<tr>
+<td>order Independent Translucency</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>optional</code> If true and the configuration supports it, use order independent translucency.</td>
+</tr>
+<tr>
+<td>creditContainer</td>
+<td>Element &#124; String</td>
+<td></td>
+<td><code>optional</code> The DOM element or ID that will contain the CreditDisplay. If not specified, the credits are added to the bottom of the widget itself.</td>
+</tr>
+<tr>
+<td>creditViewport</td>
+<td>Element &#124; String</td>
+<td></td>
+<td><code>optional</code> The DOM element or ID that will contain the credit pop up created by the CreditDisplay. If not specified, it will appear over the widget itself.</td>
+</tr>
+<tr>
+<td>dataSources</td>
+<td>DataSourceCollection</td>
+<td>new DataSource Collection()</td>
+<td><code>optional</code> The collection of data sources visualized by the widget. If this parameter is provided, the instance is assumed to be owned by the caller and will not be destroyed when the viewer is destroyed.</td>
+</tr>
+<tr>
+<td>terrainShadows</td>
+<td>ShadowMode</td>
+<td>ShadowMode. RECEIVE_ONLY</td>
+<td><code>optional</code> Determines if the terrain casts or receives shadows from the sun.</td>
+</tr>
+<tr>
+<td>mapMode2D</td>
+<td>MapMode2D</td>
+<td>MapMode2D. INFINITE_SCROLL</td>
+<td><code>optional</code> Determines if the 2D map is rotatable or can be scrolled infinitely in the horizontal direction.</td>
+</tr>
+<tr>
+<td>request RenderMode</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> If true, rendering a frame will only occur when needed as determined by changes within the scene. Enabling improves performance of the application, but requires using Scene#requestRender to render a new frame explicitly in this mode. This will be necessary in many cases after making changes to the scene in other parts of the API. See Improving Performance with Explicit Rendering.</td>
+</tr>
+<tr>
+<td>maximumRender TimeChange</td>
+<td>Number</td>
+<td>0.0</td>
+<td><code>optional</code> If requestRenderMode is true, this value defines the maximum change in simulation time allowed before a render is requested. See Improving Performance with Explicit Rendering.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="响应式属性"><a href="#响应式属性" class="headerlink" title="响应式属性"></a>响应式属性</h4><p>可以初始化配置，也支持响应式。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selectionIndicator</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>optional</code> 是否显示选择指示符</td>
+</tr>
+<tr>
+<td>infoBox</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>optional</code> 是否显示信息框</td>
+</tr>
+<tr>
+<td>geocoder</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示地理编码器搜索框</td>
+</tr>
+<tr>
+<td>homeButton</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示主页按钮</td>
+</tr>
+<tr>
+<td>sceneModePicker</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示场景模式切换按钮</td>
+</tr>
+<tr>
+<td>projectionPicker</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示投影切换按钮</td>
+</tr>
+<tr>
+<td>baseLayerPicker</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示基础图层切换按钮</td>
+</tr>
+<tr>
+<td>navigationHelpButton</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示导航帮助按钮</td>
+</tr>
+<tr>
+<td>animation</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示动画控件</td>
+</tr>
+<tr>
+<td>timeline</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示时间轴控件</td>
+</tr>
+<tr>
+<td>fullscreenButton</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示全屏切换按钮</td>
+</tr>
+<tr>
+<td>vrButton</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示 VR 功能按钮</td>
+</tr>
+<tr>
+<td>navigation</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示导航控件</td>
+</tr>
+<tr>
+<td>sceneMode</td>
+<td>SceneMode</td>
+<td>SceneMode.SCENE3D</td>
+<td><code>optional</code> 场景模式.</td>
+</tr>
+<tr>
+<td>shouldAnimate</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> true if the clock should attempt to advance simulation time by default, false otherwise.</td>
+</tr>
+<tr>
+<td>terrainExaggeration</td>
+<td>Number</td>
+<td>1.0</td>
+<td><code>optional</code> 地形缩放比例</td>
+</tr>
+<tr>
+<td>shadows</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>optional</code> 是否显示太阳阴影</td>
+</tr>
+<tr>
+<td>camera</td>
+<td>Object</td>
+<td></td>
+<td><code>optional</code> 场景相机位置.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="5-2-事件"><a href="#5-2-事件" class="headerlink" title="5.2 事件"></a>5.2 事件</h3><table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>参数</th>
+<th>描述</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selectedEntityChanged</td>
+<td>Entity</td>
+<td>场景选中实体发生改变时触发此事件。</td>
+<td>Viewer</td>
+</tr>
+<tr>
+<td>trackedEntityChanged</td>
+<td>Entity</td>
+<td>场景跟踪实体发生改变时触发此事件。</td>
+<td>Viewer</td>
+</tr>
+<tr>
+<td>dataSourceAdded</td>
+<td>DataSource</td>
+<td>场景添加一个数据源时触发此事件。</td>
+</tr>
+</tbody>
+</table>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/10/19/20181019-XML解析-陈广禄/" title= "XML解析">
+                    <div class="nextTitle">XML解析</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" title= "MPAndroidChart的简单使用以及心得">
+                    <div class="prevTitle">MPAndroidChart的简单使用以及心得</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DIST-VUE-SUPERMAP"><span class="toc-number">1.</span> <span class="toc-text">DIST VUE SUPERMAP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-介绍"><span class="toc-number">1.1.</span> <span class="toc-text">1. 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-安装"><span class="toc-number">1.2.</span> <span class="toc-text">2. 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-NPM"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 NPM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-CDN"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 CDN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-快速上手"><span class="toc-number">1.3.</span> <span class="toc-text">3. 快速上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-使用"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-全局注册"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">3.1.1 全局注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-局部注册"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">3.1.2 局部注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-CDN-全局注册"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">3.1.3 CDN 全局注册</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-常见问题"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-错误用法"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">3.2.1 错误用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-正确用法"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">3.2.2 正确用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-Hello-world"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">3.2.3 Hello world</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-基础"><span class="toc-number">1.3.3.</span> <span class="toc-text">4. 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-全局组件事件"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">4.1 全局组件事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-全局组件实例方法"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">4.2 全局组件实例方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-常量"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">4.3 常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-私有类型"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">4.4 私有类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Position"><span class="toc-number">1.3.3.4.1.</span> <span class="toc-text">Position</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#结构"><span class="toc-number">1.3.3.4.1.1.</span> <span class="toc-text">结构</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-参考"><span class="toc-number">1.3.4.</span> <span class="toc-text">4.4 参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-场景容器"><span class="toc-number">1.4.</span> <span class="toc-text">5. 场景容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-实例属性"><span class="toc-number">1.4.1.</span> <span class="toc-text">5.1 实例属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#静态属性"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">静态属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#响应式属性"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">响应式属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-事件"><span class="toc-number">1.4.2.</span> <span class="toc-text">5.2 事件</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 26
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之fail-fast机制-万世威/" >Java 8 之fail-fast机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之collection细节/" >Java 8 之collection细节</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之enum枚举-万世威/" >Java 8 之enum枚举</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
