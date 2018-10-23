@@ -401,7 +401,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="Collection细节"><a href="#Collection细节" class="headerlink" title="Collection细节"></a>Collection细节</h1><h3 id="一、指定初始容量"><a href="#一、指定初始容量" class="headerlink" title="一、指定初始容量"></a>一、指定初始容量</h3><h3 id="二、asList的缺陷"><a href="#二、asList的缺陷" class="headerlink" title="二、asList的缺陷"></a>二、asList的缺陷</h3><h4 id="2-1-避免使用基本数据类型数组转换为列表"><a href="#2-1-避免使用基本数据类型数组转换为列表" class="headerlink" title="2.1 避免使用基本数据类型数组转换为列表"></a>2.1 避免使用基本数据类型数组转换为列表</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;        </span><br><span class="line">		<span class="keyword">int</span>[] ints = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;        </span><br><span class="line">		List list = Arrays.asList(ints);        </span><br><span class="line">		System.out.println(<span class="string">"list'size："</span> + list.size());    </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">outPut：    list<span class="string">'size：1</span></span><br></pre></td></tr></table></figure>
+        <h2 id="Collection细节"><a href="#Collection细节" class="headerlink" title="Collection细节"></a>Collection细节</h2><h3 id="一、指定初始容量"><a href="#一、指定初始容量" class="headerlink" title="一、指定初始容量"></a>一、指定初始容量</h3><h3 id="二、asList的缺陷"><a href="#二、asList的缺陷" class="headerlink" title="二、asList的缺陷"></a>二、asList的缺陷</h3><h4 id="2-1-避免使用基本数据类型数组转换为列表"><a href="#2-1-避免使用基本数据类型数组转换为列表" class="headerlink" title="2.1 避免使用基本数据类型数组转换为列表"></a>2.1 避免使用基本数据类型数组转换为列表</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;        </span><br><span class="line">		<span class="keyword">int</span>[] ints = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;        </span><br><span class="line">		List list = Arrays.asList(ints);        </span><br><span class="line">		System.out.println(<span class="string">"list'size："</span> + list.size());    </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">outPut：    list<span class="string">'size：1</span></span><br></pre></td></tr></table></figure>
 <p>因为该实例是将int 类型的数组当做其参数，而在Java中数组是一个对象，它是可以泛型化的。所以该例子是不会产生错误的。既然例子是将整个int 类型的数组当做泛型参数，那么经过asList转换就只有一个int 的列表了</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;        </span><br><span class="line">		Integer[] ints = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;        </span><br><span class="line">		List list = Arrays.asList(ints);        </span><br><span class="line">		System.out.println(<span class="string">"list'size："</span> + list.size());    </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">outPut：    list<span class="string">'size：5</span></span><br></pre></td></tr></table></figure>
 <h4 id="2-2-asList产生的列表不可操作"><a href="#2-2-asList产生的列表不可操作" class="headerlink" title="2.2 asList产生的列表不可操作"></a>2.2 asList产生的列表不可操作</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;        </span><br><span class="line">		Integer[] ints = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;        </span><br><span class="line">		List list = Arrays.asList(ints);        </span><br><span class="line">		list.add(<span class="number">6</span>);<span class="comment">//exception</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Exception in thread "main" java.lang.UnsupportedOperationException</span></span><br></pre></td></tr></table></figure>
@@ -501,7 +501,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Collection细节"><span class="toc-number">1.</span> <span class="toc-text">Collection细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、指定初始容量"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、指定初始容量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、asList的缺陷"><span class="toc-number">1.0.2.</span> <span class="toc-text">二、asList的缺陷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-避免使用基本数据类型数组转换为列表"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">2.1 避免使用基本数据类型数组转换为列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-asList产生的列表不可操作"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">2.2 asList产生的列表不可操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、subList的缺陷"><span class="toc-number">1.0.3.</span> <span class="toc-text">三、subList的缺陷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-subList返回仅仅只是一个视图"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">3.1 subList返回仅仅只是一个视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-subList生成子列表后，不要试图去操作原列表"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">3.2 subList生成子列表后，不要试图去操作原列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-推荐使用subList处理局部列表"><span class="toc-number">1.0.3.3.</span> <span class="toc-text">3.3 推荐使用subList处理局部列表</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Collection细节"><span class="toc-number">1.</span> <span class="toc-text">Collection细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、指定初始容量"><span class="toc-number">1.1.</span> <span class="toc-text">一、指定初始容量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、asList的缺陷"><span class="toc-number">1.2.</span> <span class="toc-text">二、asList的缺陷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-避免使用基本数据类型数组转换为列表"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 避免使用基本数据类型数组转换为列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-asList产生的列表不可操作"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 asList产生的列表不可操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、subList的缺陷"><span class="toc-number">1.3.</span> <span class="toc-text">三、subList的缺陷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-subList返回仅仅只是一个视图"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 subList返回仅仅只是一个视图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-subList生成子列表后，不要试图去操作原列表"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 subList生成子列表后，不要试图去操作原列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-推荐使用subList处理局部列表"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 推荐使用subList处理局部列表</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -514,6 +514,8 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
     
     
     
@@ -1020,9 +1022,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
-    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
@@ -1063,23 +1065,23 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
-    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
-        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
-        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
