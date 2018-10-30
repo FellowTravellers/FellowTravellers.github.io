@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>DASC笔记 · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">DASC笔记</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            DASC笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categories" href="javascript:void(0);" data-tags = "张永朋">张永朋</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.7k</span>阅读时长: <span class="post-count reading-time">13 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/10/30</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="dasc-服务端部署："><a href="#dasc-服务端部署：" class="headerlink" title="dasc 服务端部署："></a>dasc 服务端部署：</h1><p><span id="jump"></span></p>
+<h2 id="一、windows-部署"><a href="#一、windows-部署" class="headerlink" title="一、windows 部署"></a>一、windows 部署</h2><p>环境 成都：<br><br>三台服务器<br><br>– 172.24.16.1 <br><br>tomcat 8.1   8080<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">webapp</span><br><span class="line">   |-多归</span><br><span class="line">   |-遥感</span><br><span class="line">   |-指标</span><br></pre></td></tr></table></figure></p>
+<p>– 172.24.16.2 <br></p>
+<ul>
+<li>计算服务</li>
+</ul>
+<p>– 172.24.16.3<br></p>
+<ul>
+<li>zookeeper<br></li>
+<li>综合服务框架<br></li>
+<li>apache-tomcat-8.5.31   8090<br><br>需要修改的配置文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">webapp</span><br><span class="line">    |-dasc</span><br><span class="line">        |-WEB-INF</span><br><span class="line">            |-classes</span><br><span class="line">                |-application.properties</span><br><span class="line">                |-application.properties.bak</span><br><span class="line">        |-config.properties</span><br><span class="line">        |-config.properties</span><br><span class="line">    |-dascService</span><br><span class="line">        |-WEB-INF</span><br><span class="line">            |-classes</span><br><span class="line">                |-application-dascService.properties</span><br><span class="line">                |-application-dascService.properties.bak</span><br><span class="line">    |-dasc-sso</span><br><span class="line">        |-WEB-INF</span><br><span class="line">            |-cas.properties</span><br><span class="line">            |-cas.properties.bak</span><br><span class="line">    |-dubbo_monitor</span><br><span class="line">        |-WEB-INF</span><br><span class="line">            |-classes</span><br><span class="line">                |-application.properties</span><br><span class="line">                |-application.properties.bak</span><br><span class="line">                |-application-orcl.properties</span><br><span class="line">                |-application-orcl.properties.bak</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-安装基础环境："><a href="#1-安装基础环境：" class="headerlink" title="1. 安装基础环境："></a>1. 安装基础环境：</h3><h4 id="1-1-从公司仓库拉下dasc版本"><a href="#1-1-从公司仓库拉下dasc版本" class="headerlink" title="1.1 从公司仓库拉下dasc版本"></a>1.1 从公司仓库拉下dasc版本</h4><h5 id="1-1-1-dasc-front-2-6-6-RELEASE-war-（注：加解压后文件名dasc）"><a href="#1-1-1-dasc-front-2-6-6-RELEASE-war-（注：加解压后文件名dasc）" class="headerlink" title="1.1.1 dasc-front-2.6.6.RELEASE.war （注：加解压后文件名dasc）"></a>1.1.1 dasc-front-2.6.6.RELEASE.war （注：加解压后文件名dasc）</h5><pre><code>该war包为前端和后台web集成部署，改项目集成cas，实现单点登录，注：dasc为dubbo项目。
+需修改配置文件：
+</code></pre><p>dasc/config.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">##统一应用安全中心配置</span><br><span class="line">dist.dasc.app.service.urlPrefix=http://172.24.16.3:8090/dascService</span><br><span class="line">#获取用户信息</span><br><span class="line">dist.dasc.app.service.url.userInfo=/u/simpleInfo</span><br><span class="line">#获取用户菜单</span><br><span class="line">dist.dasc.app.service.url.userMenus=/u/menus</span><br><span class="line">#获取用户身份</span><br><span class="line">#dist.dasc.app.url.userIdentities=http://172.16.52.1:8078/u/identities</span><br><span class="line">dist.dasc.app.url.userIdentities=u/identities</span><br><span class="line">dist.dasc.app.service.url.version=version</span><br><span class="line">#切换身份</span><br><span class="line">dist.dasc.app.url.runas=u/runas</span><br><span class="line">#应用登出地址（如果仅使用cas的filter，不能使用/u/logout，因为/u/logout只能使用ajax调用）</span><br><span class="line">#dist.dasc.app.url.logout=http://172.16.52.230:9080/cas/logout?service=http://172.16.52.1:8078</span><br><span class="line">#应用登出地址（如果使用安全中心的filter）</span><br><span class="line">dist.dasc.app.url.logout=u/logout</span><br></pre></td></tr></table></figure></p>
+<font color="#0099ff" size="3" face="黑体">注：重要参数  u/logout 退出路径</font>
+
+<p>dasc/WEB-INF/classes<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#当前应用标识（从安全中心的域管理中获取）</span><br><span class="line">dist.dasc.app.identity=43972DD7-CF57-46AF-9D60-CED094C9E738</span><br><span class="line">#当前应用访问地址，如：http://172.16.52.1:8078/dasc，如果使用集群，则必须使用负载均衡服务器的地址</span><br><span class="line">dist.dasc.app.url=http://172.24.16.3:8090/dasc</span><br><span class="line">dist.dasc.cas.serverUrlPrefix=http://172.24.16.3:8090/dasc-sso</span><br><span class="line">##Dubbo消费者配置</span><br><span class="line">dubbo.registry.address=172.24.16.3:2181</span><br><span class="line">#dasc.filter.http.csp.value=default-src &apos;self&apos; data: $&#123;dist.dasc.filter.http.allowedUrls:*&#125;; script-src &apos;self&apos;  data: &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; $&#123;dist.dasc.filter.http.allowedUrls:*&#125;;style-src &apos;self&apos; data: &apos;unsafe-inline&apos; $&#123;dist.dasc.filter.http.allowedUrls:*&#125;</span><br><span class="line"></span><br><span class="line">##redis配置</span><br><span class="line"># 服务地址</span><br><span class="line">spring.redis.host=</span><br><span class="line"># 服务连接密码</span><br></pre></td></tr></table></figure></p>
+<font color="#0099ff" size="3" face="黑体">注：当前应用标志dist.dasc.app.identity只适用于权限模块，而多归、或一张图的集成只是集成单点登陆的功能，不考虑权限可忽略。redis不使用可以不配置。</font>
+
+
+<h4 id="1-1-2-dasc-service-advance-war-2-6-6-RELEASE-war（注：解压后文件名-dascService）"><a href="#1-1-2-dasc-service-advance-war-2-6-6-RELEASE-war（注：解压后文件名-dascService）" class="headerlink" title="1.1.2 dasc-service-advance-war-2.6.6.RELEASE.war（注：解压后文件名 dascService）"></a>1.1.2 dasc-service-advance-war-2.6.6.RELEASE.war（注：解压后文件名 dascService）</h4><p>该war包是dasc的service后台，提供dubbo服务，连接数据源 oracle，用户名默认dasc（具体问部署人员或相关后台）,配置文件dascService\WEB-INF\classes\application-dascService.properties。<br></p>
+<ol>
+<li>该配置文件配置项较多，首先明确当前应用注册地址：<a href="http://172.24.16.3:8090/dascService" target="_blank" rel="noopener">http://172.24.16.3:8090/dascService</a></li>
+<li>dasc 需要连接ldap数据源，sso默认采取ldap数据源，需要部署ldap。dasc连接ldap方便增删改。</li>
+<li>dasc数据源配置 oracle，此处使用dasc用户。</li>
+</ol>
+<p>application-dascService.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#当前应用地址（http://ip:port/contextPath），如:http://192.168.1.100:8110/dascService</span><br><span class="line">dist.dasc.app.url=http://172.24.16.3:8090/dascService</span><br><span class="line">#Cas Server访问地址前缀（http://ip:port/context），如:http://192.168.1.100:9080/cas</span><br><span class="line">dist.dasc.cas.serverUrlPrefix=http://172.24.16.3:8090/dasc-sso</span><br><span class="line">#是否将用户、机构实时同步到ldap，如：true/false，不设置默认为false</span><br><span class="line">dist.dasc.audit.log.archive.filePath=/</span><br><span class="line">##ldap配置</span><br><span class="line">#ldap服务器名称，如：domain/ip</span><br><span class="line">dist.dasc.ldap.serverName=172.24.16.41</span><br><span class="line">#ldap服务器端口，如：port</span><br><span class="line">dist.dasc.ldap.serverPort=389</span><br><span class="line">#供本应用访问ldap的用户的dn，如：cn=root</span><br><span class="line">dist.dasc.ldap.bindUserDn=cn=manager</span><br><span class="line">#供本应用访问ldap的用户的密码</span><br><span class="line">dist.dasc.ldap.bindUserPassword=tdsadmin</span><br><span class="line">#保存user的ldap节点的dn，如：dc=dist</span><br><span class="line">dist.dasc.ldap.userContainerDn=dc=dist</span><br><span class="line">spring.datasource.url=jdbc:oracle:thin:@172.24.16.1:1521/orcl</span><br><span class="line">spring.datasource.username=dgpcd</span><br><span class="line">spring.datasource.password=pass</span><br><span class="line">#当前应用服务器名称/域名/ip,使用多网卡时需指定监听网卡，如：192.168.1.100</span><br><span class="line">dubbo.protocol.host=172.24.16.3</span><br><span class="line">dubbo.protocol.port=20880</span><br><span class="line">#服务监听端口,如:20885</span><br><span class="line">#注册服务地址（服务器名称/域名/ip:port），如：192.168.1.111:2181</span><br><span class="line">dubbo.registry.address=172.24.16.3:2181</span><br><span class="line">#监控中心地址,如:192.168.1.111:6060</span><br><span class="line">dubbo.monitor.address=172.24.16.3:6060</span><br><span class="line">dist.dasc.filter.accessControll.bypassUrls=/rest/users/v1/loginName</span><br><span class="line">#审计日志数据库保存期限（天），可选项，超过期限的日志将按天压缩为一个文档保存到归档路径中，并从数据库中删除，默认值为：180</span><br><span class="line">dist.dasc.audit.log.database.storagePeriod=180</span><br><span class="line">#审计日志归档路径（归档文件保存到此路径下）</span><br><span class="line">dist.dasc.audit.log.archive.filePath=C:\tomcat\apache-tomcat-8.5.31\logs\dasc-service</span><br><span class="line">#审计日志归档文件保存期限（天），可选项，不包含数据库保存期限，超过期限的归档文件将被删除，如果为0表示不保存归档文件，默认值为：365</span><br><span class="line">dist.dasc.audit.log.archive.storagePeriod=365</span><br><span class="line"></span><br><span class="line">spring.redis.host=</span><br></pre></td></tr></table></figure></p>
+<font color="#0099ff" size="3" face="黑体">注：dasc的数据源是oracle，该文档对应dasc用户。</font>
+
+<h4 id="1-1-3-dasc-sso-3-5-2-9-RELEASE-war（注：解压后文件名-dasc-sso）"><a href="#1-1-3-dasc-sso-3-5-2-9-RELEASE-war（注：解压后文件名-dasc-sso）" class="headerlink" title="1.1.3 dasc-sso-3.5.2.9.RELEASE.war（注：解压后文件名 dasc-sso）"></a>1.1.3 dasc-sso-3.5.2.9.RELEASE.war（注：解压后文件名 dasc-sso）</h4><p>asc-sso/WEB-INF/cas.properties<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line">##安全中心配置</span><br><span class="line">#是否启用https</span><br><span class="line">dasc.cas.enableHttps=false</span><br><span class="line">#应用标识（与安全中心相同）</span><br><span class="line">dasc.app.identity=43972DD7-CF57-46AF-9D60-CED094C9E738</span><br><span class="line">#是否启用代理</span><br><span class="line">dasc.login.agent.enable=false</span><br><span class="line">#是否启用验证码</span><br><span class="line">dasc.login.authcode.enable=false</span><br><span class="line">#登录验证码长度</span><br><span class="line">dasc.login.authcode.length=1</span><br><span class="line">#登录验证码可用字符</span><br><span class="line">dasc.login.authcode.chars=1</span><br><span class="line">#登录验证码有效时间，单位：秒</span><br><span class="line">dasc.login.authcode.timeout=300</span><br><span class="line">#验证码是否仅可使用一次，无论验证成功还是失败</span><br><span class="line">dasc.login.authcode.canOnlyUseOnce=false</span><br><span class="line">#登录验证码提示信息</span><br><span class="line">#dasc.login.authcode.messagePattern=【？？？？系统】您的登录验证码为：%s，将于%s秒后失效，请尽快完成操作，切勿泄露！</span><br><span class="line">dasc.login.authcode.messagePattern=\u3010\uff1f\uff1f\uff1f\uff1f\u7cfb\u7edf\u3011\u60a8\u7684\u767b\u5f55\u9a8c\u8bc1\u7801\u4e3a\uff1a%s\uff0c\u5c06\u4e8e%s\u79d2\u540e\u5931\u6548\uff0c\u8bf7\u5c3d\u5feb\u5b8c\u6210\u64cd\u4f5c\uff0c\u5207\u52ff\u6cc4\u9732\uff01</span><br><span class="line">#登录失败最大次数，超过后用户账户将被锁定，设置为0表示不限制。不设置时默认值为0</span><br><span class="line">dasc.login.fail.maxCount = 3</span><br><span class="line">#是否允许同一账户重复登录，设置为false时，系统将会踢出用户此前（在不同电脑、不同浏览器、同一浏览器隐私窗口与非隐私窗口）的登录。如果使用了代理登录，那么登录人和委托人的登录均会被踢出</span><br><span class="line">dasc.login.permitDuplicate=true</span><br><span class="line">#审计日志记录失败时是否允许继续登录</span><br><span class="line">dasc.login.continueWhenLogFail=true</span><br><span class="line">#修改密码时是否对密码进行复杂度检查</span><br><span class="line">dasc.password.complexityCheck=false</span><br><span class="line"></span><br><span class="line">#允许在本页面使用的内容的来源地址，格式为：域名/ip:port，多个地址间以空格分隔。请设置为空</span><br><span class="line">dasc.filter.http.allowedUrls=</span><br><span class="line"></span><br><span class="line">##Dubbo消费者配置</span><br><span class="line">dubbo.application.name=dasc-sso</span><br><span class="line">dubbo.consumer.version=2.0.0</span><br><span class="line">dubbo.registry.address=172.24.16.3:2181</span><br><span class="line"></span><br><span class="line">##redis配置</span><br><span class="line"># 服务地址</span><br><span class="line">spring.redis.host=</span><br><span class="line"># 服务连接密码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#ldap</span><br><span class="line">ldap.authentication.filter=uid=%u,dc=dist</span><br><span class="line">#ldap.authentication.server.urls=ldap://172.16.52.230:389,ldap://172.16.52.1:389</span><br><span class="line">ldap.authentication.server.url=ldap://172.24.16.4:389</span><br><span class="line">ldap.authentication.manager.userdn=cn=manager</span><br><span class="line">ldap.authentication.manager.password=tdsadmin</span><br><span class="line">ldap.authentication.jndi.connect.timeout=3000</span><br><span class="line">ldap.authentication.jndi.read.timeout=3000</span><br><span class="line">ldap.authentication.jndi.security.level=simple</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Services Management Web UI Security</span><br><span class="line">server.name=http://localhost:8130</span><br><span class="line">server.prefix=$&#123;server.name&#125;/cas</span><br><span class="line">cas.securityContext.serviceProperties.service=$&#123;server.prefix&#125;/services/j_acegi_cas_security_check</span><br><span class="line"># Names of roles allowed to access the CAS service manager</span><br><span class="line">cas.securityContext.serviceProperties.adminRoles=ROLE_ADMIN</span><br><span class="line">cas.securityContext.casProcessingFilterEntryPoint.loginUrl=$&#123;server.prefix&#125;/login</span><br><span class="line">cas.securityContext.ticketValidator.casServerUrlPrefix=$&#123;server.prefix&#125;</span><br><span class="line"># IP address or CIDR subnet allowed to access the /status URI of CAS that exposes health check information</span><br><span class="line">cas.securityContext.status.allowedSubnet=127.0.0.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cas.themeResolver.defaultThemeName=cas-theme-default</span><br><span class="line">cas.viewResolver.basename=default_views</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Unique CAS node name</span><br><span class="line"># host.name is used to generate unique Service Ticket IDs and SAMLArtifacts.  This is usually set to the specific</span><br><span class="line"># hostname of the machine running the CAS node, but it could be any label so long as it is unique in the cluster.</span><br><span class="line">host.name=dasc.sso</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Database flavors for Hibernate</span><br><span class="line">#</span><br><span class="line"># One of these is needed if you are storing Services or Tickets in an RDBMS via JPA.</span><br><span class="line">#</span><br><span class="line"># database.hibernate.dialect=org.hibernate.dialect.OracleDialect</span><br><span class="line"># database.hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect</span><br><span class="line"># database.hibernate.dialect=org.hibernate.dialect.HSQLDialect</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># CAS Logout Behavior</span><br><span class="line"># WEB-INF/cas-servlet.xml</span><br><span class="line">#</span><br><span class="line"># Specify whether CAS should redirect to the specifyed service parameter on /logout requests</span><br><span class="line"># cas.logout.followServiceRedirects=false</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Single Sign-On Session Timeouts</span><br><span class="line"># Defaults sourced from WEB-INF/spring-configuration/ticketExpirationPolices.xml</span><br><span class="line">#</span><br><span class="line"># Maximum session timeout - TGT will expire in maxTimeToLiveInSeconds regardless of usage, default value is 28800s(8 hours)</span><br><span class="line">tgt.maxTimeToLiveInSeconds=28800</span><br><span class="line">#</span><br><span class="line"># Idle session timeout -  TGT will expire sooner than maxTimeToLiveInSeconds if no further requests</span><br><span class="line"># for STs occur within timeToKillInSeconds, default value is 7200s(2 hours)</span><br><span class="line">tgt.timeToKillInSeconds=7200</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Service Ticket Timeout</span><br><span class="line"># Default sourced from WEB-INF/spring-configuration/ticketExpirationPolices.xml</span><br><span class="line">#</span><br><span class="line"># Service Ticket timeout - typically kept short as a control against replay attacks, default is 10s.  You'll want to</span><br><span class="line"># increase this timeout if you are manually testing service ticket creation/validation via tamperdata or similar tools</span><br><span class="line"># st.timeToKillInSeconds=10</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Single Logout Out Callbacks</span><br><span class="line"># Default sourced from WEB-INF/spring-configuration/argumentExtractorsConfiguration.xml</span><br><span class="line">#</span><br><span class="line"># To turn off all back channel SLO requests set slo.disabled to true</span><br><span class="line"># slo.callbacks.disabled=false</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Service Registry Periodic Reloading Scheduler</span><br><span class="line"># Default sourced from WEB-INF/spring-configuration/applicationContext.xml</span><br><span class="line">#</span><br><span class="line"># Force a startup delay of 2 minutes.</span><br><span class="line"># service.registry.quartz.reloader.startDelay=120000</span><br><span class="line">#</span><br><span class="line"># Reload services every 2 minutes</span><br><span class="line"># service.registry.quartz.reloader.repeatInterval=120000</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line"># Log4j</span><br><span class="line"># Default sourced from WEB-INF/spring-configuration/log4jConfiguration.xml:</span><br><span class="line">#</span><br><span class="line"># It is often time helpful to externalize log4j.xml to a system path to preserve settings between upgrades.</span><br><span class="line"># e.g. log4j.config.location=/etc/cas/log4j.xml</span><br><span class="line"># log4j.config.location=classpath:log4j.xml</span><br><span class="line">#</span><br><span class="line"># log4j refresh interval in millis</span><br><span class="line"># log4j.refresh.interval=60000</span><br></pre></td></tr></table></figure></p>
+<font color="#0099ff" size="3" face="黑体">注：dasc 集成的cas的数据源是ldap，使用该数据源的原因是查询速度快，用于用户校验。</font>
+
+<h4 id="1-1-4-dubbo-monitor（注：从韦爷github拉取项目）"><a href="#1-1-4-dubbo-monitor（注：从韦爷github拉取项目）" class="headerlink" title="1.1.4 dubbo_monitor（注：从韦爷github拉取项目）"></a>1.1.4 dubbo_monitor（注：从韦爷github拉取项目）</h4><p>dubbo_monitor/WEB-INF/classes/application.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">##</span><br><span class="line"># Copyright 2006-2014 handu.com.</span><br><span class="line">#  </span><br><span class="line"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line"># you may not use this file except in compliance with the License.</span><br><span class="line"># You may obtain a copy of the License at</span><br><span class="line">#  </span><br><span class="line">#      http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line">#  </span><br><span class="line"># Unless required by applicable law or agreed to in writing, software</span><br><span class="line"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line"># See the License for the specific language governing permissions and</span><br><span class="line"># limitations under the License.</span><br><span class="line">dubbo.application.name=dubbo-monitor</span><br><span class="line">dubbo.application.owner=</span><br><span class="line">dubbo.registry.address=zookeeper://172.24.16.3:2181</span><br><span class="line">dubbo.protocol.port=2181</span><br><span class="line"></span><br><span class="line"># Database Settings</span><br><span class="line">#jdbc:mysql://192.168.1.166:3306/dubbo_monitor?prepStmtCacheSize=517&amp;cachePrepStmts=true&amp;autoReconnect=true&amp;characterEncoding=utf-8</span><br><span class="line">db.url=jdbc:oracle:thin:@172.24.16.4:1521/orcl</span><br><span class="line">db.username=MONITOR</span><br><span class="line">db.password=MONITOR</span><br><span class="line">db.maxActive=500</span><br><span class="line"></span><br><span class="line"># System Manager</span><br><span class="line">manager.username=admin</span><br><span class="line">manager.password=admin</span><br></pre></td></tr></table></figure>
+<p>dubbo_monitor/WEB-INF/classes/application.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">##</span><br><span class="line"># Copyright 2006-2014 handu.com.</span><br><span class="line">#  </span><br><span class="line"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line"># you may not use this file except in compliance with the License.</span><br><span class="line"># You may obtain a copy of the License at</span><br><span class="line">#  </span><br><span class="line">#      http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line">#  </span><br><span class="line"># Unless required by applicable law or agreed to in writing, software</span><br><span class="line"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line"># See the License for the specific language governing permissions and</span><br><span class="line"># limitations under the License.</span><br><span class="line">dubbo.application.name=dubbo-monitor</span><br><span class="line">dubbo.application.owner=</span><br><span class="line">dubbo.registry.address=zookeeper://172.24.16.4:2181</span><br><span class="line">dubbo.protocol.port=6060</span><br><span class="line"></span><br><span class="line"># Database Settings</span><br><span class="line">#jdbc:mysql://192.168.1.166:3306/dubbo_monitor?prepStmtCacheSize=517&amp;cachePrepStmts=true&amp;autoReconnect=true&amp;characterEncoding=utf-8</span><br><span class="line">db.url=jdbc:oracle:thin:@172.24.16.4:1521:orcl</span><br><span class="line">db.username=monitor</span><br><span class="line">db.password=monitor</span><br><span class="line">db.maxActive=500</span><br><span class="line"></span><br><span class="line"># System Manager</span><br><span class="line">manager.username=admin</span><br><span class="line">manager.password=admin</span><br></pre></td></tr></table></figure></p>
+<font color="#0099ff" size="3" face="黑体">注：需要创建monitor用户，记录监控日志。该项目不部署不会影响dasc及cas的运行。</font>
+
+<h2 id="二、linux-部署-（待续）"><a href="#二、linux-部署-（待续）" class="headerlink" title="二、linux 部署 （待续）"></a>二、linux 部署 （待续）</h2><h1 id="dasc-客户端部署"><a href="#dasc-客户端部署" class="headerlink" title="dasc 客户端部署"></a>dasc 客户端部署</h1><p>dasc 客户端集成方式：</p>
+<p>仅集成sso，请参考cas整理.md文档，进行配置。<br>针对flex项目，集成dasc会抛出amf协议无法识别的异常。原因是dasc更改了请求头的参数，不满足amf协议报错。</p>
+<p>dubbo 项目集成：详见成都集成记录。</p>
+<p><a href="#jump">TOP</a></p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/10/30/CAS笔记/" title= "CAS笔记">
+                    <div class="prevTitle">CAS笔记</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#dasc-服务端部署："><span class="toc-number">1.</span> <span class="toc-text">dasc 服务端部署：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、windows-部署"><span class="toc-number">1.1.</span> <span class="toc-text">一、windows 部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装基础环境："><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 安装基础环境：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-从公司仓库拉下dasc版本"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">1.1 从公司仓库拉下dasc版本</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-1-dasc-front-2-6-6-RELEASE-war-（注：加解压后文件名dasc）"><span class="toc-number">1.1.1.1.1.</span> <span class="toc-text">1.1.1 dasc-front-2.6.6.RELEASE.war （注：加解压后文件名dasc）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-dasc-service-advance-war-2-6-6-RELEASE-war（注：解压后文件名-dascService）"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">1.1.2 dasc-service-advance-war-2.6.6.RELEASE.war（注：解压后文件名 dascService）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-3-dasc-sso-3-5-2-9-RELEASE-war（注：解压后文件名-dasc-sso）"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">1.1.3 dasc-sso-3.5.2.9.RELEASE.war（注：解压后文件名 dasc-sso）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-4-dubbo-monitor（注：从韦爷github拉取项目）"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">1.1.4 dubbo_monitor（注：从韦爷github拉取项目）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、linux-部署-（待续）"><span class="toc-number">1.2.</span> <span class="toc-text">二、linux 部署 （待续）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dasc-客户端部署"><span class="toc-number">2.</span> <span class="toc-text">dasc 客户端部署</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 31
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/DASC笔记/" >DASC笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/CAS笔记/" >CAS笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2018/10/24/Java8 StringJoiner的使用/" >Java 8 之StringJoiner的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java8之Optional/" >Java 8 之Optional</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java之Lambda表达式Stream使用/" >Java 8 之Lambda表达式Stream使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之fail-fast机制-万世威/" >Java 8 之fail-fast机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之collection细节/" >Java 8 之collection细节</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之enum枚举-万世威/" >Java 8 之enum枚举</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
