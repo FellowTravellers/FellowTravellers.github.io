@@ -282,7 +282,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.2k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -411,101 +411,45 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="Vue-iview-webpack-ie-浏览器兼容简单处理"><a href="#Vue-iview-webpack-ie-浏览器兼容简单处理" class="headerlink" title="Vue + iview + webpack  ie 浏览器兼容简单处理"></a>Vue + iview + webpack  ie 浏览器兼容简单处理</h1><h2 id="环境介绍："><a href="#环境介绍：" class="headerlink" title="环境介绍："></a>环境介绍：</h2><p>vue:  ^2.5.2</p>
-<p>iview:  ^3.1.0</p>
-<p>Webpack:  ^3.8.1</p>
+        <h1 id="Vue-iview-webpack-ie-浏览器兼容简单处理"><a href="#Vue-iview-webpack-ie-浏览器兼容简单处理" class="headerlink" title="Vue + iview + webpack ie 浏览器兼容简单处理"></a>Vue + iview + webpack ie 浏览器兼容简单处理</h1><h2 id="环境介绍："><a href="#环境介绍：" class="headerlink" title="环境介绍："></a>环境介绍：</h2><p>vue: ^2.5.2</p>
+<p>iview: ^3.1.0</p>
+<p>Webpack: ^3.8.1</p>
 <h2 id="前情提要："><a href="#前情提要：" class="headerlink" title="前情提要："></a>前情提要：</h2><ul>
-<li>ie 浏览器不支持 ES6 Promise 的语法。</li>
-<li>ie8 及以下对 html5 标签不兼容（可以通过引入html5shiv包解决，本文不处理IE11的更低版本，故不提及此法）。</li>
-<li>ie9 以下 对 CSS3 的不兼容，各种不兼容的细节比较多，这里不说明。</li>
-<li>ie10 及以下浏览器中不支持 dataset 方法（经学习实践发现ie11也是不支持的），而我在项目中使用了 iview, iview 的一些组件用到了这个方法。</li>
-<li>ie 浏览器是非 webkit 内核，不支持 display: -webkit-box; 和相关样式；</li>
-<li>Polyfill 是 shim 的一种，但他的 API 是遵循标准的。polyfill 的做法通常是：先检查浏览器是否支持某个标准 API,如果不支持,就使用旧的技术对浏览器做兼容处理,这样就可以在旧的浏览器上使用新的标准 API。比如,旧浏览器不支持 ES6 的 Array.prototype.find 方法,我们想要在项目中使用 Array.prototype.find,只要 polyfill 就行了,而不是封装一个新的方法。</li>
+<li><p>ie 浏览器不支持 ES6 Promise 的语法。</p>
+</li>
+<li><p>ie8 及以下对 html5 标签不兼容（可以通过引入html5shiv包解决，本文不处理IE11的更低版本，故不提及此法）。</p>
+</li>
+<li><p>ie9 以下 对 CSS3 的不兼容，各种不兼容的细节比较多，这里不说明。</p>
+</li>
+<li><p>ie10 及以下浏览器中不支持 dataset 方法（经学习实践发现ie11也是不支持的），而我在项目中使用了 iview, iview 的一些组件用到了这个方法。</p>
+</li>
+<li><p>ie 浏览器是非 webkit 内核，不支持 display: -webkit-box; 和相关样式；</p>
+</li>
+<li><p>Polyfill 是 shim 的一种，但他的 API 是遵循标准的。polyfill 的做法通常是：先检查浏览器是否支持某个标准 API,如果不支持,就使用旧的技术对浏览器做兼容处理,这样就可以在旧的浏览器上使用新的标准 API。比如,旧浏览器不支持 ES6 的 Array.prototype.find 方法,我们想要在项目中使用 Array.prototype.find,只要 polyfill 就行了,而不是封装一个新的方法。</p>
+</li>
 </ul>
 <h2 id="处理过程"><a href="#处理过程" class="headerlink" title="处理过程"></a>处理过程</h2><h3 id="1、安装-polyfill-组件，使浏览器兼容-es6-的写法"><a href="#1、安装-polyfill-组件，使浏览器兼容-es6-的写法" class="headerlink" title="1、安装 polyfill 组件，使浏览器兼容 es6 的写法"></a>1、安装 polyfill 组件，使浏览器兼容 es6 的写法</h3><ul>
 <li>在终端输入命令</li>
 </ul>
 <blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> npm install --save babel-polyfill</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
+<p>npm install –save babel-polyfill</p>
 </blockquote>
 <ul>
 <li>main.js 头部引入 babel-polyfill， 注意这个放最前面：</li>
 </ul>
 <blockquote>
-<p>import ‘babel-polyfill’ </p>
+<p>import ‘babel-polyfill’</p>
 </blockquote>
 <p>或者在项目的 webpack.base.conf.js 中配置：</p>
-<blockquote>
-<p>entry: {</p>
-<p>​    app:[‘babel-polyfill’,’./src/main.js’]</p>
-<p>  },</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line"></span><br><span class="line">    app:[&apos;babel-polyfill&apos;,&apos;./src/main.js&apos;]</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 <p>另外，引入的一些模块需要单独引入到 babel 的配置中，不然不起作用（具体为啥我没深究），网上查到用到 echarts-v3 的需要配置，经测试我用到 iview 也是要配置的, 下面代码的 include 中就是我配置的项，这个主要是按需配置的，具体看项目里的情况：</p>
-<blockquote>
-<p>module: {</p>
-<p>​    rules: [</p>
-<p>​      …(config.dev.useEslint ? [createLintingRule()] : []),</p>
-<p>​      {</p>
-<p>​        test: /.vue$/,</p>
-<p>​        loader: ‘vue-loader’,</p>
-<p>​        options: vueLoaderConfig</p>
-<p>​      },</p>
-<p>​      {</p>
-<p>​        test: /.js$/,</p>
-<p>​        loader: ‘babel-loader’,</p>
-<p>​        include: [</p>
-<p>​          resolve(‘src’), </p>
-<p>​          resolve(‘test’), </p>
-<p>​          resolve(‘static’),</p>
-<p>​          resolve(‘node_modules/webpack-dev-server/client’),</p>
-<p>​          // resolve(‘node_modules/vue-echarts’),</p>
-<p>​          resolve(‘node_modules/iview/src’),</p>
-<p>​          // resolve(‘node_modules/resize-detector’)</p>
-<p>​        ]</p>
-<p>​      },</p>
-<p>}</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line"></span><br><span class="line">    rules: [</span><br><span class="line"></span><br><span class="line">      ...(config.dev.useEslint ? [createLintingRule()] : []),</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        test: /\.vue$/,</span><br><span class="line"></span><br><span class="line">        loader: &apos;vue-loader&apos;,</span><br><span class="line"></span><br><span class="line">        options: vueLoaderConfig</span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        test: /\.js$/,</span><br><span class="line"></span><br><span class="line">        loader: &apos;babel-loader&apos;,</span><br><span class="line"></span><br><span class="line">        include: [</span><br><span class="line"></span><br><span class="line">          resolve(&apos;src&apos;), </span><br><span class="line"></span><br><span class="line">          resolve(&apos;test&apos;), </span><br><span class="line"></span><br><span class="line">          resolve(&apos;static&apos;),</span><br><span class="line"></span><br><span class="line">          resolve(&apos;node_modules/webpack-dev-server/client&apos;),</span><br><span class="line"></span><br><span class="line">          // resolve(&apos;node_modules/vue-echarts&apos;),</span><br><span class="line"></span><br><span class="line">          resolve(&apos;node_modules/iview/src&apos;),</span><br><span class="line"></span><br><span class="line">          // resolve(&apos;node_modules/resize-detector&apos;)</span><br><span class="line"></span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="2、兼容-dataset"><a href="#2、兼容-dataset" class="headerlink" title="2、兼容 dataset"></a>2、兼容 dataset</h3><p>我在引入了 babel-polyfill 后还是报错，信息如下图：</p>
-<p><img src="/Users/chenchenweihong/Desktop/image-20181030215731880.png" alt="image-20181030215731880"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3402395-fd834432578e7220.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ie11 报错信息"></p>
 <p>搜了半天关于 SCRIPT1003 和 SCRIPT5007 的错误, 发现没有直接的解决办法，就主要是说缺少项目中包含的某个模块的某种方法的引入。于是我就从我主要用到的 iview 入手去查找，发现了有相关的内容。有说到 iview 兼容 IE 需要写一个 dataset 方法才能正常加载。</p>
-<p>dataset方法只要能够加载全局使用即可。我是写了一个脚本嵌入 index.html 文件中。代码如下：</p>
-<blockquote>
-<script>
- // dataset 方法兼容 IE 浏览器。ie10及以下不支持dataset
- if (window.HTMLElement) {
-   if (Object.getOwnPropertyNames(HTMLElement.prototype).indexOf('dataset') === -1) {
-     Object.defineProperty(HTMLElement.prototype, 'dataset', {
-       get: function () {
-         var attributes = this.attributes // 获取节点的所有属性
-         var name = []
-         var value = [] // 定义两个数组保存属性名和属性值
-         var obj = {} // 定义一个空对象
-         for (var i = 0; i < attributes.length; i++) { // 遍历节点的所有属性
-           if (attributes[i].nodeName.slice(0, 5) === 'data-') { // 如果属性名的前面5个字符符合"data-"
-             // 取出属性名的"data-"的后面的字符串放入name数组中
-             name.push(attributes[i].nodeName.slice(5));
-             // 取出对应的属性值放入value数组中
-             value.push(attributes[i].nodeValue);
-           }
-         }
-         for (var j = 0; j < name.length; j++) { // 遍历name和value数组
-           obj[name[j]] = value[j]; // 将属性名和属性值保存到obj中
-         }
-         return obj // 返回对象
-       }
-     })
-   }
- }
-</script>
-</blockquote>
+<p>dataset方法只要能够加载全局使用即可。我是写了一个脚本嵌入 index.html 文件中。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  // dataset 方法兼容 IE 浏览器。ie10及以下不支持dataset</span><br><span class="line">  if (window.HTMLElement) &#123;</span><br><span class="line">    if (Object.getOwnPropertyNames(HTMLElement.prototype).indexOf(&apos;dataset&apos;) === -1) &#123;</span><br><span class="line">      Object.defineProperty(HTMLElement.prototype, &apos;dataset&apos;, &#123;</span><br><span class="line">        get: function () &#123;</span><br><span class="line">          var attributes = this.attributes // 获取节点的所有属性</span><br><span class="line">          var name = []</span><br><span class="line">          var value = [] // 定义两个数组保存属性名和属性值</span><br><span class="line">          var obj = &#123;&#125; // 定义一个空对象</span><br><span class="line">          for (var i = 0; i &lt; attributes.length; i++) &#123; // 遍历节点的所有属性</span><br><span class="line">            if (attributes[i].nodeName.slice(0, 5) === &apos;data-&apos;) &#123; // 如果属性名的前面5个字符符合&quot;data-&quot;</span><br><span class="line">              // 取出属性名的&quot;data-&quot;的后面的字符串放入name数组中</span><br><span class="line">              name.push(attributes[i].nodeName.slice(5));</span><br><span class="line">              // 取出对应的属性值放入value数组中</span><br><span class="line">              value.push(attributes[i].nodeValue);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          for (var j = 0; j &lt; name.length; j++) &#123; // 遍历name和value数组</span><br><span class="line">            obj[name[j]] = value[j]; // 将属性名和属性值保存到obj中</span><br><span class="line">          &#125;</span><br><span class="line">          return obj // 返回对象</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
 <p>搞到这里，我的项目就已经可以在 IE 里出现了，也不打算继续支持更低的IE版本，坑太深，果断弃。但是样式还是有问题。这个搞起来也是很麻烦。点了点项目里出现的样式问题，未发现很复杂的，主要一个就是 flex 布局出现混乱，经过调整已经好了。还有就是 -webkit-box 不支持，之前显示数据使用以下方式解决多行溢出省略号显示问题失效了：</p>
-<blockquote>
-<p> overflow: hidden;</p>
-<p> display: -webkit-box; /<em> Chrome 4+, Safari 3.1, iOS Safari 3.2+ </em>/</p>
-<p> -webkit-box-orient: vertical;</p>
-<p> -webkit-line-clamp: 2;</p>
-<p> word-break: break-all;</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">overflow: hidden;</span><br><span class="line"></span><br><span class="line">display: -webkit-box; /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */</span><br><span class="line"></span><br><span class="line">-webkit-box-orient: vertical;</span><br><span class="line"></span><br><span class="line">-webkit-line-clamp: 2;</span><br><span class="line"></span><br><span class="line">word-break: break-all;</span><br></pre></td></tr></table></figure>
 <p>纠结了一下，不想用js 的方式写，也不想用 伪标签（高度不好定，易出现文字被覆盖的情况），也不想特意让后台修改返回的数据，所以决定用比较low的相对保险的截取字符的方式展示。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>第一次处理这个问题，很多东西不明白，描述也不大清楚，处理的不全面，还望多交流指正！</p>
 
@@ -589,7 +533,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue-iview-webpack-ie-浏览器兼容简单处理"><span class="toc-number">1.</span> <span class="toc-text">Vue + iview + webpack  ie 浏览器兼容简单处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境介绍："><span class="toc-number">1.1.</span> <span class="toc-text">环境介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前情提要："><span class="toc-number">1.2.</span> <span class="toc-text">前情提要：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理过程"><span class="toc-number">1.3.</span> <span class="toc-text">处理过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、安装-polyfill-组件，使浏览器兼容-es6-的写法"><span class="toc-number">1.3.1.</span> <span class="toc-text">1、安装 polyfill 组件，使浏览器兼容 es6 的写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、兼容-dataset"><span class="toc-number">1.3.2.</span> <span class="toc-text">2、兼容 dataset</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue-iview-webpack-ie-浏览器兼容简单处理"><span class="toc-number">1.</span> <span class="toc-text">Vue + iview + webpack ie 浏览器兼容简单处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境介绍："><span class="toc-number">1.1.</span> <span class="toc-text">环境介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前情提要："><span class="toc-number">1.2.</span> <span class="toc-text">前情提要：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理过程"><span class="toc-number">1.3.</span> <span class="toc-text">处理过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、安装-polyfill-组件，使浏览器兼容-es6-的写法"><span class="toc-number">1.3.1.</span> <span class="toc-text">1、安装 polyfill 组件，使浏览器兼容 es6 的写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、兼容-dataset"><span class="toc-number">1.3.2.</span> <span class="toc-text">2、兼容 dataset</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -602,6 +546,26 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1258,9 +1222,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
-    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
@@ -1307,23 +1271,23 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
-        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
-    
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
