@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>移动在线缓存 · Fellow Travellers</title>
+    <title>Kotlin初探 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Fellow Travellers</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">移动在线缓存</a>
+                <a href="#" class="post-name">Kotlin初探</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            移动在线缓存
+            Kotlin初探
             <!-- 404 -->
             
         </h1>
@@ -266,7 +266,7 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
     
 </div>
                 
@@ -285,7 +285,7 @@ height:50vh;
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2017/03/03</span>
+                    <span class="post-intro-time">2018/11/01</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -409,169 +409,38 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="移动在线缓存"><a href="#移动在线缓存" class="headerlink" title="移动在线缓存"></a>移动在线缓存</h1><h2 id="一-在线缓存的必要性"><a href="#一-在线缓存的必要性" class="headerlink" title="一.在线缓存的必要性"></a>一.在线缓存的必要性</h2><p>   众所周知，移动一张图目前包含两个应用场景：在线和离线。在线场景中，多用户共用数据，与云服务同步，实时性较强。而后者为单用户使用数据，无实时性要求，不常更新，需要数据拷贝，数据也能保证一定的隐秘性。那么在线缓存的应用场景突出在哪里呢？</p>
-<p>###1.在线离线一体化<br>目前移动一张图的在线离线需要在登录时用户手动切换。而数据方面二者并不是同步的，在数据管理方面存在一定的弊端。而通过在线缓存即可实现多用户同步数据，具有较强的数据实时性,数据也便于云端管理。</p>
-<p>###2. 方便用户操作。</p>
-<p>用户在在线与离线的应用场景中可以自由切换,比如在线过程中，临时切换，并不需要返回登录页面切换。</p>
-<p>但同时，部分用户需要保证数据安全性（不需要在线版）,或者大部分使用场景都是离线,所以我们并不能将离线场景去除。</p>
-<p>综述,在线、离线、在线缓存为3大应用场景。</p>
-<h2 id="二-在线缓存的可行性"><a href="#二-在线缓存的可行性" class="headerlink" title="二.在线缓存的可行性"></a>二.在线缓存的可行性</h2><p>目前我们一张图主要数据有两类：地图数据和业务数据。而 ArcGIS for desktop 10.2.2以上已经支持两者缓存的技术可行性。具体条件如下：</p>
-<ul>
-<li>ArcGIS for desktop 版本为10.2.2或者 以上。</li>
-<li>相关服务需要配置好设置(具体见后文)</li>
-<li>AGS-Runtime-SDK-iOS 10.2.5 </li>
-<li>业务数据需要通过Feature Service服务.</li>
+        <h1 id="Kotlin初探"><a href="#Kotlin初探" class="headerlink" title="Kotlin初探"></a>Kotlin初探</h1><pre><code>本文只起抛砖引玉之用，详细教程请谷歌百度
+</code></pre><h2 id="Kotlin-简述"><a href="#Kotlin-简述" class="headerlink" title="Kotlin 简述"></a>Kotlin 简述</h2><h3 id="特点与优势"><a href="#特点与优势" class="headerlink" title="特点与优势"></a>特点与优势</h3><ul>
+<li>基于JVM的新的编程语言</li>
+<li>由JetBrains开发（Java IDE 之父）</li>
+<li>谷歌官方宣布使用</li>
+<li>易学习，轻量级，函数式编程，语法简洁</li>
+<li>100%兼容java<h2 id="入手"><a href="#入手" class="headerlink" title="入手"></a>入手</h2>从变量开始来了解下Kotlin。<h3 id="常量与变量"><a href="#常量与变量" class="headerlink" title="常量与变量"></a>常量与变量</h3>编程语言中，我们熟知的常量与变量是最基本的数据形式。<h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4></li>
+<li>十进制：123</li>
+<li>长整型以大写的 L 结尾：123L</li>
+<li>16 进制以 0x 开头：0x0F</li>
+<li>2 进制以 0b 开头：0b00001011</li>
+<li>Doubles 默认写法: 123.5, 123.5e10</li>
+<li><p>Floats 使用 f 或者 F 后缀：123.5f</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>  可变变量定义：var 关键字</p>
+<p>  不可变变量定义：val 关键字，只能赋值一次的变量(类似Java中final修饰的变量)<br>常量与变量都可以没有初始化值,但是在引用前必须初始化</p>
+</li>
 </ul>
-<h2 id="三-支持在线缓存的服务设置"><a href="#三-支持在线缓存的服务设置" class="headerlink" title="三. 支持在线缓存的服务设置"></a>三. 支持在线缓存的服务设置</h2><ul>
-<li>设置允许客户端导出切片</li>
-<li>设置允许切片导出限制</li>
-<li>发布<a href="http://www.cnblogs.com/gis-luq/p/5857188.html" target="_blank" rel="noopener"> <em>Feature Service</em> </a>服务</li>
-</ul>
-<h2 id="四-iOS相关API与代码"><a href="#四-iOS相关API与代码" class="headerlink" title="四. iOS相关API与代码"></a>四. iOS相关API与代码</h2><h3 id="相关类与方法"><a href="#相关类与方法" class="headerlink" title="相关类与方法"></a>相关类与方法</h3><ul>
-<li><code>AGSExportTileCacheTask</code></li>
-<li><code>AGSExportTileCacheParams</code></li>
-<li><code>AGSGDBSyncTask</code></li>
-<li><code>AGSGDBGenerateParameters</code></li>
-<li><code>exportTileCacheWithParameters</code></li>
-<li><code>estimateTileCacheSizeWithParameters</code></li>
-<li><code>generateGeodatabaseWithParameters</code></li>
-</ul>
-<h3 id="初始化底图与要素"><a href="#初始化底图与要素" class="headerlink" title="初始化底图与要素"></a>初始化底图与要素</h3><pre><code>let huaianServiceUrl = &quot;http://192.168.1.162:6080/arcgis/rest/services/test3/MapServer&quot;
-let huaianFeatureUrl = &quot;http://192.168.1.162:6080/arcgis/rest/services/test4/FeatureServer&quot;
-
-class ViewController: UIViewController,AGSLayerDelegate {
-
-@IBOutlet var mapView: AGSMapView!
-
-var mapLayer: AGSTiledMapServiceLayer!
-
-var tileCacheTask: AGSExportTileCacheTask!
-
-var gdbTask: AGSGDBSyncTask!
-
-
-
-override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-
-    self.mapLayer = AGSTiledMapServiceLayer(URL: NSURL(string: huaianServiceUrl))
-    self.mapLayer.delegate = self
-    mapView.addMapLayer(mapLayer)
-
-    if self.tileCacheTask == nil {
-        self.tileCacheTask = AGSExportTileCacheTask(URL: NSURL(string: huaianServiceUrl))
-    }
-
-}
-func layerDidLoad(layer: AGSLayer!) {
-    if layer == self.mapLayer {
-    gdbTask = AGSGDBSyncTask(URL: NSURL(string: huaianFeatureUrl))
-    gdbTask.loadCompletion = {
-        error in
-        if error != nil {
-            print(error.localizedDescription)
-        }
-        for info in self.gdbTask.featureServiceInfo.layerInfos as! [AGSMapServiceLayerInfo] {
-            let url = self.gdbTask.URL.URLByAppendingPathComponent(&quot;\(info.layerId)&quot;)
-            let featureServiceTable = AGSGDBFeatureServiceTable(serviceURL: url, credential: self.gdbTask.credential, spatialReference: self.mapView.spatialReference)
-            let featureLayer = AGSFeatureTableLayer(featureTable:featureServiceTable)
-            self.mapView.addMapLayer(featureLayer)
-
-        }
-    }
-    }
-
-}
-</code></pre><h3 id="下载底图形成tpk文件"><a href="#下载底图形成tpk文件" class="headerlink" title="下载底图形成tpk文件"></a>下载底图形成tpk文件</h3><pre><code>@IBAction func downloadTpkAction(sender: UIBarButtonItem) {
-
-
-    SVProgressHUD.showWithStatus(&quot;准备下载&quot;)
-    let levels = [self.mapLayer.currentLOD().level]
-    let extent = self.mapView.visibleAreaEnvelope
-
-    //let extent = AGSEnvelope(xmin: 610875.41170353664, ymin: 3780046.638612428, xmax: 610948.9641964633, ymax: 3780074.6404850003, spatialReference: self.mapView.spatialReference)
-
-    let params = AGSExportTileCacheParams(levelsOfDetail: levels, areaOfInterest: extent)
-
-
-    //showSizesOfTpk(params)
-    downloadTileCache(params)
-
-}
-
-func downloadTileCache(params: AGSExportTileCacheParams) {
-
-    let tpkPath = NSHomeDirectory() + &quot;/Documents&quot; + &quot;/tpk&quot;
-
-    self.tileCacheTask.exportTileCacheWithParameters(params, downloadFolderPath: tpkPath, useExisting: true, status: { (status, userInfo) in
-        print(&quot;\(AGSResumableTaskJobStatusAsString(status)), \(userInfo)&quot;)
-        let totalBytesDownloaded: AnyObject? = userInfo?[&quot;AGSDownloadProgressTotalBytesDownloaded&quot;]
-        let totalBytesExpected: AnyObject? = userInfo?[&quot;AGSDownloadProgressTotalBytesExpected&quot;]
-        if totalBytesDownloaded != nil &amp;&amp; totalBytesExpected != nil {
-            let dPercentage = Float(totalBytesDownloaded! as! NSNumber)/Float(totalBytesExpected! as! NSNumber)
-            SVProgressHUD.showProgress(dPercentage, status: &quot;下载中&quot;)
-            if dPercentage == 1 {
-                SVProgressHUD.dismiss()
-            }
-            print(dPercentage)
-
-        } }) { (tiledLayer, error) in
-
-            if error != nil {
-                SVProgressHUD.showErrorWithStatus(error.localizedDescription)
-            }
-            self.mapView.reset()
-            self.mapView.addMapLayer(tiledLayer, withName:&quot;offline&quot;)
-
-    }
-}
-</code></pre><p>###下载要素形成 gdb<br>    @IBAction func downloadGdbAction(sender: UIBarButtonItem) {</p>
-<pre><code>    SVProgressHUD.showWithStatus(&quot;准备下载&quot;)
-
-    let gdbPath = NSHomeDirectory() + &quot;/Documents&quot; + &quot;/gdb&quot;
-    let params = AGSGDBGenerateParameters(featureServiceInfo: self.gdbTask.featureServiceInfo)
-
-    params.extent = self.mapView.maxEnvelope
-
-    params.outSpatialReference = self.mapView.spatialReference
-    let layers = self.gdbTask.featureServiceInfo.layerInfos.map { layerInfo -&gt; Int in layerInfo.layerId
-    }
-    params.layerIDs = layers
-
-    self.gdbTask.generateGeodatabaseWithParameters(params, downloadFolderPath: gdbPath, useExisting: true, status: {
-        (status, userInfo) in
-            print(AGSResumableTaskJobStatusAsString(status))
-        let totalBytesDownloaded: AnyObject? = userInfo?[&quot;AGSDownloadProgressTotalBytesDownloaded&quot;]
-        let totalBytesExpected: AnyObject? = userInfo?[&quot;AGSDownloadProgressTotalBytesExpected&quot;]
-        if totalBytesDownloaded != nil &amp;&amp; totalBytesExpected != nil {
-            let dPercentage = Float(totalBytesDownloaded! as! NSNumber)/Float(totalBytesExpected! as! NSNumber)
-            SVProgressHUD.showProgress(dPercentage, status: &quot;下载中&quot;)
-            if dPercentage == 1 {
-                SVProgressHUD.dismiss()
-            }
-            print(dPercentage)
-        }
-        }) { (gdb, error) in
-            if error != nil {
-                print(error)
-            }
-            for layer in self.mapView.mapLayers as! [AGSLayer] {
-                if layer is AGSFeatureTableLayer {
-                    self.mapView.removeMapLayer(layer)
-                }
-            }
-            if gdb.featureTables().count &gt; 0 {
-                for table in gdb.featureTables() as! [AGSFeatureTable]{
-                    if table.hasGeometry() {
-                    let tableLayer = AGSFeatureTableLayer(featureTable: table)
-                    self.mapView.addMapLayer(tableLayer)
-                    }
-           }           }
-    }   
-}
-</code></pre><p>五. 总结与后续问题思考</p>
-<p>经过研究实践，移动在线缓存技术是完全可行的,详见 CacheDemo</p>
+<p>编译器支持自动类型判断,即声明时可以不指定类型,由编译器判断。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val a: Int = 1</span><br><span class="line">val b = 1       // 系统自动推断变量类型为Int</span><br><span class="line">val c: Int      // 如果不在声明时初始化则必须提供变量类型</span><br><span class="line">c = 1           // 明确赋值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var x = 5        // 系统自动推断变量类型为Int</span><br><span class="line">x += 1           // 变量可修改</span><br></pre></td></tr></table></figure></p>
+<h3 id="Null-检查机制"><a href="#Null-检查机制" class="headerlink" title="Null 检查机制"></a>Null 检查机制</h3><p>Kotlin的空安全设计对于声明可为空的参数，在使用时要进行空判断处理，有两种处理方式，字段后加!!像Java一样抛出空异常，另一种字段后加?可不做处理返回值为 null或配合?:做空判断处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//类型后面加?表示可为空</span><br><span class="line">var age: String? = &quot;23&quot; </span><br><span class="line">//抛出空指针异常</span><br><span class="line">val ages = age!!.toInt()</span><br><span class="line">//不做处理返回 null</span><br><span class="line">val ages1 = age?.toInt()</span><br><span class="line">//age为空返回-1</span><br><span class="line">val ages2 = age?.toInt() ?: -1</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>我们可以看到Kotlin有自动类型检测，但这仅限于一些常规的类型，当一个变量类型是函数的时候，Kotlin把它叫做匿名函数（lambda）</p>
+<h4 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h4><p>函数定义使用关键字 fun，参数格式为：参数 : 类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun sum(a: Int, b: Int): Int &#123;   // Int 参数，返回值 Int</span><br><span class="line">    return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="可变长参数函数"><a href="#可变长参数函数" class="headerlink" title="可变长参数函数"></a>可变长参数函数</h4><p>函数的变长参数可以用 vararg 关键字进行标识：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun vars(vararg v:Int)&#123;</span><br><span class="line">    for(vt in v)&#123;</span><br><span class="line">        print(vt)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    vars(1,2,3,4,5)  // 输出12345</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="lambda-匿名函数"><a href="#lambda-匿名函数" class="headerlink" title="lambda(匿名函数)"></a>lambda(匿名函数)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 测试</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val sumLambda: (Int, Int) -&gt; Int = &#123;x,y -&gt; x+y&#125;</span><br><span class="line">    println(sumLambda(1,2))  // 输出 3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h3><pre><code>糖嘛，好吃就行
+</code></pre><p>当我们以变量来看上面的sumLambda的时候，最后一行的含义不言而喻。任何函数都能看成一个变量，自然都能够作为一个参数传递。</p>
+<h4 id="函数传递"><a href="#函数传递" class="headerlink" title="函数传递"></a>函数传递</h4><p><code>max(strings, {a,b -&gt; a.length &lt; b.length})</code></p>
+<h4 id="链式编程"><a href="#链式编程" class="headerlink" title="链式编程"></a>链式编程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">strings.filter&#123;it.length == 5&#125;</span><br><span class="line">.sortedBy&#123;it&#125;</span><br><span class="line">.map&#123;it.toUpperCase()&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="区间"><a href="#区间" class="headerlink" title="区间"></a>区间</h4><p>区间表达式由具有操作符形式 .. 的 rangeTo 函数辅以 in 和 !in 形成。</p>
+<p>区间是为任何可比较类型定义的，但对于整型原生类型，它有一个优化的实现。以下是使用区间的一些示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">for (i in 1..4) print(i) // 输出“1234”</span><br><span class="line"></span><br><span class="line">for (i in 4..1) print(i) // 什么都不输出</span><br><span class="line"></span><br><span class="line">if (i in 1..10) &#123; // 等同于 1 &lt;= i &amp;&amp; i &lt;= 10</span><br><span class="line">    println(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用 step 指定步长</span><br><span class="line">for (i in 1..4 step 2) print(i) // 输出“13”</span><br><span class="line"></span><br><span class="line">for (i in 4 downTo 1 step 2) print(i) // 输出“42”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 使用 until 函数排除结束元素</span><br><span class="line">for (i in 1 until 10) &#123;   // i in [1, 10) 排除了 10</span><br><span class="line">     println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Kotlin-实践"><a href="#Kotlin-实践" class="headerlink" title="Kotlin 实践"></a>Kotlin 实践</h2><pre><code>Kotlin当然还有很多新的特性：泛型，对象表达式，匿名内部类等。可以参考博客中的Kotlin实践篇。本文不再详谈。
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kotlin基于JVM开发，所以它适用于很多平台：服务端，安卓，JavaScript，原生，协成。</p>
+<p>语言只是工具。锋利的新刀与顺手的老刀，看你选择了。</p>
 
     </article>
     <!-- license  -->
@@ -580,17 +449,12 @@ func downloadTileCache(params: AGSExportTileCacheParams) {
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2017/03/31/Android简单使用及快速入门/" title= "Android 简单使用及快速入门">
-                    <div class="nextTitle">Android 简单使用及快速入门</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" title= "Jenkins For iOS">
-                    <div class="prevTitle">Jenkins For iOS</div>
+                <a href= "/2018/11/01/JPA的简单介绍/" title= "JPA的简单介绍">
+                    <div class="prevTitle">JPA的简单介绍</div>
                 </a>
             
         </li>
@@ -658,7 +522,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#移动在线缓存"><span class="toc-number">1.</span> <span class="toc-text">移动在线缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-在线缓存的必要性"><span class="toc-number">1.1.</span> <span class="toc-text">一.在线缓存的必要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-在线缓存的可行性"><span class="toc-number">1.2.</span> <span class="toc-text">二.在线缓存的可行性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-支持在线缓存的服务设置"><span class="toc-number">1.3.</span> <span class="toc-text">三. 支持在线缓存的服务设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-iOS相关API与代码"><span class="toc-number">1.4.</span> <span class="toc-text">四. iOS相关API与代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关类与方法"><span class="toc-number">1.4.1.</span> <span class="toc-text">相关类与方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化底图与要素"><span class="toc-number">1.4.2.</span> <span class="toc-text">初始化底图与要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载底图形成tpk文件"><span class="toc-number">1.4.3.</span> <span class="toc-text">下载底图形成tpk文件</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kotlin初探"><span class="toc-number">1.</span> <span class="toc-text">Kotlin初探</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kotlin-简述"><span class="toc-number">1.1.</span> <span class="toc-text">Kotlin 简述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特点与优势"><span class="toc-number">1.1.1.</span> <span class="toc-text">特点与优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#入手"><span class="toc-number">1.2.</span> <span class="toc-text">入手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常量与变量"><span class="toc-number">1.2.1.</span> <span class="toc-text">常量与变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常量"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#变量"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Null-检查机制"><span class="toc-number">1.2.2.</span> <span class="toc-text">Null 检查机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">1.2.3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数定义"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">函数定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可变长参数函数"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">可变长参数函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lambda-匿名函数"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">lambda(匿名函数)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#语法糖"><span class="toc-number">1.2.4.</span> <span class="toc-text">语法糖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数传递"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">函数传递</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#链式编程"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">链式编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区间"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">区间</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kotlin-实践"><span class="toc-number">1.3.</span> <span class="toc-text">Kotlin 实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
