@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>JPA的简单介绍 · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">JPA的简单介绍</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            JPA的简单介绍
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "殷萧鹏">殷萧鹏</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4k</span>阅读时长: <span class="post-count reading-time">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/11/01</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="JPA的简单介绍"><a href="#JPA的简单介绍" class="headerlink" title="JPA的简单介绍"></a>JPA的简单介绍</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="jpa定义"><a href="#jpa定义" class="headerlink" title="jpa定义"></a>jpa定义</h3><p>JPA(Java Persistence API)是Sun官方提出的Java持久化规范。它为Java开发人员制订了一些规范，提供了一些编程的API接口来管理Java应用中的关系数据。 </p>
+<h3 id="jpa-orm二者间的关系"><a href="#jpa-orm二者间的关系" class="headerlink" title="jpa/orm二者间的关系"></a>jpa/orm二者间的关系</h3><p>JPA不是一种新的ORM框架，它的出现只是用于规范现有的ORM技术，它不能取代现有的Hibernate等ORM框架，相反，采用JPA开发时，我们仍将使用这些ORM框架，只是此时开发出来的应用不在依赖于某个持久化提供商。应用可以在不修改代码的情况下在任何JPA环境下运行，真正做到低耦合，可扩展的程序设计。类似于JDBC，在JDBC出现以前，我们的程序针对特性的数据库API进行编程，但是现在我们只需要针对JDBC API编程，这样能够在不改变代码的情况下就能换成其他的数据库。</p>
+<h3 id="jpa的优势"><a href="#jpa的优势" class="headerlink" title="jpa的优势"></a>jpa的优势</h3><p>jpa的出现主要是为了简化现有的持久化开发工作和整合ORM技术，结束现在Hibernate、TopLink等ORM框架各自为营的局面。JPA是在充分吸收了现有Hibernate、TopLink等ORM框架的基础上发展起来的，具有易于使用，伸缩性强等优点。</p>
+<p><strong>标准化</strong><br>JPA 是 JCP 组织发布的 Java EE 标准之一，因此任何声称符合 JPA 标准的框架都遵循同样的架构，提供相同的访问API，这保证了基于JPA开发的企业应用能够经过少量的修改就能够在不同的JPA框架下运行。<br><strong>简单方便</strong><br>JPA的主要目标之一就是提供更加简单的编程模型：在JPA框架下创建实体和创建Java 类一样简单，没有任何的约束和限制，只需要使用 javax.persistence.Entity进行注释，JPA的框架和接口也都非常简单，没有太多特别的规则和设计模式的要求，开发者可以很容易地掌握。JPA基于非侵入式原则设计，因此可以很容易地和其它框架或者容器集成。<br><strong>查询能力</strong><br>JPA的查询语言是面向对象而非面向数据库的，它以面向对象的自然语法构造查询语句，可以看成是Hibernate HQL的等价物。JPA定义了独特的JPQL（Java Persistence Query Language），JPQL是EJB QL的一种扩展，它是针对实体的一种查询语言，操作对象是实体，而不是关系数据库的表，而且能够支持批量更新和修改、JOIN、GROUP BY、HAVING 等通常只有 SQL 才能够提供的高级查询特性，甚至还能够支持子查询。<br><strong>高级特性</strong><br>JPA 中能够支持面向对象的高级特性，如类之间的继承、多态和类之间的复杂关系，这样的支持能够让开发者最大限度的使用面向对象的模型设计企业应用，而不需要自行处理这些特性在关系数据库的持久化。</p>
+<h3 id="Spring-Data-JPA实现"><a href="#Spring-Data-JPA实现" class="headerlink" title="Spring Data JPA实现"></a>Spring Data JPA实现</h3><p>Repository是jpa中定义用来访问领域对象的一个类似集合的接口，这个叫法就类似于我们通常所说的DAO。spring Data 基于 ORM 框架、JPA 规范的基础上封装的一套JPA应用框架，给我们提供几个Repository，基础的Repository提供了最基本的数据访问功能，其几个子接口则扩展了一些功能。它们的关系如下：<br><img src="C:\Users\yinxi\AppData\Local\Temp\1541036087544.png" alt="1541036087544"></p>
+<p>Repository： 仅仅是一个标识，表明任何继承它的均为仓库接口类，方便Spring自动扫描识别 ；CrudRepository： 继承Repository，实现了一组CRUD相关的方法<br>PagingAndSortingRepository： 继承CrudRepository，实现了一组分页排序相关的方法 ；<br>JpaRepository： 继承PagingAndSortingRepository，实现一组JPA规范相关的方法；</p>
+<p>虽然ORM框架实现了JPA规范，但是在不同ORM框架之间切换需要编写的代码有一些差异，而通过使用Spring Data JPA能够方便大家在不同的ORM框架中间进行切换而不要更改代码。可使开发者用极简的代码即可实现对数据的访问和操作。<br><img src="C:\Users\yinxi\AppData\Local\Temp\1541036356933.png" alt="1541036356933"></p>
+<h2 id="JpaRepository接口规范"><a href="#JpaRepository接口规范" class="headerlink" title="JpaRepository接口规范"></a>JpaRepository接口规范</h2><p>JpaRepository作为Spring Data JPA提供的对Repository的实现之一，是我们主要的操作对象。在代码中dao层继承JpaRepository，利用JpaRepository支持接口规范方法名查询特性，可以做到只在接口中定义的查询方法符合它的命名规则，就可以不用写实现。比如，当你看到 UserDao.findUserById() 这样一个方法声明，大致应该能判断出这是根据给定条件的 ID 查询出满足条件的 User 对象。Spring Data JPA 做的便是规范方法的名字，根据符合规范的名字来确定方法需要实现什么样的逻辑。 大大简化了开发过程。类似这种UserDao.findUserById()规范方法名，Spring Data JPA还提供了另外两种规范，分别是命名查询规范（@NamedQuery）和@Query 注解 方式。下面我们分别讲述三种创建查询方式的解析流程。</p>
+<h3 id="方法名解析"><a href="#方法名解析" class="headerlink" title="方法名解析"></a>方法名解析</h3><p>框架在进行方法名解析时，会先把方法名多余的前缀截取掉，比如 find、findBy、read、readBy、get、getBy，然后对剩下部分进行解析。并且如果方法的最后一个参数是 Sort 或者 Pageable 类型，也会提取相关的信息，以便按规则进行排序或者分页查询。</p>
+<p>在创建查询时，我们通过在方法名中使用属性名称来表达，比如 findByUserAddressZip ()。框架在解析该方法时，首先剔除 findBy，然后对剩下的属性进行解析，详细规则如下（此处假设该方法针对的域对象为 AccountInfo 类型）：</p>
+<ul>
+<li>先判断 userAddressZip （根据 POJO 规范，首字母变为小写，下同）是否为 AccountInfo 的一个属性，如果是，则表示根据该属性进行查询；如果没有该属性，继续第二步；</li>
+<li>从右往左截取第一个大写字母开头的字符串（此处为 Zip），然后检查剩下的字符串是否为 AccountInfo 的一个属性，如果是，则表示根据该属性进行查询；如果没有该属性，则重复第二步，继续从右往左截取；最后假设 user 为 AccountInfo 的一个属性；</li>
+<li>接着处理剩下部分（ AddressZip ），先判断 user 所对应的类型是否有 addressZip 属性，如果有，则表示该方法最终是根据 “AccountInfo.user.addressZip” 的取值进行查询；否则继续按照步骤 2 的规则从右往左截取，最终表示根据 “AccountInfo.user.address.zip” 的值进行查询。</li>
+</ul>
+<p>可能会存在一种特殊情况，比如 AccountInfo 包含一个 user 的属性，也有一个 userAddress 属性，此时会存在混淆。读者可以明确在属性之间加上 “_” 以显式表达意图，比如 “findByUser_AddressZip()” 或者 “findByUserAddress_Zip()”。</p>
+<p>在查询时，通常需要同时根据多个属性进行查询，且查询的条件也格式各样（大于某个值、在某个范围等等），Spring Data JPA 为此提供了一些表达条件查询的关键字，大致如下：</p>
+<ul>
+<li>And — 等价于 SQL 中的 and 关键字，比如 findByUsernameAndPassword(String user, Striang pwd)；</li>
+<li>Or — 等价于 SQL 中的 or 关键字，比如 findByUsernameOrAddress(String user, String addr)；</li>
+<li>Between — 等价于 SQL 中的 between 关键字，比如 findBySalaryBetween(int max, int min)；</li>
+<li>LessThan — 等价于 SQL 中的 “&lt;”，比如 findBySalaryLessThan(int max)；</li>
+<li>GreaterThan — 等价于 SQL 中的”&gt;”，比如 findBySalaryGreaterThan(int min)；</li>
+<li>IsNull — 等价于 SQL 中的 “is null”，比如 findByUsernameIsNull()；</li>
+<li>IsNotNull — 等价于 SQL 中的 “is not null”，比如 findByUsernameIsNotNull()；</li>
+<li>NotNull — 与 IsNotNull 等价；</li>
+<li>Like — 等价于 SQL 中的 “like”，比如 findByUsernameLike(String user)；</li>
+<li>NotLike — 等价于 SQL 中的 “not like”，比如 findByUsernameNotLike(String user)；</li>
+<li>OrderBy — 等价于 SQL 中的 “order by”，比如 findByUsernameOrderBySalaryAsc(String user)；</li>
+<li>Not — 等价于 SQL 中的 “！ =”，比如 findByUsernameNot(String user)；</li>
+<li>In — 等价于 SQL 中的 “in”，比如 findByUsernameIn(Collection<string> userList) ，方法的参数可以是 Collection 类型，也可以是数组或者不定长参数；</string></li>
+<li>NotIn — 等价于 SQL 中的 “not in”，比如 findByUsernameNotIn(Collection<string> userList) ，方法的参数可以是 Collection 类型，也可以是数组或者不定长参数；</string></li>
+</ul>
+<h3 id="NamedQuery解析"><a href="#NamedQuery解析" class="headerlink" title="@NamedQuery解析"></a>@NamedQuery解析</h3><p>命名查询是 JPA 提供的一种将查询语句从方法体中独立出来，以供多个方法共用的功能。Spring Data JPA 对命名查询也提供了很好的支持。用户只需要按照 JPA 规范在 orm.xml 文件或者在代码中使用 @NamedQuery（或 @NamedNativeQuery）定义好查询语句，唯一要做的就是为该语句命名时，需要满足”DomainClass.methodName()”的命名规则。假设定义了如下接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">AccountInfo</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;AccountInfo&gt; <span class="title">findTop5</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果希望为 findTop5() 创建命名查询，并与之关联，我们只需要在适当的位置定义命名查询语句，并将其命名为 “AccountInfo.findTop5”，框架在创建代理类的过程中，解析到该方法时，优先查找名为 “AccountInfo.findTop5” 的命名查询定义，如果没有找到，则尝试解析方法名。可以在创建entity的时候使用@NamedQuery注解，如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NamedQuery</span>(name =<span class="string">"AccountInfo.findTop5"</span>,query = <span class="string">"select a from AccountInfo a where a.sort &gt; 5"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountInfo</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer accountId； </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Query解析"><a href="#Query解析" class="headerlink" title="@Query解析"></a>@Query解析</h3><p>@Query 注解的使用非常简单，只需在声明的方法上面标注该注解，同时提供一个 JPQL 查询语句即可，如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">AccountInfo</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">	<span class="meta">@Query</span>(<span class="string">"select a from AccountInfo a where a.accountId = ?1"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> AccountInfo <span class="title">findByAccountId</span><span class="params">(Long accountId)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Query</span>(<span class="string">"select a from AccountInfo a where a.balance &gt; ?1"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Page&lt;AccountInfo&gt; <span class="title">findByBalanceGreaterThan</span><span class="params">(Integer balance,Pageable pageable)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很多开发者在创建 JPQL 时喜欢使用命名参数来代替位置编号，@Query 也对此提供了支持。JPQL 语句中通过”: 变量”的格式来指定参数，同时在方法的参数前面使用 @Param 将方法参数与 JPQL 中的命名参数对应，示例如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">AccountInfo</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">	<span class="meta">@Query</span>(<span class="string">"from AccountInfo a where a.accountId = :id"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> AccountInfo <span class="title">findByAccountId</span><span class="params">(@Param(<span class="string">"id"</span>)</span>Long accountId)</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Query</span>(<span class="string">"from AccountInfo a where a.balance &gt; :balance"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Page&lt;AccountInfo&gt; <span class="title">findByBalanceGreaterThan</span><span class="params">(@Param(<span class="string">"balance"</span>)</span>Integer balance,Pageable  	 pageable)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此外，也可以通过使用 @Query 来执行一个更新操作，为此，我们需要在使用 @Query 的同时，用 @Modifying 来将该操作标识为修改查询，这样框架最终会生成一个更新的操作，而非查询。如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">AccountInfo</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">	<span class="meta">@Modifying</span>(clearAutomatically = <span class="keyword">true</span>)</span><br><span class="line">	<span class="meta">@Query</span>(<span class="string">"update AccountInfo a set a.salary = ?1 where a.salary &lt; ?2"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">increaseSalary</span><span class="params">(<span class="keyword">int</span> after, <span class="keyword">int</span> before)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果@Query注解加上nativeQuery=true 则查询语句使用原生sql，不加则使用JPQL<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">AccountInfo</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">	<span class="meta">@Modifying</span>(clearAutomatically = <span class="keyword">true</span>)</span><br><span class="line">	<span class="meta">@Query</span>(<span class="string">"update account_table a set a.salary = ?1 where a.salary &lt; ?2"</span>,nativeQuery=<span class="keyword">true</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">increaseSalary</span><span class="params">(<span class="keyword">int</span> after, <span class="keyword">int</span> before)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>(注：@Modifying(clearAutomatically = true) 自动清除实体里保存的数据。)</p>
+<h2 id="JpaSpecificationExecutor接口规范"><a href="#JpaSpecificationExecutor接口规范" class="headerlink" title="JpaSpecificationExecutor接口规范"></a>JpaSpecificationExecutor接口规范</h2><p>JpaSpecificationExecutor不属于Repository体系，它是Spring Data JPA为支持JPA2.0的Criteria查询，提供的接口。JpaSpecificationExecutor接口只定义了几个简单的方法，其核心都是围绕着Specification来实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Optional&lt;T&gt; <span class="title">findOne</span><span class="params">(@Nullable Specification&lt;T&gt; var1)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">findAll</span><span class="params">(@Nullable Specification&lt;T&gt; var1)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">Page&lt;T&gt; <span class="title">findAll</span><span class="params">(@Nullable Specification&lt;T&gt; var1, Pageable var2)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">List&lt;T&gt; <span class="title">findAll</span><span class="params">(@Nullable Specification&lt;T&gt; var1, Sort var2)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">count</span><span class="params">(@Nullable Specification&lt;T&gt; var1)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p> Specification接口中定义了如下一个方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;T&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder cb)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>要理解这个方法，以及正确的使用它，就需要对JPA2.0的Criteria查询有一个足够的熟悉和理解，因为这个方法的参数和返回值都是JPA标准里面定义的对象。  </p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h3><p>使用JpaRepository接口进行简单查询操作：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Banner</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> Integer sort;    <span class="comment">// 排序</span></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IBannerDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Banner</span>,<span class="title">String</span>&gt;,<span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">Banner</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询当前sort的最大值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Query</span>(value = <span class="string">"SELECT MAX(SORT) FROM  banner"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line">    <span class="function">Integer <span class="title">findMaxSort</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据sort获取banner</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sotr</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Banner <span class="title">findBannerBySort</span><span class="params">(Integer sotr)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BannerService</span></span>&#123;</span><br><span class="line">	<span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> IBannerDao bannerDao;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据排序sort获取banner</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sort</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Banner <span class="title">getBannerBySort</span><span class="params">(Integer sort)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> bannerDao.findBannerBySort(sort);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询当前sort的最大值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sort</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getMaxSort</span><span class="params">(Integer sort)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> bannerDao.findMaxSort();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="动态查询"><a href="#动态查询" class="headerlink" title="动态查询"></a>动态查询</h3><p>使用JpaSpecificationExecutor接口进行动态查询操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String userName;       </span><br><span class="line">    <span class="keyword">private</span> String passWord;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>,<span class="title">String</span>&gt;,<span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">User</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">	<span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> IUserDao UserDao;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 多条件查询用户</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  user</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUsersByMultiCondition</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        Optional&lt;User&gt; optional = userDao.findOne(<span class="keyword">new</span> Specification&lt;User&gt;() &#123;</span><br><span class="line">            <span class="meta">@Nullable</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;User&gt; root, CriteriaQuery&lt;?&gt; criteriaQuery, CriteriaBuilder criteriaBuilder)</span> </span>&#123;</span><br><span class="line">                List&lt;Predicate&gt; predicateList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                <span class="keyword">if</span> (ObjectUtil.isNonNull(user.getId())) &#123;</span><br><span class="line">                    predicateList.add(criteriaBuilder.equal(root.get(<span class="string">"id"</span>), user.getId()));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (ObjectUtil.isNonNull(user.getPassWord())) &#123;</span><br><span class="line">                    predicateList.add(criteriaBuilder.equal(root.get(<span class="string">"passWord"</span>), user.getPassWord()));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (ObjectUtil.isNonNull(user.getUserName())) &#123;</span><br><span class="line">                    predicateList.add(criteriaBuilder.equal(root.get(<span class="string">"userName"</span>), user.getUserName()));</span><br><span class="line">                &#125;</span><br><span class="line">                Predicate[] predicates = <span class="keyword">new</span> Predicate[predicateList.size()];</span><br><span class="line">                <span class="keyword">return</span> criteriaBuilder.and(predicateList.toArray(predicates));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> optional.get();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在构建动态查询条件时，主要是通过CriteriaBuilder生成条件对象Predicate。查看CriteriaBuilder源码可看到内部提供了生成不同Predicate对象的方法，通过CriteriaBuilder可实现构建灵活的动态查询语句。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Predicate <span class="title">and</span><span class="params">(Expression&lt;Boolean&gt; var1, Expression&lt;Boolean&gt; var2)</span></span>;</span><br><span class="line"><span class="function">Predicate <span class="title">or</span><span class="params">(Expression&lt;Boolean&gt; var1, Expression&lt;Boolean&gt; var2)</span></span>; <span class="function">Predicate <span class="title">not</span><span class="params">(Expression&lt;Boolean&gt; var1)</span></span>;</span><br><span class="line"><span class="function">Predicate <span class="title">isNull</span><span class="params">(Expression&lt;?&gt; var1)</span></span>;</span><br><span class="line"><span class="function">Predicate <span class="title">isNotNull</span><span class="params">(Expression&lt;?&gt; var1)</span></span>;</span><br><span class="line"><span class="function">Predicate <span class="title">equal</span><span class="params">(Expression&lt;?&gt; var1, Object var2)</span></span>;</span><br><span class="line"><span class="function">Predicate <span class="title">notEqual</span><span class="params">(Expression&lt;?&gt; var1, Object var2)</span></span>;</span><br><span class="line">&lt;Y extends Comparable&lt;? <span class="keyword">super</span> Y&gt;&gt; <span class="function">Predicate <span class="title">greaterThan</span><span class="params">(Expression&lt;? extends Y&gt; var1, Y var2)</span></span>;</span><br><span class="line">&lt;Y extends Comparable&lt;? <span class="keyword">super</span> Y&gt;&gt; <span class="function">Predicate <span class="title">lessThan</span><span class="params">(Expression&lt;? extends Y&gt; var1, Y var2)</span></span>;</span><br><span class="line">&lt;Y extends Comparable&lt;? <span class="keyword">super</span> Y&gt;&gt; <span class="function">Predicate <span class="title">between</span><span class="params">(Expression&lt;? extends Y&gt; var1, Y var2, Y var3)</span></span>;</span><br><span class="line"><span class="function">Predicate <span class="title">gt</span><span class="params">(Expression&lt;? extends Number&gt; var1, Number var2)</span></span>;</span><br><span class="line"><span class="function">Predicate <span class="title">like</span><span class="params">(Expression&lt;String&gt; var1, String var2)</span></span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h3 id="复杂查询"><a href="#复杂查询" class="headerlink" title="复杂查询"></a>复杂查询</h3><p>分页动态查询<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">	<span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> IUserDao UserDao;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 分页多条件查询用户</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  user</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">getUsersByMultiCondition</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pageSize = <span class="number">10</span>；</span><br><span class="line">    <span class="keyword">int</span> currentPage = <span class="number">1</span>；</span><br><span class="line">     Pageable pageable = PageRequest.of(currentPage,pageSize);</span><br><span class="line">        Page&lt;User&gt; result = userDao.findOne(<span class="keyword">new</span> Specification&lt;User&gt;() &#123;</span><br><span class="line">            <span class="meta">@Nullable</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;User&gt; root, CriteriaQuery&lt;?&gt; criteriaQuery, CriteriaBuilder criteriaBuilder)</span> </span>&#123;</span><br><span class="line">                List&lt;Predicate&gt; predicateList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                <span class="keyword">if</span> (ObjectUtil.isNonNull(user.getId())) &#123;</span><br><span class="line"> 					predicateList.add(criteriaBuilder.notEqual(root.get(<span class="string">"id"</span>), user.getId()));</span><br><span class="line">                &#125;</span><br><span class="line">                Predicate[] predicates = <span class="keyword">new</span> Predicate[predicateList.size()];</span><br><span class="line">                <span class="keyword">return</span> criteriaBuilder.and(predicateList.toArray(predicates));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,pageable);</span><br><span class="line">        <span class="keyword">return</span> result.getContent();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>排序动态查询<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">	<span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> IUserDao UserDao;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 多条件查询用户并排序</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  user</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">getUsersByMultiCondition</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    	Sort sort = Sort.by(Sort.Direction.DESC, <span class="string">"createTime"</span>);</span><br><span class="line">        List&lt;User&gt; result = userDao.findOne(<span class="keyword">new</span> Specification&lt;User&gt;() &#123;</span><br><span class="line">            <span class="meta">@Nullable</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;User&gt; root, CriteriaQuery&lt;?&gt; criteriaQuery, CriteriaBuilder criteriaBuilder)</span> </span>&#123;</span><br><span class="line">                List&lt;Predicate&gt; predicateList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                <span class="keyword">if</span> (ObjectUtil.isNonNull(user.getId())) &#123;</span><br><span class="line"> 					predicateList.add(criteriaBuilder.notEqual(root.get(<span class="string">"id"</span>), user.getId()));</span><br><span class="line">                &#125;</span><br><span class="line">                Predicate[] predicates = <span class="keyword">new</span> Predicate[predicateList.size()];</span><br><span class="line">                <span class="keyword">return</span> criteriaBuilder.and(predicateList.toArray(predicates));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,sort);</span><br><span class="line">        <span class="keyword">return</span> result；</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多表关联动态查询<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Company</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String companyName;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Employee&gt; employees;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String employeeName;</span><br><span class="line">    <span class="keyword">private</span> Company company;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ICompanyDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Company</span>,<span class="title">String</span>&gt;,<span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">Company</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompanyService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> ICompanyDao companyDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Company&gt; <span class="title">getCompanyByMultiCondition</span><span class="params">(Map&lt;String,String&gt; params)</span> </span>&#123;</span><br><span class="line">        List&lt;Company&gt; companyList = companyDao.findAll(<span class="keyword">new</span> Specification&lt;Company&gt;() &#123;</span><br><span class="line">            <span class="meta">@Nullable</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;Company&gt; root, CriteriaQuery&lt;?&gt; criteriaQuery, CriteriaBuilder criteriaBuilder)</span> </span>&#123;</span><br><span class="line">                Join&lt;Company,Employee&gt; companyEmployeeJoin = 					root.join(root.getModel().getList(<span class="string">"employees"</span>, Employee.class),JoinType.LEFT);</span><br><span class="line">                List&lt;Predicate&gt; predicates = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                <span class="keyword">if</span> (ObjectUtil.isNonNull(params.get(<span class="string">"companyName"</span>))) &#123;</span><br><span class="line">                    predicates.add(criteriaBuilder.like(root.get(<span class="string">"companyName"</span>),<span class="string">"%"</span>+params.get(<span class="string">"companyName"</span>)+<span class="string">"%"</span> ));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (ObjectUtil.isNonNull(params.get(<span class="string">"employeeName"</span>))) &#123;</span><br><span class="line">                    predicates.add(criteriaBuilder.like(companyEmployeeJoin.get(<span class="string">"employeeName"</span>),<span class="string">"%"</span>+params.get(<span class="string">"employeeName"</span>)+<span class="string">"%"</span> ));</span><br><span class="line">                &#125;</span><br><span class="line">                Predicate[] p = <span class="keyword">new</span> Predicate[predicates.size()];</span><br><span class="line">                <span class="keyword">return</span> criteriaBuilder.and(predicates.toArray(p));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> companyList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面使用root.join实现多表之间的连接<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Join&lt;Company,Employee&gt; companyEmployeeJoin = 					root.join(root.getModel().getList(<span class="string">"employees"</span>, Employee.class),JoinType.LEFT);</span><br></pre></td></tr></table></figure></p>
+<p>root.getModel()指的是Company模型的元模型，等同于重新建立了一个类Company ；root.getModel().getList(“employees”, Employee.class)指的是将Company中的属性employees取出转换成Employee类，JoinType.LEFT指定了采用左连接方式，所以最终Company和 Employee建立了左关联联系，companyEmployeeJoin代表的就是 Employee类；上面定义后，等同于 sql语句：select  c.*  from t_company c left outer join t_employee  e on c.id = e.foreign_id 。接着就是怎么带入动态参数即可。</p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" title= "Vue+iView+Webpack环境下IE浏览器兼容处理">
+                    <div class="prevTitle">Vue+iView+Webpack环境下IE浏览器兼容处理</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JPA的简单介绍"><span class="toc-number">1.</span> <span class="toc-text">JPA的简单介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jpa定义"><span class="toc-number">1.1.1.</span> <span class="toc-text">jpa定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jpa-orm二者间的关系"><span class="toc-number">1.1.2.</span> <span class="toc-text">jpa/orm二者间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jpa的优势"><span class="toc-number">1.1.3.</span> <span class="toc-text">jpa的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Data-JPA实现"><span class="toc-number">1.1.4.</span> <span class="toc-text">Spring Data JPA实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JpaRepository接口规范"><span class="toc-number">1.2.</span> <span class="toc-text">JpaRepository接口规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法名解析"><span class="toc-number">1.2.1.</span> <span class="toc-text">方法名解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NamedQuery解析"><span class="toc-number">1.2.2.</span> <span class="toc-text">@NamedQuery解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Query解析"><span class="toc-number">1.2.3.</span> <span class="toc-text">@Query解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JpaSpecificationExecutor接口规范"><span class="toc-number">1.3.</span> <span class="toc-text">JpaSpecificationExecutor接口规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-number">1.4.</span> <span class="toc-text">应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单查询"><span class="toc-number">1.4.1.</span> <span class="toc-text">简单查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态查询"><span class="toc-number">1.4.2.</span> <span class="toc-text">动态查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复杂查询"><span class="toc-number">1.4.3.</span> <span class="toc-text">复杂查询</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 33
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/JPA的简单介绍/" >JPA的简单介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" >Vue+iView+Webpack环境下IE浏览器兼容处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/DASC笔记/" >DASC笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/CAS笔记/" >CAS笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2018/10/24/Java8 StringJoiner的使用/" >Java 8 之StringJoiner的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java8之Optional/" >Java 8 之Optional</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java之Lambda表达式Stream使用/" >Java 8 之Lambda表达式Stream使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之fail-fast机制-万世威/" >Java 8 之fail-fast机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之collection细节/" >Java 8 之collection细节</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之enum枚举-万世威/" >Java 8 之enum枚举</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+        <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
