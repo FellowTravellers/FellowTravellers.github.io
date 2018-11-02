@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Fellow Travellers</title>
+    <title>WebApp 开发简单入门 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">WebApp 开发简单入门</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Fellow Travellers</a>
 </header>
@@ -220,24 +231,82 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            WebApp 开发简单入门
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "肖健">肖健</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/11/02</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,40 +407,334 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/JPA的简单介绍/" >
-            
-                <span>JPA的简单介绍</span>
-        </a>
-        <div class="abstract-content">
-            JPA的简单介绍简介jpa定义JPA(Java Persistence API)是Sun官方提出的Java持久化规范。它为Java开发人员制订了一些规范，提供了一些编程的API接口来管理Java应用中的关系数据。 
-jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用于规范现有的ORM技术，它不能取代现有的Hibernate等ORM框架，相反，采用JPA开发时，我们仍将使用这些ORM框架，只是此时开发出来的应用不在依赖于某个持久化提供商。应用可以在不修改代码的情况下在任何JPA环境下运行，真正做到低耦合，可扩展的程序设计。类似于JDBC，在JDBC出现以前，我们的程序针...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><pre><code>目前市面的移动应用很多大致分为三类：
+
+   1.Native_App: 原生APP 具有最佳用户体验、可访问本地资源，调用移动硬件设备。
+
+   2.Hybrid_App：混合APP 
+
+   3.Web_App ：  基于web系统和应用，运行于网络和浏览器之上，具备无需要安装包、节约手机空间、低成本开发的优势。
+
+   4.其他：wep_app、uni_app等。
+</code></pre><h1 id="二、WebApp开发基础准备"><a href="#二、WebApp开发基础准备" class="headerlink" title="二、WebApp开发基础准备"></a>二、WebApp开发基础准备</h1><pre><code>  1.知识储备：HTML/HTML5、CSS/CSS3基础知识，了解JS开发。
+  推荐学习网站：http://www.w3school.com.cn/h.asp
+
+
+2.开发工具：VS Code 、webStorm、HBuilderX 等...
+</code></pre><h1 id="三、开发实例：以-HBuilderX-为开发工具"><a href="#三、开发实例：以-HBuilderX-为开发工具" class="headerlink" title="三、开发实例：以 HBuilderX 为开发工具"></a>三、开发实例：以 HBuilderX 为开发工具</h1><h2 id="1-webapp目录结构："><a href="#1-webapp目录结构：" class="headerlink" title="1. webapp目录结构："></a>1. webapp目录结构：</h2><p>&lt;img src=<a href="http://thyrsi.com/t6/403/1541066019x-1404793154.png" target="_blank" rel="noopener">http://thyrsi.com/t6/403/1541066019x-1404793154.png</a> /&gt;</p>
+<h2 id="2-webapp运行流程："><a href="#2-webapp运行流程：" class="headerlink" title="2. webapp运行流程："></a>2. webapp运行流程：</h2><p>&lt;img src=<a href="http://thyrsi.com/t6/403/1541066065x-1404793232.png" target="_blank" rel="noopener">http://thyrsi.com/t6/403/1541066065x-1404793232.png</a> /&gt;</p>
+<h2 id="3-webapp运行效果："><a href="#3-webapp运行效果：" class="headerlink" title="3. webapp运行效果："></a>3. webapp运行效果：</h2><p>&lt;img src=<a href="http://thyrsi.com/t6/403/1541066090x-1404793232.jpg" target="_blank" rel="noopener">http://thyrsi.com/t6/403/1541066090x-1404793232.jpg</a> /&gt;</p>
+<h2 id="4-实现代码："><a href="#4-实现代码：" class="headerlink" title="4. 实现代码："></a>4. 实现代码：</h2><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1,maximum-scale=1,user-scalable=no&quot;&gt;
+&lt;title&gt;Relationship Renderer&lt;/title&gt;
+
+html代码中最关键的就是meta标签设置，开发移动端页面首先一定要设置viewport 
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0&quot; /&gt;
+
+device-width - 设备的宽度
+initial-scale - 初始的缩放比例  
+minimum-scale - 允许用户缩放到的最小比例   
+maximum-scale - 允许用户缩放到的最大比例  
+user-scalable - 用户是否可以手动缩放 
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://js.arcgis.com/3.26/esri/css/esri.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://js.arcgis.com/3.26/dijit/themes/claro/claro.css&quot;&gt;
+
+&lt;style&gt;
+  html, body, #map {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+  #menuDiv{
+    z-index: 65;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    max-width: 280px;
+    opacity: 0.9;
+    background-color: whitesmoke;
+    padding: 10px;
+  }
+&lt;/style&gt;
+
+&lt;script&gt;
+  var dojoConfig = {
+    has: {
+      &quot;esri-featurelayer-webgl&quot;: 1
+    }
+  };
+&lt;/script&gt;
+
+&lt;script src=&quot;https://js.arcgis.com/3.26/&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+require([
+    &quot;esri/map&quot;,
+    &quot;esri/layers/FeatureLayer&quot;,
+    &quot;esri/renderers/smartMapping&quot;,
+    &quot;esri/styles/relationship&quot;,
+    &quot;esri/dijit/Legend&quot;,
+    &quot;esri/dijit/PopupTemplate&quot;,
+    &quot;dojo/domReady!&quot;
+  ],
+  function(
+    Map,
+    FeatureLayer,
+    smartMapping,
+    relationshipStyles,
+    Legend,
+    PopupTemplate
+  ) {
+
+    // create relationship Renderer
+
+    var map = new Map(&quot;map&quot;, {
+      basemap: &quot;gray&quot;,
+      center: [-97.29614, 19.54323],
+      zoom: 7
+    });
+
+    var url = &quot;https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Mexico_demographics/FeatureServer/0&quot;;
+
+    // Create new feature layer pointing to service with educational
+    // attainment data by city and assigns it a PopupTemplate
+
+    var layer = new FeatureLayer(url, {
+      outFields: [ &quot;NAME&quot;, &quot;EDUC01_CY&quot;, &quot;EDUCA_BASE&quot;, &quot;AVGHHSZ_CY&quot; ],
+      infoTemplate: new PopupTemplate({
+        title: &quot;{NAME}&quot;,
+        description: &quot;{EDUC01_CY} people in this municipality didn&apos;t complete any formal education.&quot;,
+        fieldInfos: [{
+          fieldName: &quot;EDUC01_CY&quot;,
+          label: &quot;Population without formal education&quot;,
+          format: { places: 0, digitSeparator: true }
+        }, {
+          fieldName: &quot;EDUCA_BASE&quot;,
+          label: &quot;Total population&quot;
+        }, {
+          fieldName: &quot;AVGHHSZ_CY&quot;,
+          label: &quot;Average household size&quot;
+        }]
+      })
+    });
+
+    // Add the layer to the map
+    map.addLayer(layer);
+    map.on(&quot;load&quot;, selectFields);
+
+    var relationshipParams;
+
+    /**
+     * Sets the remaining parameters for the renderer and selects the
+     * fields to use for generating predominance based on the selection
+     * from the drop down menu.
+     */
+    function selectFields(){
+
+      relationshipParams = {
+        field1: {
+          field: &quot;EDUC01_CY&quot;,
+          normalizationField: &quot;EDUCA_BASE&quot;
+        },
+        field2: {
+          field: &quot;AVGHHSZ_CY&quot;
+        },
+        layer: layer,
+        basemap: map.getBasemap(),
+        classificationMethod: &quot;natural-breaks&quot;,
+        numClasses: 3,
+        showOthers: false,
+        focus: &quot;HH&quot;  // rotates the legend like a diamond. Set to null to make it a square
+      };
+
+      var schemes = relationshipStyles.getSchemes({
+        theme: &quot;default&quot;,
+        basemap: &quot;gray&quot;,
+        geometryType: &quot;polygon&quot;,
+        numColors: relationshipParams.numClasses
+      });
+
+      addOptions(schemes);
+
+      // Creates the predominance renderer
+      smartMapping.createRelationshipRenderer(relationshipParams)
+        .then(applyRenderer);
+    }
+
+    /**
+     * Creates the select for changing the color scheme.
+     */
+    function addOptions(schemes){
+      var selectElem = document.getElementById(&quot;schemes&quot;);
+
+      var option = document.createElement(&quot;option&quot;);
+      option.value = &quot;primary&quot;;
+      option.text = &quot;primary&quot;;
+      selectElem.appendChild(option);
+
+      var secondarySchemes = schemes.secondarySchemes;
+      var primaryScheme = schemes.primaryScheme;
+
+      secondarySchemes.forEach(function(scheme, i){
+        var option = document.createElement(&quot;option&quot;);
+        option.value = i;
+        option.text = &quot;secondary &quot; + (i+1);
+        selectElem.appendChild(option);
+      });
+
+      selectElem.addEventListener(&quot;change&quot;, function(event){
+        var selection = event.target.value;
+        relationshipParams.scheme = selection === &quot;primary&quot; ? primaryScheme : secondarySchemes[parseInt(selection)];
+        smartMapping.createRelationshipRenderer(relationshipParams)
+          .then(applyRenderer);
+      });
+    }
+
+    // Create a legend
+
+    var legend = new Legend({
+      map: map,
+      layerInfos: [{
+        layer: layer,
+        title: &quot;Mexico Educational Attainment&quot;
+      }]
+    }, &quot;legendDiv&quot;);
+    legend.startup();
+
+    var showDescriptiveLabelsElement = document.getElementById(&quot;descriptive-labels&quot;);
+
+    showDescriptiveLabelsElement.addEventListener(&quot;change&quot;, function(event){
+      var renderer = changeRendererLabels(layer.renderer, showDescriptiveLabelsElement.checked);
+      layer.setRenderer(renderer);
+      layer.redraw();
+      legend.refresh();
+    });
+
+    // Applies the generated renderer to the feature layer
+    function applyRenderer(response){
+
+      var renderer = changeRendererLabels(response.renderer, showDescriptiveLabelsElement.checked);
+      layer.setRenderer(renderer);
+      layer.redraw();
+
+      if(!layer.visible){
+        layer.setVisibility(true);
+      }
+
+      legend.refresh();
+    }
+
+    /**
+     * Changes the labels and orientation of the relationship legend.
+     *
+     * @param {module:esri/renderers/UniqueValueRenderer} renderer - An instance of a relationship renderer.
+     * @param {boolean} showDescriptiveLabels - Indicates whether to orient the legend as a diamond and display
+     *   descriptive labels. If `false`, then the legend is oriented as a square with numeric labels, similar to
+     *   a chart with an x/y axis.
+     *
+     * @return {renderer} - The input renderer with the modified descriptions and orientation.
+     */
+    function changeRendererLabels(renderer, showDescriptiveLabels){
+
+      var numClasses = renderer.authoringInfo.numClasses;
+      var field1max = renderer.authoringInfo.field1.classBreakInfos[ numClasses-1 ].maxValue;
+      var field2max = renderer.authoringInfo.field2.classBreakInfos[ numClasses-1 ].maxValue;
+
+      renderer.infos.forEach(function(info){
+        switch (info.value) {
+          case &quot;HH&quot;:
+            info.label = showDescriptiveLabels ? &quot;Large Households&lt;br&gt;Not formally educated&quot; : &quot;&quot;;
+            break;
+          case &quot;HL&quot;:
+            info.label = showDescriptiveLabels ? &quot;Small Households&lt;br&gt;Not much education&quot; : Math.round(field1max * 100) + &quot;%&quot;;
+            break;
+          case &quot;LH&quot;:
+            info.label = showDescriptiveLabels ? &quot;Large Households&lt;br&gt;Formally educated&quot; : field2max;
+            break;
+          case &quot;LL&quot;:
+            info.label = showDescriptiveLabels ? &quot;Small Households&lt;br&gt;Not formally educated&quot; : 0;
+            break;
+        }
+      });
+
+      renderer.authoringInfo.focus = showDescriptiveLabels ? &quot;HH&quot; : null;
+
+      return renderer;
+    }
+  });
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body class=&quot;claro&quot;&gt;
+  &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;menuDiv&quot;&gt;
+    &lt;div id=&quot;legendDiv&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;select-div&quot;&gt;
+      &lt;input type=&quot;checkbox&quot; id=&quot;descriptive-labels&quot; checked&gt; Show descriptive labels&lt;br&gt;
+      Switch color scheme: &lt;select id=&quot;schemes&quot;&gt;&lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><h2 id="5-webapp打包："><a href="#5-webapp打包：" class="headerlink" title="5. webapp打包："></a>5. webapp打包：</h2><p>&lt;img src=<a href="http://thyrsi.com/t6/403/1541066330x-1404793232.png" target="_blank" rel="noopener">http://thyrsi.com/t6/403/1541066330x-1404793232.png</a> /&gt;</p>
+<pre><code>打包注意事项：
+</code></pre><p>&lt;img src=<a href="http://thyrsi.com/t6/403/1541066564x-1404781240.png" target="_blank" rel="noopener">http://thyrsi.com/t6/403/1541066564x-1404781240.png</a> /&gt;</p>
+<h3 id="小结：webapp开发上手还是挺快的，主要还是需要熟悉掌握html5、js、css语法。"><a href="#小结：webapp开发上手还是挺快的，主要还是需要熟悉掌握html5、js、css语法。" class="headerlink" title="小结：webapp开发上手还是挺快的，主要还是需要熟悉掌握html5、js、css语法。"></a>小结：webapp开发上手还是挺快的，主要还是需要熟悉掌握html5、js、css语法。</h3>
     </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/11/01/Kotlin初探/" title= "Kotlin初探">
+                    <div class="prevTitle">Kotlin初探</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -389,6 +752,24 @@ jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用�
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、概述"><span class="toc-number">1.</span> <span class="toc-text">一、概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、WebApp开发基础准备"><span class="toc-number">2.</span> <span class="toc-text">二、WebApp开发基础准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、开发实例：以-HBuilderX-为开发工具"><span class="toc-number">3.</span> <span class="toc-text">三、开发实例：以 HBuilderX 为开发工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-webapp目录结构："><span class="toc-number">3.1.</span> <span class="toc-text">1. webapp目录结构：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-webapp运行流程："><span class="toc-number">3.2.</span> <span class="toc-text">2. webapp运行流程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-webapp运行效果："><span class="toc-number">3.3.</span> <span class="toc-text">3. webapp运行效果：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-实现代码："><span class="toc-number">3.4.</span> <span class="toc-text">4. 实现代码：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-webapp打包："><span class="toc-number">3.5.</span> <span class="toc-text">5. webapp打包：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小结：webapp开发上手还是挺快的，主要还是需要熟悉掌握html5、js、css语法。"><span class="toc-number">3.5.1.</span> <span class="toc-text">小结：webapp开发上手还是挺快的，主要还是需要熟悉掌握html5、js、css语法。</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1199,6 +1580,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
