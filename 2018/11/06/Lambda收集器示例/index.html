@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Java 8 之enum枚举 · Fellow Travellers</title>
+    <title>Lambda收集器示例 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Fellow Travellers</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Java 8 之enum枚举</a>
+                <a href="#" class="post-name">Lambda收集器示例</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Java 8 之enum枚举
+            Lambda收集器示例
             <!-- 404 -->
             
         </h1>
@@ -280,12 +280,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">751</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/10/22</span>
+                    <span class="post-intro-time">2018/11/06</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -409,51 +409,136 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="Enum-枚举"><a href="#Enum-枚举" class="headerlink" title="Enum 枚举"></a>Enum 枚举</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public enum Color &#123;</span><br><span class="line">    RED, YELLOW, BLUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>==说明：==</p>
-<blockquote>
-<p>使用的是enum关键字而不是class</p>
-<p>多个枚举变量之间用 逗号 隔开</p>
-<p>枚举变量名大写，多个单词之间用 _ 隔开。  如。 ALL_NUM…</p>
-<p>定义完枚举变量后， 用分号 结束。如果只有枚举变量，而没有自定义变量，分号可以省略。</p>
-<p>使用  只需要【类名.变量名】就可以了，和使用静态变量一样。 </p>
-</blockquote>
-<p>方法：</p>
-<p>values()</p>
-<blockquote>
-<p>这个方法会返回包括所有枚举变量的数组 </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (Color color : Color.values()) &#123;</span><br><span class="line">	// 下标</span><br><span class="line">	System.out.println(color.ordinal());</span><br><span class="line">	// 枚举变量名字</span><br><span class="line">	System.out.println(color.name());</span><br><span class="line">	// 同上</span><br><span class="line">	System.out.println(color.toString());</span><br><span class="line">&#125;</span><br><span class="line">// 比较的是下标</span><br><span class="line">System.out.println(Color.valueOf(&quot;YELLOW&quot;).compareTo(Color.valueOf(&quot;BLUE&quot;)));</span><br></pre></td></tr></table></figure>
-<p>valueOf(String name)</p>
-<blockquote>
-<p>它的作用是传来一个字符串，然后将它转变为对应的枚举变量 . </p>
-<p><strong>字符串和定义枚举变量的字符串必须一样</strong>，并且区分大小写。如果不存在会抛出异常。java.lang.IllegalArgumentException</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public enum Weekday &#123;</span><br><span class="line">    MON(1),TUS(2),WED(3),THU(4),FRI(5),SAT(6),SUN(0);</span><br><span class="line"></span><br><span class="line">    private int index;</span><br><span class="line"></span><br><span class="line">    private Weekday(int index)&#123;</span><br><span class="line">        this.index = index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>==说明==</p>
-<blockquote>
-<p>定义的枚举变量 必须 在第一行。以 分号结束。</p>
-<p>构造函数只能是 private 的。否则 编译不通过</p>
-<p>自定义的  index  和 下标 不冲突。</p>
-</blockquote>
-<h3 id="枚举类中的抽象类"><a href="#枚举类中的抽象类" class="headerlink" title="枚举类中的抽象类"></a>枚举类中的抽象类</h3><p>实例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public enum Color &#123;</span><br><span class="line">    RED() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Color getNextColor() &#123;</span><br><span class="line">            return YELLOW;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    YELLOW()&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Color getNextColor() &#123;</span><br><span class="line">            return BLUE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    BLUE()&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Color getNextColor() &#123;</span><br><span class="line">            return RED;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">		/**</span><br><span class="line">     * 获取下一种颜色</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public abstract Color getNextColor();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Color yellow = Color.valueOf(&quot;YELLOW&quot;);</span><br><span class="line">System.out.println(yellow.getNextColor());</span><br><span class="line"></span><br><span class="line">// BLUE</span><br></pre></td></tr></table></figure>
-<p>枚举类的原理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public enum Weekday &#123;</span><br><span class="line">    MON(1),TUS(2),WED(3),THU(4),FRI(5),SAT(6),SUN(0);</span><br><span class="line"></span><br><span class="line">    private int index;</span><br><span class="line"></span><br><span class="line">    private Weekday(int index)&#123;</span><br><span class="line">        this.index = index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>javap 反编译 Weekday.class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public final class enums.Weekday extends java.lang.Enum&lt;enums.Weekday&gt; &#123;</span><br><span class="line">  public static final enums.Weekday MON;</span><br><span class="line">  public static final enums.Weekday TUS;</span><br><span class="line">  public static final enums.Weekday WED;</span><br><span class="line">  public static final enums.Weekday THU;</span><br><span class="line">  public static final enums.Weekday FRI;</span><br><span class="line">  public static final enums.Weekday SAT;</span><br><span class="line">  public static final enums.Weekday SUN;</span><br><span class="line">  public static enums.Weekday[] values();</span><br><span class="line">  public static enums.Weekday valueOf(java.lang.String);</span><br><span class="line">  static &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>是 final 类，不能被继承。</p>
-<p>继承了 java.lang.Enum 类。只能实现接口了。</p>
-</blockquote>
-<p>在Color枚举类中定义的 RED、、、本身是一个 Color对象的引用。<code>Color RED = new Color();</code> 使用匿名内部类方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Color RED = new Color() &#123;</span><br><span class="line">	@override</span><br><span class="line">  public Color getNextColor() &#123;</span><br><span class="line">  	return YELLOW;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">在枚举类中  只用写  RED()&#123;...&#125; JVM会完成其它操作</span><br></pre></td></tr></table></figure>
-<h3 id="枚举类在switch中应用"><a href="#枚举类在switch中应用" class="headerlink" title="枚举类在switch中应用"></a>枚举类在switch中应用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">switch (color) &#123;</span><br><span class="line">case RED:</span><br><span class="line">	color = Color.GREEN;</span><br><span class="line">	break;</span><br><span class="line">case YELLOW:</span><br><span class="line">	color = Color.RED;</span><br><span class="line">	break;</span><br><span class="line">case GREEN:</span><br><span class="line">	color = Color.YELLOW;</span><br><span class="line">	break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="枚举类实现接口"><a href="#枚举类实现接口" class="headerlink" title="枚举类实现接口"></a>枚举类实现接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface Behaviour &#123;</span><br><span class="line">    void print();</span><br><span class="line">    String getInfo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public enum Weekday implements Behaviour&#123;</span><br><span class="line">    MON(1),TUS(2),WED(3),THU(4),FRI(5),SAT(6),SUN(0);</span><br><span class="line"></span><br><span class="line">    private int index;</span><br><span class="line"></span><br><span class="line">    Weekday(int index)&#123;</span><br><span class="line">        this.index = index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void print() &#123;</span><br><span class="line">        System.out.println(this.index + &quot;:&quot; + toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getInfo() &#123;</span><br><span class="line">        return toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="枚举实现-单例模式"><a href="#枚举实现-单例模式" class="headerlink" title="枚举实现 单例模式"></a>枚举实现 单例模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public enum DataSourceEnum &#123;</span><br><span class="line">    DATASOURCE;</span><br><span class="line">    private DBConnection connection = null;</span><br><span class="line">    private DataSourceEnum() &#123;</span><br><span class="line">        connection = new DBConnection();</span><br><span class="line">    &#125;</span><br><span class="line">    public DBConnection getConnection() &#123;</span><br><span class="line">        return connection;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>扩展：<br><a href="https://blog.csdn.net/gavin_dyson/article/details/69668946" target="_blank" rel="noopener">https://blog.csdn.net/gavin_dyson/article/details/69668946</a></p>
+        <h1 id="Lambda收集器示例"><a href="#Lambda收集器示例" class="headerlink" title="Lambda收集器示例"></a>Lambda收集器示例</h1><h2 id="Collectors常用方法"><a href="#Collectors常用方法" class="headerlink" title="Collectors常用方法"></a>Collectors常用方法</h2><table>
+<thead>
+<tr>
+<th>工厂方法</th>
+<th>返回类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>toSet</td>
+<td>Set<t></t></td>
+<td>把流中所有项目收集到一个 Set，删除重复项</td>
+</tr>
+<tr>
+<td>toList</td>
+<td>List<t></t></td>
+<td>收集到一个 List 集合中</td>
+</tr>
+<tr>
+<td>toCollection</td>
+<td>Collection<t></t></td>
+<td>把流中所有项目收集到给定的供应源创建的集合<code>menuStream.collect(toCollection(), ArrayList::new)</code></td>
+</tr>
+<tr>
+<td>counting</td>
+<td>Long</td>
+<td>计算流中元素的个数</td>
+</tr>
+<tr>
+<td>summingInt</td>
+<td>Integer</td>
+<td>对流中项目的一个整数属性求和</td>
+</tr>
+<tr>
+<td>averagingInt</td>
+<td>Double</td>
+<td>计算流中项目 Integer 属性的平均值</td>
+</tr>
+<tr>
+<td>summarizingInt</td>
+<td>IntSummaryStatistics</td>
+<td>收集关于流中项目 Integer 属性的统计值，例如最大、最小、 总和与平均值</td>
+</tr>
+<tr>
+<td>joining</td>
+<td>String</td>
+<td>连接对流中每个项目调用 toString 方法所生成的字符串<code>collect(joining(&quot;, &quot;))</code></td>
+</tr>
+<tr>
+<td>maxBy</td>
+<td>Optional<t></t></td>
+<td>一个包裹了流中按照给定比较器选出的最大元素的 Optional， 或如果流为空则为 Optional.empty()</td>
+</tr>
+<tr>
+<td>minBy</td>
+<td>Optional<t></t></td>
+<td>一个包裹了流中按照给定比较器选出的最小元素的 Optional， 或如果流为空则为 Optional.empty()</td>
+</tr>
+<tr>
+<td>reducing</td>
+<td>归约操作产生的类型</td>
+<td>从一个作为累加器的初始值开始，利用 BinaryOperator 与流 中的元素逐个结合，从而将流归约为单个值累加<code>int totalCalories = menuStream.collect(reducing(0, Dish::getCalories, Integer::sum));</code></td>
+</tr>
+<tr>
+<td>collectingAndThen</td>
+<td>转换函数返回的类型</td>
+<td>包裹另一个收集器，对其结果应用转换函数<code>int howManyDishes = menuStream.collect(collectingAndThen(toList(), List::size))</code></td>
+</tr>
+<tr>
+<td>groupingBy</td>
+<td>Map&lt;K, List<t>&gt;</t></td>
+<td>根据项目的一个属性的值对流中的项目作问组，并将属性值作 为结果 Map 的键</td>
+</tr>
+<tr>
+<td>partitioningBy</td>
+<td>Map&lt;Boolean,List<t>&gt;</t></td>
+<td>根据对流中每个项目应用谓词的结果来对项目进行分区</td>
+</tr>
+</tbody>
+</table>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>Apple 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer num;</span><br><span class="line">    <span class="keyword">private</span> String color;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(Integer id, String name, Integer num, String color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.num = num;</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略 setter、getter方法</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Apple&#123;"</span> +</span><br><span class="line">                <span class="string">"id="</span> + id +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", num="</span> + num +</span><br><span class="line">                <span class="string">", color='"</span> + color + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Apple&gt; appleList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">Apple apple1 =  <span class="keyword">new</span> Apple(<span class="number">1</span>,<span class="string">"苹果1"</span>,<span class="number">10</span>, <span class="string">"red"</span>);</span><br><span class="line">Apple apple2 = <span class="keyword">new</span> Apple(<span class="number">1</span>,<span class="string">"苹果2"</span>,<span class="number">20</span>, <span class="string">"green"</span>);</span><br><span class="line">Apple apple3 =  <span class="keyword">new</span> Apple(<span class="number">2</span>,<span class="string">"香蕉"</span>,<span class="number">30</span>, <span class="string">"yellow"</span>);</span><br><span class="line">Apple apple4 =  <span class="keyword">new</span> Apple(<span class="number">3</span>,<span class="string">"荔枝"</span>,<span class="number">40</span>, <span class="string">"red"</span>);</span><br><span class="line"></span><br><span class="line">appleList.add(apple1);</span><br><span class="line">appleList.add(apple2);</span><br><span class="line">appleList.add(apple3);</span><br><span class="line">appleList.add(apple4);</span><br></pre></td></tr></table></figure>
+<p>常用收集器示例</p>
+<ul>
+<li>toList</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取数量大于25的Apple</span></span><br><span class="line">List&lt;Apple&gt; collect = appleList.stream()</span><br><span class="line">                .filter(apple -&gt; apple.getNum() &gt; <span class="number">25</span>)</span><br><span class="line">                .collect(toList());</span><br><span class="line"><span class="comment">//</span></span><br><span class="line">[Apple&#123;id=<span class="number">2</span>, name=<span class="string">'香蕉'</span>, num=<span class="number">30</span>, color=<span class="string">'yellow'</span>&#125;, </span><br><span class="line"> Apple&#123;id=<span class="number">3</span>, name=<span class="string">'荔枝'</span>, num=<span class="number">40</span>, color=<span class="string">'red'</span>&#125;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>toSet</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取颜色信息</span></span><br><span class="line">Set&lt;String&gt; collect = appleList.stream()</span><br><span class="line">                .map(Apple::getColor)</span><br><span class="line">                .collect(toSet());</span><br><span class="line"><span class="comment">// [red, green, yellow]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>toCollection</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Apple&gt; collect = appleList.stream()</span><br><span class="line">                .filter(x-&gt;x.getNum()&gt;<span class="number">18</span>)</span><br><span class="line">                .collect(toCollection(ArrayList::<span class="keyword">new</span>));</span><br><span class="line">/-----------------------------/</span><br><span class="line">[Apple&#123;id=<span class="number">1</span>, name=<span class="string">'苹果2'</span>, num=<span class="number">20</span>, color=<span class="string">'green'</span>&#125;, </span><br><span class="line"> Apple&#123;id=<span class="number">2</span>, name=<span class="string">'香蕉'</span>, num=<span class="number">30</span>, color=<span class="string">'yellow'</span>&#125;, </span><br><span class="line"> Apple&#123;id=<span class="number">3</span>, name=<span class="string">'荔枝'</span>, num=<span class="number">40</span>, color=<span class="string">'red'</span>&#125;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>counting：统计数量</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Long aLong = appleList.stream()</span><br><span class="line">                .filter(x -&gt; x.getNum() &gt; <span class="number">18</span>)</span><br><span class="line">                .collect(counting());</span><br><span class="line"><span class="comment">// 另一种写法</span></span><br><span class="line">Long aLong = appleList.stream()</span><br><span class="line">                .filter(x -&gt; x.getNum() &gt; <span class="number">18</span>)</span><br><span class="line">                .count();</span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>summingInt：对一个属性求和</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Integer integer = appleList.stream()</span><br><span class="line">                .collect(summingInt(p -&gt; p.getNum()));</span><br><span class="line"><span class="comment">// 另一种写法</span></span><br><span class="line">Integer integer = appleList.stream()</span><br><span class="line">                .mapToInt(Apple::getNum).sum();</span><br><span class="line"><span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>averagingInt：求平均值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Double aDouble = appleList.stream().collect(averagingInt(Apple::getNum));</span><br><span class="line"><span class="comment">// 25.0</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>summarizingInt:求最大、最小、平均值等</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IntSummaryStatistics collect1 = appleList.stream().collect(summarizingInt(Apple::getNum));</span><br><span class="line"><span class="comment">// IntSummaryStatistics&#123;count=4, sum=100, min=10, average=25.000000, max=40&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>joining：对流中元素调用toString，拼接成字符串</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = appleList.stream().map(Apple::getName).collect(joining(<span class="string">"--"</span>));</span><br><span class="line"><span class="comment">// 苹果1--苹果2--香蕉--荔枝</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>maxBy | minBy : 求最大最小元素</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;Apple&gt; collect = appleList.stream()</span><br><span class="line">                .collect(maxBy(comparing(Apple::getNum)));</span><br><span class="line"><span class="comment">// 另一种写法</span></span><br><span class="line">Optional&lt;Apple&gt; collect = appleList.stream()</span><br><span class="line">                .max(comparing(Apple::getNum))</span><br><span class="line"><span class="comment">// Apple&#123;id=3, name='荔枝', num=40, color='red'&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>reducing：规约操作</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Integer integer = appleList.stream()</span><br><span class="line">                .collect(reducing(<span class="number">0</span>, Apple::getNum, Integer::sum));</span><br><span class="line"><span class="comment">// 另一种写法</span></span><br><span class="line">Optional&lt;Integer&gt; reduce = appleList.stream()</span><br><span class="line">                .map(Apple::getNum)</span><br><span class="line">                .reduce(Integer::sum);</span><br><span class="line"><span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>groupingBy | partitioningBy ：分组操作</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, List&lt;Apple&gt;&gt; groupBy = appleList.stream()</span><br><span class="line">                .collect(Collectors.groupingBy(Apple::getId));</span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line">	<span class="number">1</span>=[Apple&#123;id=<span class="number">1</span>, name=<span class="string">'苹果1'</span>, num=<span class="number">10</span>, color=<span class="string">'red'</span>&#125;, </span><br><span class="line">     Apple&#123;id=<span class="number">1</span>, name=<span class="string">'苹果2'</span>, num=<span class="number">20</span>, color=<span class="string">'green'</span>&#125;], </span><br><span class="line">  <span class="number">2</span>=[Apple&#123;id=<span class="number">2</span>, name=<span class="string">'香蕉'</span>, num=<span class="number">30</span>, color=<span class="string">'yellow'</span>&#125;], </span><br><span class="line">	<span class="number">3</span>=[Apple&#123;id=<span class="number">3</span>, name=<span class="string">'荔枝'</span>, num=<span class="number">40</span>, color=<span class="string">'red'</span>&#125;]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// partitioningBy：条件分组</span></span><br><span class="line">Map&lt;Boolean, List&lt;Apple&gt;&gt; collect1 = appleList.stream()</span><br><span class="line">  					.collect(partitioningBy(x -&gt; x.getNum() &gt; <span class="number">24</span>));</span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line">	<span class="keyword">false</span>=[Apple&#123;id=<span class="number">1</span>, name=<span class="string">'苹果1'</span>, num=<span class="number">10</span>, color=<span class="string">'red'</span>&#125;, </span><br><span class="line">         Apple&#123;id=<span class="number">1</span>, name=<span class="string">'苹果2'</span>, num=<span class="number">20</span>, color=<span class="string">'green'</span>&#125;],</span><br><span class="line">  <span class="keyword">true</span>=[Apple&#123;id=<span class="number">2</span>, name=<span class="string">'香蕉'</span>, num=<span class="number">30</span>, color=<span class="string">'yellow'</span>&#125;, </span><br><span class="line">        Apple&#123;id=<span class="number">3</span>, name=<span class="string">'荔枝'</span>, num=<span class="number">40</span>, color=<span class="string">'red'</span>&#125;]&#125;</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license  -->
@@ -463,16 +548,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/10/22/Java8之collection细节/" title= "Java 8 之collection细节">
-                    <div class="nextTitle">Java 8 之collection细节</div>
+                <a href= "/2018/11/06/CopyOnWriteArrayList介绍/" title= "CopyOnWriteArrayList介绍">
+                    <div class="nextTitle">CopyOnWriteArrayList介绍</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/10/19/20181019-XML解析-陈广禄/" title= "XML解析">
-                    <div class="prevTitle">XML解析</div>
+                <a href= "/2018/11/06/java8-时间日期api/" title= "Java 8 之时间日期Api">
+                    <div class="prevTitle">Java 8 之时间日期Api</div>
                 </a>
             
         </li>
@@ -540,7 +625,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Enum-枚举"><span class="toc-number">1.</span> <span class="toc-text">Enum 枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类中的抽象类"><span class="toc-number">1.1.</span> <span class="toc-text">枚举类中的抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类在switch中应用"><span class="toc-number">1.2.</span> <span class="toc-text">枚举类在switch中应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类实现接口"><span class="toc-number">1.3.</span> <span class="toc-text">枚举类实现接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举实现-单例模式"><span class="toc-number">1.4.</span> <span class="toc-text">枚举实现 单例模式</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lambda收集器示例"><span class="toc-number">1.</span> <span class="toc-text">Lambda收集器示例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Collectors常用方法"><span class="toc-number">1.1.</span> <span class="toc-text">Collectors常用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">1.2.</span> <span class="toc-text">示例</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

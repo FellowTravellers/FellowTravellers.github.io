@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Java 8 之enum枚举 · Fellow Travellers</title>
+    <title>CopyOnWriteArrayList介绍 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Fellow Travellers</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Java 8 之enum枚举</a>
+                <a href="#" class="post-name">CopyOnWriteArrayList介绍</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Java 8 之enum枚举
+            CopyOnWriteArrayList介绍
             <!-- 404 -->
             
         </h1>
@@ -280,12 +280,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">751</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">499</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/10/22</span>
+                    <span class="post-intro-time">2018/11/06</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -409,51 +409,27 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="Enum-枚举"><a href="#Enum-枚举" class="headerlink" title="Enum 枚举"></a>Enum 枚举</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public enum Color &#123;</span><br><span class="line">    RED, YELLOW, BLUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>==说明：==</p>
-<blockquote>
-<p>使用的是enum关键字而不是class</p>
-<p>多个枚举变量之间用 逗号 隔开</p>
-<p>枚举变量名大写，多个单词之间用 _ 隔开。  如。 ALL_NUM…</p>
-<p>定义完枚举变量后， 用分号 结束。如果只有枚举变量，而没有自定义变量，分号可以省略。</p>
-<p>使用  只需要【类名.变量名】就可以了，和使用静态变量一样。 </p>
-</blockquote>
-<p>方法：</p>
-<p>values()</p>
-<blockquote>
-<p>这个方法会返回包括所有枚举变量的数组 </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (Color color : Color.values()) &#123;</span><br><span class="line">	// 下标</span><br><span class="line">	System.out.println(color.ordinal());</span><br><span class="line">	// 枚举变量名字</span><br><span class="line">	System.out.println(color.name());</span><br><span class="line">	// 同上</span><br><span class="line">	System.out.println(color.toString());</span><br><span class="line">&#125;</span><br><span class="line">// 比较的是下标</span><br><span class="line">System.out.println(Color.valueOf(&quot;YELLOW&quot;).compareTo(Color.valueOf(&quot;BLUE&quot;)));</span><br></pre></td></tr></table></figure>
-<p>valueOf(String name)</p>
-<blockquote>
-<p>它的作用是传来一个字符串，然后将它转变为对应的枚举变量 . </p>
-<p><strong>字符串和定义枚举变量的字符串必须一样</strong>，并且区分大小写。如果不存在会抛出异常。java.lang.IllegalArgumentException</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public enum Weekday &#123;</span><br><span class="line">    MON(1),TUS(2),WED(3),THU(4),FRI(5),SAT(6),SUN(0);</span><br><span class="line"></span><br><span class="line">    private int index;</span><br><span class="line"></span><br><span class="line">    private Weekday(int index)&#123;</span><br><span class="line">        this.index = index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>==说明==</p>
-<blockquote>
-<p>定义的枚举变量 必须 在第一行。以 分号结束。</p>
-<p>构造函数只能是 private 的。否则 编译不通过</p>
-<p>自定义的  index  和 下标 不冲突。</p>
-</blockquote>
-<h3 id="枚举类中的抽象类"><a href="#枚举类中的抽象类" class="headerlink" title="枚举类中的抽象类"></a>枚举类中的抽象类</h3><p>实例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public enum Color &#123;</span><br><span class="line">    RED() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Color getNextColor() &#123;</span><br><span class="line">            return YELLOW;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    YELLOW()&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Color getNextColor() &#123;</span><br><span class="line">            return BLUE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    BLUE()&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Color getNextColor() &#123;</span><br><span class="line">            return RED;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">		/**</span><br><span class="line">     * 获取下一种颜色</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public abstract Color getNextColor();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Color yellow = Color.valueOf(&quot;YELLOW&quot;);</span><br><span class="line">System.out.println(yellow.getNextColor());</span><br><span class="line"></span><br><span class="line">// BLUE</span><br></pre></td></tr></table></figure>
-<p>枚举类的原理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public enum Weekday &#123;</span><br><span class="line">    MON(1),TUS(2),WED(3),THU(4),FRI(5),SAT(6),SUN(0);</span><br><span class="line"></span><br><span class="line">    private int index;</span><br><span class="line"></span><br><span class="line">    private Weekday(int index)&#123;</span><br><span class="line">        this.index = index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>javap 反编译 Weekday.class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public final class enums.Weekday extends java.lang.Enum&lt;enums.Weekday&gt; &#123;</span><br><span class="line">  public static final enums.Weekday MON;</span><br><span class="line">  public static final enums.Weekday TUS;</span><br><span class="line">  public static final enums.Weekday WED;</span><br><span class="line">  public static final enums.Weekday THU;</span><br><span class="line">  public static final enums.Weekday FRI;</span><br><span class="line">  public static final enums.Weekday SAT;</span><br><span class="line">  public static final enums.Weekday SUN;</span><br><span class="line">  public static enums.Weekday[] values();</span><br><span class="line">  public static enums.Weekday valueOf(java.lang.String);</span><br><span class="line">  static &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>是 final 类，不能被继承。</p>
-<p>继承了 java.lang.Enum 类。只能实现接口了。</p>
-</blockquote>
-<p>在Color枚举类中定义的 RED、、、本身是一个 Color对象的引用。<code>Color RED = new Color();</code> 使用匿名内部类方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Color RED = new Color() &#123;</span><br><span class="line">	@override</span><br><span class="line">  public Color getNextColor() &#123;</span><br><span class="line">  	return YELLOW;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">在枚举类中  只用写  RED()&#123;...&#125; JVM会完成其它操作</span><br></pre></td></tr></table></figure>
-<h3 id="枚举类在switch中应用"><a href="#枚举类在switch中应用" class="headerlink" title="枚举类在switch中应用"></a>枚举类在switch中应用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">switch (color) &#123;</span><br><span class="line">case RED:</span><br><span class="line">	color = Color.GREEN;</span><br><span class="line">	break;</span><br><span class="line">case YELLOW:</span><br><span class="line">	color = Color.RED;</span><br><span class="line">	break;</span><br><span class="line">case GREEN:</span><br><span class="line">	color = Color.YELLOW;</span><br><span class="line">	break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="枚举类实现接口"><a href="#枚举类实现接口" class="headerlink" title="枚举类实现接口"></a>枚举类实现接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface Behaviour &#123;</span><br><span class="line">    void print();</span><br><span class="line">    String getInfo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public enum Weekday implements Behaviour&#123;</span><br><span class="line">    MON(1),TUS(2),WED(3),THU(4),FRI(5),SAT(6),SUN(0);</span><br><span class="line"></span><br><span class="line">    private int index;</span><br><span class="line"></span><br><span class="line">    Weekday(int index)&#123;</span><br><span class="line">        this.index = index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void print() &#123;</span><br><span class="line">        System.out.println(this.index + &quot;:&quot; + toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getInfo() &#123;</span><br><span class="line">        return toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="枚举实现-单例模式"><a href="#枚举实现-单例模式" class="headerlink" title="枚举实现 单例模式"></a>枚举实现 单例模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public enum DataSourceEnum &#123;</span><br><span class="line">    DATASOURCE;</span><br><span class="line">    private DBConnection connection = null;</span><br><span class="line">    private DataSourceEnum() &#123;</span><br><span class="line">        connection = new DBConnection();</span><br><span class="line">    &#125;</span><br><span class="line">    public DBConnection getConnection() &#123;</span><br><span class="line">        return connection;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>扩展：<br><a href="https://blog.csdn.net/gavin_dyson/article/details/69668946" target="_blank" rel="noopener">https://blog.csdn.net/gavin_dyson/article/details/69668946</a></p>
+        <h1 id="CopyOnWriteArrayList介绍"><a href="#CopyOnWriteArrayList介绍" class="headerlink" title="CopyOnWriteArrayList介绍"></a><strong>CopyOnWriteArrayList</strong>介绍</h1><p>​    CopyOnWrite容器即写时复制的容器。通俗的理解是当我们往一个容器添加元素的时候，不直接往当前容器添加，而是先将当前容器进行Copy，复制出一个新的容器，然后新的容器里添加元素，添加完元素之后，再将原容器的引用指向新的容器。 </p>
+<p>​    CopyOnWrite容器也是一种读写分离的思想，读和写不同的容器。 </p>
+<p>在 <strong>集合的安全失败机制“fail-safe”</strong> 提到使用 CopyOnWriteArrayList 可以解决此问题，</p>
+<p>在 com.mysql.jdbc.Driver 下会使用到，即： class.forName(“com.mysql.jdbc.Driver”)会执行以下代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> <span class="keyword">extends</span> <span class="title">NonRegisteringDriver</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">sql</span>.<span class="title">Driver</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">         DriverManager.registerDriver(<span class="keyword">new</span> Driver());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DriverManager</span> </span>&#123;</span><br><span class="line">    <span class="comment">// List of registered JDBC drivers</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> CopyOnWriteArrayList&lt;DriverInfo&gt; registeredDrivers = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>查看该类所在位置：</p>
+<p>​    CopyOnWriteArrayList 位于 java.util.concurrent 包下，可知：该类为 并发而设计。</p>
+<p>看示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Integer&gt; list = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">		list.add(<span class="number">1</span>);</span><br><span class="line">		list.add(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CopyOnWriteArrayList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">transient</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** The array, accessed only via getArray/setArray. */</span></span><br><span class="line">     <span class="comment">// 使用 Object 数组 存储数据。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Object[] array;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock；</span><br><span class="line">	lock.lock();<span class="comment">// 加锁，保证线程安全</span></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		Object[] elements = getArray();</span><br><span class="line">		<span class="keyword">int</span> len = elements.length;</span><br><span class="line">		Object[] newElements = Arrays.copyOf(elements, len + <span class="number">1</span>);</span><br><span class="line">		newElements[len] = e;</span><br><span class="line">		setArray(newElements);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">		lock.unlock();<span class="comment">// 释放锁</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>步骤：</p>
+<p>1、加锁。</p>
+<p>2、获取原数组（getArray()方法），得到新数组（newElements，原数组+1）。</p>
+<p>3、把原数组的元素复制到新数组中去 。</p>
+<p>4、新元素添加到新数组中。</p>
+<p>5、array引用新数组。</p>
+<p>6、释放锁。</p>
+<p>其它操作【remvoe、clear、set】都和add 方法类似。每一次的操作都是以对Object[] array进行一次复制为基础的。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>1、由于写操作的时候，需要拷贝数组，会消耗内存。</p>
+<p>2、不能用于==实时读==的场景 ，只是做到了==最终一致性==。</p>
 
     </article>
     <!-- license  -->
@@ -462,17 +438,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/10/22/Java8之collection细节/" title= "Java 8 之collection细节">
-                    <div class="nextTitle">Java 8 之collection细节</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/10/19/20181019-XML解析-陈广禄/" title= "XML解析">
-                    <div class="prevTitle">XML解析</div>
+                <a href= "/2018/11/06/Lambda收集器示例/" title= "Lambda收集器示例">
+                    <div class="prevTitle">Lambda收集器示例</div>
                 </a>
             
         </li>
@@ -540,7 +511,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Enum-枚举"><span class="toc-number">1.</span> <span class="toc-text">Enum 枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类中的抽象类"><span class="toc-number">1.1.</span> <span class="toc-text">枚举类中的抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类在switch中应用"><span class="toc-number">1.2.</span> <span class="toc-text">枚举类在switch中应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举类实现接口"><span class="toc-number">1.3.</span> <span class="toc-text">枚举类实现接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举实现-单例模式"><span class="toc-number">1.4.</span> <span class="toc-text">枚举实现 单例模式</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CopyOnWriteArrayList介绍"><span class="toc-number">1.</span> <span class="toc-text">CopyOnWriteArrayList介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#缺点"><span class="toc-number">1.1.</span> <span class="toc-text">缺点</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
