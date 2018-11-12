@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Fellow Travellers</title>
+    <title>ArcEngine开发中一些提高效率技巧 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">ArcEngine开发中一些提高效率技巧</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Fellow Travellers</a>
 </header>
@@ -220,24 +231,86 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            ArcEngine开发中一些提高效率技巧
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ArcEngine">ArcEngine</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "C#">C#</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "胡飞玲">胡飞玲</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.1k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/11/12</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,214 +411,266 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >
-            
-                <span>Retrofit简单封装</span>
-        </a>
-        <div class="abstract-content">
-            #Retrofit简单封装
-1 简介一个Restful的HTTP网络请求框架（基于OKHttp）
-1.1 功能
-基于OKHttp &amp; 遵循Restful API设计风格
-通过注解配置网络请求参数
-支持同步 &amp; 异步网络请求
-支持多种数据的解析 &amp; 序列化格式(Gson、JSON、XML、Protobuf)
-提供 RxJava支持
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><img src="https://i.imgur.com/XkS0VDC.jpg" alt=""></p>
+<h1 id="ArcEngine开发中一些提高效率技巧"><a href="#ArcEngine开发中一些提高效率技巧" class="headerlink" title="ArcEngine开发中一些提高效率技巧"></a>ArcEngine开发中一些提高效率技巧</h1><h2 id="一-查询篇"><a href="#一-查询篇" class="headerlink" title="一 .  查询篇"></a>一 .  查询篇</h2><h3 id="1-AE的三种查询方式概述"><a href="#1-AE的三种查询方式概述" class="headerlink" title="1.  AE的三种查询方式概述"></a>1.  AE的三种查询方式概述</h3><p>在使用ArcEngine查询空间数据库的时候主要使用三种查询接口：</p>
+<ul>
+<li>IQueryFilter</li>
+<li>ISpatialFilter</li>
+<li>IQueryDef</li>
+</ul>
+<p>三种接口使用场景总结如下表：</p>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th>IQueryFilter</th>
+<th>ISpatialFilter</th>
+<th>IQueryDef</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>属性约束</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr>
+<td>空间约束</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr>
+<td>查询结果包括多个表的字段</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr>
+<td>查询结果返回一个游标</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr>
+<td>对象可以从结果中创建</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr>
+<td>返回的记录可以被编辑</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Records include edits made in active edit session</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>从上表可看出：</p>
+<ul>
+<li><p>IQueryFilter 实现属性条件查询</p>
+</li>
+<li><p>ISpatialFilter 实现 属性+空间条件查询</p>
+</li>
+<li><p>IQueryDef 可实现属性查询，和多表查询，不能实现空间查询</p>
+</li>
+</ul>
+<h3 id="2-IQueryFilter-接口参数设置技巧"><a href="#2-IQueryFilter-接口参数设置技巧" class="headerlink" title="2.  IQueryFilter 接口参数设置技巧"></a>2.  IQueryFilter 接口参数设置技巧</h3><ul>
+<li><p>SubFields</p>
+<p>  只设置需要查询的字段，这样比不设置和设置*查询速度会快很多。如果不设置这个属性，则会返回全部字段    </p>
+<p>  注意：如果需要读取图形geometry，SubFields需要加 shape字段 ，否则报错；编辑数据时，一般不设置</p>
+</li>
+<li><p>WhereClause</p>
+<p>  优先使用大于、小于，其次才是不等于</p>
+<p>  索引的使用注意事项：</p>
+<p>  索引失效：值如 Area/30&lt; 1000 换成Area&lt;1000/30</p>
+<p>  索引失效：使用不等于运算符（&lt;&gt;、!=尽量不要计算字段，而去计算查询）</p>
+</li>
+</ul>
+<ul>
+<li><p>Recycling 参数  【 IFeatureClass.Search(filter, Recycling ) 】</p>
+<p>  True :循环使用对象，查询速度快，只存储一份对象 ，一般读操作时设置</p>
+<p>  False ：不循环使用对象，查询速度慢，存储多份对象，一般写操作时设置</p>
+<p>  注意：如果设置为True，跳出循环以后，游标获取Feature不可以使用，</p>
+</li>
+<li><p>实例：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IQueryFilter pQueryFilter = new QueryFilterClass(); </span><br><span class="line">string SubFields = &quot;OID,Shape&quot;;</span><br><span class="line">pQueryFilter.SubFields = SubFields;</span><br><span class="line">ipFeatCursor = ipBufferFeaCls.Search(pQueryFilter, true);</span><br><span class="line">ipFeature = ipFeatCursor.NextFeature();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-ISpatialFilter-接口"><a href="#3-ISpatialFilter-接口" class="headerlink" title="3.  ISpatialFilter 接口"></a>3.  ISpatialFilter 接口</h3><ul>
+<li><p>Geometry<br>如果使用几何包对象作为过滤的几何图形，在为ISpatialFilter对象设置Geometry属性之前，先对几何包对象创建空间索引，这样能大大提高查询的效率，下面是创建空间索引的示例代码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 将几何包对象转换到ISpatialIndex对象上去</span><br><span class="line">ISpatialIndex spatialIndex = (ISpatialIndex)geometryBag;</span><br><span class="line">spatialIndex.AllowIndexing = true;</span><br><span class="line">spatialIndex.Invalidate();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SubFields （同上）</p>
+</li>
+<li><p>WhereClause （同上）</p>
+</li>
+<li><p>Recycling 参数 （同上）</p>
+</li>
+</ul>
+<h3 id="4-IQueryDef2-接口"><a href="#4-IQueryDef2-接口" class="headerlink" title="4.  IQueryDef2 接口"></a>4.  IQueryDef2 接口</h3><p> IQueryDef2对象可由IFeatureWorkspace.CreateQueryDef 方法创建，一般这个速度最快，类似构建sql语句查表。该接口可同时可实现 distinct，group by，order by 等功能</p>
+<ul>
+<li><p>注意事项： </p>
+<p>  1) 只能在ArcSDE、PGDB、FGDB数据源上使用（注意：shp数据不支持），数据集的历史表示 不被QueryDef游标支持(翻译可能不太准确，详见官方文档）。 </p>
+<p>  2) 支持多表查询，但是查询的结果不能进行修改！ </p>
+<p>  3) 使用IQueryDef查询出来的游标，用此游标获取的字段的别名和字段名一致（如果是要获取字段的中文别名，请使用其他方法获取游标）</p>
+</li>
+<li><p>参数说明</p>
+<ul>
+<li><p>Tables </p>
+<p>  查询的表名称，支持多表查询，用逗号隔开即可，如”TableUser,TableRole”**<br>  注意事项：如果使用的是SDE数据源，当当前的工作空间不是表所在的用户空间下，需要在表的前边加用户名前缀（如：Owner.MyTable)</p>
+</li>
+<li><p>SubFields </p>
+<p>  查询的字段列表，默认不填为查询所有字段，即”*”，支持Distinct关键字,<br>  格式： </p>
+<p>  1） “*”  返回所有字段 </p>
+<p>  2）”field1,field2,field3”  用逗号隔开要查询的字段 </p>
+<p>  3）”table1.*,table2.field1,table3.field2”  查询table1的所有字段，table2的字段1，和table3的字段2</p>
+</li>
+<li><p>WhereClause </p>
+<p>  这块注意不同数据源，查询的SQL写法不同</p>
+</li>
+<li><p>PrefixClause </p>
+<p>  前缀查询条件，在Select 和 Select Column List之间，如Distinct关键字和ALL关键字</p>
+</li>
+<li><p>PrefixClause </p>
+<p>  后缀查询条件，在Select语句后，紧跟Where语句之后，如Order By</p>
+</li>
+<li><p>Evaluate </p>
+<p>  返回ICursor对象，这块使用的过程中记得用ComReleaser管理，在使用完毕释放Com对象</p>
+</li>
+</ul>
+</li>
+<li><p>实例：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">        IQueryDef2 queryDef2 = (IQueryDef2)featureWorkspace.CreateQueryDef();</span><br><span class="line">        queryDef2.Tables = &quot;Cities&quot;;</span><br><span class="line">        queryDef2.SubFields = &quot;Name&quot;;</span><br><span class="line">        queryDef2.PostfixClause = &quot;ORDER BY Name DESC&quot;;</span><br><span class="line">        (ComReleaser comReleaser = new ComReleaser())</span><br><span class="line">        &#123;</span><br><span class="line">            ICursor cursor = queryDef2.Evaluate2(true);</span><br><span class="line">            comReleaser.ManageLifetime(cursor);</span><br><span class="line">            int nameIndex = cursor.FindField(&quot;Name&quot;);</span><br><span class="line">            IRow row = null;</span><br><span class="line">            while ((row = cursor.NextRow()) != null)</span><br><span class="line">            &#123;</span><br><span class="line">                String cityName = Convert.ToString(row.get_Value(nameIndex));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ``` </span><br><span class="line"></span><br><span class="line">## 二 .  统计篇</span><br><span class="line"></span><br><span class="line">###  1. 统计两种方式</span><br><span class="line"></span><br><span class="line">- IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- IDataStatistics接口</span><br><span class="line"></span><br><span class="line">总结：</span><br><span class="line"></span><br><span class="line">- IQueryDef接口 无法进行空间查询统计，但是速度快</span><br><span class="line"></span><br><span class="line">- IDataStatistics 可进行空间查询统计，但是数据量大的时候比较慢</span><br><span class="line"></span><br><span class="line">### 2. IDataStatistics接口</span><br><span class="line"></span><br><span class="line">IDataStatistics的属性Statistics返回一个IStatisticsResult，可统计字段最大值 最小值 平均值 求和等：</span><br><span class="line"></span><br><span class="line">    获取唯一值：</span><br><span class="line">    IQueryFilter pQueryF = new QueryFilterClass();  </span><br><span class="line">    pQueryF.SubFields = &quot;CC&quot;;  </span><br><span class="line">    IFeatureCursor pFeatureCursor = pCoverFC.Search(null, true);  </span><br><span class="line">    IDataStatistics pDStatistics = new DataStatistics();  </span><br><span class="line">    pDStatistics.Field = &quot;CC&quot;;  </span><br><span class="line">    pDStatistics.Cursor = (ICursor)pFeatureCursor;  </span><br><span class="line">    IEnumerator pEnumerator = pDStatistics.UniqueValues;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    统计其他：</span><br><span class="line">    ICursor pCursor = pFeaturelayer.Search(pQueryFilter, false) as ICursor;</span><br><span class="line">    IDataStatistics pData = new DataStatisticsClass();</span><br><span class="line">    pData.Cursor = pCursor;</span><br><span class="line">    pData.Field = pField.Name;</span><br><span class="line">    ESRI.ArcGIS.esriSystem.IStatisticsResults statisticsResults = pData.Statistics;</span><br><span class="line">    statisticsResults.Minimum;//最小值</span><br><span class="line">    statisticsResults.Maximum;//最大值</span><br><span class="line">    statisticsResults.Count;//数量</span><br><span class="line"></span><br><span class="line">### 3. IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- 通过IQueryDef 中 group by 达到统计的效果，但是无法空间查询。同时可用distinct 来实现统计唯一值</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>IDataset pDataset = pFeatureClass as IDataset;<br>IQueryDef2 pDef = (pDataset.Workspace as IFeatureWorkspace).CreateQueryDef() as IQueryDef2;<br>pDef.Tables = pDataset.Name;<br>pDef.WhereClause = whereCause;<br>pDef.SubFields = “count(*),QDM”;<br>pDef.PostfixClause = “ group by QDM”;<br>ICursor cursor = pDef.Evaluate2(true);<br>IRow row = null;<br>while ((row = cursor.NextRow()) != null)<br>{<br>    int index = cursor.FindField(“QDM”);<br>    string  QDM = row.get_Value(index);<br>    string Count = row.get_Value(0).;<br>}</p>
+<p><code>`</code></p>
+<h2 id="三-编辑篇"><a href="#三-编辑篇" class="headerlink" title="三 .  编辑篇"></a>三 .  编辑篇</h2><h3 id="1-新增插入"><a href="#1-新增插入" class="headerlink" title="1. 新增插入"></a>1. 新增插入</h3><ul>
+<li><p>插入要素的两种方式 </p>
+<p>  单个创建：IFeatureClass.CreateFeature() + IFeature.Store()</p>
+<p>  批量创建：IFeatureCursor.InsertFeature(IFeatureBuffer)</p>
+</li>
+<li><p>空间索引</p>
+<p>  大数据量进行数据插入的过程中，无需进行空间索引的创建，可以等批量插入完成之后，统一创建空间索引</p>
+<p>  IFeatureClassLoad.LoadOnlyMode =true 高效插入</p>
+</li>
+<li><p>注意事项</p>
+<p>   插入游标是用来实现要素批量插入功能的，单个要素的编辑尽量不使用插入游标</p>
+<p>   调用插入游标的Flush方法时要捕捉异常</p>
+<p>   不要在循环中重复FindField查找字段,给字段赋值，在循环前获取字段索引（适用于所有查询，插入，更新操作）</p>
+</li>
+</ul>
+<h3 id="2-更新"><a href="#2-更新" class="headerlink" title="2. 更新"></a>2. 更新</h3><ul>
+<li><p>更新要素的两种方式 </p>
+<p>  单个更新：IFeature.Store() </p>
+<p>  批量更新：IFeatureCursor.UpdateFeature(IFeature) </p>
+<p>  将一批数据更新为某一相同的属性IRowBuffer </p>
+</li>
+<li><p>注意事项</p>
+<p>  –使用Update Cursor更新注意其位置有效性，只对游标当前位置的<br>  IFeature有效</p>
+</li>
+</ul>
+<h3 id="3-删除"><a href="#3-删除" class="headerlink" title="3. 删除"></a>3. 删除</h3><ul>
+<li><p>删除要素的两种方式 </p>
+<p>  IFeatureCursor 查询或IFeatureClass.GetFeature(OID) ，IFeature.Delete()（最慢，适合单个删除）</p>
+<p>  更新游标删除IFeatureCursor.DeleteFeature()（速度第三）</p>
+<p>  ITable.DeleteSearchedRows（IQueryFilter）删除 （速度第二）</p>
+<p>   IDataset.Workspace.ExecuteSQL（速度第一）</p>
+<p>   删除要素中所有要素删除（ITableWrite. Truncate)</p>
+</li>
+<li><p>注意事项</p>
+<p>   DeleteSearchedRows和ExecuteSQL属于批量删除，性能较优，但是整个过程不好    加进度条，界面不够友好</p>
+<p>   IFeatureCursor.DeleteFeature()虽次于前两者，可加界面进度条，用户体验会比较好</p>
+<p>  只针对非版本数据，且只有当前用户在用</p>
+</li>
+</ul>
+<h2 id="二-内存释放篇"><a href="#二-内存释放篇" class="headerlink" title="二 .  内存释放篇"></a>二 .  内存释放篇</h2><h3 id="1-需要释放的对象"><a href="#1-需要释放的对象" class="headerlink" title="1. 需要释放的对象"></a>1. 需要释放的对象</h3><ul>
+<li>IＣursor对象务必及时释放。在每次获取查询统计时获取游标后必须释放</li>
+<li>IEnumXX接口。</li>
+<li>GetXX方法获取的对象，比如IFeatureClass的GetFeature方法</li>
+<li>IPointCollection的GetPoint方法</li>
+<li>IWorkspace        </li>
+<li>打开单个文件数据库后的方法</li>
+<li>Mxd文档打开后的关闭</li>
+</ul>
+<h3 id="2-尽可能使用Esri提供的MangeLifetime来管理ArcGIS-Engine对象的生命周期"><a href="#2-尽可能使用Esri提供的MangeLifetime来管理ArcGIS-Engine对象的生命周期" class="headerlink" title="2. 尽可能使用Esri提供的MangeLifetime来管理ArcGIS Engine对象的生命周期"></a>2. 尽可能使用Esri提供的MangeLifetime来管理ArcGIS Engine对象的生命周期</h3><pre><code>using(ComReleaser comReleaser = new ComReleaser())
+{
+    //读取查询结果
+    IFeatureCursor featureCursor = featureClass.Search(spatialFilter, true);
+    comReleaser.ManageLifetime(featureCursor);
+    IFeature feature = null;
+    while ((feature = featureCursor.NextFeature()) != null)
+    {
+        String roadName = Convert.ToString(feature.get_Value(nameIndex));
+        String roadType = Convert.ToString(feature.get_Value(typeIndex));
+        Console.WriteLine(&quot;Name: {0}, Type: {1}&quot;, roadName, roadType);
+        //这块强烈建议feature释放掉，如果做大数据操作的时候这块不释放 内存会撑爆的。
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(feature);
+    }
+}
+</code></pre><h2 id="二-多线程篇"><a href="#二-多线程篇" class="headerlink" title="二 .  多线程篇"></a>二 .  多线程篇</h2><h3 id="1-多线程使用注意事项"><a href="#1-多线程使用注意事项" class="headerlink" title="1.多线程使用注意事项"></a>1.多线程使用注意事项</h3><pre><code>ArcGIS Engine支持多线程，但是不支持多个线程之间的彼此调用
 
-1.2 优点
-简洁易用：通过注解配置网络请求参数、采用大量设计模式简化使用
-可拓展性好：功能模块高度封装、解耦彻底，如自定义Converters等
-功能强大： 支持同步异步，支持各种数据解析，支持RxJava
-
-1.3 本质Retrof...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
-    
-</div>
-            
-        </div>
+• AO对象不能在线程中间共享，比如必须在各自的线程中重新打开Workspace、                 FeatureClass。
+•主线程向工作线程传递AO对象，可以将对象序列化成字符串，再将字符串传递    给目标线程，然后再反序列化还原到对象（待验证）
+•多线程处理中涉及GP工具，保证操作数据未被使用或占用，一般不能成功
+</code></pre>
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >
-            
-                <span>产品分析与代码监管之工具使用</span>
-        </a>
-        <div class="abstract-content">
-            一、    Sonarqube–代码检查工具1.    Sonarqube的安装（1）    下载sonarqube之后，解压打开bin目录，找到对应OS目录下的StartSonar。我电脑是win64位系统，则打开的是：（2）    启动浏览器，访问http://localhost:9000，如出现下图则表示安装成功。
-2.    Sonarqube的配置（1）    首先数据库的配置，这次我使用的是mysql。那么在mysql中新建一个数据库。（2）    打开安装目录下/conf/sonar.properties文件（3）    重启sonarqube服务，再次访问http://l...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/01/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/08/Android性能优化的分析/" >
-            
-                <span>Android 性能优化的分析</span>
-        </a>
-        <div class="abstract-content">
-            性能分析概述  编辑不合标准的应用程序性能会产生软件或网络问题。为确保软件满足或超过设计的期望值，有必要分析应用程序的性能以发现潜在的问题。这个过程被称为“性能分析”。它包括检查应用程序以确保每个组件有效地工作，并根据设计密切注视处理器的使用、网络和系统服务、存储和输入/输出(I/O)。
-1.Android App优化之性能分析工具图例：
-&lt;img src=http://thyrsi.com/t6/378/1538286566x-1404793035.png /&gt;
-2.Android App优化之提升App启动速度之理论基础不同专题加载方式启动速度对比：
-&lt;img sr...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >
-            
-                <span>多级List View的实现</span>
-        </a>
-        <div class="abstract-content">
-            1. 摘要走查主题：Android 多级ListView的设计与实现主讲人员：王凯伟参加人员：杨龙、万峥嵘、汪洋。走查时间：2017年6月23日星期五下午16:00到17：30走查地点：公司负一楼
-2. 走查内容2.1常规做法ListView为多级的显示方式，与此类似的有文件系统、省市区分级等等，类似于B树。最新效果图如下：其中通过Adapter适配到ListView上的数据结构大致如下：
-2.2一般会有两种数据存储形式A.  通过索引连接树的节点：某一点通过索引将所有点联系，类似于链表，任何两点间没有直接关系，如果要得到某个点需要算法和当前表/总表来遍历。存储效率高但遍历较耗时。
-&l...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/06/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/03/31/Android简单使用及快速入门/" >
-            
-                <span>Android 简单使用及快速入门</span>
-        </a>
-        <div class="abstract-content">
-            开发前的准备：1.配置java环境2.下载安装jdk、下载sdk3.下载开发工具：android studio 、eclipse4.项目运行设备：模拟器、手机、平板电脑5.Android基本常识：比如：四大组件的了解等…自行补脑!开发场景：1.新建项目启动流程2.项目维护常用步骤android studio 项目结构 ：
-&lt;img src=http://thyrsi.com/t6/377/1538203420x-1404781090.png /&gt;  eclipse 项目结构: &lt;img src=http://thyrsi.com/t6/377/1538203534x-1...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/03/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/02/17/AndroidRecyclerView使用解析/" >
-            
-                <span>Android Recycler View 使用解析</span>
-        </a>
-        <div class="abstract-content">
-            移动应用团队代码走查（20170217）1 摘要走查主题：Android RecyclerView  使用解析主讲人员：肖健参加人员：杨龙、万峥嵘、汪洋。走查时间：2017年2月17日星期五下午16:00到17：30走查地点：公司负一楼2 走查内容2.1 RecyclerView简介  在android L的预览版中，最新的v7支持包新添加了两个控件：RecyclerView和CardView。今天讲解的RecyclerView是经典的ListView的进化与升          华，与ListView比起来具有高度的解耦、更加灵活的特性，但也因此引入了一定的复杂性。
-2.2 Recyc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/02/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/11/06/CopyOnWriteArrayList介绍/" title= "CopyOnWriteArrayList介绍">
+                    <div class="prevTitle">CopyOnWriteArrayList介绍</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/tags/Android/">&#60; PREV</a><a class="page-number" href="/tags/Android/">1</a><span class="page-number current">2</span>
-    </nav>
     
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -563,6 +688,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ArcEngine开发中一些提高效率技巧"><span class="toc-number">1.</span> <span class="toc-text">ArcEngine开发中一些提高效率技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-查询篇"><span class="toc-number">1.1.</span> <span class="toc-text">一 .  查询篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-AE的三种查询方式概述"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.  AE的三种查询方式概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IQueryFilter-接口参数设置技巧"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.  IQueryFilter 接口参数设置技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ISpatialFilter-接口"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.  ISpatialFilter 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-IQueryDef2-接口"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.  IQueryDef2 接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-编辑篇"><span class="toc-number">1.2.</span> <span class="toc-text">三 .  编辑篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-新增插入"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 新增插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-更新"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-删除"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-内存释放篇"><span class="toc-number">1.3.</span> <span class="toc-text">二 .  内存释放篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-需要释放的对象"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 需要释放的对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尽可能使用Esri提供的MangeLifetime来管理ArcGIS-Engine对象的生命周期"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 尽可能使用Esri提供的MangeLifetime来管理ArcGIS Engine对象的生命周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-多线程篇"><span class="toc-number">1.4.</span> <span class="toc-text">二 .  多线程篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多线程使用注意事项"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.多线程使用注意事项</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1525,6 +1668,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
