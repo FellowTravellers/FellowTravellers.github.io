@@ -644,7 +644,7 @@ statisticsResults.Count;//数量
 <p>  只针对非版本数据，且只有当前用户在用</p>
 </li>
 </ul>
-<h2 id="二-内存释放篇"><a href="#二-内存释放篇" class="headerlink" title="二 .  内存释放篇"></a>二 .  内存释放篇</h2><h3 id="1-需要释放的对象"><a href="#1-需要释放的对象" class="headerlink" title="1. 需要释放的对象"></a>1. 需要释放的对象</h3><ul>
+<h2 id="四-内存释放篇"><a href="#四-内存释放篇" class="headerlink" title="四 .  内存释放篇"></a>四 .  内存释放篇</h2><h3 id="1-需要释放的对象"><a href="#1-需要释放的对象" class="headerlink" title="1. 需要释放的对象"></a>1. 需要释放的对象</h3><ul>
 <li>IＣursor对象务必及时释放。在每次获取查询统计时获取游标后必须释放</li>
 <li>IEnumXX接口。</li>
 <li>GetXX方法获取的对象，比如IFeatureClass的GetFeature方法</li>
@@ -668,7 +668,7 @@ statisticsResults.Count;//数量
         System.Runtime.InteropServices.Marshal.ReleaseComObject(feature);
     }
 }
-</code></pre><h2 id="二-多线程篇"><a href="#二-多线程篇" class="headerlink" title="二 .  多线程篇"></a>二 .  多线程篇</h2><h3 id="1-多线程使用注意事项"><a href="#1-多线程使用注意事项" class="headerlink" title="1.多线程使用注意事项"></a>1.多线程使用注意事项</h3><pre><code>ArcGIS Engine支持多线程，但是不支持多个线程之间的彼此调用
+</code></pre><h2 id="五-多线程篇"><a href="#五-多线程篇" class="headerlink" title="五 .  多线程篇"></a>五 .  多线程篇</h2><h3 id="1-多线程使用注意事项"><a href="#1-多线程使用注意事项" class="headerlink" title="1.多线程使用注意事项"></a>1.多线程使用注意事项</h3><pre><code>ArcGIS Engine支持多线程，但是不支持多个线程之间的彼此调用
 
 • AO对象不能在线程中间共享，比如必须在各自的线程中重新打开Workspace、                 FeatureClass。
 •主线程向工作线程传递AO对象，可以将对象序列化成字符串，再将字符串传递    给目标线程，然后再反序列化还原到对象（待验证）
@@ -754,7 +754,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ArcEngine开发中一些提高效率技巧"><span class="toc-number">1.</span> <span class="toc-text">ArcEngine开发中一些提高效率技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-查询篇"><span class="toc-number">1.1.</span> <span class="toc-text">一 .  查询篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-AE的三种查询方式概述"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.  AE的三种查询方式概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IQueryFilter-接口参数设置技巧"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.  IQueryFilter 接口参数设置技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ISpatialFilter-接口"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.  ISpatialFilter 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-IQueryDef2-接口"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.  IQueryDef2 接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-统计篇"><span class="toc-number">1.2.</span> <span class="toc-text">二 .  统计篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-统计两种方式"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 统计两种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IDataStatistics接口"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. IDataStatistics接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-IQueryDef2接口"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. IQueryDef2接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-编辑篇"><span class="toc-number">1.3.</span> <span class="toc-text">三 .  编辑篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-新增插入"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 新增插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-更新"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-删除"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-内存释放篇"><span class="toc-number">1.4.</span> <span class="toc-text">二 .  内存释放篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-需要释放的对象"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 需要释放的对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尽可能使用Esri提供的MangeLifetime来管理ArcGIS-Engine对象的生命周期"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 尽可能使用Esri提供的MangeLifetime来管理ArcGIS Engine对象的生命周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-多线程篇"><span class="toc-number">1.5.</span> <span class="toc-text">二 .  多线程篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多线程使用注意事项"><span class="toc-number">1.5.1.</span> <span class="toc-text">1.多线程使用注意事项</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ArcEngine开发中一些提高效率技巧"><span class="toc-number">1.</span> <span class="toc-text">ArcEngine开发中一些提高效率技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-查询篇"><span class="toc-number">1.1.</span> <span class="toc-text">一 .  查询篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-AE的三种查询方式概述"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.  AE的三种查询方式概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IQueryFilter-接口参数设置技巧"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.  IQueryFilter 接口参数设置技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ISpatialFilter-接口"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.  ISpatialFilter 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-IQueryDef2-接口"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.  IQueryDef2 接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-统计篇"><span class="toc-number">1.2.</span> <span class="toc-text">二 .  统计篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-统计两种方式"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 统计两种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IDataStatistics接口"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. IDataStatistics接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-IQueryDef2接口"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. IQueryDef2接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-编辑篇"><span class="toc-number">1.3.</span> <span class="toc-text">三 .  编辑篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-新增插入"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 新增插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-更新"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-删除"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-内存释放篇"><span class="toc-number">1.4.</span> <span class="toc-text">四 .  内存释放篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-需要释放的对象"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 需要释放的对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尽可能使用Esri提供的MangeLifetime来管理ArcGIS-Engine对象的生命周期"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 尽可能使用Esri提供的MangeLifetime来管理ArcGIS Engine对象的生命周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-多线程篇"><span class="toc-number">1.5.</span> <span class="toc-text">五 .  多线程篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多线程使用注意事项"><span class="toc-number">1.5.1.</span> <span class="toc-text">1.多线程使用注意事项</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -767,32 +767,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1593,15 +1567,19 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
-    
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
+    
+        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
@@ -1610,10 +1588,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
-    
-        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
-    
-        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1660,9 +1634,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
@@ -1673,8 +1649,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
     
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
-    
-        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
