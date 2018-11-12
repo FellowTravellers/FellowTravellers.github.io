@@ -549,8 +549,10 @@ height:50vh;
 </li>
 </ul>
 </li>
+</ul>
+<ul>
 <li><p>实例：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">        IQueryDef2 queryDef2 = (IQueryDef2)featureWorkspace.CreateQueryDef();</span><br><span class="line">        queryDef2.Tables = &quot;Cities&quot;;</span><br><span class="line">        queryDef2.SubFields = &quot;Name&quot;;</span><br><span class="line">        queryDef2.PostfixClause = &quot;ORDER BY Name DESC&quot;;</span><br><span class="line">        (ComReleaser comReleaser = new ComReleaser())</span><br><span class="line">        &#123;</span><br><span class="line">            ICursor cursor = queryDef2.Evaluate2(true);</span><br><span class="line">            comReleaser.ManageLifetime(cursor);</span><br><span class="line">            int nameIndex = cursor.FindField(&quot;Name&quot;);</span><br><span class="line">            IRow row = null;</span><br><span class="line">            while ((row = cursor.NextRow()) != null)</span><br><span class="line">            &#123;</span><br><span class="line">                String cityName = Convert.ToString(row.get_Value(nameIndex));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ``` </span><br><span class="line"></span><br><span class="line">## 二 .  统计篇</span><br><span class="line"></span><br><span class="line">###  1. 统计两种方式</span><br><span class="line"></span><br><span class="line">- IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- IDataStatistics接口</span><br><span class="line"></span><br><span class="line">总结：</span><br><span class="line"></span><br><span class="line">- IQueryDef接口 无法进行空间查询统计，但是速度快</span><br><span class="line"></span><br><span class="line">- IDataStatistics 可进行空间查询统计，但是数据量大的时候比较慢</span><br><span class="line"></span><br><span class="line">### 2. IDataStatistics接口</span><br><span class="line"></span><br><span class="line">IDataStatistics的属性Statistics返回一个IStatisticsResult，可统计字段最大值 最小值 平均值 求和等：</span><br><span class="line"></span><br><span class="line">    获取唯一值：</span><br><span class="line">    IQueryFilter pQueryF = new QueryFilterClass();  </span><br><span class="line">    pQueryF.SubFields = &quot;CC&quot;;  </span><br><span class="line">    IFeatureCursor pFeatureCursor = pCoverFC.Search(null, true);  </span><br><span class="line">    IDataStatistics pDStatistics = new DataStatistics();  </span><br><span class="line">    pDStatistics.Field = &quot;CC&quot;;  </span><br><span class="line">    pDStatistics.Cursor = (ICursor)pFeatureCursor;  </span><br><span class="line">    IEnumerator pEnumerator = pDStatistics.UniqueValues;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    统计其他：</span><br><span class="line">    ICursor pCursor = pFeaturelayer.Search(pQueryFilter, false) as ICursor;</span><br><span class="line">    IDataStatistics pData = new DataStatisticsClass();</span><br><span class="line">    pData.Cursor = pCursor;</span><br><span class="line">    pData.Field = pField.Name;</span><br><span class="line">    ESRI.ArcGIS.esriSystem.IStatisticsResults statisticsResults = pData.Statistics;</span><br><span class="line">    statisticsResults.Minimum;//最小值</span><br><span class="line">    statisticsResults.Maximum;//最大值</span><br><span class="line">    statisticsResults.Count;//数量</span><br><span class="line"></span><br><span class="line">### 3. IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- 通过IQueryDef 中 group by 达到统计的效果，但是无法空间查询。同时可用distinct 来实现统计唯一值</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">        IQueryDef2 queryDef2 = (IQueryDef2)featureWorkspace.CreateQueryDef();</span><br><span class="line">        queryDef2.Tables = &quot;Cities&quot;;</span><br><span class="line">        queryDef2.SubFields = &quot;Name&quot;;</span><br><span class="line">        queryDef2.PostfixClause = &quot;ORDER BY Name DESC&quot;;</span><br><span class="line">        (ComReleaser comReleaser = new ComReleaser())</span><br><span class="line">        &#123;</span><br><span class="line">            ICursor cursor = queryDef2.Evaluate2(true);</span><br><span class="line">            comReleaser.ManageLifetime(cursor);</span><br><span class="line">            int nameIndex = cursor.FindField(&quot;Name&quot;);</span><br><span class="line">            IRow row = null;</span><br><span class="line">            while ((row = cursor.NextRow()) != null)</span><br><span class="line">            &#123;</span><br><span class="line">                String cityName = Convert.ToString(row.get_Value(nameIndex));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 二 .  统计篇</span><br><span class="line"></span><br><span class="line">###  1. 统计两种方式</span><br><span class="line"></span><br><span class="line">- IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- IDataStatistics接口</span><br><span class="line"></span><br><span class="line">总结：</span><br><span class="line"></span><br><span class="line">- IQueryDef接口 无法进行空间查询统计，但是速度快</span><br><span class="line"></span><br><span class="line">- IDataStatistics 可进行空间查询统计，但是数据量大的时候比较慢</span><br><span class="line"></span><br><span class="line">### 2. IDataStatistics接口</span><br><span class="line"></span><br><span class="line">IDataStatistics的属性Statistics返回一个IStatisticsResult，可统计字段最大值 最小值 平均值 求和等：</span><br><span class="line"></span><br><span class="line">    获取唯一值：</span><br><span class="line">    IQueryFilter pQueryF = new QueryFilterClass();  </span><br><span class="line">    pQueryF.SubFields = &quot;CC&quot;;  </span><br><span class="line">    IFeatureCursor pFeatureCursor = pCoverFC.Search(null, true);  </span><br><span class="line">    IDataStatistics pDStatistics = new DataStatistics();  </span><br><span class="line">    pDStatistics.Field = &quot;CC&quot;;  </span><br><span class="line">    pDStatistics.Cursor = (ICursor)pFeatureCursor;  </span><br><span class="line">    IEnumerator pEnumerator = pDStatistics.UniqueValues;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    统计其他：</span><br><span class="line">    ICursor pCursor = pFeaturelayer.Search(pQueryFilter, false) as ICursor;</span><br><span class="line">    IDataStatistics pData = new DataStatisticsClass();</span><br><span class="line">    pData.Cursor = pCursor;</span><br><span class="line">    pData.Field = pField.Name;</span><br><span class="line">    ESRI.ArcGIS.esriSystem.IStatisticsResults statisticsResults = pData.Statistics;</span><br><span class="line">    statisticsResults.Minimum;//最小值</span><br><span class="line">    statisticsResults.Maximum;//最大值</span><br><span class="line">    statisticsResults.Count;//数量</span><br><span class="line"></span><br><span class="line">### 3. IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- 通过IQueryDef 中 group by 达到统计的效果，但是无法空间查询。同时可用distinct 来实现统计唯一值</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>IDataset pDataset = pFeatureClass as IDataset;<br>IQueryDef2 pDef = (pDataset.Workspace as IFeatureWorkspace).CreateQueryDef() as IQueryDef2;<br>pDef.Tables = pDataset.Name;<br>pDef.WhereClause = whereCause;<br>pDef.SubFields = “count(*),QDM”;<br>pDef.PostfixClause = “ group by QDM”;<br>ICursor cursor = pDef.Evaluate2(true);<br>IRow row = null;<br>while ((row = cursor.NextRow()) != null)<br>{<br>    int index = cursor.FindField(“QDM”);<br>    string  QDM = row.get_Value(index);<br>    string Count = row.get_Value(0).;<br>}</p>
@@ -717,6 +719,12 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1563,13 +1571,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
-        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
-    
-        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
-    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
+    
+        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
     
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
@@ -1610,29 +1618,29 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
-    
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
-    
-        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
-    
-        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
-        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+    
+        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+    
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
