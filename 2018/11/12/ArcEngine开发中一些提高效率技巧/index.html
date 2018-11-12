@@ -551,12 +551,60 @@ height:50vh;
 </li>
 </ul>
 <ul>
-<li><p>实例：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">        IQueryDef2 queryDef2 = (IQueryDef2)featureWorkspace.CreateQueryDef();</span><br><span class="line">        queryDef2.Tables = &quot;Cities&quot;;</span><br><span class="line">        queryDef2.SubFields = &quot;Name&quot;;</span><br><span class="line">        queryDef2.PostfixClause = &quot;ORDER BY Name DESC&quot;;</span><br><span class="line">        (ComReleaser comReleaser = new ComReleaser())</span><br><span class="line">        &#123;</span><br><span class="line">            ICursor cursor = queryDef2.Evaluate2(true);</span><br><span class="line">            comReleaser.ManageLifetime(cursor);</span><br><span class="line">            int nameIndex = cursor.FindField(&quot;Name&quot;);</span><br><span class="line">            IRow row = null;</span><br><span class="line">            while ((row = cursor.NextRow()) != null)</span><br><span class="line">            &#123;</span><br><span class="line">                String cityName = Convert.ToString(row.get_Value(nameIndex));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 二 .  统计篇</span><br><span class="line"></span><br><span class="line">###  1. 统计两种方式</span><br><span class="line"></span><br><span class="line">- IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- IDataStatistics接口</span><br><span class="line"></span><br><span class="line">总结：</span><br><span class="line"></span><br><span class="line">- IQueryDef接口 无法进行空间查询统计，但是速度快</span><br><span class="line"></span><br><span class="line">- IDataStatistics 可进行空间查询统计，但是数据量大的时候比较慢</span><br><span class="line"></span><br><span class="line">### 2. IDataStatistics接口</span><br><span class="line"></span><br><span class="line">IDataStatistics的属性Statistics返回一个IStatisticsResult，可统计字段最大值 最小值 平均值 求和等：</span><br><span class="line"></span><br><span class="line">    获取唯一值：</span><br><span class="line">    IQueryFilter pQueryF = new QueryFilterClass();  </span><br><span class="line">    pQueryF.SubFields = &quot;CC&quot;;  </span><br><span class="line">    IFeatureCursor pFeatureCursor = pCoverFC.Search(null, true);  </span><br><span class="line">    IDataStatistics pDStatistics = new DataStatistics();  </span><br><span class="line">    pDStatistics.Field = &quot;CC&quot;;  </span><br><span class="line">    pDStatistics.Cursor = (ICursor)pFeatureCursor;  </span><br><span class="line">    IEnumerator pEnumerator = pDStatistics.UniqueValues;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    统计其他：</span><br><span class="line">    ICursor pCursor = pFeaturelayer.Search(pQueryFilter, false) as ICursor;</span><br><span class="line">    IDataStatistics pData = new DataStatisticsClass();</span><br><span class="line">    pData.Cursor = pCursor;</span><br><span class="line">    pData.Field = pField.Name;</span><br><span class="line">    ESRI.ArcGIS.esriSystem.IStatisticsResults statisticsResults = pData.Statistics;</span><br><span class="line">    statisticsResults.Minimum;//最小值</span><br><span class="line">    statisticsResults.Maximum;//最大值</span><br><span class="line">    statisticsResults.Count;//数量</span><br><span class="line"></span><br><span class="line">### 3. IQueryDef2接口</span><br><span class="line"></span><br><span class="line">- 通过IQueryDef 中 group by 达到统计的效果，但是无法空间查询。同时可用distinct 来实现统计唯一值</span><br></pre></td></tr></table></figure>
+<li>实例：</li>
+</ul>
+<pre><code>IQueryDef2 queryDef2 = (IQueryDef2)featureWorkspace.CreateQueryDef();
+queryDef2.Tables = &quot;Cities&quot;;
+queryDef2.SubFields = &quot;Name&quot;;
+queryDef2.PostfixClause = &quot;ORDER BY Name DESC&quot;;
+(ComReleaser comReleaser = new ComReleaser())
+{
+    ICursor cursor = queryDef2.Evaluate2(true);
+    comReleaser.ManageLifetime(cursor);
+    int nameIndex = cursor.FindField(&quot;Name&quot;);
+    IRow row = null;
+    while ((row = cursor.NextRow()) != null)
+    {
+        String cityName = Convert.ToString(row.get_Value(nameIndex));
+    }
+}
+</code></pre><h2 id="二-统计篇"><a href="#二-统计篇" class="headerlink" title="二 .  统计篇"></a>二 .  统计篇</h2><h3 id="1-统计两种方式"><a href="#1-统计两种方式" class="headerlink" title="1. 统计两种方式"></a>1. 统计两种方式</h3><ul>
+<li><p>IQueryDef2接口</p>
+</li>
+<li><p>IDataStatistics接口</p>
 </li>
 </ul>
-<p>IDataset pDataset = pFeatureClass as IDataset;<br>IQueryDef2 pDef = (pDataset.Workspace as IFeatureWorkspace).CreateQueryDef() as IQueryDef2;<br>pDef.Tables = pDataset.Name;<br>pDef.WhereClause = whereCause;<br>pDef.SubFields = “count(*),QDM”;<br>pDef.PostfixClause = “ group by QDM”;<br>ICursor cursor = pDef.Evaluate2(true);<br>IRow row = null;<br>while ((row = cursor.NextRow()) != null)<br>{<br>    int index = cursor.FindField(“QDM”);<br>    string  QDM = row.get_Value(index);<br>    string Count = row.get_Value(0).;<br>}</p>
-<p><code>`</code></p>
+<p>总结：</p>
+<ul>
+<li><p>IQueryDef接口 无法进行空间查询统计，但是速度快</p>
+</li>
+<li><p>IDataStatistics 可进行空间查询统计，但是数据量大的时候比较慢</p>
+</li>
+</ul>
+<h3 id="2-IDataStatistics接口"><a href="#2-IDataStatistics接口" class="headerlink" title="2. IDataStatistics接口"></a>2. IDataStatistics接口</h3><p>IDataStatistics的属性Statistics返回一个IStatisticsResult，可统计字段最大值 最小值 平均值 求和等：</p>
+<pre><code>获取唯一值：
+IQueryFilter pQueryF = new QueryFilterClass();  
+pQueryF.SubFields = &quot;CC&quot;;  
+IFeatureCursor pFeatureCursor = pCoverFC.Search(null, true);  
+IDataStatistics pDStatistics = new DataStatistics();  
+pDStatistics.Field = &quot;CC&quot;;  
+pDStatistics.Cursor = (ICursor)pFeatureCursor;  
+IEnumerator pEnumerator = pDStatistics.UniqueValues;
+
+
+统计其他：
+ICursor pCursor = pFeaturelayer.Search(pQueryFilter, false) as ICursor;
+IDataStatistics pData = new DataStatisticsClass();
+pData.Cursor = pCursor;
+pData.Field = pField.Name;
+ESRI.ArcGIS.esriSystem.IStatisticsResults statisticsResults = pData.Statistics;
+statisticsResults.Minimum;//最小值
+statisticsResults.Maximum;//最大值
+statisticsResults.Count;//数量
+</code></pre><h3 id="3-IQueryDef2接口"><a href="#3-IQueryDef2接口" class="headerlink" title="3. IQueryDef2接口"></a>3. IQueryDef2接口</h3><ul>
+<li>通过IQueryDef 中 group by 达到统计的效果，但是无法空间查询。同时可用distinct 来实现统计唯一值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">IDataset pDataset = pFeatureClass as IDataset;</span><br><span class="line">IQueryDef2 pDef = (pDataset.Workspace as IFeatureWorkspace).CreateQueryDef() as IQueryDef2;</span><br><span class="line">pDef.Tables = pDataset.Name;</span><br><span class="line">pDef.WhereClause = whereCause;</span><br><span class="line">pDef.SubFields = &quot;count(*),QDM&quot;;</span><br><span class="line">pDef.PostfixClause = &quot; group by QDM&quot;;</span><br><span class="line">ICursor cursor = pDef.Evaluate2(true);</span><br><span class="line">IRow row = null;</span><br><span class="line">while ((row = cursor.NextRow()) != null)</span><br><span class="line">&#123;</span><br><span class="line">    int index = cursor.FindField(&quot;QDM&quot;);</span><br><span class="line">    string  QDM = row.get_Value(index);</span><br><span class="line">    string Count = row.get_Value(0).;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="三-编辑篇"><a href="#三-编辑篇" class="headerlink" title="三 .  编辑篇"></a>三 .  编辑篇</h2><h3 id="1-新增插入"><a href="#1-新增插入" class="headerlink" title="1. 新增插入"></a>1. 新增插入</h3><ul>
 <li><p>插入要素的两种方式 </p>
 <p>  单个创建：IFeatureClass.CreateFeature() + IFeature.Store()</p>
@@ -706,7 +754,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ArcEngine开发中一些提高效率技巧"><span class="toc-number">1.</span> <span class="toc-text">ArcEngine开发中一些提高效率技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-查询篇"><span class="toc-number">1.1.</span> <span class="toc-text">一 .  查询篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-AE的三种查询方式概述"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.  AE的三种查询方式概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IQueryFilter-接口参数设置技巧"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.  IQueryFilter 接口参数设置技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ISpatialFilter-接口"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.  ISpatialFilter 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-IQueryDef2-接口"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.  IQueryDef2 接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-编辑篇"><span class="toc-number">1.2.</span> <span class="toc-text">三 .  编辑篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-新增插入"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 新增插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-更新"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-删除"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-内存释放篇"><span class="toc-number">1.3.</span> <span class="toc-text">二 .  内存释放篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-需要释放的对象"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 需要释放的对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尽可能使用Esri提供的MangeLifetime来管理ArcGIS-Engine对象的生命周期"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 尽可能使用Esri提供的MangeLifetime来管理ArcGIS Engine对象的生命周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-多线程篇"><span class="toc-number">1.4.</span> <span class="toc-text">二 .  多线程篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多线程使用注意事项"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.多线程使用注意事项</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ArcEngine开发中一些提高效率技巧"><span class="toc-number">1.</span> <span class="toc-text">ArcEngine开发中一些提高效率技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-查询篇"><span class="toc-number">1.1.</span> <span class="toc-text">一 .  查询篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-AE的三种查询方式概述"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.  AE的三种查询方式概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IQueryFilter-接口参数设置技巧"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.  IQueryFilter 接口参数设置技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ISpatialFilter-接口"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.  ISpatialFilter 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-IQueryDef2-接口"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.  IQueryDef2 接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-统计篇"><span class="toc-number">1.2.</span> <span class="toc-text">二 .  统计篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-统计两种方式"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 统计两种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-IDataStatistics接口"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. IDataStatistics接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-IQueryDef2接口"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. IQueryDef2接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-编辑篇"><span class="toc-number">1.3.</span> <span class="toc-text">三 .  编辑篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-新增插入"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 新增插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-更新"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-删除"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-内存释放篇"><span class="toc-number">1.4.</span> <span class="toc-text">二 .  内存释放篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-需要释放的对象"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 需要释放的对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尽可能使用Esri提供的MangeLifetime来管理ArcGIS-Engine对象的生命周期"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 尽可能使用Esri提供的MangeLifetime来管理ArcGIS Engine对象的生命周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-多线程篇"><span class="toc-number">1.5.</span> <span class="toc-text">二 .  多线程篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多线程使用注意事项"><span class="toc-number">1.5.1.</span> <span class="toc-text">1.多线程使用注意事项</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -719,22 +767,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1567,21 +1599,21 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
-        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
-    
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
-        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
-    
-        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
-    
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
+    
+        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1618,17 +1650,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
-    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
-    
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
@@ -1640,9 +1672,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
     
-        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
+    
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
