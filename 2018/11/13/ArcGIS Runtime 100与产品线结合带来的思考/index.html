@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name"></a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Fellow Travellers</a>
 </header>
@@ -220,24 +231,70 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            [Untitled Post]
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                <!-- 文章作者  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/11/13</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,183 +395,157 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >
-            
-                <span>消息推送(iOS)</span>
-        </a>
-        <div class="abstract-content">
-            APNS的推送机制首先我们看一下苹果官方给出的对IOS推送机制的解释。如下图
+            <main class="main post-page">
+    <article class="article-entry">
+        <hr>
+<p>title: ArcGIS Runtime 100与产品线结合带来的思考<br>date: 2018-11-13 09:16:24<br>tags: [Android,GIS]</p>
+<h2 id="categories-张泉"><a href="#categories-张泉" class="headerlink" title="categories: 张泉"></a>categories: 张泉</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为产品线也一直也在提要不要将ArcGIS For Android 版本从10.2.9版本过渡到100.*版本，也有过尝试，也就是Kotlin+ArcGIS 100.2版本的基线产品研发。慢慢这个方面交到了我手上，交到我手上的时候大部分功能都已经完善了，我只是进行了一些小的模块开发而已。目前这个产品已经具备了基线的基本功能与使用。回顾看来，新老版本差异也比较大。所以写这么一篇文章来对比较关注的部分进行简单的比较与讲解。<br><br><br>这篇文章的大多数来源于ArcGIS官网的一些向导和ArcGIS博客的一些文章，部分链接需要自备梯子。</p>
+<p><a href="https://developers.arcgis.com/arcgis-runtime/choosing-the-right-version/" title="https://developers.arcgis.com/arcgis-runtime/choosing-the-right-version/" target="_blank" rel="noopener">https://developers.arcgis.com/arcgis-runtime/choosing-the-right-version/</a></p>
+<p><a href="https://www.esri.com/arcgis-blog/products/arcgis-online/3d-gis/arcgis-runtime-sdk-100-0-has-arrived/" title="https://www.esri.com/arcgis-blog/products/arcgis-online/3d-gis/arcgis-runtime-sdk-100-0-has-arrived/" target="_blank" rel="noopener">https://www.esri.com/arcgis-blog/products/arcgis-online/3d-gis/arcgis-runtime-sdk-100-0-has-arrived/</a></p>
+<p><a href="https://developers.arcgis.com/android/latest/guide/performance-considerations.htm" title="https://developers.arcgis.com/android/latest/guide/performance-considerations.htm" target="_blank" rel="noopener">https://developers.arcgis.com/android/latest/guide/performance-considerations.htm</a></p>
+<p><a href="https://developers.arcgis.com/android/latest/guide/migrate-to-100-x-from-10-2-x.htm" title="https://developers.arcgis.com/android/latest/guide/migrate-to-100-x-from-10-2-x.htm" target="_blank" rel="noopener">https://developers.arcgis.com/android/latest/guide/migrate-to-100-x-from-10-2-x.htm</a></p>
+<h2 id="100-版本的改动"><a href="#100-版本的改动" class="headerlink" title="100.* 版本的改动"></a>100.* 版本的改动</h2><p>这里我们在将100.*版本基本讲的为100.3和100.4版本，因为100.0、100.1以及100.2（开始用的这个版本，在ImageLayer的查询上差点没把我坑死）出现的问题较多且不完整。</p>
+<p>100版本的最大改动为<strong>架构改动</strong>，100版本是新架构Runtime API系列，这种架构相当于无原有架构基础，从头开始重新设计。这种新架构支持新功能和性能优化，并在所有Runtime SDK中提供一致的API和功能。整个API经过重新设计，融合了所有ArcGIS Runtime SDK的新功能和创新理念。这就意味着我们在进行从10.2版本向100版本迁移的时候，需要较大幅度的跨动，也就是要了解的API不同，实现同一个目的所使用的方法与过程也会不同。另外对于一些比较实质的功能在有增加与移除，官方给出了一个表格。</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>in 10.2.x</th>
+<th>in 100.3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web maps – edit and save</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ImageService layers</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Vector basemaps</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Local raster</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>3D visualization</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>WMS layers</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>WMTS layers</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Group Layers</td>
+<td>Yes</td>
+<td>Some SDKs</td>
+</tr>
+<tr>
+<td>Time-aware layers</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Mobile Map Packages</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Bing layers</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>OpenStreetMap layers</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Find Task</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Geographic Transformations</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Related Tables</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="性能方面"><a href="#性能方面" class="headerlink" title="性能方面"></a>性能方面</h2><p>这个方面也是我们比较关注的一个方面，在地图加载或者图层渲染方面有没有性能相关的提升。本来想用一些测试工具测一下，但具体一想，不同的设备硬件不同，另外地图的加载会有当前设备GPU当前渲染状态的差异以及网络访问的延迟等问题。且测试机只有一两台，不具有说明力度。顾希望从官方文档中得到一些相关数据或者信息。但是官方只是提到了一句：<br><img src="https://i.imgur.com/YFmTAhT.png" alt=""><br>但是并没有提供具体的性能提升方面的数据比较。不过在Vector tiled basemaps这种类型的底图上，官方表示<br><img src="https://i.imgur.com/Cbyh2fz.png" alt=""><br>从官方给出的这么隐晦的表达来想，这个新版本的更新力度并不在性能方面，或者说性能上有提升，但提升并不明显。不过在新架构中，对于操作图层和业务图层等结构分明的情况下，官方也给出了性能优化方面的文档（100.4版本文档）<br><img src="https://i.imgur.com/bKnM8V5.png" alt=""><br>具体内容参考开头给出的第三个链接，或者<a href="https://developers.arcgis.com/android/latest/guide/performance-considerations.htm" title="点击这里" target="_blank" rel="noopener">点击这里</a>。</p>
+<h2 id="重点功能点变化"><a href="#重点功能点变化" class="headerlink" title="重点功能点变化"></a>重点功能点变化</h2><h3 id="可装载化（Loadable）"><a href="#可装载化（Loadable）" class="headerlink" title="可装载化（Loadable）"></a>可装载化（Loadable）</h3><p>Loadable interface是在100.0.0推出的。其设计和目的适用于那些涉及通过连接在线资源并且通过网络访问大量数据的工作流程（<font color="#ff7072">这点也就是我们产品线中的主要加载模式</font>）。异步加载元数据的所有资源以初始化其状态（例如地图，图层和任务）都采用可加载模式。这个模式使加载状态的行为更加一致和明确。可装入资源不会自动加载其状态。这些在应用程序代码加载时会延迟加载，或者由依赖于它们的其他对象加载。<font color="#ff7072">这对于我们需要从地图资源获取信息而不必首先将其可视化的情况非常有用</font>。我们可以显式加载地图资源，而无需先将其与地图视图相关联。可以轻松监视可加载资源的状态以确定它是否正在加载，已成功加载，或无法加载。如果资源由于transient或recoverable condition而无法加载，我们就可以重试加载它。</p>
+<h3 id="图形叠加问题"><a href="#图形叠加问题" class="headerlink" title="图形叠加问题"></a>图形叠加问题</h3><p>之前我们在10.2.9版本常常会因为图层加载顺序问题或者由于网络延迟问题导致绘制图层（graphicLayer）在专题服务之下，导致绘制或者高亮效果出现问题。这点在100版本完美解决。也就是GraphicOverlay会固定在OperationLayer之上，官方给出的：<br><img src="https://i.imgur.com/1E0Ty6r.png" alt=""><br>并且同100.x版本，有一种更简单识别图形叠加内的图形的模式。GeoView（二维MapView或三维SceneView）上的identifyGraphicsOverlayAsync方法识别指定图形覆盖中靠近提供的屏幕点的可见图形。直接传递屏幕坐标点即可。</p>
+<h3 id="查询问题"><a href="#查询问题" class="headerlink" title="查询问题"></a>查询问题</h3><p>相比10.2.9版本使用三大查询，并且不同的查询的方式以及结果存在差异，以至于在线和离线查询看似使用一个模块，但确实两种路线与处理逻辑，在代码复用上的效率较低。</p>
+<p>100.*版本对于在线和离线（我们使用的是Imagelayer与Geodatabase数据）查询的逻辑和结果是一致的，尽管中途调用的方法与操作对象不同，但是对于搜索参数的设置、搜索异步逻辑的处理以及搜索结果的处理可以复用同一套代码。但是习惯使用了10.2版本的搜索方法之后，在进行100版本的搜索会带来一些不便。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这里也只对一些比较重要的部分进行官方与我对产品线的理解综合之后给出的一些观点或看法，内容不局限于这些，因为版本变动比较多，以及在使用新版本踩得坑比较多，但都是一些小的方面，在这里就不一一细解了。希望这篇文章能对新版本持有困惑的人带来一些对于版本选择的小帮助吧。</p>
 
-Provider就是我们自己程序的后台服务器，APNS是Apple Push Notification Service的缩写，也就是苹果的推送服务器。上图可以分为三个阶段：第一阶段：应用程序的服务器端把要发送的消息、目的iPhone的标识打包，发给APNS。第二阶段：APNS在自身的已注册Push服务的iPhone列表中，查找有相应标识的iPhone，并把消息发送到iPhone。第三阶段：iPhone把发来的消息传递给相应的应用程序，并且按照设定弹出Push通知。
-APNS推送通知的详细工作流程下面这张图是说...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >
-            
-                <span>矢量切片 &amp; MMPK</span>
-        </a>
-        <div class="abstract-content">
-            矢量切片 &amp; MMPK基于ArcGIS SDK100 的新特性1. 矢量切片1.1 定义1.1.0 栅格数据以二维矩阵的形式来表示地理空间信息的数据结构，其中数据的最小存在单元是以像素的形式存在，可以理解为和图片的组织结构类似，以分辨率等特征作为精度的定义标准。
-
-1.1.1 矢量数据试图利用点、线、面等几何要素来表现这个世界，其数据结构紧凑精准，数据图形质量好，有利于地理信息检索与网络传输等。其中矢量数据的最小单元是以点的形式存在，点构成线，线组成面，面构造出体
-
-1.1.2 传统金字塔
-1.1.3 矢量切片
-1.2 矢量切片优势1.2.1 矢量与栅格根据数据组织结构方式的不同...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >
-            
-                <span>地名、专题、场景收藏</span>
-        </a>
-        <div class="abstract-content">
-            一、    收藏模型1、收藏类型enum FavoriteType: Int {
-   case Theme = 0     // 专题
-   case Scene = 1     // 场景
-   case Place = 2     // 地名
- }
-2、收藏数据模型class Archive: NSObject, NSCoding {
-    var type: FavoriteType?
-    var ID: String?
-    var name: String?
-    var createDate: String?
-    var pointX: Double?
-   ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/04/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >
-            
-                <span>移动在线缓存</span>
-        </a>
-        <div class="abstract-content">
-            移动在线缓存一.在线缓存的必要性   众所周知，移动一张图目前包含两个应用场景：在线和离线。在线场景中，多用户共用数据，与云服务同步，实时性较强。而后者为单用户使用数据，无实时性要求，不常更新，需要数据拷贝，数据也能保证一定的隐秘性。那么在线缓存的应用场景突出在哪里呢？
-###1.在线离线一体化目前移动一张图的在线离线需要在登录时用户手动切换。而数据方面二者并不是同步的，在数据管理方面存在一定的弊端。而通过在线缓存即可实现多用户同步数据，具有较强的数据实时性,数据也便于云端管理。
-###2. 方便用户操作。
-用户在在线与离线的应用场景中可以自由切换,比如在线过程中，临时切换，并不需要返回...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/03/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >
-            
-                <span>Jenkins For iOS</span>
-        </a>
-        <div class="abstract-content">
-            Jenkins for iOS with Fastlane and SVN
-一、搭建环境Jenkins的安装需要JDK环境，JDK安装方法自行参考网络。Jenkins的安装有两种方式，一种是java包安装，另一种是pkg可执行程序（两种安装后的配置一样，pkg安装会在电脑上多出一个用户）。本文采用war包 + tomcat安装方法。
-1   安装Java环境，请自行下载安装
-2   安装tomcat,打开官网地址
-2.1    将下载的zip包解压（可以重命名），把解压后的文件夹放到 /Library下。
-2.2    在终端启动Tomcat服务器，这里首先cd到Tomcat的bin目录...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/11/12/ArcEngine开发中一些提高效率技巧/" title= "ArcEngine开发中一些提高效率技巧">
+                    <div class="prevTitle">ArcEngine开发中一些提高效率技巧</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -532,6 +563,24 @@ APNS推送通知的详细工作流程下面这张图是说...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#categories-张泉"><span class="toc-number">1.</span> <span class="toc-text">categories: 张泉</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#100-版本的改动"><span class="toc-number">3.</span> <span class="toc-text">100.* 版本的改动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能方面"><span class="toc-number">4.</span> <span class="toc-text">性能方面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重点功能点变化"><span class="toc-number">5.</span> <span class="toc-text">重点功能点变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可装载化（Loadable）"><span class="toc-number">5.1.</span> <span class="toc-text">可装载化（Loadable）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图形叠加问题"><span class="toc-number">5.2.</span> <span class="toc-text">图形叠加问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询问题"><span class="toc-number">5.3.</span> <span class="toc-text">查询问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">6.</span> <span class="toc-text">结语</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1500,6 +1549,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
