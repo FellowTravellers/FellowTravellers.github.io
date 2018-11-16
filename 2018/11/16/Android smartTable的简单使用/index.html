@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Fellow Travellers</title>
+    <title>SmartTable的简单使用 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">SmartTable的简单使用</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Fellow Travellers</a>
 </header>
@@ -220,24 +231,82 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            SmartTable的简单使用
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "万峥嵘">万峥嵘</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.7k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/11/16</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,446 +407,137 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/16/Android smartTable的简单使用/" >
-            
-                <span>SmartTable的简单使用</span>
-        </a>
-        <div class="abstract-content">
-            一.smartTable简介1.简单介绍它的功能：具体使用方法不再赘述，可以去 GitHub 去查看：https://github.com/huangyanbin/smartTable
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="一-smartTable简介"><a href="#一-smartTable简介" class="headerlink" title="一.smartTable简介"></a>一.smartTable简介</h1><h2 id="1-简单介绍它的功能："><a href="#1-简单介绍它的功能：" class="headerlink" title="1.简单介绍它的功能："></a>1.简单介绍它的功能：</h2><p>具体使用方法不再赘述，可以去 GitHub 去查看：<a href="https://github.com/huangyanbin/smartTable" target="_blank" rel="noopener">https://github.com/huangyanbin/smartTable</a></p>
+<ul>
+<li>快速配置自动生成表格；</li>
+<li>自动计算表格宽高；</li>
+<li>表格列标题组合；</li>
+<li>表格固定左序列、顶部序列、第一行、列标题、统计行；</li>
+<li>自动统计，排序（自定义统计规则）；</li>
+<li>表格图文、序列号、列标题格式化；</li>
+<li>表格各组成背景、文字、网格、padding等配置；</li>
+<li>表格批注；</li>
+<li>表格内容、列标题点击事件；</li>
+<li>缩放模式和滚动模式；</li>
+<li>注解模式；</li>
+<li>内容多行显示；</li>
+<li>分页模式；</li>
+<li>首尾动态添加数据;</li>
+<li>丰富的格式化;</li>
+<li>支持二维数组展示（用于类似日程表，电影选票等）；</li>
+<li>导入excel(支持颜色，字体，背景，批注，对齐，图片等基本Excel属性)；</li>
+<li>表格合并单元(支持注解合并，支持自动合并)；</li>
+<li>支持其他刷新框架SmartRefreshLayout；</li>
+<li>可配置表格最小宽度(小于该宽度自动适配)；</li>
+<li>支持直接List或数组字段转列；</li>
+<li>支持Json数据直接转换成表格；</li>
+<li>支持表格网格指定行列显示；</li>
+<li>支持自动生成表单。<h2 id="2-如何使用"><a href="#2-如何使用" class="headerlink" title="2.如何使用"></a>2.如何使用</h2></li>
+<li><p>引用：添加 JitPack repository 到你的 build 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">        repositories &#123;</span><br><span class="line">            ...</span><br><span class="line">            maven &#123; url &apos;https://www.jitpack.io&apos; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">            compile &apos;com.github.huangyanbin:SmartTable:2.0&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-使用方式-两种"><a href="#3-使用方式-两种" class="headerlink" title="3.使用方式(两种)"></a>3.使用方式(两种)</h2><ul>
+<li>采用注解的形式</li>
+<li>基本模式，手动配置行与列</li>
+</ul>
+<h1 id="二-两种方式的使用"><a href="#二-两种方式的使用" class="headerlink" title="二.两种方式的使用"></a>二.两种方式的使用</h1><h2 id="1-注解方式"><a href="#1-注解方式" class="headerlink" title="1.注解方式"></a>1.注解方式</h2><ul>
+<li><p>步骤一：在布局文件中使用 SmartTable</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.bin.david.form.core.SmartTable</span><br><span class="line">        android:id=&quot;@+id/table&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>步骤二：定义表格（自定义bean对象）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@SmartTable(name = &quot;销售计划表&quot;)</span><br><span class="line">public class UserInfo &#123;</span><br><span class="line">    public UserInfo(String city, int name, int count, int restaurant, int ka, int wholesale, int industry, int other) &#123;</span><br><span class="line">        this.city = city;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.count = count;</span><br><span class="line">        this.restaurant = restaurant;</span><br><span class="line">        this.ka = ka;</span><br><span class="line">        this.wholesale = wholesale;</span><br><span class="line">        this.industry = industry;</span><br><span class="line">        this.other = other;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //    name：版块名称，count：目标值，restaurant：餐饮数量，ka：KA数量，wholesale：流通批发数量，industry：工业加工数量，other：其它数量</span><br><span class="line">    @SmartColumn(id = 0, name = &quot;部门/渠道&quot;, autoMerge = true)</span><br><span class="line">    private String city;</span><br><span class="line">    @SmartColumn(id = 1, name = &quot;板块&quot;)</span><br><span class="line">    private int name;</span><br><span class="line">    @SmartColumn(id = 2, name = &quot;目标值&quot;)</span><br><span class="line">    private int count;</span><br><span class="line">    @SmartColumn(id = 3, name = &quot;餐饮&quot;)</span><br><span class="line">    private int restaurant;</span><br><span class="line">    @SmartColumn(id = 4, name = &quot;KA&quot;)</span><br><span class="line">    private int ka;</span><br><span class="line">    @SmartColumn(id = 5, name = &quot;流通批发&quot;)</span><br><span class="line">    private int wholesale;</span><br><span class="line">    @SmartColumn(id = 6, name = &quot;工业加工&quot;)</span><br><span class="line">    private int industry;</span><br><span class="line">    @SmartColumn(id = 7, name = &quot;其他&quot;)</span><br><span class="line">    private int other;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>步骤三：绑定数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private SmartTable table;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        List&lt;UserInfo&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        table = findViewById(R.id.table);</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;乌鲁木齐&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;乌鲁木齐&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;乌鲁木齐&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;乌鲁木齐&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">        list.add(new UserInfo(&quot;沈阳&quot;,100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line"></span><br><span class="line">        table.setData(list);</span><br><span class="line">        table.getConfig().setContentStyle(new FontStyle(50, Color.BLUE));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现效果<br><img src="https://upload-images.jianshu.io/upload_images/13449852-3b564b652f93734b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="注解方式效果图.png"></p>
+</li>
+</ul>
+<h2 id="2-基本方式，手动创建行与列"><a href="#2-基本方式，手动创建行与列" class="headerlink" title="2.基本方式，手动创建行与列"></a>2.基本方式，手动创建行与列</h2><ul>
+<li><p>步骤一：在布局文件中使用 SmartTable</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.bin.david.form.core.SmartTable</span><br><span class="line">        android:id=&quot;@+id/table&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>步骤二：定义表格（自定义bean对象），与采用注解方式唯一的不同就是不在使用 @SmartTable与 @SmartColumn 进行标注</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class User &#123;</span><br><span class="line">    public User(String city, int name, int count, int restaurant, int ka, int wholesale, int industry, int other) &#123;</span><br><span class="line">        this.city = city;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.count = count;</span><br><span class="line">        this.restaurant = restaurant;</span><br><span class="line">        this.ka = ka;</span><br><span class="line">        this.wholesale = wholesale;</span><br><span class="line">        this.industry = industry;</span><br><span class="line">        this.other = other;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //    name：版块名称，count：目标值，restaurant：餐饮数量，ka：KA数量，wholesale：流通批发数量，industry：工业加工数量，other：其它数量</span><br><span class="line">    private String city;</span><br><span class="line">    private int name;</span><br><span class="line">    private int count;</span><br><span class="line">    private int restaurant;</span><br><span class="line">    private int ka;</span><br><span class="line">    private int wholesale;</span><br><span class="line">    private int industry;</span><br><span class="line">    private int other;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>步骤三：手动创建列字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//普通列</span><br><span class="line">Column&lt;String&gt; city = new Column&lt;&gt;(&quot;部门/渠道&quot;, &quot;city&quot;);</span><br><span class="line">Column&lt;Integer&gt; name = new Column&lt;&gt;(&quot;板块&quot;, &quot;name&quot;);</span><br><span class="line">Column&lt;Integer&gt; count = new Column&lt;&gt;(&quot;目标值&quot;, &quot;count&quot;);</span><br><span class="line">Column&lt;Integer&gt; restaurant = new Column&lt;&gt;(&quot;餐饮&quot;, &quot;restaurant&quot;);</span><br><span class="line">Column&lt;Integer&gt; ka = new Column&lt;&gt;(&quot;KA&quot;, &quot;ka&quot;);</span><br><span class="line">Column&lt;Integer&gt; wholesale = new Column&lt;&gt;(&quot;流通批发&quot;, &quot;wholesale&quot;);</span><br><span class="line">Column&lt;Integer&gt; industry = new Column&lt;&gt;(&quot;工业加工&quot;, &quot;industry&quot;);</span><br><span class="line">Column&lt;Integer&gt; other = new Column&lt;&gt;(&quot;其他&quot;, &quot;other&quot;);</span><br><span class="line">//设置该列当字段相同时自动合并</span><br><span class="line">city.setAutoMerge(true);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>步骤四：设置单元格内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//设置单元格内容</span><br><span class="line">List&lt;User&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;乌鲁木齐&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;乌鲁木齐&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;乌鲁木齐&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;乌鲁木齐&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br><span class="line">list.add(new User(&quot;沈阳&quot;, 100, 150, 50, 240, 1100, 450, 23458));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>步骤五：把数据绑定到 SmartTable 上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//表格数据 datas 是需要填充的数据</span><br><span class="line">TableData&lt;User&gt; tableData = new TableData&lt;&gt;(&quot;表格名&quot;, list, city, name, count, restaurant, ka, wholesale, industry, other);</span><br><span class="line"></span><br><span class="line">//设置数据</span><br><span class="line">table = findViewById(R.id.table);</span><br><span class="line">table.setTableData(tableData);</span><br><span class="line">table.getConfig().setContentStyle(new FontStyle(50, Color.BLUE));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-两种方式的优势和不足"><a href="#3-两种方式的优势和不足" class="headerlink" title="3.两种方式的优势和不足"></a>3.两种方式的优势和不足</h2><h3 id="1-注解方式-1"><a href="#1-注解方式-1" class="headerlink" title="1.注解方式"></a>1.注解方式</h3><ul>
+<li>使用上简单，几行代码就可以创建一个表格</li>
+<li>不能实现列的动态创建</li>
+<li>不能实现列的排序<h3 id="2-基本方式"><a href="#2-基本方式" class="headerlink" title="2.基本方式"></a>2.基本方式</h3></li>
+<li>使用上稍稍比注解方式麻烦一点</li>
+<li>可以实现列的动态创建（根据服务器返回的列的数量动态创建表格）</li>
+<li>可以实现点击列，对列进行升序以及倒序排列</li>
+</ul>
+<h1 id="三-smartTable的特性，效果（延用作者本人的文章作参考）"><a href="#三-smartTable的特性，效果（延用作者本人的文章作参考）" class="headerlink" title="三.smartTable的特性，效果（延用作者本人的文章作参考）"></a>三.smartTable的特性，效果（延用作者本人的文章作参考）</h1><ul>
+<li><a href="https://juejin.im/post/5a55ae6c5188257350511a8c" target="_blank" rel="noopener">https://juejin.im/post/5a55ae6c5188257350511a8c</a> </li>
+<li><a href="https://juejin.im/post/5a5dce7651882573256bd043" target="_blank" rel="noopener">https://juejin.im/post/5a5dce7651882573256bd043</a> </li>
+<li><a href="https://juejin.im/post/5a7a8eef5188257a84621eda" target="_blank" rel="noopener">https://juejin.im/post/5a7a8eef5188257a84621eda</a></li>
+</ul>
+<p>#谢谢！！！</p>
 
-快速配置自动生成表格；
-自动计算表格宽高；
-表格列标题组合；
-表格固定左序列、顶部序列、第一行、列标题、统计行；
-自动统计，排序（自定义统计规则）；
-表格图文、序列号、列标题格式化；
-表格各组成背景、文字、网格、padding等配置；
-表格批注；
-表格内容、列标题点击事件；
-缩放模式和滚动模式；
-注解模式；
-内容多行显示；
-分页模式；
-首尾动态添加数据;
-丰富的格式化;
-支持二维数组展示（用于类似日程表...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/16</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" >
-            
-                <span>ArcGIS Runtime 100与产品线结合带来的思考</span>
-        </a>
-        <div class="abstract-content">
-            前言因为产品线也一直也在提要不要将ArcGIS For Android 版本从10.2.9版本过渡到100.*版本，也有过尝试，也就是Kotlin+ArcGIS 100.2版本的基线产品研发。慢慢这个方面交到了我手上，交到我手上的时候大部分功能都已经完善了，我只是进行了一些小的模块开发而已。目前这个产品已经具备了基线的基本功能与使用。回顾看来，新老版本差异也比较大。所以写这么一篇文章来对比较关注的部分进行简单的比较与讲解。这篇文章的大多数来源于ArcGIS官网的一些向导和ArcGIS博客的一些文章，部分链接需要自备梯子。
-https://developers.arcgis.com/arc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/12/ArcEngine开发中一些提高效率技巧/" >
-            
-                <span>ArcEngine开发中一些提高效率技巧</span>
-        </a>
-        <div class="abstract-content">
-            
-ArcEngine开发中一些提高效率技巧一 .  查询篇1.  AE的三种查询方式概述在使用ArcEngine查询空间数据库的时候主要使用三种查询接口：
-
-IQueryFilter
-ISpatialFilter
-IQueryDef
-
-三种接口使用场景总结如下表：
-
-
-
-要求
-IQueryFilter
-ISpatialFilter
-IQueryDef
-
-
-
-
-属性约束
-True
-True
-True
-
-
-空间约束
-False
-True
-False
-
-
-查询结果包括多个表的字段
-False
-False
-True
-
-
-查询结果返回一个游标
-True
-True
-True
-
-
-对象可以从结果中创建...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ArcEngine">ArcEngine</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "C#">C#</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/06/CopyOnWriteArrayList介绍/" >
-            
-                <span>CopyOnWriteArrayList介绍</span>
-        </a>
-        <div class="abstract-content">
-            CopyOnWriteArrayList介绍​    CopyOnWrite容器即写时复制的容器。通俗的理解是当我们往一个容器添加元素的时候，不直接往当前容器添加，而是先将当前容器进行Copy，复制出一个新的容器，然后新的容器里添加元素，添加完元素之后，再将原容器的引用指向新的容器。 
-​    CopyOnWrite容器也是一种读写分离的思想，读和写不同的容器。 
-在 集合的安全失败机制“fail-safe” 提到使用 CopyOnWriteArrayList 可以解决此问题，
-在 com.mysql.jdbc.Driver 下会使用到，即： class.forName(“com.my...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/06/Lambda收集器示例/" >
-            
-                <span>Lambda收集器示例</span>
-        </a>
-        <div class="abstract-content">
-            Lambda收集器示例Collectors常用方法
-
-
-工厂方法
-返回类型
-作用
-
-
-
-
-toSet
-Set
-把流中所有项目收集到一个 Set，删除重复项
-
-
-toList
-List
-收集到一个 List 集合中
-
-
-toCollection
-Collection
-把流中所有项目收集到给定的供应源创建的集合menuStream.collect(toCollection(), ArrayList::new)
-
-
-counting
-Long
-计算流中元素的个数
-
-
-summingInt
-Integer
-对流中项目的一个整数属性求和
-
-
-averagingInt
-Double
-计算流中项目 I...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/06/java8-时间日期api/" >
-            
-                <span>Java 8 之时间日期Api</span>
-        </a>
-        <div class="abstract-content">
-            Java8-时间日期API对比
-线程不安全：java.util.Date 这个类线程不安全，而且所有日期类都是可变的。 
-时间处理麻烦：默认的开始日期从1900年，不支持国际化，不提供时区支持 。
-容易导错包。（java.util 和 java.sql）
-月份从0开始。
-
-新API介绍
-Instant——它代表的是时间戳
-LocalDate——不包含具体时间的日期，比如2014-01-14
-LocalTime——它代表的是不含日期的时间
-LocalDateTime——它包含了日期及时间
-ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量是以UTC/格林威治时间为基准的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/05/VC++内存泄漏检测工具浅究/" >
-            
-                <span>VC++内存泄漏检测工具浅究</span>
-        </a>
-        <div class="abstract-content">
-            VC++内存泄漏检测工具浅究前言内存泄漏，即未能正确释放以前分配的内存，是 C/C++ 应用程序中最难以捉摸也最难以检测到的 Bug 之一。 最初少量内存泄漏可能不引人注目，但随着时间的推移，内存泄漏越来越多，就会出现一些征兆，包括性能下降，在应用程序内存不足时发生崩溃。 更严重的是，占用了所有可用内存的泄漏应用程序可能会导致其他应用程序崩溃，从而无法确定问题出在哪个应用程序。 即使看似无害的内存泄漏也可能说明存在其他问题应当纠正。本文以VLD（visual leak detector）工具及C 运行库 (CRT) 调试堆函数作为研究对象。
-正文VLD（visual leak detec...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "C++">C++</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/02/WebApp 开发简单入门/" >
-            
-                <span>WebApp 开发简单入门</span>
-        </a>
-        <div class="abstract-content">
-            一、概述目前市面的移动应用很多大致分为三类：
-
-   1.Native_App: 原生APP 具有最佳用户体验、可访问本地资源，调用移动硬件设备。
-
-   2.Hybrid_App：混合APP 
-
-   3.Web_App ：  基于web系统和应用，运行于网络和浏览器之上，具备无需要安装包、节约手机空间、低成本开发的优势。
-
-   4.其他：wep_app、uni_app等。
-二、WebApp开发基础准备  1.知识储备：HTML/HTML5、CSS/CSS3基础知识，了解JS开发。
-  推荐学习网站：http://www.w3school.com.cn/h.asp
-
-
-2.开发工具：...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/Kotlin初探/" >
-            
-                <span>Kotlin初探</span>
-        </a>
-        <div class="abstract-content">
-            Kotlin初探本文只起抛砖引玉之用，详细教程请谷歌百度
-Kotlin 简述特点与优势
-基于JVM的新的编程语言
-由JetBrains开发（Java IDE 之父）
-谷歌官方宣布使用
-易学习，轻量级，函数式编程，语法简洁
-100%兼容java入手从变量开始来了解下Kotlin。常量与变量编程语言中，我们熟知的常量与变量是最基本的数据形式。常量
-十进制：123
-长整型以大写的 L 结尾：123L
-16 进制以 0x 开头：0x0F
-2 进制以 0b 开头：0b00001011
-Doubles 默认写法: 123.5, 123.5e10
-Floats 使用 f 或者 F 后缀：123.5f
-...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/JPA的简单介绍/" >
-            
-                <span>JPA的简单介绍</span>
-        </a>
-        <div class="abstract-content">
-            JPA的简单介绍简介jpa定义JPA(Java Persistence API)是Sun官方提出的Java持久化规范。它为Java开发人员制订了一些规范，提供了一些编程的API接口来管理Java应用中的关系数据。 
-jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用于规范现有的ORM技术，它不能取代现有的Hibernate等ORM框架，相反，采用JPA开发时，我们仍将使用这些ORM框架，只是此时开发出来的应用不在依赖于某个持久化提供商。应用可以在不修改代码的情况下在任何JPA环境下运行，真正做到低耦合，可扩展的程序设计。类似于JDBC，在JDBC出现以前，我们的程序针...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" title= "ArcGIS Runtime 100与产品线结合带来的思考">
+                    <div class="prevTitle">ArcGIS Runtime 100与产品线结合带来的思考</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -795,6 +555,24 @@ jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用�
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一-smartTable简介"><span class="toc-number">1.</span> <span class="toc-text">一.smartTable简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-简单介绍它的功能："><span class="toc-number">1.1.</span> <span class="toc-text">1.简单介绍它的功能：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-如何使用"><span class="toc-number">1.2.</span> <span class="toc-text">2.如何使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-使用方式-两种"><span class="toc-number">1.3.</span> <span class="toc-text">3.使用方式(两种)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-两种方式的使用"><span class="toc-number">2.</span> <span class="toc-text">二.两种方式的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-注解方式"><span class="toc-number">2.1.</span> <span class="toc-text">1.注解方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-基本方式，手动创建行与列"><span class="toc-number">2.2.</span> <span class="toc-text">2.基本方式，手动创建行与列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-两种方式的优势和不足"><span class="toc-number">2.3.</span> <span class="toc-text">3.两种方式的优势和不足</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-注解方式-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">1.注解方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-基本方式"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.基本方式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三-smartTable的特性，效果（延用作者本人的文章作参考）"><span class="toc-number">3.</span> <span class="toc-text">三.smartTable的特性，效果（延用作者本人的文章作参考）</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1781,6 +1559,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
