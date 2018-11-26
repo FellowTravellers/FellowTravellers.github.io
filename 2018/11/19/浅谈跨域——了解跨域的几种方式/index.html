@@ -459,11 +459,12 @@ height:50vh;
 <td style="text-align:left">不允许</td>
 </tr>
 <tr>
-<td style="text-align:left"><a href="http://www.demo.com/a.js" target="_blank" rel="noopener">http://www.demo.com/a.js</a> <br><a href="http://x.demo.com/b.js" target="_blank" rel="noopener">http://x.demo.com/b.js</a></td>
+<td style="text-align:left"><a href="http://www.demo.com/a.js" target="_blank" rel="noopener">http://www.demo.com/a.js</a> <br><a href="http://x.demo.com/b.js" target="_blank" rel="noopener">http://x.demo.com/b.js</a> <br><a href="http://demo.com/c.js" target="_blank" rel="noopener">http://demo.com/c.js</a></td>
+<td style="text-align:left">主域相同，子域不同</td>
+<td style="text-align:left">不允许</td>
 </tr>
 </tbody>
 </table>
-<p><a href="http://demo.com/c.js" target="_blank" rel="noopener">http://demo.com/c.js</a> | 主域相同，子域不同       | 不允许       |</p>
 <h4 id="了解更多："><a href="#了解更多：" class="headerlink" title="了解更多："></a>了解更多：</h4><ul>
 <li><p>以上表格中第四个 “域名和域名对应相同IP” 不允许通信，虽然对应的IP地址是相同，但是也是不同的域名，这种也是判定为跨域的。我遇到的示例：做微信公众号的测试号配置时，需要在测试号的 <strong>体验接口权限表</strong> <strong>- 网页服务 - 网页帐号 - 网页授权获取用户基本信息 </strong>中配置 <strong>授权回调页面域名</strong>，这里配置的域名需要和提供公众号访问的域名保持一致，我理解的也就是保证非跨域情况配置。经过我多次踩坑，发现以下两种情况域名配置微信是无法进行授权回调的：</p>
 <ol>
@@ -475,8 +476,7 @@ height:50vh;
 <p>第1、2 条两种情况其实和表格中第四个的情况都是一回事，是属于 “域名和域名对应相同 IP” 的情况。后来我使用了内网的IP去设置，使授权回调IP和配置在公众号菜单访问的地址链接中的IP保持一致，完成了授权。</p>
 </li>
 </ul>
-<p>##解决方案</p>
-<ul>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
 <li><p>通过 jsonp 跨域</p>
 </li>
 <li><p>document.domain + iframe 跨域</p>
@@ -496,10 +496,8 @@ height:50vh;
 <li><p>WebSocket 协议跨域</p>
 </li>
 </ul>
-<p>#跨域的几种解决方案</p>
-<p>##一、jsonp 方式<br>jsonp (json with padding) 是 json 的一种“使用模式”，是为了解决跨域问题而产生的解决方案。</p>
-<p>####jsonp 产生：</p>
-<ol>
+<h1 id="跨域的几种解决方案"><a href="#跨域的几种解决方案" class="headerlink" title="跨域的几种解决方案"></a>跨域的几种解决方案</h1><h2 id="一、jsonp-方式"><a href="#一、jsonp-方式" class="headerlink" title="一、jsonp 方式"></a>一、jsonp 方式</h2><p>jsonp (json with padding) 是 json 的一种“使用模式”，是为了解决跨域问题而产生的解决方案。</p>
+<h4 id="jsonp-产生："><a href="#jsonp-产生：" class="headerlink" title="jsonp 产生："></a>jsonp 产生：</h4><ol>
 <li>AJAX 直接请求普通文件存在跨域无权限访问的问题, 尽管是静态页面；</li>
 <li>我们在调用 js 文件的时候又不受跨域影响,比如引入 jquery 框架的时候；</li>
 <li>凡是拥有 src 这个属性的标签都可以跨域例如 &lt;script&gt; &lt;img&gt; &lt;iframe&gt;;</li>
@@ -507,7 +505,7 @@ height:50vh;
 <li>json 是一个轻量级的数据格式,还被 js 原生支持；</li>
 <li>为了便于客户端使用数据，逐渐形成了一种非正式传输协议，人们把它称作<strong>JSONP</strong>，该协议的一个要点就是允许用户传递一个callback 参数给服务端；</li>
 </ol>
-<p>####举例：<br><strong>以下是使用jQuery的jsonp发起跨域请求的例子描述，并总结。为了将过程描述清楚，内容过长，请谅解。</strong></p>
+<h4 id="举例："><a href="#举例：" class="headerlink" title="举例："></a>举例：</h4><p><strong>以下是使用jQuery的jsonp发起跨域请求的例子描述，并总结。为了将过程描述清楚，内容过长，请谅解。</strong></p>
 <ul>
 <li><p>我们先来看一看模拟静态文件访问跨域情况：<br>只前端自己写一写代码，在不同端口形成的跨域情况下进行模拟；<br>MacBook 的本地服务端口配置我将会在后续给出。<br>​    1. 准备环境<br>​      Macbook users 路径下的站点，用自带Apache 配置一个 <em>8001 端口，Apache默认端口 </em>80 (/Library/WebServer/Document) 端口。端口不一样，构成跨域条件。</p>
 <pre><code>2. 开始模拟，使用&amp;lt;script&amp;gt; 标签实现跨域访问
@@ -564,8 +562,7 @@ height:50vh;
 <li>由于是 script 标签，b 网站返回的字符串会被当成js解析执行，相当于调用到了 callback 方法;</li>
 <li>主要利用了 script（img, iframe等有src属性的标签）可以跨站点访问的特性，且只能用 GET 请求，需要服务端做点配合，并且需要信任服务器(安全考虑)。jquery 的 jsonp ajax 只是封装了这个过程，让你看上去和普通 ajax 没什么区别，其实却一点关系都没有。</li>
 </ol>
-<p>##二、跨域资源共享</p>
-<p><strong>跨域资源共享（CORS）是一种网络浏览器的技术规范，它为web服务器定义了一种方式，允许网页从不同的域访问资源。CORS就是为了让AJAX可以实现可控的跨域访问而生的。</strong></p>
+<h2 id="二、跨域资源共享"><a href="#二、跨域资源共享" class="headerlink" title="二、跨域资源共享"></a>二、跨域资源共享</h2><p><strong>跨域资源共享（CORS）是一种网络浏览器的技术规范，它为web服务器定义了一种方式，允许网页从不同的域访问资源。CORS就是为了让AJAX可以实现可控的跨域访问而生的。</strong></p>
 <h4 id="CORS-与-JSONP-的比较"><a href="#CORS-与-JSONP-的比较" class="headerlink" title="CORS 与 JSONP  的比较:"></a>CORS 与 JSONP  的比较:</h4><ul>
 <li><p>jsonp只能实现 GET 请求，而cors支持所有类型的http请求；</p>
 </li>
@@ -574,7 +571,7 @@ height:50vh;
 <li><p>jsonp 主要被老的浏览器支持，但它们往往不支持cors，而绝大多数现代浏览器都已经支持了cors。</p>
 </li>
 </ul>
-<p>####如何实现 CORS<br>只需要在后台中加上配置来允许跨域请求。如果还需要携带cookie在前端被请求的Response header中加入允许携带配置，就可以实现跨域访问了！</p>
+<h4 id="如何实现-CORS"><a href="#如何实现-CORS" class="headerlink" title="如何实现 CORS"></a>如何实现 CORS</h4><p>只需要在后台中加上配置来允许跨域请求。如果还需要携带cookie在前端被请求的Response header中加入允许携带配置，就可以实现跨域访问了！</p>
 <p>以下也是后台小伙伴友情提供，这里再次感谢~(<em>^__^</em>) 嘻嘻……<br>下面我们来看一下 Java 的Tomcat 配置 cors:<br>首先需要下载 jar 包cors-filter与java-property-utils：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/com.thetransactioncompany/cors-filter --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;cors-filter&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/com.thetransactioncompany/java-property-utils --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;java-property-utils&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 <p>修改web.xml, 增加以下代码（最好放在其他filter前边）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;         </span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;  </span><br><span class="line">    &lt;filter-<span class="class"><span class="keyword">class</span>&gt;<span class="title">com</span>.<span class="title">thetransactioncompany</span>.<span class="title">cors</span>.<span class="title">CORSFilter</span>&lt;/<span class="title">filter</span>-<span class="title">class</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">     &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">cors</span>.<span class="title">allowOrigin</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;  </span></span><br><span class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">value</span>&gt;*&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">     &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">cors</span>.<span class="title">supportedMethods</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;  </span></span><br><span class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">GET</span>, <span class="title">POST</span>, <span class="title">HEAD</span>, <span class="title">PUT</span>, <span class="title">DELETE</span>&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">     &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">cors</span>.<span class="title">supportedHeaders</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;  </span></span><br><span class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">Accept</span>, <span class="title">Origin</span>, <span class="title">X</span>-<span class="title">Requested</span>-<span class="title">With</span>, <span class="title">Content</span>-<span class="title">Type</span>, <span class="title">Last</span>-<span class="title">Modified</span>&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">cors</span>.<span class="title">exposedHeaders</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;  </span></span><br><span class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">Set</span>-<span class="title">Cookie</span>&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;<span class="title">init</span>-<span class="title">param</span>&gt;  </span></span><br><span class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">cors</span>.<span class="title">supportsCredentials</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;  </span></span><br><span class="line"><span class="class">        &lt;<span class="title">param</span>-<span class="title">value</span>&gt;<span class="title">true</span>&lt;/<span class="title">param</span>-<span class="title">value</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;/<span class="title">init</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">&lt;/<span class="title">filter</span>&gt;  </span></span><br><span class="line"><span class="class">  </span></span><br><span class="line"><span class="class">&lt;<span class="title">filter</span>-<span class="title">mapping</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;<span class="title">filter</span>-<span class="title">name</span>&gt;<span class="title">CORS</span>&lt;/<span class="title">filter</span>-<span class="title">name</span>&gt;  </span></span><br><span class="line"><span class="class">    &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/*&lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;  </span></span><br><span class="line"><span class="class">&lt;/<span class="title">filter</span>-<span class="title">mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
@@ -583,12 +580,12 @@ height:50vh;
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端设置</span></span><br><span class="line">“withCredentials”: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>Vue 框架 axios 配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.withCredentials = true</span><br></pre></td></tr></table></figure></p>
 <p>如果前端访问成功，则说明后台配置正确，反之，说明后台配置失败。</p>
-<p>##三、nginx 反向代理接口跨域<br>有反向代理，那就肯定有正向代理。我们先来简单说说这个正、反向代理是个啥。</p>
-<p>###正向代理原理<br>正向代理类似一个跳板机，把浏览器访问过程委托给代理去做，代理访问外部资源。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-ba20a909839d2336.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="正向代理原理示意图"></p>
+<h2 id="三、nginx-反向代理接口跨域"><a href="#三、nginx-反向代理接口跨域" class="headerlink" title="三、nginx 反向代理接口跨域"></a>三、nginx 反向代理接口跨域</h2><p>有反向代理，那就肯定有正向代理。我们先来简单说说这个正、反向代理是个啥。</p>
+<h3 id="正向代理原理"><a href="#正向代理原理" class="headerlink" title="正向代理原理"></a>正向代理原理</h3><p>正向代理类似一个跳板机，把浏览器访问过程委托给代理去做，代理访问外部资源。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-ba20a909839d2336.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="正向代理原理示意图"></p>
 <p>举个例子：<br>我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器能访问那个我不能访问的网站，于是我先连上代理服务器,告诉他我需要那个无法访问网站的内容，代理服务器去取回来,然后返回给我。从目标网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。<br>类似场景比如我们在外网去访问公司内网服务器B，我们先设置VPN，通过VPN将我们的请求转发到内网的A服务器，然后A把请求发到B上，响应内容返回到A，再由A通过VPN返回到我们。<br>工作流程可以描述为：<br>用户设置代理服务器，用户访问url，代理服务器代替用户访问并将网页内容返回。</p>
-<p>###反向代理服务器工作原理<br><strong>反向代理（Reverse Proxy）</strong>方式是指后台内部网络服务器委托代理服务器，以代理服务器来接受Internet上的连接请求，然后将请求转发给内部网络上的服务器；并将从服务器上得到的结果返回给Internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。<br>用户访问的是代理服务器，前端是不知道后台真实地址，只知道代理地址。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-b0d072681e6e1008.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="反向代理原理示意图"></p>
+<h3 id="反向代理服务器工作原理"><a href="#反向代理服务器工作原理" class="headerlink" title="反向代理服务器工作原理"></a>反向代理服务器工作原理</h3><p><strong>反向代理（Reverse Proxy）</strong>方式是指后台内部网络服务器委托代理服务器，以代理服务器来接受Internet上的连接请求，然后将请求转发给内部网络上的服务器；并将从服务器上得到的结果返回给Internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。<br>用户访问的是代理服务器，前端是不知道后台真实地址，只知道代理地址。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-b0d072681e6e1008.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="反向代理原理示意图"></p>
 <p>再举个栗子：<br>我是一个用户，我可以访问某一个网站，网站的数据是来源于我访问不到的内部网络上的内容服务器，内容服务器设置了可以访问自己的代理服务器。于是我向目标内容服务器发起请求，其实我访问的是内容服务器设置的代理服务器，这个代理服务器将我的请求转发到目标内容服务器上，获取到数据后再返回给网站上，我就可以看见了。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-428692e0b82edb8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="反向代理工作流程示意图"><br>工作流程可以描述为：<br>和正向代理相反，由目标内容服务器设置代理服务器，代理转发用户发起的请求，获取数据再返回给用户。</p>
-<p>###使用 nginx 反向代理解决跨域<br><em>Nginx</em> (engine x) 是一个高性能的<a href="https://baike.baidu.com/item/HTTP" target="_blank" rel="noopener">HTTP</a>和<a href="https://baike.baidu.com/item/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/7793488" target="_blank" rel="noopener">反向代理</a>服务，也是一个IMAP/POP3/SMTP服务。</p>
+<h3 id="使用-nginx-反向代理解决跨域"><a href="#使用-nginx-反向代理解决跨域" class="headerlink" title="使用 nginx 反向代理解决跨域"></a>使用 nginx 反向代理解决跨域</h3><p><em>Nginx</em> (engine x) 是一个高性能的<a href="https://baike.baidu.com/item/HTTP" target="_blank" rel="noopener">HTTP</a>和<a href="https://baike.baidu.com/item/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/7793488" target="_blank" rel="noopener">反向代理</a>服务，也是一个IMAP/POP3/SMTP服务。</p>
 <p>我们前面提到跨域是浏览器的同源策略导致的，同源策略它是浏览器针对脚本攻击采取的一种安全策略，并不是 HTTP 协议的一部分。所以服务器端调用 HTTP 接口只是使用了 HTTP 协议，是不会执行 js 脚本的，不需要同源策略，也就不会形成跨域问题。<br>我们使用代理（同源）服务器发起请求，再由代理（同源）服务器请求内部服务器。</p>
 <p>我们先来看看怎么来设置反向代理实现跨域请求。</p>
 <ul>
@@ -601,7 +598,7 @@ height:50vh;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#服务器的集群</span><br><span class="line">    upstream  rj.nginx.com &#123;  #服务器集群名字	</span><br><span class="line">		server    127.0.0.1:8001  weight=1;#服务器配置   weight是权重的意思，权重越大，分配的概率越大。</span><br><span class="line">		server    127.0.0.1:8002  weight=2;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	#当前的Nginx的配置</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80; #监听80端口，可以改成其他端口</span><br><span class="line">        server_name  localhost; # 当前服务的域名</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://rj.nginx.com;</span><br><span class="line">            proxy_redirect default;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>修改后代码：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80; #监听80端口，可以改成其他端口</span><br><span class="line">        server_name  localhost; # 当前服务的域名</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://localhost:81;</span><br><span class="line">            proxy_redirect default;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		location /apis &#123; #添加访问目录为/apis的代理配置</span><br><span class="line">			rewrite  ^/apis/(.*)$ /$1 break;</span><br><span class="line">			proxy_pass   http://localhost:82;</span><br><span class="line">       &#125;</span><br><span class="line">#以下配置省略</span><br></pre></td></tr></table></figure></p>
+<p>修改后代码：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80; #监听80端口，可以改成其他端口</span><br><span class="line">        server_name  localhost; # 当前服务的域名</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://localhost:81;</span><br><span class="line">            proxy_redirect default;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		location /apis &#123; #添加访问目录为/apis的代理配置</span><br><span class="line">			rewrite  ^/apis/(.*)$ /$1 break;</span><br><span class="line">			proxy_pass   http://localhost:82;</span><br><span class="line">       &#125;</span><br><span class="line"> 以下配置省略</span><br></pre></td></tr></table></figure></p>
 <p>如果要实现前端跨域携带cookie的则在 location中另外配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 当用webpack-dev-server等中间件代理接口访问nignx时，此时无浏览器参与，故没有同源限制，下面的跨域配置可不启用</span><br><span class="line"> add_header Access-Control-Allow-Origin http://www.domain1.com;  #当前端只跨域不带cookie时，可为*</span><br><span class="line"> add_header Access-Control-Allow-Credentials true;</span><br></pre></td></tr></table></figure></p>
 <p>如果是在浏览器中访问，项目访问地址需要和nginx代理同源，可以在同一个站点或者对nginx实现cors相关配置。<br>修改代码片段解析：</p>
 <ol>
@@ -614,7 +611,7 @@ height:50vh;
 </li>
 </ul>
 <p>然后在浏览器中访问B的数据就可以成功获取了。</p>
-<p>##四、nodejs 中间件代理跨域<br>node中间件实现跨域代理，原理大致与nginx相同，都是通过开启一个代理服务器（同源），实现数据的转发。<br>由于我所试验 nodejs 跨域的例子是已有的Vue项目，配置代理后实现了跨域获取数据，下面的例子分“非 Vue”和“Vue”两种进行说明。</p>
+<h2 id="四、nodejs-中间件代理跨域"><a href="#四、nodejs-中间件代理跨域" class="headerlink" title="四、nodejs 中间件代理跨域"></a>四、nodejs 中间件代理跨域</h2><p>node中间件实现跨域代理，原理大致与nginx相同，都是通过开启一个代理服务器（同源），实现数据的转发。<br>由于我所试验 nodejs 跨域的例子是已有的Vue项目，配置代理后实现了跨域获取数据，下面的例子分“非 Vue”和“Vue”两种进行说明。</p>
 <ol>
 <li>非 Vue 框架的跨域<br>利用node + express + http-proxy-middleware搭建一个proxy服务器。</li>
 </ol>
@@ -644,7 +641,7 @@ height:50vh;
 </li>
 </ul>
 <p>配置相关属性含义和前面 nginx 中相同。这样就可以进行代理了。</p>
-<p>##五、WebSocket协议跨域<br>WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是server push技术的一种很好的实现。<br>原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。<br>关于WebSocket我没还没有自己做实例去验证跨域，但是WebSocket本身支持跨域，只要会使用就行，之前写小程序使用过，但是代码封装程度高不适合作为例子看。以下例子是从<a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a> 摘抄来的，可以参考一下。</p>
+<h2 id="五、WebSocket协议跨域"><a href="#五、WebSocket协议跨域" class="headerlink" title="五、WebSocket协议跨域"></a>五、WebSocket协议跨域</h2><p>WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是server push技术的一种很好的实现。<br>原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。<br>关于WebSocket我没还没有自己做实例去验证跨域，但是WebSocket本身支持跨域，只要会使用就行，之前写小程序使用过，但是代码封装程度高不适合作为例子看。以下例子是从<a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a> 摘抄来的，可以参考一下。</p>
 <ul>
 <li><p>前端代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;user input：&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script src=&quot;./socket.io.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var socket = io(&apos;http://www.domain2.com:8080&apos;);</span><br><span class="line"></span><br><span class="line">// 连接成功处理</span><br><span class="line">socket.on(&apos;connect&apos;, function() &#123;</span><br><span class="line">    // 监听服务端消息</span><br><span class="line">    socket.on(&apos;message&apos;, function(msg) &#123;</span><br><span class="line">        console.log(&apos;data from server: ---&gt; &apos; + msg); </span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // 监听服务端关闭</span><br><span class="line">    socket.on(&apos;disconnect&apos;, function() &#123; </span><br><span class="line">        console.log(&apos;Server socket has closed.&apos;); </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">document.getElementsByTagName(&apos;input&apos;)[0].onblur = function() &#123;</span><br><span class="line">    socket.send(this.value);</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
@@ -653,7 +650,7 @@ height:50vh;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var http = require(&apos;http&apos;);</span><br><span class="line">var socket = require(&apos;socket.io&apos;);</span><br><span class="line"></span><br><span class="line">// 启http服务</span><br><span class="line">var server = http.createServer(function(req, res) &#123;</span><br><span class="line">    res.writeHead(200, &#123;</span><br><span class="line">        &apos;Content-type&apos;: &apos;text/html&apos;</span><br><span class="line">    &#125;);</span><br><span class="line">    res.end();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(&apos;8080&apos;);</span><br><span class="line">console.log(&apos;Server is running at port 8080...&apos;);</span><br><span class="line"></span><br><span class="line">// 监听socket连接</span><br><span class="line">socket.listen(server).on(&apos;connection&apos;, function(client) &#123;</span><br><span class="line">    // 接收信息</span><br><span class="line">    client.on(&apos;message&apos;, function(msg) &#123;</span><br><span class="line">        client.send(&apos;hello：&apos; + msg);</span><br><span class="line">        console.log(&apos;data from client: ---&gt; &apos; + msg);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // 断开处理</span><br><span class="line">    client.on(&apos;disconnect&apos;, function() &#123;</span><br><span class="line">        console.log(&apos;Client socket has closed.&apos;); </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>#结尾<br>简单的总结概括：</p>
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>简单的总结概括：</p>
 <ul>
 <li><p>jsonp<br>适用于访问接口get请求返回值是json类型，又是跨域的情况。<br>1）只支持 get 请求；<br>2）需要后端配合，能够返回 callback 返回希望得到的数据；<br>3）存在一定的安全性问题，不能防止滥用跨域请求的非法网站恶意调用。使用的话需做好安全防范；</p>
 </li>
@@ -663,7 +660,7 @@ height:50vh;
 </li>
 </ul>
 <p>其他的没有详细描述。在使用过程中就能够知晓很明确的使用场景，后续我再陆续补充。</p>
-<p>#参考链接<br><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a><br><a href="https://www.cnblogs.com/chiangchou/p/jsonp.html" target="_blank" rel="noopener">jQuery jsonp跨域请求</a><br>如果有没理解的也可以去这里找找灵感~~</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a><br><a href="https://www.cnblogs.com/chiangchou/p/jsonp.html" target="_blank" rel="noopener">jQuery jsonp跨域请求</a><br>如果有没理解的也可以去这里找找灵感~~</p>
 <hr>
 <p>【注解1】使用XMLHttpRequest (XHR)对象可以与服务器交互。您可以从URL获取数据，而无需让整个的页面刷新。这使得Web页面可以只更新页面的局部，而不影响用户的操作。</p>
 <p>尽管名称如此，XMLHttpRequest可以用于获取任何类型的数据，而不仅仅是XML，它还支持   <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="noopener">HTTP</a>以外的协议(包括文件和ftp)。</p>
@@ -757,7 +754,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">同源策略是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的跨域场景有哪些？"><span class="toc-number">1.3.</span> <span class="toc-text">常见的跨域场景有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解更多："><span class="toc-number">1.3.0.1.</span> <span class="toc-text">了解更多：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CORS-与-JSONP-的比较"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">CORS 与 JSONP  的比较:</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">同源策略是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的跨域场景有哪些？"><span class="toc-number">1.3.</span> <span class="toc-text">常见的跨域场景有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解更多："><span class="toc-number">1.3.0.1.</span> <span class="toc-text">了解更多：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">1.4.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跨域的几种解决方案"><span class="toc-number">2.</span> <span class="toc-text">跨域的几种解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、jsonp-方式"><span class="toc-number">2.1.</span> <span class="toc-text">一、jsonp 方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jsonp-产生："><span class="toc-number">2.1.0.1.</span> <span class="toc-text">jsonp 产生：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#举例："><span class="toc-number">2.1.0.2.</span> <span class="toc-text">举例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">2.1.0.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、跨域资源共享"><span class="toc-number">2.2.</span> <span class="toc-text">二、跨域资源共享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CORS-与-JSONP-的比较"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">CORS 与 JSONP  的比较:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何实现-CORS"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">如何实现 CORS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、nginx-反向代理接口跨域"><span class="toc-number">2.3.</span> <span class="toc-text">三、nginx 反向代理接口跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正向代理原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">正向代理原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向代理服务器工作原理"><span class="toc-number">2.3.2.</span> <span class="toc-text">反向代理服务器工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-nginx-反向代理解决跨域"><span class="toc-number">2.3.3.</span> <span class="toc-text">使用 nginx 反向代理解决跨域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、nodejs-中间件代理跨域"><span class="toc-number">2.4.</span> <span class="toc-text">四、nodejs 中间件代理跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、WebSocket协议跨域"><span class="toc-number">2.5.</span> <span class="toc-text">五、WebSocket协议跨域</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结尾"><span class="toc-number">3.</span> <span class="toc-text">结尾</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考链接"><span class="toc-number">4.</span> <span class="toc-text">参考链接</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -770,6 +767,42 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1700,9 +1733,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
-    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
@@ -1710,11 +1743,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
         <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
     
         <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
-    
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
@@ -1755,29 +1788,29 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
-    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
-    
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
-    
-        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
-        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+    
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
     
