@@ -414,7 +414,7 @@ height:50vh;
 <ul>
 <li><p>资源的跳转：A链接、重定向、表单提交；</p>
 </li>
-<li><p>资源嵌入：<link>、<script>、<img>、<iframe> 等DOM标签，还有样式中 background:url()、@font-face()等文件外链；</p>
+<li><p>资源嵌入：&lt;link&gt;、&lt;script&gt;、&lt;img&gt;、&lt;iframe&gt; 等DOM标签，还有样式中 background:url()、@font-face()等文件外链；</p>
 </li>
 <li><p>脚本请求： js发起的ajax请求、dom和js对象的跨域操作等；</p>
 </li>
@@ -439,31 +439,31 @@ height:50vh;
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><a href="http://www.demo.com/a.js">http://www.demo.com/a.js</a> <br><a href="http://www.demo.com/b.js">http://www.demo.com/b.js</a><br><a href="http://www.demo.com/lab/c.js">http://www.demo.com/lab/c.js</a></td>
+<td style="text-align:left"><a href="http://www.demo.com/a.js" target="_blank" rel="noopener">http://www.demo.com/a.js</a> <br><a href="http://www.demo.com/b.js" target="_blank" rel="noopener">http://www.demo.com/b.js</a><br><a href="http://www.demo.com/lab/c.js" target="_blank" rel="noopener">http://www.demo.com/lab/c.js</a></td>
 <td style="text-align:left">同一域名，不同文件或路径</td>
 <td style="text-align:left">允许</td>
 </tr>
 <tr>
-<td style="text-align:left"><a href="http://www.demo.com:8000/a.js">http://www.demo.com:8000/a.js</a> <br/><a href="http://www.demo.com/b.js">http://www.demo.com/b.js</a></td>
+<td style="text-align:left"><a href="http://www.demo.com:8000/a.js" target="_blank" rel="noopener">http://www.demo.com:8000/a.js</a> <br><a href="http://www.demo.com/b.js" target="_blank" rel="noopener">http://www.demo.com/b.js</a></td>
 <td style="text-align:left">同一域名，不同端口</td>
 <td style="text-align:left">不允许</td>
 </tr>
 <tr>
-<td style="text-align:left"><a href="http://www.demo.com/a.js">http://www.demo.com/a.js</a> <br/><a href="https://www.demo.com/b.js">https://www.demo.com/b.js</a></td>
+<td style="text-align:left"><a href="http://www.demo.com/a.js" target="_blank" rel="noopener">http://www.demo.com/a.js</a> <br><a href="https://www.demo.com/b.js" target="_blank" rel="noopener">https://www.demo.com/b.js</a></td>
 <td style="text-align:left">同一域名，不同协议</td>
 <td style="text-align:left">不允许</td>
 </tr>
 <tr>
-<td style="text-align:left"><a href="http://www.demo.com/a.js">http://www.demo.com/a.js</a> <br/><a href="http://127.0.0.1/b.js">http://127.0.0.1/b.js</a></td>
+<td style="text-align:left"><a href="http://www.demo.com/a.js" target="_blank" rel="noopener">http://www.demo.com/a.js</a> <br><a href="http://127.0.0.1/b.js" target="_blank" rel="noopener">http://127.0.0.1/b.js</a></td>
 <td style="text-align:left">域名和域名对应相同ip</td>
 <td style="text-align:left">不允许</td>
 </tr>
 <tr>
-<td style="text-align:left"><a href="http://www.demo.com/a.js">http://www.demo.com/a.js</a> <br/><a href="http://x.demo.com/b.js">http://x.demo.com/b.js</a></td>
+<td style="text-align:left"><a href="http://www.demo.com/a.js" target="_blank" rel="noopener">http://www.demo.com/a.js</a> <br><a href="http://x.demo.com/b.js" target="_blank" rel="noopener">http://x.demo.com/b.js</a></td>
 </tr>
 </tbody>
 </table>
-<p><a href="http://demo.com/c.js">http://demo.com/c.js</a> | 主域相同，子域不同       | 不允许       |</p>
+<p><a href="http://demo.com/c.js" target="_blank" rel="noopener">http://demo.com/c.js</a> | 主域相同，子域不同       | 不允许       |</p>
 <h4 id="了解更多："><a href="#了解更多：" class="headerlink" title="了解更多："></a>了解更多：</h4><ul>
 <li><p>以上表格中第四个 “域名和域名对应相同IP” 不允许通信，虽然对应的IP地址是相同，但是也是不同的域名，这种也是判定为跨域的。我遇到的示例：做微信公众号的测试号配置时，需要在测试号的 <strong>体验接口权限表</strong> <strong>- 网页服务 - 网页帐号 - 网页授权获取用户基本信息 </strong>中配置 <strong>授权回调页面域名</strong>，这里配置的域名需要和提供公众号访问的域名保持一致，我理解的也就是保证非跨域情况配置。经过我多次踩坑，发现以下两种情况域名配置微信是无法进行授权回调的：</p>
 <ol>
@@ -671,7 +671,7 @@ height:50vh;
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = callback + <span class="string">"("</span> +result+<span class="string">")"</span>; <span class="comment">// 绑定前端传入回调函数</span></span><br><span class="line">response.getWriter().write(result); <span class="comment">// 后台将数据作为响应带回。不加这一句前端指定的callback对应函数能拿到数据，但是ajax请求success中是获取不到数据的。</span></span><br></pre></td></tr></table></figure>
 <p>对于更详细的XMLHttpRequest请求内容可以参考：<a href="https://segmentfault.com/a/1190000004322487">使用XMLHttpRequest</a></p>
 <hr>
-</script></p></li></ul>
+</script></li></ol>
     </article>
     <!-- license  -->
     
@@ -757,7 +757,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">同源策略是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的跨域场景有哪些？"><span class="toc-number">1.3.</span> <span class="toc-text">常见的跨域场景有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解更多："><span class="toc-number">1.3.0.1.</span> <span class="toc-text">了解更多：</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -770,6 +770,10 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
     
     
     
@@ -1676,15 +1680,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
-        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
     
         <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
-    
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
@@ -1727,25 +1731,25 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
-    
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
-        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
-    
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
     
