@@ -546,7 +546,7 @@ height:50vh;
 <li>我们再来简单看下如何指定 jsonp 回调函数：<br>以下的例子和解说我搬运自：<a href="https://www.cnblogs.com/chiangchou/p/jsonp.html，看完醍醐灌顶。" target="_blank" rel="noopener">https://www.cnblogs.com/chiangchou/p/jsonp.html，看完醍醐灌顶。</a><br>上代码：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> &lt;%@ page pageEncoding=<span class="string">"utf-8"</span> contentType=<span class="string">"text/html;charset=UTF-8"</span>  language=<span class="string">"java"</span> %&gt;</span><br><span class="line"> <span class="number">2</span> &lt;html&gt;</span><br><span class="line"> <span class="number">3</span> &lt;head&gt;</span><br><span class="line"> <span class="number">4</span>     &lt;title&gt;跨域测试&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"> 5     &lt;script src="js/</span>jquery<span class="number">-1.7</span><span class="number">.2</span>.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string"> 6     &lt;script&gt;</span></span><br><span class="line"><span class="string"> 7 </span></span><br><span class="line"><span class="string"> 8         function showData (data) &#123;</span></span><br><span class="line"><span class="string"> 9             console.info("</span>调用showData<span class="string">");</span></span><br><span class="line"><span class="string">10 </span></span><br><span class="line"><span class="string">11             var result = JSON.stringify(data);</span></span><br><span class="line">12             $("#text").val(result);</span><br><span class="line"><span class="number">13</span>         &#125;</span><br><span class="line"><span class="number">14</span> </span><br><span class="line"><span class="number">15</span>         $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">16</span> </span><br><span class="line"><span class="number">17</span> <span class="comment">//            window.showData = function  (data) &#123;</span></span><br><span class="line"><span class="number">18</span> <span class="comment">//                console.info("调用showData");</span></span><br><span class="line"><span class="number">19</span> <span class="comment">//</span></span><br><span class="line"><span class="number">20</span> <span class="comment">//                var result = JSON.stringify(data);</span></span><br><span class="line"><span class="number">21</span> <span class="comment">//                $("#text").val(result);</span></span><br><span class="line"><span class="number">22</span> <span class="comment">//            &#125;</span></span><br><span class="line"><span class="number">23</span> </span><br><span class="line"><span class="number">24</span>             $(<span class="string">"#btn"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">25</span> </span><br><span class="line"><span class="number">26</span>                 $.ajax(&#123;</span><br><span class="line"><span class="number">27</span>                     url: <span class="string">"http://localhost:9090/student"</span>,</span><br><span class="line"><span class="number">28</span>                     type: <span class="string">"GET"</span>,</span><br><span class="line"><span class="number">29</span>                     dataType: <span class="string">"jsonp"</span>,  <span class="comment">//指定服务器返回的数据类型</span></span><br><span class="line"><span class="number">30</span>                     jsonpCallback: <span class="string">"showData"</span>,  <span class="comment">//指定回调函数名称</span></span><br><span class="line"><span class="number">31</span>                     success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line"><span class="number">32</span>                         <span class="built_in">console</span>.info(<span class="string">"调用success"</span>);</span><br><span class="line"><span class="number">33</span>                     &#125;</span><br><span class="line"><span class="number">34</span>                 &#125;);</span><br><span class="line"><span class="number">35</span>             &#125;);</span><br><span class="line"><span class="number">36</span> </span><br><span class="line"><span class="number">37</span>         &#125;);</span><br><span class="line"><span class="number">38</span>     &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">39 &lt;/</span>head&gt;</span><br><span class="line"><span class="number">40</span> &lt;body&gt;</span><br><span class="line"><span class="number">41</span>     &lt;input id=<span class="string">"btn"</span> type=<span class="string">"button"</span> value=<span class="string">"跨域获取数据"</span> /&gt;</span><br><span class="line"><span class="number">42</span>     &lt;textarea id=<span class="string">"text"</span> style=<span class="string">"width: 400px; height: 100px;"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span></span><br><span class="line"><span class="number">43</span> </span><br><span class="line"><span class="number">44</span> &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">45 &lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>回调函数可以写到<script>里（默认属于window对象），或者指明写到window对象里，看jQuery源码，可以看到jQuery调用回调函数时，是调用的window.callback。代码如上，看调用结果发现，请求时带的参数是callback=showData,然后再调用了success【2，文末注解】。所以success是返回成功以后必定会调的函数。</p>
+<p>回调函数可以写到&lt;script&gt;里（默认属于window对象），或者指明写到window对象里，看jQuery源码，可以看到jQuery调用回调函数时，是调用的window.callback。代码如上，看调用结果发现，请求时带的参数是callback=showData,然后再调用了success【2，文末注解】。所以success是返回成功以后必定会调的函数。</p>
 <p>如果想要更改 callback 这个参数的名称，参考以下代码第23行。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> &lt;%@ page pageEncoding=<span class="string">"utf-8"</span> contentType=<span class="string">"text/html;charset=UTF-8"</span>  language=<span class="string">"java"</span> %&gt;</span><br><span class="line"> <span class="number">2</span> &lt;html&gt;</span><br><span class="line"> <span class="number">3</span> &lt;head&gt;</span><br><span class="line"> <span class="number">4</span>     &lt;title&gt;跨域测试&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"> 5     &lt;script src="js/</span>jquery<span class="number">-1.7</span><span class="number">.2</span>.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string"> 6     &lt;script&gt;</span></span><br><span class="line"><span class="string"> 7 </span></span><br><span class="line"><span class="string"> 8         function showData (data) &#123;</span></span><br><span class="line"><span class="string"> 9             console.info("</span>调用showData<span class="string">");</span></span><br><span class="line"><span class="string">10 </span></span><br><span class="line"><span class="string">11             var result = JSON.stringify(data);</span></span><br><span class="line">12             $("#text").val(result);</span><br><span class="line"><span class="number">13</span>         &#125;</span><br><span class="line"><span class="number">14</span> </span><br><span class="line"><span class="number">15</span>         $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">16</span> </span><br><span class="line"><span class="number">17</span>             $(<span class="string">"#btn"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">18</span> </span><br><span class="line"><span class="number">19</span>                 $.ajax(&#123;</span><br><span class="line"><span class="number">20</span>                     url: <span class="string">"http://localhost:9090/student"</span>,</span><br><span class="line"><span class="number">21</span>                     type: <span class="string">"GET"</span>,</span><br><span class="line"><span class="number">22</span>                     dataType: <span class="string">"jsonp"</span>,  <span class="comment">//指定服务器返回的数据类型</span></span><br><span class="line"><span class="number">23</span>                     jsonp: <span class="string">"theFunction"</span>,   <span class="comment">//指定参数名称</span></span><br><span class="line"><span class="number">24</span>                     jsonpCallback: <span class="string">"showData"</span>,  <span class="comment">//指定回调函数名称</span></span><br><span class="line"><span class="number">25</span>                     success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line"><span class="number">26</span>                         <span class="built_in">console</span>.info(<span class="string">"调用success"</span>);</span><br><span class="line"><span class="number">27</span>                     &#125;</span><br><span class="line"><span class="number">28</span>                 &#125;);</span><br><span class="line"><span class="number">29</span>             &#125;);</span><br><span class="line"><span class="number">30</span> </span><br><span class="line"><span class="number">31</span>         &#125;);</span><br><span class="line"><span class="number">32</span>     &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">33 &lt;/</span>head&gt;</span><br><span class="line"><span class="number">34</span> &lt;body&gt;</span><br><span class="line"><span class="number">35</span>     &lt;input id=<span class="string">"btn"</span> type=<span class="string">"button"</span> value=<span class="string">"跨域获取数据"</span> /&gt;</span><br><span class="line"><span class="number">36</span>     &lt;textarea id=<span class="string">"text"</span> style=<span class="string">"width: 400px; height: 100px;"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span></span><br><span class="line"><span class="number">37</span> </span><br><span class="line"><span class="number">38</span> &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">39 &lt;/</span>html&gt;</span><br></pre></td></tr></table></figure></p>
 <p>如此以来后台也要跟着改变，找到我前面的例子<strong>jQuery 的 jsonp 方式跨域请求</strong>中后台代码，找到下图对应位置并作出修改：</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/3402395-523d94f4102f5dae.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="后台修改代码提示"></p>
@@ -588,11 +588,11 @@ height:50vh;
 <p>举个例子：<br>我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器能访问那个我不能访问的网站，于是我先连上代理服务器,告诉他我需要那个无法访问网站的内容，代理服务器去取回来,然后返回给我。从目标网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。<br>类似场景比如我们在外网去访问公司内网服务器B，我们先设置VPN，通过VPN将我们的请求转发到内网的A服务器，然后A把请求发到B上，响应内容返回到A，再由A通过VPN返回到我们。<br>工作流程可以描述为：<br>用户设置代理服务器，用户访问url，代理服务器代替用户访问并将网页内容返回。</p>
 <p>###反向代理服务器工作原理<br><strong>反向代理（Reverse Proxy）</strong>方式是指后台内部网络服务器委托代理服务器，以代理服务器来接受Internet上的连接请求，然后将请求转发给内部网络上的服务器；并将从服务器上得到的结果返回给Internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。<br>用户访问的是代理服务器，前端是不知道后台真实地址，只知道代理地址。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-b0d072681e6e1008.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="反向代理原理示意图"></p>
 <p>再举个栗子：<br>我是一个用户，我可以访问某一个网站，网站的数据是来源于我访问不到的内部网络上的内容服务器，内容服务器设置了可以访问自己的代理服务器。于是我向目标内容服务器发起请求，其实我访问的是内容服务器设置的代理服务器，这个代理服务器将我的请求转发到目标内容服务器上，获取到数据后再返回给网站上，我就可以看见了。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-428692e0b82edb8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="反向代理工作流程示意图"><br>工作流程可以描述为：<br>和正向代理相反，由目标内容服务器设置代理服务器，代理转发用户发起的请求，获取数据再返回给用户。</p>
-<p>###使用 nginx 反向代理解决跨域<br><em>Nginx</em> (engine x) 是一个高性能的<a href="https://baike.baidu.com/item/HTTP">HTTP</a>和<a href="https://baike.baidu.com/item/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/7793488">反向代理</a>服务，也是一个IMAP/POP3/SMTP服务。</p>
+<p>###使用 nginx 反向代理解决跨域<br><em>Nginx</em> (engine x) 是一个高性能的<a href="https://baike.baidu.com/item/HTTP" target="_blank" rel="noopener">HTTP</a>和<a href="https://baike.baidu.com/item/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/7793488" target="_blank" rel="noopener">反向代理</a>服务，也是一个IMAP/POP3/SMTP服务。</p>
 <p>我们前面提到跨域是浏览器的同源策略导致的，同源策略它是浏览器针对脚本攻击采取的一种安全策略，并不是 HTTP 协议的一部分。所以服务器端调用 HTTP 接口只是使用了 HTTP 协议，是不会执行 js 脚本的，不需要同源策略，也就不会形成跨域问题。<br>我们使用代理（同源）服务器发起请求，再由代理（同源）服务器请求内部服务器。</p>
 <p>我们先来看看怎么来设置反向代理实现跨域请求。</p>
 <ul>
-<li><p>跨域举例<br>假设有两个网站，A网站部署在：<a href="http://localhost:81">http://localhost:81</a> 即本地ip端口81上；B网站部署在：<a href="http://localhost:82">http://localhost:82</a> 即本地ip端口82上。现在A网站的页面想去访问B网站的信息，这时候浏览器是会报错的，因为形成了跨域。<br>访问代码：</p>
+<li><p>跨域举例<br>假设有两个网站，A网站部署在：<a href="http://localhost:81" target="_blank" rel="noopener">http://localhost:81</a> 即本地ip端口81上；B网站部署在：<a href="http://localhost:82" target="_blank" rel="noopener">http://localhost:82</a> 即本地ip端口82上。现在A网站的页面想去访问B网站的信息，这时候浏览器是会报错的，因为形成了跨域。<br>访问代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;Index&lt;/h2&gt;</span><br><span class="line">&lt;div id=&quot;show&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $.get(&quot;http://localhost:82/api/values&quot;, &#123;&#125;, function (result) &#123;</span><br><span class="line">                $(&quot;#show&quot;).html(result);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>nginx 搭建<br>去官网下载 nginx，这个安装例子是Windows系统下的，下完然后安装。解压缩得到目录如下：<br><img src="https://upload-images.jianshu.io/upload_images/3402395-5efc89eede85514f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="nginx安装包解压缩目录"></p>
@@ -606,11 +606,11 @@ height:50vh;
 <p>如果是在浏览器中访问，项目访问地址需要和nginx代理同源，可以在同一个站点或者对nginx实现cors相关配置。<br>修改代码片段解析：</p>
 <ol>
 <li>由配置信息可知，我们让nginx监听localhost的80端口，网站A与网站B的访问都是经过localhost的80端口进行访问；</li>
-<li>我们特殊配置了一个“/apis”目录的访问，并且对url执行了重写，最后使以“/apis”开头的地址（访问时的地址）都转到“<a href="http://localhost:82”（目标服务器地址）进行处理；">http://localhost:82”（目标服务器地址）进行处理；</a></li>
-<li>rewrite  ^/apis/(.<em>)$ /$1 break;<br>rewrite代表重写拦截进来的请求，并且只能对域名后边以“/apis”开头的起作用，例如<a href="http://www.a.com/apis/msg?x=1重写。只对/apis重写。">www.a.com/apis/msg?x=1重写。只对/apis重写。</a><br>rewrite后面的参数是一个简单的正则 ^/apis/(.</em>)$ ,$1代表正则中的第一个(),$2代表第二个()的值,以此类推。<br>break代表匹配一个之后停止匹配。</li>
+<li>我们特殊配置了一个“/apis”目录的访问，并且对url执行了重写，最后使以“/apis”开头的地址（访问时的地址）都转到“<a href="http://localhost:82”（目标服务器地址）进行处理；" target="_blank" rel="noopener">http://localhost:82”（目标服务器地址）进行处理；</a></li>
+<li>rewrite  ^/apis/(.<em>)$ /$1 break;<br>rewrite代表重写拦截进来的请求，并且只能对域名后边以“/apis”开头的起作用，例如<a href="http://www.a.com/apis/msg?x=1重写。只对/apis重写。" target="_blank" rel="noopener">www.a.com/apis/msg?x=1重写。只对/apis重写。</a><br>rewrite后面的参数是一个简单的正则 ^/apis/(.</em>)$ ,$1代表正则中的第一个(),$2代表第二个()的值,以此类推。<br>break代表匹配一个之后停止匹配。</li>
 </ol>
 <ul>
-<li>访问地址修改<br>配置了nginx，那么所有的访问都要走nginx，而不是走网站原本的地址（A网站localhost:81,B网站localhost:82）。所以要修改A网站中的ajax访问地址，把访问地址由“ <a href="http://localhost:82/api/values”">http://localhost:82/api/values”</a> 改成  “/apis/api/values”<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;Index&lt;/h2&gt;</span><br><span class="line">&lt;div id=&quot;show&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $.get(&quot;/apis/api/values&quot;, &#123;&#125;, function (result) &#123;</span><br><span class="line">                $(&quot;#show&quot;).html(result);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<li>访问地址修改<br>配置了nginx，那么所有的访问都要走nginx，而不是走网站原本的地址（A网站localhost:81,B网站localhost:82）。所以要修改A网站中的ajax访问地址，把访问地址由“ <a href="http://localhost:82/api/values”" target="_blank" rel="noopener">http://localhost:82/api/values”</a> 改成  “/apis/api/values”<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;Index&lt;/h2&gt;</span><br><span class="line">&lt;div id=&quot;show&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $.get(&quot;/apis/api/values&quot;, &#123;&#125;, function (result) &#123;</span><br><span class="line">                $(&quot;#show&quot;).html(result);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>然后在浏览器中访问B的数据就可以成功获取了。</p>
@@ -644,7 +644,7 @@ height:50vh;
 </li>
 </ul>
 <p>配置相关属性含义和前面 nginx 中相同。这样就可以进行代理了。</p>
-<p>##五、WebSocket协议跨域<br>WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是server push技术的一种很好的实现。<br>原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。<br>关于WebSocket我没还没有自己做实例去验证跨域，但是WebSocket本身支持跨域，只要会使用就行，之前写小程序使用过，但是代码封装程度高不适合作为例子看。以下例子是从<a href="https://segmentfault.com/a/1190000011145364">前端常见跨域解决方案（全）</a> 摘抄来的，可以参考一下。</p>
+<p>##五、WebSocket协议跨域<br>WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是server push技术的一种很好的实现。<br>原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。<br>关于WebSocket我没还没有自己做实例去验证跨域，但是WebSocket本身支持跨域，只要会使用就行，之前写小程序使用过，但是代码封装程度高不适合作为例子看。以下例子是从<a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a> 摘抄来的，可以参考一下。</p>
 <ul>
 <li><p>前端代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;user input：&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script src=&quot;./socket.io.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var socket = io(&apos;http://www.domain2.com:8080&apos;);</span><br><span class="line"></span><br><span class="line">// 连接成功处理</span><br><span class="line">socket.on(&apos;connect&apos;, function() &#123;</span><br><span class="line">    // 监听服务端消息</span><br><span class="line">    socket.on(&apos;message&apos;, function(msg) &#123;</span><br><span class="line">        console.log(&apos;data from server: ---&gt; &apos; + msg); </span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // 监听服务端关闭</span><br><span class="line">    socket.on(&apos;disconnect&apos;, function() &#123; </span><br><span class="line">        console.log(&apos;Server socket has closed.&apos;); </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">document.getElementsByTagName(&apos;input&apos;)[0].onblur = function() &#123;</span><br><span class="line">    socket.send(this.value);</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
@@ -663,15 +663,15 @@ height:50vh;
 </li>
 </ul>
 <p>其他的没有详细描述。在使用过程中就能够知晓很明确的使用场景，后续我再陆续补充。</p>
-<p>#参考链接<br><a href="https://segmentfault.com/a/1190000011145364">前端常见跨域解决方案（全）</a><br><a href="https://www.cnblogs.com/chiangchou/p/jsonp.html">jQuery jsonp跨域请求</a><br>如果有没理解的也可以去这里找找灵感~~</p>
+<p>#参考链接<br><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a><br><a href="https://www.cnblogs.com/chiangchou/p/jsonp.html" target="_blank" rel="noopener">jQuery jsonp跨域请求</a><br>如果有没理解的也可以去这里找找灵感~~</p>
 <hr>
 <p>【注解1】使用XMLHttpRequest (XHR)对象可以与服务器交互。您可以从URL获取数据，而无需让整个的页面刷新。这使得Web页面可以只更新页面的局部，而不影响用户的操作。</p>
-<p>尽管名称如此，XMLHttpRequest可以用于获取任何类型的数据，而不仅仅是XML，它还支持   <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP">HTTP</a>以外的协议(包括文件和ftp)。</p>
+<p>尽管名称如此，XMLHttpRequest可以用于获取任何类型的数据，而不仅仅是XML，它还支持   <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="noopener">HTTP</a>以外的协议(包括文件和ftp)。</p>
 <p>【注解2】前端将回调函数传到后台，后台将要返回的数据绑定到回调函数上，这时候前端的回调中就可以拿到数据了，在后台执行响应response的相关语句后在前端的请求success中才会拿到。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = callback + <span class="string">"("</span> +result+<span class="string">")"</span>; <span class="comment">// 绑定前端传入回调函数</span></span><br><span class="line">response.getWriter().write(result); <span class="comment">// 后台将数据作为响应带回。不加这一句前端指定的callback对应函数能拿到数据，但是ajax请求success中是获取不到数据的。</span></span><br></pre></td></tr></table></figure>
-<p>对于更详细的XMLHttpRequest请求内容可以参考：<a href="https://segmentfault.com/a/1190000004322487">使用XMLHttpRequest</a></p>
+<p>对于更详细的XMLHttpRequest请求内容可以参考：<a href="https://segmentfault.com/a/1190000004322487" target="_blank" rel="noopener">使用XMLHttpRequest</a></p>
 <hr>
-</script></p>
+
     </article>
     <!-- license  -->
     
@@ -757,7 +757,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">同源策略是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的跨域场景有哪些？"><span class="toc-number">1.3.</span> <span class="toc-text">常见的跨域场景有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解更多："><span class="toc-number">1.3.0.1.</span> <span class="toc-text">了解更多：</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">同源策略是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的跨域场景有哪些？"><span class="toc-number">1.3.</span> <span class="toc-text">常见的跨域场景有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解更多："><span class="toc-number">1.3.0.1.</span> <span class="toc-text">了解更多：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CORS-与-JSONP-的比较"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">CORS 与 JSONP  的比较:</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -770,6 +770,34 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1672,9 +1700,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
-    
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
@@ -1727,27 +1755,27 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
-    
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
-    
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
-        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
-    
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
-    
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
     
