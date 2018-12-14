@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Fellow Travellers</title>
+    <title>React和Vue比较 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">React和Vue比较</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Fellow Travellers</a>
 </header>
@@ -220,24 +231,82 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            React和Vue比较
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "刘小标">刘小标</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.2k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/12/14</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,40 +407,133 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >
-            
-                <span>产品分析与代码监管之工具使用</span>
-        </a>
-        <div class="abstract-content">
-            一、    Sonarqube–代码检查工具1.    Sonarqube的安装（1）    下载sonarqube之后，解压打开bin目录，找到对应OS目录下的StartSonar。我电脑是win64位系统，则打开的是：（2）    启动浏览器，访问http://localhost:9000，如出现下图则表示安装成功。
-2.    Sonarqube的配置（1）    首先数据库的配置，这次我使用的是mysql。那么在mysql中新建一个数据库。（2）    打开安装目录下/conf/sonar.properties文件（3）    重启sonarqube服务，再次访问http://l...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/01/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>Vue和React两个JavaScript框架都是当下比较受欢迎的，下面我们来一起探讨下它们的异同和技术选型。</p>
+<h4 id="1-相同点"><a href="#1-相同点" class="headerlink" title="1. 相同点"></a>1. 相同点</h4><blockquote>
+<ul>
+<li><p>######1.1 都使用了<a href="https://www.w3cplus.com/javascript/understand-the-Virtual-DOM.html" target="_blank" rel="noopener">虚拟Dom</a><br>   Virtual DOM是一个映射真实DOM的JavaScript对象，如果需要改变任何元素的状态，那么是先在Virtual DOM上进行改变，而不是直接改变真实的DOM。当有变化产生时，一个新的Virtual DOM对象会被创建并计算新旧Virtual DOM之间的差别。之后这些差别会应用在真实的DOM上。<br>在HTML中的标签<img src="https://upload-images.jianshu.io/upload_images/2822427-2f211d2b54e23b85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="HTML中div"><br>在JavaScript中，虚拟Dom可以用对象简单地创造一个针对上面例子的映射<img src="https://upload-images.jianshu.io/upload_images/2822427-387f2837be576492.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在JavaScript中的映射">当新一项被加进去这个JavaScript对象时，一个函数会计算新旧Virtual DOM之间的差异并反应在真实的DOM上。</p>
+<p> 计算差异的算法是高性能框架的秘密所在，React和Vue在实现上有点不同。</p>
+<p> Vue宣称可以更快地计算出Virtual DOM的差异，这是由于它在渲染过程中，会跟踪每一个组件的依赖关系，不需要重新渲染整个组件树。</p>
+<p> 而对于React而言，每当应用的状态被改变时，全部子组件都会重新渲染。当然，这可以通过shouldComponentUpdate这个生命周期方法来进行控制，但Vue将此视为默认的优化。</p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>######1.2 组件化<br> React与Vue都鼓励组件化应用。这本质上说，是建议你将你的应用分拆成一个个功能明确的模块，每个模块之间可以通过合适的方式互相联系。</p>
+<p> 下面我们看一个简单组件的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">//  Vue例子</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">    &lt;img :src=&quot;item.icon&quot; :alt=&quot;item.alt&quot;/&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p class=&quot;header&quot;&gt;&#123;&#123;item.name || &apos;&apos;&#125;&#125;&lt;/p&gt;</span><br><span class="line">      &lt;p&gt;&#123;&#123;item.des || &apos;&apos;&#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;test-item&quot;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    &quot;item&quot;: &#123;</span><br><span class="line">      type: Object,</span><br><span class="line">      default: &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">  .content &#123;</span><br><span class="line">    width: 100%;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: flex-start;</span><br><span class="line">    text-align: left;</span><br><span class="line">  &#125;</span><br><span class="line">  .content img &#123;</span><br><span class="line">    height: 20px;</span><br><span class="line">    width: 20px;</span><br><span class="line">    margin: auto 8px auto 0;</span><br><span class="line">  &#125;</span><br><span class="line">  .content .header &#123;</span><br><span class="line">    font-weight: bolder;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//  React</span><br><span class="line">import React from &quot;react&quot;;</span><br><span class="line"></span><br><span class="line">class TestItem extends React.Component &#123;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        const &#123; item &#125; = this.props;</span><br><span class="line"></span><br><span class="line">        return (</span><br><span class="line">              &lt;div className=&quot;content&quot;&gt;</span><br><span class="line">                &lt;img src=&#123;item.icon&#125; alt=&#123;item.alt&#125; /&gt;</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                  &lt;p className=&quot;header&quot;&gt;&#123;item.name || &apos;&apos;&#125;&lt;/p&gt;</span><br><span class="line">                  &lt;p&gt;&#123;item.des || &apos;&apos;&#125;&lt;/p&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">              &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default TestItem;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>######1.3 Chrome 开发工具<br> React和Vue都有很好的Chrome扩展工具去帮助你找出bug。它们会检查你的应用，让你看到Vue或者React中的变化。你也可以看到应用中的状态，并实时看到更新<br>React的开发工具<a href="https://github.com/facebook/react-devtools" target="_blank" rel="noopener">react-devtools</a><br>Vue的开发工具<a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>######1.4 构建工具<br>React和Vue都有自己的构建工具，你可以使用它快速搭建开发环境。React可以使用Create React App，而Vue对应的则是vue-cli。两个工具都能让你得到一个根据最佳实践设置的项目模板</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>######1.5 配套框架<br> Vue与React最后一个相似但略有不同之处是它们配套框架的处理方法。相同之处在于，两个框架都专注于UI层，其他的功能如路由、状态管理等都交由其他框架进行处理。</p>
+<p> 而不同之处是在于它们如何关联它们各自的配套框架。Vue的核心团队维护着vue-router和vuex，它们都是作为官方推荐的存在。而React的react-router、dva和react-redux则是由社区成员维护。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="2-不同点"><a href="#2-不同点" class="headerlink" title="2. 不同点"></a>2. 不同点</h4><p>Vue与React有很多的相似之处，但他们也有完全不一致的地方。</p>
+<blockquote>
+<ul>
+<li>######2.1 JSX和模板<br>React与Vue最大的不同就是一个使用JSX语法编写(React), 一个使用模板编写(Vue)<br>Vue鼓励你去使用HTML模板去进行渲染, 因此，通过把原有的模板整合成新的Vue模板，Vue很容易提供旧的应用的升级。这也让新来者很容易适应它的语法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;    &lt;test-item</span><br><span class="line">&gt;         v-for=&quot;(item, index) in data&quot; </span><br><span class="line">&gt;         :item=&quot;item&quot; </span><br><span class="line">&gt;         :index=&quot;index&quot;</span><br><span class="line">&gt;         :key=&quot;index&quot;</span><br><span class="line">&gt;         :clickHandle=&quot;testItemClick(item)&quot; /&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>   而React推荐JSX书写。同样的效果，用JSX书写的如下：<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;    data.map((item, index) =&gt; &#123;</span><br><span class="line">&gt;       const itemProps = &#123;</span><br><span class="line">&gt;           item, </span><br><span class="line">&gt;           index, </span><br><span class="line">&gt;           key: index, </span><br><span class="line">&gt;           clickHandle: this.testItemClick.bind(this)</span><br><span class="line">&gt;        &#125;;</span><br><span class="line">&gt;        return &lt;TestItem &#123;...itemProps&#125;  /&gt;</span><br><span class="line">&gt;    &#125;)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>   看起来JSX有些比较麻烦, 但是使用起来比较灵活<br>   与React一样，Vue在技术上也支持render函数和JSX，但只是不是默认的而已。我们来看下Vue官方的一个例子<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;    import AnchoredHeading from &apos;./AnchoredHeading.vue&apos;</span><br><span class="line">&gt;    new Vue(&#123;</span><br><span class="line">&gt;        el: &apos;#demo&apos;,</span><br><span class="line">&gt;        render: function (h) &#123;</span><br><span class="line">&gt;            return (</span><br><span class="line">&gt;                &lt;AnchoredHeading level=&#123;1&#125;&gt;</span><br><span class="line">&gt;                    &lt;span&gt;Hello&lt;/span&gt; world!</span><br><span class="line">&gt;                &lt;/AnchoredHeading&gt;</span><br><span class="line">&gt;            )</span><br><span class="line">&gt;          &#125;</span><br><span class="line">&gt;    &#125;)</span><br><span class="line"></span><br><span class="line">&gt;*   ###### 2.2 状态管理(React)和对象属性(Vue)</span><br><span class="line">&gt;      React通过状态(state)进行管理, 并且state对象在React应用中是不可变的在React中你需要使用setState()方法去更新状态</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<pre><code>testItemClick (item) {
+    const data = [...this.state.data];
+    item.count += 1;
+    this.setState({ data })
+}
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;       而在Vue中, 数据由data属性在Vue对象中进行管理。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</code></pre></blockquote>
+<blockquote>
+<pre><code>testItemClick (item) {
+    const data = [...this.state.data];
+    item.count += 1;
+    this.setState({ data })
+}
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;*  ######2.3 React Native 和 Weex</span><br><span class="line">&gt;     React Native能在手机上创建原生应用，React在这方面处于领先位置。使用JavaScript, CSS和HTML创建原生移动应用, 并且有丰富的官方组件。Vue社区与阿里合作开发Vue版的React Native——Weex也很不错，但仍处于开发状态并且官方组件并不是太丰富。</span><br><span class="line"></span><br><span class="line">####3. 技术选型</span><br><span class="line">对比完React和Vue的一些特点后, 我们来探讨下在项目中到底该选择那种框架</span><br><span class="line">&gt;*  ######3.1 编码风格</span><br><span class="line">&gt;      如果你喜欢使用JSX,React更加适合; 如果你喜欢使用模板,Vue更加适合;</span><br><span class="line"></span><br><span class="line">&gt;* ######3.2 性能测试</span><br><span class="line">&gt;    下面是性能对比![运行速度](https://upload-images.jianshu.io/upload_images/2822427-67f07f1a282b4708.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![内存占用](https://upload-images.jianshu.io/upload_images/2822427-ca644634498871fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)这些性能测试显示，Vue 比 React 占用的内存更少，运行速度更快</span><br><span class="line"></span><br><span class="line">&gt;*  ###### 3.3 大型应用程序</span><br><span class="line">&gt;  用Vue和React实现的简单应用程序来比较两者，可能会让一个开发者从一开始就更倾向于Vue。这是因为基于模板的应用程序乍看上去更易理解，而且能很快地写好并跑起来。但是这些最初的便利会引入技术债并阻碍应用扩展到更大的规模。模板容易出现难以注意到的运行时错误，同时也不易于测试，重构和分解。</span><br><span class="line">相比之下，Javascript模板可以组织成经过良好分解，且使用避免重复代码原则的代码组件，因而具有更强的可重用性和可测试性。Vue也有组件系统和渲染函数，但React的渲染系统可配置性更强，并包含如shallow rendering这样的特性，可结合React的测试工具一起使用，从而大为提高代码的可测试性及可维护性。</span><br><span class="line"></span><br><span class="line">&gt;*  ###### 3.4 React更加适合原生应用</span><br><span class="line">&gt;    React Native是一个用于通过Javascript构建移动端原生应用程序的库。 它与React.js相同，只是不使用Web组件，而是使用原生组件。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</code></pre></blockquote>
+<blockquote>
+<p>   // JS<br>   import React, { Component } from ‘react’;<br>   import { AppRegistry, Text, View } from ‘react-native’;<br>   class HelloWorld extends Component {<br>     render() {<br>       return (<br>         <view><br>           <text>Hello, React Native!</text><br>         </view><br>       );<br>     }<br>   }<br>   AppRegistry.registerComponent(‘HelloWorld’, () =&gt; HelloWorld);<br>   我们只需要一套知识和工具就能开发Web应用和移动端原生应用。</p>
+<p>  阿里的Weex也是一个跨平台UI项目，目前它以Vue为灵感，使用了许多相同的语法。但是目前还不够成熟。</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><h6 id="3-5-生态圈"><a href="#3-5-生态圈" class="headerlink" title="3.5 生态圈"></a>3.5 生态圈</h6>就目前来说, React比Vue要受欢迎许多<img src="https://upload-images.jianshu.io/upload_images/2822427-24ede0a7bb22f1c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="React"><img src="https://upload-images.jianshu.io/upload_images/2822427-c8b07eb64dda34df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Vue"><br>这两个框架都是开源的，但是React诞生于Facebook，它的开发者和Facebook都承诺会持续维护React。而Vue则是由独立开发者尤雨溪创造，目前也只有他一名全职维护者。虽然也有一些公司资助Vue，但是规模和Facebook没得比。但是在Github上Vue(122K)获得星数超过了React(117K)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p> 最后, 到底是选择React和Vue, 个人感觉要看开发团队的技术栈, 如果喜欢使用jsx建议用React, 如果喜欢使用模板建议使用Vue; 如果做原生APP, 建议使用ReactNative</p>
+</blockquote>
+
     </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/12/04/Tomcat/" title= "Tomcat流程浅析">
+                    <div class="prevTitle">Tomcat流程浅析</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -389,6 +551,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-相同点"><span class="toc-number">1.</span> <span class="toc-text">1. 相同点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-不同点"><span class="toc-number">2.</span> <span class="toc-text">2. 不同点</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#3-5-生态圈"><span class="toc-number">2.0.1.</span> <span class="toc-text">3.5 生态圈</span></a></li></ol></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1477,6 +1657,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
