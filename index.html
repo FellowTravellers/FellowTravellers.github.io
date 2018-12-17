@@ -359,7 +359,7 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/14/2018-12-14_React和Vue比较-王振州/" >
+        <a class="abstract-title" href = "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >
             
                 <span>React和Vue比较</span>
         </a>
@@ -367,7 +367,7 @@ height:50vh;
             Vue和React两个JavaScript框架都是当下比较受欢迎的，下面我们来一起探讨下它们的异同和技术选型。
 1. 相同点
 
-######1.1 都使用了虚拟Dom   Virtual DOM是一个映射真实DOM的JavaScript对象，如果需要改变任何元素的状态，那么是先在Virtual DOM上进行改变，而不是直接改变真实的DOM。当有变化产生时，一个新的Virtual DOM对象会被创建并计算新旧Virtual DOM之间的差别。之后这些差别会应用在真实的DOM上。在HTML中的标签在JavaScript中，虚拟Dom可以用对象简单地创造一个针对上面例子的映射当新一项被加进去这...
+1.1 都使用了虚拟Dom   Virtual DOM是一个映射真实DOM的JavaScript对象，如果需要改变任何元素的状态，那么是先在Virtual DOM上进行改变，而不是直接改变真实的DOM。当有变化产生时，一个新的Virtual DOM对象会被创建并计算新旧Virtual DOM之间的差别。之后这些差别会应用在真实的DOM上。在HTML中的标签在JavaScript中，虚拟Dom可以用对象简单地创造一个针对上面例子的映射当新一项被加进去这个JavaS...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -381,6 +381,39 @@ height:50vh;
         <a class="post-tag" href="javascript:void(0);" data-tags = "React">React</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Vue">Vue</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >
+            
+                <span>BS运维后期重构思路</span>
+        </a>
+        <div class="abstract-content">
+            BS运维后期重构思路主要从以下几个方面进行。
+
+1.统一代码风格，因为当前运维有两种编码方式，一种是有状态的类编程，一种是无状态的函数式编程，最后要统一成官方推荐的有状态的类编程方式；
+2.Dva(状态管理优化)，当前运维页面虽然可以对通过Dva进行状态变化的快速渲染，但是当改页面消失时，一些不需要的状态依然在运行内存中未被释放，而且model的reducers中更新的方法重复，完全可以使用一个方法进行替换；
+3.WebSocket接入，考虑到移动模块接入设备管理和消息推送后，当有新申请的设备要授权时前端要提醒运维使用者及时进行授权处理，推送消息给应用端；因此可以考虑做个消息接收和推送的...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "BS运维">BS运维</a>
     
 </div>
             
@@ -726,46 +759,6 @@ Integer
 averagingInt
 Double
 计算流中项目 I...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/06/java8-时间日期api/" >
-            
-                <span>Java 8 之时间日期Api</span>
-        </a>
-        <div class="abstract-content">
-            Java8-时间日期API对比
-线程不安全：java.util.Date 这个类线程不安全，而且所有日期类都是可变的。 
-时间处理麻烦：默认的开始日期从1900年，不支持国际化，不提供时区支持 。
-容易导错包。（java.util 和 java.sql）
-月份从0开始。
-
-新API介绍
-Instant——它代表的是时间戳
-LocalDate——不包含具体时间的日期，比如2014-01-14
-LocalTime——它代表的是不含日期的时间
-LocalDateTime——它包含了日期及时间
-ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量是以UTC/格林威治时间为基准的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1593,9 +1586,42 @@ ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 46
+        Total : 47
         </div>
         <!-- search  -->
         
@@ -1611,7 +1637,12 @@ ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14_React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
@@ -1857,11 +1888,13 @@ ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量�
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
-        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
-    
         <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
@@ -1916,19 +1949,19 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
-    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
-    
-        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
-        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     

@@ -346,66 +346,27 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/Kotlin初探/" >
+        <a class="abstract-title" href = "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >
             
-                <span>Kotlin初探</span>
+                <span>BS运维后期重构思路</span>
         </a>
         <div class="abstract-content">
-            Kotlin初探本文只起抛砖引玉之用，详细教程请谷歌百度
-Kotlin 简述特点与优势
-基于JVM的新的编程语言
-由JetBrains开发（Java IDE 之父）
-谷歌官方宣布使用
-易学习，轻量级，函数式编程，语法简洁
-100%兼容java入手从变量开始来了解下Kotlin。常量与变量编程语言中，我们熟知的常量与变量是最基本的数据形式。常量
-十进制：123
-长整型以大写的 L 结尾：123L
-16 进制以 0x 开头：0x0F
-2 进制以 0b 开头：0b00001011
-Doubles 默认写法: 123.5, 123.5e10
-Floats 使用 f 或者 F 后缀：123.5f
-...
+            BS运维后期重构思路主要从以下几个方面进行。
+
+1.统一代码风格，因为当前运维有两种编码方式，一种是有状态的类编程，一种是无状态的函数式编程，最后要统一成官方推荐的有状态的类编程方式；
+2.Dva(状态管理优化)，当前运维页面虽然可以对通过Dva进行状态变化的快速渲染，但是当改页面消失时，一些不需要的状态依然在运行内存中未被释放，而且model的reducers中更新的方法重复，完全可以使用一个方法进行替换；
+3.WebSocket接入，考虑到移动模块接入设备管理和消息推送后，当有新申请的设备要授权时前端要提醒运维使用者及时进行授权处理，推送消息给应用端；因此可以考虑做个消息接收和推送的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/JPA的简单介绍/" >
-            
-                <span>JPA的简单介绍</span>
-        </a>
-        <div class="abstract-content">
-            JPA的简单介绍简介jpa定义JPA(Java Persistence API)是Sun官方提出的Java持久化规范。它为Java开发人员制订了一些规范，提供了一些编程的API接口来管理Java应用中的关系数据。 
-jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用于规范现有的ORM技术，它不能取代现有的Hibernate等ORM框架，相反，采用JPA开发时，我们仍将使用这些ORM框架，只是此时开发出来的应用不在依赖于某个持久化提供商。应用可以在不修改代码的情况下在任何JPA环境下运行，真正做到低耦合，可扩展的程序设计。类似于JDBC，在JDBC出现以前，我们的程序针...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "BS运维">BS运维</a>
     
 </div>
             
@@ -413,10 +374,6 @@ jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用�
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2018/11/">&#60; PREV</a><a class="page-number" href="/archives/2018/11/">1</a><span class="page-number current">2</span>
-    </nav>
     
 </main>
             <!-- profile -->
