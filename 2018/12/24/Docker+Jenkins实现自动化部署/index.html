@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>VC++内存泄漏检测工具浅究 · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">VC++内存泄漏检测工具浅究</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            VC++内存泄漏检测工具浅究
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "CI">CI</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "于佳鑫">于佳鑫</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.5k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/12/24</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="1、使用dockerfile构建镜像"><a href="#1、使用dockerfile构建镜像" class="headerlink" title="1、使用dockerfile构建镜像"></a>1、使用dockerfile构建镜像</h2><h3 id="1-1-创建目录"><a href="#1-1-创建目录" class="headerlink" title="1.1 创建目录"></a>1.1 创建目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/docker_jdk1.8/	# 创建一个存放dockerfile和jdk的地方</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-下载JDK8，将其copy到刚刚创建的目录中"><a href="#1-2-下载JDK8，将其copy到刚刚创建的目录中" class="headerlink" title="1.2 下载JDK8，将其copy到刚刚创建的目录中"></a>1.2 下载JDK8，将其copy到刚刚创建的目录中</h3><h3 id="1-3-创建dockerfile"><a href="#1-3-创建dockerfile" class="headerlink" title="1.3 创建dockerfile"></a>1.3 创建dockerfile</h3><pre><code>#依赖镜像名称和ID
+FROM centos:7
+#指定镜像创建者信息
+MAINTAINER ITCAST
+#切换工作目录
+WORKDIR /usr
+RUN mkdir /usr/local/java
+#ADD 是相对路径jar,把java添加到容器中
+ADD jdk-8u171-linux-x64.tar.gz /usr/local/java/
+#配置java环境变量
+ENV JAVA_HOME /usr/local/java/jdk1.8.0_171
+ENV JRE_HOME $JAVA_HOME/jre
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH
+ENV PATH $JAVA_HOME/bin:$PATH
+</code></pre><h3 id="1-4-执行命令，构建镜像"><a href="#1-4-执行命令，构建镜像" class="headerlink" title="1.4 执行命令，构建镜像"></a>1.4 执行命令，构建镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t='jdk1.8' .	# 构建镜像，并给镜像起名为jdk1.8</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-查看刚刚创建的镜像"><a href="#1-5-查看刚刚创建的镜像" class="headerlink" title="1.5 查看刚刚创建的镜像"></a>1.5 查看刚刚创建的镜像</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<h3 id="1-6-创建容器"><a href="#1-6-创建容器" class="headerlink" title="1.6 创建容器"></a>1.6 创建容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it jdk1.8 /bin/bash</span><br></pre></td></tr></table></figure>
+<h2 id="2、创建docker的私有仓库"><a href="#2、创建docker的私有仓库" class="headerlink" title="2、创建docker的私有仓库"></a>2、创建docker的私有仓库</h2><h3 id="2-1-拉取私有仓库的镜像"><a href="#2-1-拉取私有仓库的镜像" class="headerlink" title="2.1 拉取私有仓库的镜像"></a>2.1 拉取私有仓库的镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull registry</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-创建私有仓库容器"><a href="#2-2-创建私有仓库容器" class="headerlink" title="2.2 创建私有仓库容器"></a>2.2 创建私有仓库容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -di --name registry -p 5000:5000 registry</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-查看仓库"><a href="#2-3-查看仓库" class="headerlink" title="2.3 查看仓库"></a>2.3 查看仓库</h3><p>打开浏览器 输入地址<a href="http://10.211.55.7:5000/v2/_catalog看到" target="_blank" rel="noopener">http://10.211.55.7:5000/v2/_catalog看到</a> {“repositories”:[]} 表示私有仓库搭建成功并且内容为空</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxftww7rqfj30qu0hggnx.jpg" alt="image-20181121174957109"></p>
+<h2 id="3、上传镜像到仓库"><a href="#3、上传镜像到仓库" class="headerlink" title="3、上传镜像到仓库"></a>3、上传镜像到仓库</h2><h3 id="3-1-修改本地（还有私有仓库）的docker的配置文件"><a href="#3-1-修改本地（还有私有仓库）的docker的配置文件" class="headerlink" title="3.1 修改本地（还有私有仓库）的docker的配置文件"></a>3.1 修改本地（还有私有仓库）的docker的配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## linux</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 打开daemon.json</span></span><br><span class="line">vi /etc/docker/daemon.json</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在后面追加下面内容</span></span><br><span class="line">&#123;"insecure‐registries":["10.211.55.7:5000"]&#125;	# 私有仓库的地址</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": ["https://l7s5cnt9.mirror.aliyuncs.com"],</span><br><span class="line">"insecure-registries":["10.211.55.7:5000"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mac版docker</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxfq8w5847j30rs0uidk2.jpg" alt="image-20181121154309423"></p>
+<h3 id="3-2-将本地镜像标记为私有仓库的镜像"><a href="#3-2-将本地镜像标记为私有仓库的镜像" class="headerlink" title="3.2 将本地镜像标记为私有仓库的镜像"></a>3.2 将本地镜像标记为私有仓库的镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag jdk1.8 10.211.55.7:5000/jdk1.8</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-上传镜像"><a href="#3-3-上传镜像" class="headerlink" title="3.3 上传镜像"></a>3.3 上传镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push 10.211.55.7:5000/jdk1.8</span><br></pre></td></tr></table></figure>
+<h2 id="4、docker的maven插件"><a href="#4、docker的maven插件" class="headerlink" title="4、docker的maven插件"></a>4、docker的maven插件</h2><p>部署有两种方法：<br>（1）手动部署：首先基于源码打包生成jar包（或war包）,将jar包（或war包）上传至JDK容器。<br>（2）通过Maven插件自动部署。</p>
+<h3 id="4-1-修改私服服务器上的配置文件"><a href="#4-1-修改私服服务器上的配置文件" class="headerlink" title="4.1 修改私服服务器上的配置文件"></a>4.1 修改私服服务器上的配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /lib/systemd/system/docker.service	# 其中ExecStart=后添加配置 -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxftdtppwqj30zo0muq7k.jpg" alt="image-20181121173141435"></p>
+<p>重启docker，重启私有仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-在项目的pom-xml文件中添加下面的插件"><a href="#4-2-在项目的pom-xml文件中添加下面的插件" class="headerlink" title="4.2 在项目的pom.xml文件中添加下面的插件"></a>4.2 在项目的pom.xml文件中添加下面的插件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>ly-config<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- docker的maven插件，官网：https://github.com/spotify/docker-maven-plugin --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.spotify<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>docker-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.4.13<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">imageName</span>&gt;</span>10.211.55.7:5000/$&#123;project.artifactId&#125;:$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">imageName</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">baseImage</span>&gt;</span>frolvlad/alpine-oraclejdk8:slim<span class="tag">&lt;/<span class="name">baseImage</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entryPoint</span>&gt;</span>["java", "-jar","/$&#123;project.build.finalName&#125;.jar"]<span class="tag">&lt;/<span class="name">entryPoint</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">targetPath</span>&gt;</span>/<span class="tag">&lt;/<span class="name">targetPath</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;project.build.directory&#125;<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">include</span>&gt;</span>$&#123;project.build.finalName&#125;.jar<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!--&#123; "insecure-registries":["myregistry.example.com:5000"] &#125;--&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dockerHost</span>&gt;</span>http://10.211.55.7:2375<span class="tag">&lt;/<span class="name">dockerHost</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-3-使用命令行，将项目打包成镜像，并上传到私有仓库上"><a href="#4-3-使用命令行，将项目打包成镜像，并上传到私有仓库上" class="headerlink" title="4.3 使用命令行，将项目打包成镜像，并上传到私有仓库上"></a>4.3 使用命令行，将项目打包成镜像，并上传到私有仓库上</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package docker:build -DpushImage</span><br></pre></td></tr></table></figure>
+<p>运行时抛出的异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] No plugin found for prefix &apos;docker&apos; in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/Users/x5456/Documents/Maven/repository), central (https://repo.maven.apache.org/maven2)] -&gt; [Help 1]</span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fxfr0mx22lj318o0kc43l.jpg" alt="image-20181121160950355"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginGroup</span>&gt;</span>com.spotify<span class="tag">&lt;/<span class="name">pluginGroup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">pluginGroups</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重新执行上面命令即可。</p>
+<p>问题2：连接不上2375接口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop firewalld.service 	# 停止firewall</span><br><span class="line">sudo systemctl disable firewalld.service 	# 禁止firewall开机启动</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fxg1hre9n1j30oi0fctaq.jpg" alt="image-20181121221217367"></p>
+<h3 id="4-4-问题？"><a href="#4-4-问题？" class="headerlink" title="4.4 问题？"></a>4.4 问题？</h3><blockquote>
+<p>配置文件要怎么修改，无论怎么整，还是需要我们去里面手动修改（一部分）配置文件。</p>
+</blockquote>
+<h2 id="5、更加简单的构建镜像"><a href="#5、更加简单的构建镜像" class="headerlink" title="5、更加简单的构建镜像"></a>5、更加简单的构建镜像</h2><p>我们可以使用Jenkins是我们构建镜像更加简单，我们可以将代码上传到git上，他会自动帮我们生成镜像，并上传到私服中</p>
+<h3 id="5-1-Jenkins简介"><a href="#5-1-Jenkins简介" class="headerlink" title="5.1 Jenkins简介"></a>5.1 Jenkins简介</h3><p>​    Jenkins，原名Hudson，2011年改为现在的名字，它 是一个开源的实现持续集成的 软件工具。官方网站:<a href="http://jenkins-ci.org/。" target="_blank" rel="noopener">http://jenkins-ci.org/。</a><br>​     Jenkins 能实施监控集成中存在的错误，提供详细的日志文件和提醒功能，还能用图 表的形式形象地展示项目构建的趋势和稳定性。<br> 特点:    </p>
+<ul>
+<li>易安装:仅仅一个 java -jar jenkins.war，从官网下载该文件后，直接运行，无需额 外的安装，更无需安装数据库;</li>
+<li>易配置:提供友好的GUI配置界面;</li>
+<li>变更支持:Jenkins能从代码仓库(Subversion/CVS)中获取并产生代码更新列表并 输出到编译输出信息中; </li>
+<li>支持永久链接:用户是通过web来访问Jenkins的，而这些web页面的链接地址都是 永久链接地址，因此，你可以在各种文档中直接使用该链接; </li>
+<li>集成E-Mail/RSS/IM:当完成一次集成时，可通过这些工具实时告诉你集成结果(据 我所知，构建一次集成需要花费一定时间，有了这个功能，你就可以在等待结果过程 中，干别的事情);</li>
+<li>JUnit/TestNG测试报告:也就是用以图表等形式提供详细的测试报表功能;</li>
+<li>支持分布式构建:Jenkins可以把集成构建等工作分发到多台计算机中完成; </li>
+<li>文件指纹信息:Jenkins会保存哪次集成构建产生了哪些jars文件，哪一次集成构建使 用了哪个版本的jars文件等构建记录;</li>
+<li>支持第三方插件:使得 Jenkins 变得越来越强大</li>
+</ul>
+<h3 id="5-2-安装"><a href="#5-2-安装" class="headerlink" title="5.2 安装"></a>5.2 安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 下载jenkins镜像</span></span></span><br><span class="line">docker pull jenkins/jenkins:lts</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行镜像</span></span></span><br><span class="line">docker run --name myjenkins -p 8888:8080 -p 50000:50000 --env JAVA_OPTS=-Dhudson.footerURL=http://mycompany.com jenkins/jenkins:lts</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Maven容器卷版</span></span><br><span class="line">docker run -v /Users/x5456/Documents/Maven:/Maven --name myjenkins222 -p 8888:8080 -p 50000:50000 --env JAVA_OPTS=-Dhudson.footerURL=http://mycompany.com jenkins/jenkins:lts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 访问127.0.0.1:8888，初始化会要求输入密码</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 进入容器</span></span></span><br><span class="line">docker exec -it 1be705cb1e9f /bin/bash</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 查看密码</span></span></span><br><span class="line">cat /var/jenkins_home/secrets/initialAdminPassword</span><br></pre></td></tr></table></figure>
+<h3 id="5-3-简单使用"><a href="#5-3-简单使用" class="headerlink" title="5.3 简单使用"></a>5.3 简单使用</h3><h4 id="1、安装Maven和Git插件"><a href="#1、安装Maven和Git插件" class="headerlink" title="1、安装Maven和Git插件"></a>1、安装Maven和Git插件</h4><p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxgtx14lpdj31fu0u0gwj.jpg" alt="image-20181122143543443"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxgtz6fb07j31jj0u0wmz.jpg" alt="image-20181122143746773"></p>
+<h4 id="5-3-2-配置工具"><a href="#5-3-2-配置工具" class="headerlink" title="5.3.2 配置工具"></a>5.3.2 配置工具</h4><p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxgu1k9xdrj31aw0u0n6u.jpg" alt="image-20181122144005680"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fxgu6cervzj31p00s242a.jpg" alt="image-20181122144440331"></p>
+<p>git采用默认，maven采用自动下载，之后点击save</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxgu7181yjj31lu0csq44.jpg" alt="image-20181122144521097"></p>
+<h4 id="5-3-3-上传maven仓库到容器中"><a href="#5-3-3-上传maven仓库到容器中" class="headerlink" title="5.3.3 上传maven仓库到容器中"></a>5.3.3 上传maven仓库到容器中</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将maven仓库copy到容器中</span></span><br><span class="line">docker cp repository/ 1be705cb1e9f:/var/jenkins_home/.m2</span><br></pre></td></tr></table></figure>
+<h4 id="5-3-4-开干"><a href="#5-3-4-开干" class="headerlink" title="5.3.4 开干"></a>5.3.4 开干</h4><p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxgub4doz3j31b00u0ai8.jpg" alt="image-20181122144916977"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxgvjbcqytj31e00u078v.jpg" alt="image-20181122153144795"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxgued9jv0j31n80k8dia.jpg" alt="image-20181122145222548"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxgvsdjfc6j31nc090ac4.jpg" alt="image-20181122154027834"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxgvufv2t5j31p00t0wno.jpg" alt="image-20181122154225596"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxgvuul0yxj30v60kg41t.jpg" alt="image-20181122154250365"></p>
+<h2 id="附："><a href="#附：" class="headerlink" title="附："></a>附：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 查看私服上的镜像</span></span></span><br><span class="line">http://10.211.55.7:5000/v2/_catalog</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 查看私服上镜像的标签</span></span></span><br><span class="line">http://10.211.55.7:5000/v2/镜像名/tags/list</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># docker拉去私服上的镜像</span></span></span><br><span class="line">docker pull 10.211.55.7:5000/ly-config:1.0-SNAPSHOT</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行镜像</span></span></span><br><span class="line">docker run -di -p 12000:12000 10.211.55.7:5000/ly-config:1.0-SNAPSHOT</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 访问查看</span></span></span><br><span class="line">http://127.0.0.1:12000/item-dev.yml</span><br></pre></td></tr></table></figure>
+<h4 id="使用的坑，要把项目中所有的127-0-0-1改为运行镜像机器的ip"><a href="#使用的坑，要把项目中所有的127-0-0-1改为运行镜像机器的ip" class="headerlink" title="使用的坑，要把项目中所有的127.0.0.1改为运行镜像机器的ip"></a>使用的坑，要把项目中所有的127.0.0.1改为运行镜像机器的ip</h4><h2 id="6、根据公司实际情况实现自动化部署（2018年12月18日续写）"><a href="#6、根据公司实际情况实现自动化部署（2018年12月18日续写）" class="headerlink" title="6、根据公司实际情况实现自动化部署（2018年12月18日续写）"></a>6、根据公司实际情况实现自动化部署（2018年12月18日续写）</h2><p>理想状态架构图：</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fybzg36uhsj30uy0dht9p.jpg" alt="4742055-9aa2fb7db42e4652"></p>
+<h3 id="6-1-在dgp-server-service-web的pom-xml下添加下面插件"><a href="#6-1-在dgp-server-service-web的pom-xml下添加下面插件" class="headerlink" title="6.1 在dgp-server-service|web的pom.xml下添加下面插件"></a>6.1 在dgp-server-service|web的pom.xml下添加下面插件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- docker的maven插件，官网：https://github.com/spotify/docker-maven-plugin --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.spotify<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>docker-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.4.13<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">imageName</span>&gt;</span>10.211.55.7:5000/$&#123;project.artifactId&#125;:$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">imageName</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">baseImage</span>&gt;</span>tomcat<span class="tag">&lt;/<span class="name">baseImage</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">cmd</span>&gt;</span>["catalina.sh", "run"]<span class="tag">&lt;/<span class="name">cmd</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">targetPath</span>&gt;</span>/usr/local/tomcat/webapps/<span class="tag">&lt;/<span class="name">targetPath</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;project.build.directory&#125;<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>$&#123;project.build.finalName&#125;.war<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dockerHost</span>&gt;</span>http://10.211.55.7:2375<span class="tag">&lt;/<span class="name">dockerHost</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对应的dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> tomcat</span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> /usr/<span class="built_in">local</span>/tomcat/webapps/dgp-server-service.war /usr/<span class="built_in">local</span>/tomcat/webapps/</span></span><br><span class="line"><span class="bash">CMD [<span class="string">"catalina.sh"</span>, <span class="string">"run"</span>]</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-2-上传到gitlab上"><a href="#6-2-上传到gitlab上" class="headerlink" title="6.2 上传到gitlab上"></a>6.2 上传到gitlab上</h3><p><a href="http://elb-zentao-361931552.cn-northwest-1.elb.amazonaws.com.cn:5335/yujx/dgpJZ-server-root.git" target="_blank" rel="noopener">http://elb-zentao-361931552.cn-northwest-1.elb.amazonaws.com.cn:5335/yujx/dgpJZ-server-root.git</a></p>
+<h3 id="6-3-登陆到Jenkins"><a href="#6-3-登陆到Jenkins" class="headerlink" title="6.3 登陆到Jenkins"></a>6.3 登陆到Jenkins</h3><h4 id="6-3-1-安装gitlab插件"><a href="#6-3-1-安装gitlab插件" class="headerlink" title="6.3.1 安装gitlab插件"></a>6.3.1 安装gitlab插件</h4><p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fyaxhkeyngj30ym05umy7.jpg" alt=""></p>
+<h4 id="6-3-2-添加任务"><a href="#6-3-2-添加任务" class="headerlink" title="6.3.2 添加任务"></a>6.3.2 添加任务</h4><p>连接到gitlab</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fyb5e8jotxj31ha0s6ae0.jpg" alt=""></p>
+<p>制定构建的pom.xml文件</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fyb5fc8gu0j31ig0d0abq.jpg" alt=""></p>
+<p>构建成功后，自动部署</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fyb5gdgalrj31hg0pwtd7.jpg" alt=""></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">echo '================开始啦================'</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 连接到服务器</span></span></span><br><span class="line">ssh root@10.211.55.8 -tt &lt;&lt; remotessh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 关闭容器，删除容器，删除镜像</span></span></span><br><span class="line">docker stop dgp-server-service-jz</span><br><span class="line">docker rm dgp-server-service-jz</span><br><span class="line">docker rmi 10.211.55.7:5000/dgp-server-service:1.0-SNAPSHOT </span><br><span class="line"></span><br><span class="line">echo '================连上了================'</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 拉取刚刚生成的镜像</span></span></span><br><span class="line">docker pull 10.211.55.7:5000/dgp-server-service:1.0-SNAPSHOT</span><br><span class="line"></span><br><span class="line">echo '================拉下来了================'</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行镜像</span></span></span><br><span class="line">docker run -d -p 8081:8080 --name dgp-server-service-jz 10.211.55.7:5000/dgp-server-service:1.0-SNAPSHOT </span><br><span class="line"></span><br><span class="line">echo '================运行了================'</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 退出ssh</span></span></span><br><span class="line">exit</span><br><span class="line">remotessh</span><br></pre></td></tr></table></figure>
+<p>使用之前需要设置免密登陆</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## （Ubuntu）服务器端设置</span></span><br><span class="line">x5456@ubuntu:~$ sudo passwd</span><br><span class="line">Enter new UNIX password: </span><br><span class="line">Retype new UNIX password: </span><br><span class="line">passwd: password updated successfully</span><br><span class="line"><span class="comment">## 设置root可以ssh：https://blog.csdn.net/wy_97/article/details/78294562</span></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"><span class="comment">###########修改这部分#############</span></span><br><span class="line"><span class="comment"># Authentication:</span></span><br><span class="line">LoginGraceTime 120</span><br><span class="line"><span class="comment">#PermitRootLogin prohibit-password</span></span><br><span class="line">PermitRootLogin yes</span><br><span class="line">StrictModes yes</span><br><span class="line"><span class="comment">################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 重启ssh服务</span></span><br><span class="line">service ssh restart</span><br><span class="line"></span><br><span class="line"><span class="comment">## 进入jenkins容器</span></span><br><span class="line"><span class="comment">### 免密码登陆</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.211.55.8</span><br><span class="line"></span><br><span class="line"><span class="comment">## 之后，就可以 ssh root@10.211.55.8 登陆了</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-4-实现gitlab打tag时自动部署"><a href="#6-4-实现gitlab打tag时自动部署" class="headerlink" title="6.4 实现gitlab打tag时自动部署"></a>6.4 实现gitlab打tag时自动部署</h2><blockquote>
+<p><a href="https://www.jianshu.com/p/2b2c204dcbe2" target="_blank" rel="noopener">下面这些没有测试成功，但大概找出了问题所在</a></p>
+<ul>
+<li>1。ip要是jenkins真正部署的地方的ip，感觉可以使用<a href="https://blog.csdn.net/bbwangj/article/details/81116145" target="_blank" rel="noopener">docker的–host</a>来实现，但是我电脑是mac系统没办法测试。<ul>
+<li><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fybza5mynwj30y206ydi3.jpg" alt=""></li>
+</ul>
+</li>
+<li>2。gitlab环境与我本地好像是不通的</li>
+</ul>
+</blockquote>
+<p>这个ip要是Jenkins安装的那个环境（docker中）的ip</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fyaxjoxv3dj31co0u00yh.jpg" alt=""></p>
+<p>添加触发条件</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fyaxo2sd5gj31jv0u012o.jpg" alt=""></p>
+<p>出现的问题：</p>
+<p><img src="/Users/x5456/Library/Application Support/typora-user-images/image-20181218153359416.png" alt=""></p>
+<p>解决办法：参见博客 <a href="https://blog.csdn.net/xukangkang1hao/article/details/80756085" target="_blank" rel="noopener">https://blog.csdn.net/xukangkang1hao/article/details/80756085</a> </p>
+<h2 id="坑们："><a href="#坑们：" class="headerlink" title="坑们："></a>坑们：</h2><h3 id="1、web层打包失败的原因"><a href="#1、web层打包失败的原因" class="headerlink" title="1、web层打包失败的原因"></a>1、web层打包失败的原因</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- web层打包失败的原因，为啥要引一个打war包的插件，maven不是自带吗 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-war-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;maven-war-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;encoding&gt;$&#123;project.build.sourceEncoding&#125;&lt;/encoding&gt;--&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2、服务器也需要配置3-1内个东西"><a href="#2、服务器也需要配置3-1内个东西" class="headerlink" title="2、服务器也需要配置3.1内个东西"></a>2、服务器也需要配置3.1内个东西</h4><h2 id="问题：maven仓库中的更新问题？"><a href="#问题：maven仓库中的更新问题？" class="headerlink" title="问题：maven仓库中的更新问题？"></a>问题：maven仓库中的更新问题？</h2><h2 id="附：-1"><a href="#附：-1" class="headerlink" title="附："></a>附：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 删除异常停止的docker容器</span></span></span><br><span class="line">sudo docker rm `sudo docker ps -a | grep Exited | awk '&#123;print $1&#125;'`   </span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 删除名称或标签为none的镜像</span></span></span><br><span class="line">sudo docker rmi -f `sudo docker images | grep '&lt;none&gt;' | awk '&#123;print $3&#125;'`  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 手动构建镜像的命令</span></span></span><br><span class="line">sudo docker build -t dgp-server-web-jz .</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 运行容器</span></span></span><br><span class="line">sudo docker run -d -p 8888:8080 dgp-server-web-jz</span><br></pre></td></tr></table></figure>
+<p>本部分参考博客：<a href="https://www.cnblogs.com/bigben0123/p/7886092.html" target="_blank" rel="noopener">这个</a></p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/12/24/netty简介/" title= "netty简介">
+                    <div class="nextTitle">netty简介</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/12/24/Docker学习/" title= "Docker笔记">
+                    <div class="prevTitle">Docker笔记</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、使用dockerfile构建镜像"><span class="toc-number">1.</span> <span class="toc-text">1、使用dockerfile构建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-创建目录"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 创建目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-下载JDK8，将其copy到刚刚创建的目录中"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 下载JDK8，将其copy到刚刚创建的目录中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-创建dockerfile"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 创建dockerfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-执行命令，构建镜像"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 执行命令，构建镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-查看刚刚创建的镜像"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 查看刚刚创建的镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-创建容器"><span class="toc-number">1.6.</span> <span class="toc-text">1.6 创建容器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、创建docker的私有仓库"><span class="toc-number">2.</span> <span class="toc-text">2、创建docker的私有仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-拉取私有仓库的镜像"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 拉取私有仓库的镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-创建私有仓库容器"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 创建私有仓库容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-查看仓库"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 查看仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、上传镜像到仓库"><span class="toc-number">3.</span> <span class="toc-text">3、上传镜像到仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-修改本地（还有私有仓库）的docker的配置文件"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 修改本地（还有私有仓库）的docker的配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-将本地镜像标记为私有仓库的镜像"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 将本地镜像标记为私有仓库的镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-上传镜像"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 上传镜像</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、docker的maven插件"><span class="toc-number">4.</span> <span class="toc-text">4、docker的maven插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-修改私服服务器上的配置文件"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 修改私服服务器上的配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-在项目的pom-xml文件中添加下面的插件"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 在项目的pom.xml文件中添加下面的插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-使用命令行，将项目打包成镜像，并上传到私有仓库上"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 使用命令行，将项目打包成镜像，并上传到私有仓库上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-问题？"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 问题？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、更加简单的构建镜像"><span class="toc-number">5.</span> <span class="toc-text">5、更加简单的构建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Jenkins简介"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 Jenkins简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-安装"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-简单使用"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、安装Maven和Git插件"><span class="toc-number">5.3.1.</span> <span class="toc-text">1、安装Maven和Git插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-配置工具"><span class="toc-number">5.3.2.</span> <span class="toc-text">5.3.2 配置工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-3-上传maven仓库到容器中"><span class="toc-number">5.3.3.</span> <span class="toc-text">5.3.3 上传maven仓库到容器中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-4-开干"><span class="toc-number">5.3.4.</span> <span class="toc-text">5.3.4 开干</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附："><span class="toc-number">6.</span> <span class="toc-text">附：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用的坑，要把项目中所有的127-0-0-1改为运行镜像机器的ip"><span class="toc-number">6.0.1.</span> <span class="toc-text">使用的坑，要把项目中所有的127.0.0.1改为运行镜像机器的ip</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、根据公司实际情况实现自动化部署（2018年12月18日续写）"><span class="toc-number">7.</span> <span class="toc-text">6、根据公司实际情况实现自动化部署（2018年12月18日续写）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-在dgp-server-service-web的pom-xml下添加下面插件"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 在dgp-server-service|web的pom.xml下添加下面插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-上传到gitlab上"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 上传到gitlab上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-登陆到Jenkins"><span class="toc-number">7.3.</span> <span class="toc-text">6.3 登陆到Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-安装gitlab插件"><span class="toc-number">7.3.1.</span> <span class="toc-text">6.3.1 安装gitlab插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-添加任务"><span class="toc-number">7.3.2.</span> <span class="toc-text">6.3.2 添加任务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-实现gitlab打tag时自动部署"><span class="toc-number">8.</span> <span class="toc-text">6.4 实现gitlab打tag时自动部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#坑们："><span class="toc-number">9.</span> <span class="toc-text">坑们：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、web层打包失败的原因"><span class="toc-number">9.1.</span> <span class="toc-text">1、web层打包失败的原因</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2、服务器也需要配置3-1内个东西"><span class="toc-number">9.1.1.</span> <span class="toc-text">2、服务器也需要配置3.1内个东西</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题：maven仓库中的更新问题？"><span class="toc-number">10.</span> <span class="toc-text">问题：maven仓库中的更新问题？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附：-1"><span class="toc-number">11.</span> <span class="toc-text">附：</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 50
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/netty简介/" >netty简介</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker+Jenkins实现自动化部署/" >VC++内存泄漏检测工具浅究</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker学习/" >Docker笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/04</span><a class="archive-post-title" href= "/2018/12/04/Tomcat/" >Tomcat流程浅析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/23</span><a class="archive-post-title" href= "/2018/11/23/Kotlin初识、及底图切换代码分析/" >Kotlin初识及底图切换代码分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/浅谈跨域——了解跨域的几种方式/" >浅谈跨域——了解跨域的几种方式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span><a class="archive-post-title" href= "/2018/11/16/Android smartTable的简单使用/" >SmartTable的简单使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" >ArcGIS Runtime 100与产品线结合带来的思考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/12</span><a class="archive-post-title" href= "/2018/11/12/ArcEngine开发中一些提高效率技巧/" >ArcEngine开发中一些提高效率技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/CopyOnWriteArrayList介绍/" >CopyOnWriteArrayList介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/Lambda收集器示例/" >Lambda收集器示例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/java8-时间日期api/" >Java 8 之时间日期Api</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/05</span><a class="archive-post-title" href= "/2018/11/05/VC++内存泄漏检测工具浅究/" >VC++内存泄漏检测工具浅究</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/WebApp 开发简单入门/" >WebApp 开发简单入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/Kotlin初探/" >Kotlin初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/JPA的简单介绍/" >JPA的简单介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" >Vue+iView+Webpack环境下IE浏览器兼容处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/DASC笔记/" >DASC笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/CAS笔记/" >CAS笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2018/10/24/Java8 StringJoiner的使用/" >Java 8 之StringJoiner的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java8之Optional/" >Java 8 之Optional</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java之Lambda表达式Stream使用/" >Java 8 之Lambda表达式Stream使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之fail-fast机制-万世威/" >Java 8 之fail-fast机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之collection细节/" >Java 8 之collection细节</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之enum枚举-万世威/" >Java 8 之enum枚举</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
+    
+        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
+    
+        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
+    
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+    
+        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+    
+        <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
