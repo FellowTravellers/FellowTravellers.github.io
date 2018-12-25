@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Oracle表空间、Schema、User · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Oracle表空间、Schema、User</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Oracle表空间、Schema、User
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Oracle">Oracle</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "郑家骜">郑家骜</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.5k</span>阅读时长: <span class="post-count reading-time">18 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/12/25</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><strong>表空间</strong></p>
+<p>什么是表空间：Oracle中的用户都有属于自己的默认的表空间，在一段内存空间中存储的大部分是表，所以称为表空间。</p>
+<p><strong>用户的表空间</strong></p>
+<p>1,系统用户的表空间 </p>
+<p>2,普通用户的表空间</p>
+<p><strong>为什么要给普通用户创建属于自己的表空间那？</strong></p>
+<p>项目中很可能与其他项目使用同一个数据库，</p>
+<p>多个用户在使用同一个数据库的时候有可能访问同一个数据库文件，</p>
+<p>就会造成资源争用问题，给不同的用户指定不同的表空间，就可以让他们</p>
+<p>使用不同的数据文件，解决争用问题。</p>
+<p>用户有一个缺省的<a href="http://baike.baidu.com/view/70152.htm" target="_blank" rel="noopener">表空间</a>，但是该用户还可以使用其他的表空间，如果我们在创建对象时不指定表空间，则对象存储在缺省表空间中，要想让对象存储在其他表空间中，我们需要在创建对象时指定该对象的表空间</p>
+<h2 id="一、创建表空间语法及给用户表空间"><a href="#一、创建表空间语法及给用户表空间" class="headerlink" title="一、创建表空间语法及给用户表空间"></a>一、创建表空间语法及给用户表空间</h2><p><img src="https://i.imgur.com/UlbuLQi.png" alt="表空间分类图"></p>
+<p><strong>前提打开cmd输入,进入sqlplus和连接数据库及登录sys。</strong></p>
+<p>登录sys：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlplus sys/123456@ZhengJiaAo:1521/ORCL as sysdba</span><br></pre></td></tr></table></figure>
+<h4 id="0-查看管理员用户使用的表空间名称列表"><a href="#0-查看管理员用户使用的表空间名称列表" class="headerlink" title="0.查看管理员用户使用的表空间名称列表"></a>0.查看管理员用户使用的表空间名称列表</h4><p>status状态（只读READ ONLY / 读写ONLINE）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select tablespace_name,status from dba_tablespaces;</span><br><span class="line">SYSTEM                         ONLINE #系统表空间，是永久系统表空间，用于存储SYS用户的表、视图、存储过程对象。</span><br><span class="line">SYSAUX                         ONLINE #作为EXAMPLE的辅助表空间</span><br><span class="line">UNDOTBS1                       ONLINE #存储撤销信息的undo表空间</span><br><span class="line">TEMP                           ONLINE #临时表空间，用户存储SQL语句处理的表示索引信息</span><br><span class="line">USERS                          ONLINE #永久表空间，存储数据库用户创建的数据库对象</span><br><span class="line">EXAMPLE                        ONLINE #安装Oracle数据库示例的表空间</span><br></pre></td></tr></table></figure>
+<h4 id="1-创建临时表空间-duke-temp"><a href="#1-创建临时表空间-duke-temp" class="headerlink" title="1.创建临时表空间: duke_temp"></a>1.创建临时表空间: duke_temp</h4><p>先创建好路径  I:\Orcl\tablespace</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">CREATE TEMPORARY TABLESPACE duke_temp         /* 临时表空间名称:duke_temp */</span><br><span class="line">tempfile &apos;I:\Orcl\tablespace\duke_temp.dbf&apos; /* 临时表空间路径 *//*--oracle文件路径*/</span><br><span class="line">size 50m                                      /* 空间初始大小：50M*/</span><br><span class="line">autoextend ON                                 /* 开启自动扩展 */</span><br><span class="line">NEXT 50m                                      /* 空间满了一次扩展50M*/</span><br><span class="line">maxsize 6G                                    /* 空间最终大小6G,可设为 unlimited 大小不受限制*/</span><br><span class="line">extent management local;</span><br><span class="line"></span><br><span class="line">表空间已创建。</span><br><span class="line"></span><br><span class="line">SQL&gt; select tablespace_name,status from dba_tablespaces;</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                STATUS</span><br><span class="line">------------------------------ ---------</span><br><span class="line">SYSTEM                         ONLINE </span><br><span class="line">SYSAUX                         ONLINE </span><br><span class="line">UNDOTBS1                       ONLINE </span><br><span class="line">TEMP                           ONLINE </span><br><span class="line">USERS                          ONLINE</span><br><span class="line">EXAMPLE                        ONLINE </span><br><span class="line">EBANK_TEMP                     ONLINE</span><br><span class="line">ECIF_DATA                      ONLINE</span><br><span class="line">ECIF_INDEX                     ONLINE</span><br><span class="line">EIP_DATA                       ONLINE</span><br><span class="line">YANG                           ONLINE</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                STATUS</span><br><span class="line">------------------------------ ---------</span><br><span class="line">DUKE_TEMP                      ONLINE /*新创建的临时表空间*/</span><br><span class="line"></span><br><span class="line">已选择12行。</span><br></pre></td></tr></table></figure>
+<h4 id="2-创建数据表空间-duke-data"><a href="#2-创建数据表空间-duke-data" class="headerlink" title="2.创建数据表空间: duke_data"></a>2.创建数据表空间: duke_data</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLESPACE duke_data                   /* 数据表空间名称:duke_data */</span><br><span class="line">datafile &apos;I:\Orcl\tablespace\duke_data.dbf&apos; /* 数据表空间路径 */</span><br><span class="line">size 50m                                      /* 表空间初始大小：50M */</span><br><span class="line">autoextend ON                                 /* 开启自动扩展*/</span><br><span class="line">NEXT 50m                                      /* 表空间满了后一次扩展50M */</span><br><span class="line">maxsize 10G                                   /* 空间最终大小10G,可设为 unlimited 大小不受限制*/</span><br><span class="line">logging extent management local;</span><br><span class="line"></span><br><span class="line">表空间已创建。</span><br><span class="line"></span><br><span class="line">SQL&gt; select tablespace_name,status from dba_tablespaces;</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                STATUS</span><br><span class="line">------------------------------ ---------</span><br><span class="line">SYSTEM                         ONLINE</span><br><span class="line">SYSAUX                         ONLINE</span><br><span class="line">UNDOTBS1                       ONLINE</span><br><span class="line">TEMP                           ONLINE</span><br><span class="line">USERS                          ONLINE</span><br><span class="line">EXAMPLE                        ONLINE</span><br><span class="line">EBANK_TEMP                     ONLINE</span><br><span class="line">ECIF_DATA                      ONLINE</span><br><span class="line">ECIF_INDEX                     ONLINE</span><br><span class="line">EIP_DATA                       ONLINE</span><br><span class="line">YANG                           ONLINE</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                STATUS</span><br><span class="line">------------------------------ ---------</span><br><span class="line">DUKE_TEMP                      ONLINE /*新创建的临时表空间*/</span><br><span class="line">DUKE_DATA                      ONLINE /*新创建的数据表空间*/</span><br><span class="line"></span><br><span class="line">已选择13行。</span><br></pre></td></tr></table></figure>
+<h4 id="3-创建用户并指定表空间"><a href="#3-创建用户并指定表空间" class="headerlink" title="3.创建用户并指定表空间"></a>3.创建用户并指定表空间</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER duke                    /* 用户名 */</span><br><span class="line">IDENTIFIED BY duke                  /* 密码 */  </span><br><span class="line">DEFAULT TABLESPACE duke_data        /* 表空间 */ /*给用户指定默认表空间*/   </span><br><span class="line">TEMPORARY TABLESPACE duke_temp      /* 临时表空间 */ /*默认临时表空间*/</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line">用户已创建。</span><br></pre></td></tr></table></figure>
+<h4 id="4-修改用户默认和临时表空间"><a href="#4-修改用户默认和临时表空间" class="headerlink" title="4.修改用户默认和临时表空间"></a>4.修改用户默认和临时表空间</h4><p>为了方便以后数据的备份和恢复，仅仅将有价值的数据做备份可以提高效率和节省空间。</p>
+<p>修改用户默认表空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER duke DEFAULT TABLESPACE USERS; /*duke 用户名，USERS 默认（DEFAULT）表空间*/</span><br><span class="line">用户已更改。</span><br></pre></td></tr></table></figure>
+<p>修改用户临时表空间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER duke temporary TABLESPACE TEMP; /*修改临时（temporary）表空间*/</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：普通用户没有修改默认表空间的权限，但是可以通过授权来实现普通用户也能够修改默认表空间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; show user;</span><br><span class="line">USER 为 &quot;SYS&quot;</span><br><span class="line">SQL&gt; select DEFAULT_TABLESPACE,TEMPORARY_TABLESPACE from dba_users where username=&apos;SYSTEM&apos;;</span><br><span class="line">DEFAULT_TABLESPACE             TEMPORARY_TABLESPACE</span><br><span class="line">------------------------------ ------------------------------</span><br><span class="line">SYSTEM                         TEMP</span><br></pre></td></tr></table></figure>
+<h4 id="5-删除空间表"><a href="#5-删除空间表" class="headerlink" title="5.删除空间表"></a>5.删除空间表</h4><p>—-删除非空表空间，包含物理文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLESPACE duke_data INCLUDING CONTENTS AND DATAFILES;</span><br><span class="line">表空间已经删除。</span><br></pre></td></tr></table></figure>
+<p>删除表空间后，原先指向该表空间的用户仍然默认的空间位置，<br>需要通过alter user 命令将用户的表空间指向一个有效的表空间。</p>
+<p>删除表空间方法总结：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">--删除空的表空间，但是不包含物理文件</span><br><span class="line">drop tablespace duke_temp</span><br><span class="line"> --删除非空表空间，但是不包含物理文件</span><br><span class="line">drop tablespace duke_temp including contents;</span><br><span class="line">--删除空表空间，包含物理文件</span><br><span class="line">drop tablespace duke_temp including datafiles;</span><br><span class="line">--删除非空表空间，包含物理文件</span><br><span class="line">DROP TABLESPACE duke_data INCLUDING CONTENTS AND DATAFILES;</span><br><span class="line">--如果其他表空间中的表有外键等约束关联到了本表空间中的表的字段，就要加上CASCADE CONSTRAINTS</span><br><span class="line">drop tablespace duke_temp including contents and datafiles CASCADE CONSTRAINTS;</span><br><span class="line"></span><br><span class="line">--说明： 删除了duke，只是删除了该duke下的schema objects，是不会删除相应的表空间（tablespace）的。</span><br><span class="line">drop user duke cascade；  --duke用户</span><br></pre></td></tr></table></figure>
+<h4 id="6-给用户授权登录和撤销权限"><a href="#6-给用户授权登录和撤销权限" class="headerlink" title="6.给用户授权登录和撤销权限"></a>6.给用户授权登录和撤销权限</h4><p>新创建的用户是不能登录的，需授权才能登录oracle数据库，授予两个系统内置角色权限，connect和resource。</p>
+<p>conncet角色使用户可以登录; resource角色使得用户可以程序开发，如创建表，触发器等。</p>
+<p>授权命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GRANT CONNECT,RESOURCE TO duke;  /* duke用户名 --授权为登录oracle权限，具有创建，修改等基本权限*/</span><br><span class="line">grant dba to duke;   /*授权dba最高权限*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">登录用户dike</span><br><span class="line">SQL&gt; connect duke/duke</span><br><span class="line">SQL&gt; show user;</span><br><span class="line">USER is &quot;DUKE&quot;</span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="7-查看表空间使用情况"><a href="#7-查看表空间使用情况" class="headerlink" title="7.查看表空间使用情况"></a>7.查看表空间使用情况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">SELECT UPPER(F.TABLESPACE_NAME) AS &quot;表空间名称&quot;, </span><br><span class="line">        ROUND(D.AVAILB_BYTES ,2) AS &quot;表空间大小(G)&quot;, </span><br><span class="line">        ROUND(D.MAX_BYTES,2) AS &quot;最终表空间大小(G)&quot;, </span><br><span class="line">        ROUND((D.AVAILB_BYTES - F.USED_BYTES),2) AS &quot;已使用空间(G)&quot;, </span><br><span class="line">        TO_CHAR(ROUND((D.AVAILB_BYTES - F.USED_BYTES) / D.AVAILB_BYTES * 100, </span><br><span class="line">            2), &apos;999.99&apos;) AS &quot;使用比&quot;, </span><br><span class="line">        ROUND(F.USED_BYTES, 6) AS &quot;空闲空间(G)&quot;, </span><br><span class="line">        F.MAX_BYTES AS &quot;最大块(M)&quot; </span><br><span class="line"> FROM (</span><br><span class="line">        SELECT TABLESPACE_NAME, </span><br><span class="line">                ROUND(SUM(BYTES) / (1024 * 1024 * 1024), 6) USED_BYTES, </span><br><span class="line">                ROUND(MAX(BYTES) / (1024 * 1024 * 1024), 6) MAX_BYTES </span><br><span class="line">        FROM SYS.DBA_FREE_SPACE </span><br><span class="line">        GROUP BY TABLESPACE_NAME) F, </span><br><span class="line">      (SELECT DD.TABLESPACE_NAME, </span><br><span class="line">                ROUND(SUM(DD.BYTES) / (1024 * 1024 * 1024), 6) AVAILB_BYTES, </span><br><span class="line">            ROUND(SUM(DECODE(DD.MAXBYTES, 0, DD.BYTES, DD.MAXBYTES))/(1024*1024*1024),6) MAX_BYTES </span><br><span class="line">       FROM SYS.DBA_DATA_FILES DD </span><br><span class="line">       GROUP BY DD.TABLESPACE_NAME) D </span><br><span class="line">        WHERE D.TABLESPACE_NAME = F.TABLESPACE_NAME </span><br><span class="line">ORDER BY 4 DESC</span><br></pre></td></tr></table></figure>
+<h4 id="8-查看普通用户属于哪个表空间"><a href="#8-查看普通用户属于哪个表空间" class="headerlink" title="8.查看普通用户属于哪个表空间"></a>8.查看普通用户属于哪个表空间</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select username,default_tablespace from dba_users where username=&apos;SCOTT&apos;; /*用户名*/</span><br><span class="line"></span><br><span class="line">USERNAME                       DEFAULT_TABLESPACE</span><br><span class="line">------------------------------ ------------------------------</span><br><span class="line">SCOTT						USERS</span><br></pre></td></tr></table></figure>
+<h4 id="9-查看所有表空间"><a href="#9-查看所有表空间" class="headerlink" title="9.查看所有表空间"></a>9.查看所有表空间</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from v$tablespace; /*包含从控制文件中获取的表空间名称和编号信息*/</span><br><span class="line"></span><br><span class="line">       TS# NAME                           INC BIG FLA ENC</span><br><span class="line">---------- ------------------------------ --- --- --- ---</span><br><span class="line">         0 SYSTEM                         YES NO  YES</span><br><span class="line">         1 SYSAUX                         YES NO  YES</span><br><span class="line">         2 UNDOTBS1                       YES NO  YES</span><br><span class="line">         4 USERS                          YES NO  YES</span><br><span class="line">         3 TEMP                           NO  NO  YES</span><br><span class="line">         6 EXAMPLE                        YES NO  YES</span><br><span class="line">         8 EBANK_TEMP                     NO  NO  YES</span><br><span class="line">         9 ECIF_DATA                      YES NO  YES</span><br><span class="line">        10 ECIF_INDEX                     YES NO  YES</span><br><span class="line">        11 EIP_DATA                       YES NO  YES</span><br><span class="line">        13 YANG                           YES NO  YES</span><br><span class="line"></span><br><span class="line">       TS# NAME                           INC BIG FLA ENC</span><br><span class="line">---------- ------------------------------ --- --- --- ---</span><br><span class="line">        14 DUKE_TEMP                      NO  NO  YES</span><br><span class="line">        15 DUKE_DATA                      YES NO  YES</span><br><span class="line"></span><br><span class="line">已选择13行。</span><br></pre></td></tr></table></figure>
+<h4 id="10-查看表空间下所有用户"><a href="#10-查看表空间下所有用户" class="headerlink" title="10.查看表空间下所有用户"></a>10.查看表空间下所有用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select distinct s.owner from dba_segments s where s.tablespace_name =&apos;USERS&apos;; /*USERS表空间下所有用户*/</span><br><span class="line"></span><br><span class="line">OWNER</span><br><span class="line">------------------------------</span><br><span class="line">SCOTT</span><br><span class="line">SYSTEM</span><br><span class="line">OE</span><br></pre></td></tr></table></figure>
+<h4 id="11-查看当前用户的表属于哪个表空间"><a href="#11-查看当前用户的表属于哪个表空间" class="headerlink" title="11.查看当前用户的表属于哪个表空间"></a>11.查看当前用户的表属于哪个表空间</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select table_name,tablespace_name from user_all_tables; /*查看当前用户的表属于哪些表空间*/</span><br><span class="line"></span><br><span class="line">TABLE_NAME                     TABLESPACE_NAME</span><br><span class="line">------------------------------ ------------------------------</span><br><span class="line">MLOG$                          SYSTEM</span><br><span class="line">SLOG$                          SYSTEM</span><br><span class="line">RGROUP$                        SYSTEM</span><br><span class="line">RGCHILD$                       SYSTEM</span><br><span class="line">SYS_IOT_OVER_5140              SYSAUX</span><br><span class="line">RULE_SET_PR$</span><br><span class="line">SYS_IOT_OVER_5146              SYSAUX</span><br><span class="line">RULE_SET_IOT$</span><br><span class="line">SYS_IOT_OVER_5150              SYSAUX</span><br><span class="line">RULE_SET_ROP$</span><br><span class="line">SYS_IOT_OVER_5387              SYSAUX</span><br></pre></td></tr></table></figure>
+<h4 id="12-查看用户的默认表空间和临时表空间"><a href="#12-查看用户的默认表空间和临时表空间" class="headerlink" title="12.查看用户的默认表空间和临时表空间"></a>12.查看用户的默认表空间和临时表空间</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">查看SYSTEM用户的默认表空间和临时表空间</span><br><span class="line">SQL&gt; select DEFAULT_TABLESPACE,TEMPORARY_TABLESPACE from dba_users where username=&apos;SYSTEM&apos;;</span><br><span class="line"></span><br><span class="line">DEFAULT_TABLESPACE             TEMPORARY_TABLESPACE</span><br><span class="line">------------------------------ ------------------------------</span><br><span class="line">SYSTEM                         TEMP</span><br></pre></td></tr></table></figure>
+<h4 id="默认表空间"><a href="#默认表空间" class="headerlink" title="默认表空间"></a>默认表空间</h4><p>用户在登陆后创建数据库对象时，如果没有指定表空间，那么这些数据就会存储到默认表空间。</p>
+<h4 id="13-系统表空间dba-tablespaces和用户表空间user-tablespaces"><a href="#13-系统表空间dba-tablespaces和用户表空间user-tablespaces" class="headerlink" title="13.系统表空间dba_tablespaces和用户表空间user_tablespaces"></a>13.系统表空间dba_tablespaces和用户表空间user_tablespaces</h4><p>普通用户不能查看系统表空间dba_tablespaces，只能查看用户表空间user_tablespaces</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; connect duke/duke</span><br><span class="line">已连接。</span><br><span class="line">SQL&gt; show user;</span><br><span class="line">USER 为 &quot;DUKE&quot;</span><br><span class="line">SQL&gt; select tablespace_name from dba_tablespaces;</span><br><span class="line">select tablespace_name from dba_tablespaces</span><br><span class="line">                            *</span><br><span class="line">第 1 行出现错误:</span><br><span class="line">ORA-00942: 表或视图不存在</span><br><span class="line"></span><br><span class="line">SQL&gt; select tablespace_name from user_tablespaces;</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME</span><br><span class="line">------------------------------</span><br><span class="line">SYSTEM</span><br><span class="line">SYSAUX</span><br><span class="line">UNDOTBS1</span><br><span class="line">TEMP</span><br><span class="line">USERS</span><br><span class="line">EXAMPLE</span><br><span class="line">EBANK_TEMP</span><br><span class="line">ECIF_DATA</span><br><span class="line">ECIF_INDEX</span><br><span class="line">EIP_DATA</span><br><span class="line">YANG</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME</span><br><span class="line">------------------------------</span><br><span class="line">DUKE_TEMP</span><br><span class="line">DUKE_DATA</span><br><span class="line"></span><br><span class="line">已选择13行。</span><br></pre></td></tr></table></figure>
+<h4 id="14-查看表空间数据文件的存放路径："><a href="#14-查看表空间数据文件的存放路径：" class="headerlink" title="14.查看表空间数据文件的存放路径："></a><strong>14.查看表空间数据文件的存放路径</strong>：</h4><p>表空间数据文件都存放在永久性表空间中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; desc dba_data_files; /*数据字典dba_data_file用于存放数据文件的属性。*/</span><br><span class="line"> 名称                                      是否为空? 类型</span><br><span class="line"> ----------------------------------------- -------- ----------------------------</span><br><span class="line"> FILE_NAME                                          VARCHAR2(513)</span><br><span class="line"> FILE_ID                                            NUMBER</span><br><span class="line"> TABLESPACE_NAME                                    VARCHAR2(30)</span><br><span class="line"> BYTES                                              NUMBER</span><br><span class="line"> BLOCKS                                             NUMBER</span><br><span class="line"> STATUS                                             VARCHAR2(9)</span><br><span class="line"> RELATIVE_FNO                                       NUMBER</span><br><span class="line"> AUTOEXTENSIBLE                                     VARCHAR2(3)</span><br><span class="line"> MAXBYTES                                           NUMBER</span><br><span class="line"> MAXBLOCKS                                          NUMBER</span><br><span class="line"> INCREMENT_BY                                       NUMBER</span><br><span class="line"> USER_BYTES                                         NUMBER</span><br><span class="line"> USER_BLOCKS                                        NUMBER</span><br><span class="line"> ONLINE_STATUS                                      VARCHAR2(7)</span><br><span class="line"></span><br><span class="line">SQL&gt; select file_name from dba_data_files where tablespace_name=&apos;DUKE_DATA&apos;;</span><br><span class="line"></span><br><span class="line">FILE_NAME</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">I:\ORCL\TABLESPACE\DUKE_DATA.DBF   /*文件存放的位置*/</span><br></pre></td></tr></table></figure>
+<h4 id="15-修改表空间的状态-联机-脱机、只读-读写"><a href="#15-修改表空间的状态-联机-脱机、只读-读写" class="headerlink" title="15.修改表空间的状态(联机/脱机、只读/读写)"></a>15.修改表空间的状态(联机/脱机、只读/读写)</h4><p><strong>设置表空间的联机ONLINE或脱机状态</strong>OFFLINE：表空间的默认状态是联机状态，如果表空间是脱机状态，不能够使用这个表空间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLESPACE tablespace_name ONLINE|OFFLINE;</span><br></pre></td></tr></table></figure>
+<p>例如：DUKE_DATA表空间脱机，查看表空间状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER TABLESPACE duke_data OFFLINE; /*DUKE_DATA表空间脱机,需要使用大些字母*/</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br><span class="line">SQL&gt; select STATUS from dba_tablespaces where tablespace_name=&apos;DUKE_DATA&apos;; /*查看表空间状态*/</span><br><span class="line"></span><br><span class="line">STATUS</span><br><span class="line">---------</span><br><span class="line">OFFLINE</span><br></pre></td></tr></table></figure>
+<p><strong>设置表空间的只读|可读写状态</strong>：表空间默认为可读写状态read write</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLESPACE duke_data read only|read write;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：如果表空间状态中拥有可read，那么表空间就必须是联机状态ONLINE的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER TABLESPACE duke_data read only;</span><br><span class="line">ALTER TABLESPACE duke_data read only</span><br><span class="line">*</span><br><span class="line">第 1 行出现错误:</span><br><span class="line">ORA-01539: 表空间 &apos;DUKE_DATA&apos; 未联机</span><br></pre></td></tr></table></figure>
+<p>表空间联机后更改状态为只读</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt;  ALTER TABLESPACE duke_data ONLINE;</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br><span class="line"></span><br><span class="line">SQL&gt;  select STATUS from dba_tablespaces where tablespace_name=&apos;DUKE_DATA&apos;;/*查案状态*/</span><br><span class="line"></span><br><span class="line">STATUS</span><br><span class="line">---------</span><br><span class="line">ONLINE</span><br><span class="line"></span><br><span class="line">SQL&gt;  ALTER TABLESPACE duke_data read only;</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br><span class="line"></span><br><span class="line">select tablespace_name,status from dba_tablespaces where tablespace_name=&apos;DUKE_DATA&apos;;  /*查看DUKE_DATA表空间状态，读写（ONLINE）,DUKE_DATA要大写*/</span><br></pre></td></tr></table></figure>
+<h4 id="16-修改表空间的数据文件"><a href="#16-修改表空间的数据文件" class="headerlink" title="16.修改表空间的数据文件"></a>16.修改表空间的数据文件</h4><p><strong>注意</strong>：如果表空间添加数据文件，那么表空间就必须是联机状态ONLINE的。</p>
+<p><strong>增加表空间中的数据文件</strong> xx.dbf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select STATUS from dba_tablespaces where tablespace_name=&apos;DUKE_DATA&apos;; /*查看状态是否联机*/</span><br><span class="line"></span><br><span class="line">STATUS</span><br><span class="line">---------</span><br><span class="line">ONLINE</span><br><span class="line"></span><br><span class="line">SQL&gt; ALTER TABLESPACE duke_data ADD DATAFILE&apos;I:\Orcl\tablespace\duke_data2.dbf&apos; SIZE 50m; /*增加数据文件*/</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br><span class="line"></span><br><span class="line">SQL&gt; select file_name from dba_data_fileS where tablespace_name=&apos;DUKE_DATA&apos;;</span><br><span class="line">/*查看数据文件及文件位置*/</span><br><span class="line">FILE_NAME</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">I:\ORCL\TABLESPACE\DUKE_DATA.DBF</span><br><span class="line">I:\ORCL\TABLESPACE\DUKE_DATA2.DBF</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：如果发现某个表空间存储空间不足时，可以为表空间添加新的数据文件，扩展表空间大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER TABLESPACE DUKE_DATA ADD DATAFILE &apos;I:\ORCL\TABLESPACE\DUKE_DATA03.dbf&apos; SIZE 2G AUTOEXTEND OFF;  /*方法一：增加新的大数据文件，达到增大表空间的目的*/</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br><span class="line"></span><br><span class="line">SQL&gt; ALTER TABLESPACE DUKE_DATA   /*方法二：增加数据文件*/</span><br><span class="line">  2  ADD DATAFILE &apos;I:\ORCL\TABLESPACE\DUKE_DATA04.dbf&apos;</span><br><span class="line">  3  SIZE 100M</span><br><span class="line">  4  AUTOEXTEND ON</span><br><span class="line">  5  NEXT 10M</span><br><span class="line">  6  MAXSIZE 20480M;</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：在添加新的数据文件时，如果同名的操作系统已经存在，ALTER TABLESPACE语句将失败。如果要覆盖同名的操作系统文件时，则必须在后面显示的指定REUSE子句。</p>
+<ul>
+<li><strong>调整数据文件的大小</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER DATABASE DATAFILE &apos;I:\ORCL\TABLESPACE\DUKE_DATA04.dbf&apos; RESIZE 500M;</span><br><span class="line"></span><br><span class="line">数据库已更改。</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>删除数据文件</strong></li>
+</ul>
+<p><strong>注意</strong>：不能够删除表空间中的第一个数据文件，如果将第一个数据文件删除的话，相当于删除了整个表空间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER TABLESPACE DUKE_DATA DROP DATAFILE&apos;I:\ORCL\TABLESPACE\DUKE_DATA04.dbf&apos;;</span><br><span class="line">/*删除方式一*/</span><br><span class="line">表空间已更改。</span><br></pre></td></tr></table></figure>
+<p><img src="D:\软件安装包\公司用到工具\个人笔记\图片文档\oracle\表空间图片\23WS@Q53A9RUPJW{TJVFM29.png" alt="23WS@Q53A9RUPJW{TJVFM29"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter tablespace DUKE_DATA  drop datafile &apos;I:\ORCL\TABLESPACE\DUKE_DATA03.dbf&apos;;</span><br><span class="line">/*删除方式二*/</span><br><span class="line">表空间已更改。</span><br></pre></td></tr></table></figure>
+<p>查看删除文件后，duke_data表空间的数据文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select file_name from dba_data_fileS where tablespace_name=&apos;DUKE_DATA&apos;;</span><br><span class="line"></span><br><span class="line">FILE_NAME</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">I:\ORCL\TABLESPACE\DUKE_DATA.DBF</span><br><span class="line">I:\ORCL\TABLESPACE\DUKE_DATA2.DBF</span><br></pre></td></tr></table></figure>
+<h4 id="17-删除表空间"><a href="#17-删除表空间" class="headerlink" title="17.删除表空间"></a>17.删除表空间</h4><p>基本语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLESPAC tablespace_name [INCLUDING CONTENTS];</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：如果你希望在删除表空间的同时将表空间中的数据文件一同删除时，需要加上[INCLUDING CONTENTS] </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> drop tablespace DUKE_DATA including contents;</span><br><span class="line">/*删除表空间*/</span><br><span class="line"> 表空间已更改。</span><br><span class="line"> select file_name from dba_data_fileS where tablespace_name=&apos;DUKE_DATA&apos;;</span><br><span class="line">/*查看表空间*/</span><br><span class="line"> 没有此DUKE_DATA表空间。</span><br></pre></td></tr></table></figure>
+<h4 id="18-用户表空间限额"><a href="#18-用户表空间限额" class="headerlink" title="18.用户表空间限额"></a>18.用户表空间限额</h4><p><strong>表空间存储限制</strong>是用户在某一个表空间中可以使用的存储空间总数。<br>在创建或修改用户时，可以由参数<code>quota</code>指出。若用户在向表空间存储数据时，超出了此限额，则会产生错误。</p>
+<p><strong>错误信息</strong>：ORA-01536:space quota exceeded for tablespace tablespacename..’。<br>可以通过查询字典<code>dba_ts_quotas</code>查看表空间限额信息。</p>
+<p><strong>查看用户的表空间配额</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">查看所有的用户表空间配额情况</span><br><span class="line">SQL&gt; SELECT * FROM DBA_TS_QUOTAS</span><br><span class="line">  2  ;</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                USERNAME                            BYTES</span><br><span class="line">------------------------------ ------------------------------ ----------</span><br><span class="line"> MAX_BYTES     BLOCKS MAX_BLOCKS DRO</span><br><span class="line">---------- ---------- ---------- ---</span><br><span class="line">SYSAUX                         APPQOSSYS                               0</span><br><span class="line">        -1          0         -1 NO</span><br><span class="line"></span><br><span class="line">SYSAUX                         FLOWS_FILES                             0</span><br><span class="line">        -1          0         -1 NO</span><br><span class="line"></span><br><span class="line">SYSAUX                         SYSMAN                          160038912</span><br><span class="line">        -1      19536         -1 NO</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                USERNAME                            BYTES</span><br><span class="line">------------------------------ ------------------------------ ----------</span><br><span class="line"> MAX_BYTES     BLOCKS MAX_BLOCKS DRO</span><br><span class="line">---------- ---------- ---------- ---</span><br><span class="line">SYSAUX                         OLAPSYS                           4718592</span><br><span class="line">        -1        576         -1 NO</span><br></pre></td></tr></table></figure>
+<p>查看当前用户表空间的配额情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#查看当前用户表空间的配额情况   </span><br><span class="line">SELECT * FROM USER_TS_QUOTAS;</span><br><span class="line"></span><br><span class="line">SQL&gt; DESC DBA_TS_QUOTAS;</span><br><span class="line"> 名称                                      是否为空? 类型</span><br><span class="line"> ----------------------------------------- -------- ----------------------------</span><br><span class="line"> TABLESPACE_NAME                           NOT NULL VARCHAR2(30)</span><br><span class="line"> USERNAME                                  NOT NULL VARCHAR2(30)</span><br><span class="line"> BYTES                                              NUMBER</span><br><span class="line"> MAX_BYTES                                          NUMBER</span><br><span class="line"> BLOCKS                                             NUMBER</span><br><span class="line"> MAX_BLOCKS                                         NUMBER</span><br><span class="line"> DROPPED                                            VARCHAR2(3)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：若<code>MAX_BYTES=-1</code>表示没有配额限制</p>
+<h2 id="三、oralce-数据库设置表空间的只读-读写模式"><a href="#三、oralce-数据库设置表空间的只读-读写模式" class="headerlink" title="三、oralce 数据库设置表空间的只读/读写模式"></a>三、oralce 数据库设置表空间的只读/读写模式</h2><p> 意义：主要是为了确保数据完整性。</p>
+<p>如:数据备份与还原操作、历史数据的完整性保护。可以将表空间设置只读模式。</p>
+<p>只读：是表空间中不能进行INSERT（插入）、UPDATE（修改）、DELETE（删除）等操作。</p>
+<p><strong>需要dba权限的用户登录才可以进行一下操作：</strong></p>
+<h4 id="1-打开cmd输入-进入sqlplus和连接数据库及登录sys。"><a href="#1-打开cmd输入-进入sqlplus和连接数据库及登录sys。" class="headerlink" title="1.打开cmd输入,进入sqlplus和连接数据库及登录sys。"></a>1.打开cmd输入,进入sqlplus和连接数据库及登录sys。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlplus sys/123456@ZhengJiaAo:1521/ORCL as sysdba</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select tablespace_name,status from dba_tablespaces;  //查看所有表空间状态，读写（ONLINE）</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                STATUS</span><br><span class="line">------------------------------ ---------</span><br><span class="line">SYSTEM                         ONLINE</span><br><span class="line">SYSAUX                         ONLINE</span><br><span class="line">UNDOTBS1                       ONLINE</span><br><span class="line">TEMP                           ONLINE</span><br><span class="line">USERS                          ONLINE</span><br><span class="line">EXAMPLE                        ONLINE</span><br><span class="line">EBANK_TEMP                     ONLINE</span><br><span class="line">ECIF_DATA                      ONLINE</span><br><span class="line">ECIF_INDEX                     ONLINE</span><br><span class="line">EIP_DATA                       ONLINE</span><br><span class="line">YANG                           ONLINE</span><br><span class="line"></span><br><span class="line">已选择11行。</span><br></pre></td></tr></table></figure>
+<h4 id="2-更改表空间状态：只读（READ-ONLY）。"><a href="#2-更改表空间状态：只读（READ-ONLY）。" class="headerlink" title="2.更改表空间状态：只读（READ ONLY）。"></a>2.更改表空间状态：只读（READ ONLY）。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter tablespace users read only;</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br><span class="line"></span><br><span class="line">SQL&gt; select tablespace_name,status from dba_tablespaces;</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                STATUS</span><br><span class="line">------------------------------ ---------</span><br><span class="line">SYSTEM                         ONLINE</span><br><span class="line">SYSAUX                         ONLINE</span><br><span class="line">UNDOTBS1                       ONLINE</span><br><span class="line">TEMP                           ONLINE</span><br><span class="line">USERS                          READ ONLY</span><br><span class="line">EXAMPLE                        ONLINE</span><br><span class="line">EBANK_TEMP                     ONLINE</span><br><span class="line">ECIF_DATA                      ONLINE</span><br><span class="line">ECIF_INDEX                     ONLINE</span><br><span class="line">EIP_DATA                       ONLINE</span><br><span class="line">YANG                           ONLINE</span><br><span class="line"></span><br><span class="line">已选择11行。</span><br></pre></td></tr></table></figure>
+<h4 id="3-更改表空间状态为：读写（ONLINE）。"><a href="#3-更改表空间状态为：读写（ONLINE）。" class="headerlink" title="3.更改表空间状态为：读写（ONLINE）。"></a>3.更改表空间状态为：读写（ONLINE）。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter tablespace users read write;</span><br><span class="line"></span><br><span class="line">表空间已更改。</span><br><span class="line"></span><br><span class="line">SQL&gt; select tablespace_name,status from dba_tablespaces;</span><br><span class="line"></span><br><span class="line">TABLESPACE_NAME                STATUS</span><br><span class="line">------------------------------ ---------</span><br><span class="line">SYSTEM                         ONLINE</span><br><span class="line">SYSAUX                         ONLINE</span><br><span class="line">UNDOTBS1                       ONLINE</span><br><span class="line">TEMP                           ONLINE</span><br><span class="line">USERS                          ONLINE</span><br><span class="line">EXAMPLE                        ONLINE</span><br><span class="line">EBANK_TEMP                     ONLINE</span><br><span class="line">ECIF_DATA                      ONLINE</span><br><span class="line">ECIF_INDEX                     ONLINE</span><br><span class="line">EIP_DATA                       ONLINE</span><br><span class="line">YANG                           ONLINE</span><br><span class="line"></span><br><span class="line">已选择11行。</span><br></pre></td></tr></table></figure>
+<h2 id="四、Schema和用户"><a href="#四、Schema和用户" class="headerlink" title="四、Schema和用户"></a>四、Schema和用户</h2><p><strong>Oracle的方案（Schema）和用户（User）的区别</strong></p>
+<h3 id="Schema定义："><a href="#Schema定义：" class="headerlink" title="Schema定义："></a>Schema定义：</h3><p>A schema is a collection of database objects (used by a user).<br>Schema objects are the logical structures that directly refer to the database’s data.<br>A user is a name defined in the database that can connect to and access objects。<br>Schemas and users help database administrators manage database security</p>
+<p>模式是数据库对象（由用户使用）的集合。</p>
+<p>Schema对象是直接引用数据库数据的逻辑结构。</p>
+<p>用户是数据库中定义的可以连接和访问对象的名称。</p>
+<p>模式和用户帮助数据库管理员管理数据库安全性</p>
+<p>从定义中我们可以看出schema为数据库对象的集合，为了区分各个集合，我们需要给这个集合起个名字，这些名字就是我们在企业管理器的方案下看到的许多类似用户名的节点，这些类似用户名的节点其实就是一个schema，schema里面包含了各种对象如tables, views, sequences, stored procedures, synonyms, indexes, clusters, and database links.</p>
+<h4 id="1-一个用户一般对应一个schema："><a href="#1-一个用户一般对应一个schema：" class="headerlink" title="1.一个用户一般对应一个schema："></a>1.一个用户一般对应一个schema：</h4><p>一个用户一般对应一个schema，该用户的schema名等于用户名，并作为该用户缺省schema。这也就是在企业管理器的方案下看到schema名都为数据库用户名的原因。</p>
+<p>数据库Schema有两种含义:一种是概念上的Schema，指的是一组DDL语句集，该语句集完整地描述了数据库的结构。还有一种是物理上的 Schema，指的是数据库中的一个名字空间，它包含一组表、视图和存储过程等命名对象。物理Schema可以通过标准SQL语句来创建、更新和修改。例 如以下SQL语句创建了两个物理Schema：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create schema SCHEMA_A;</span><br><span class="line">create table SCHEMA_A.CUSTOMERS(ID int not null,……);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create schema SCHEMA_B;</span><br><span class="line">create table SCHEMA_B.CUSTOMERS(ID int not null,……);</span><br></pre></td></tr></table></figure>
+<p>简单的说：就是一个数据库用户所拥有的数据库的对象。<br>比如scott用户建立了表，索引，视图，存储过程等对象，那么这些对象就构成了schema   scott</p>
+<p>Oracle数据库中不能新创建一个schema，要想创建一个schema，只能通过创建一个用户的方法解决(Oracle中虽然有create schema语句，但是它并不是用来创建一个schema的)，在创建一个用户的同时为这个用户创建一个与用户名同名的schem并作为该用户的缺省shcema.</p>
+<p>即schema的个数同user的个数相同，而且schema名字同user名字一一对应并且相同，所有我们可以称schema为user的别名，虽然这样说并不准确，但是更容易理解一些。</p>
+<h4 id="2-一个用户还可以使用其他的schema"><a href="#2-一个用户还可以使用其他的schema" class="headerlink" title="2.一个用户还可以使用其他的schema:"></a>2.一个用户还可以使用其他的schema:</h4><p>访问一个表时，没有指明该表属于哪一个schema中的，系统就会自动给我们在表上加上缺省的sheman名.<br>访问scott用户下的emp表，通过select <em> from emp; 其实，这sql语句的完整写法为select </em> from scott.emp;<br>在数据库中一个对象的完整名称为schema.object，而不属user.object.</p>
+<h4 id="3-oracle中的schema就是指一个用户下所有对象的集合"><a href="#3-oracle中的schema就是指一个用户下所有对象的集合" class="headerlink" title="3.oracle中的schema就是指一个用户下所有对象的集合:"></a>3.oracle中的schema就是指一个用户下所有对象的集合:</h4><p>schema本身不能理解成一个对象，oracle并没有提供创建schema的语法，schema也并不是在创建user时就创建，而是在该用户下创建第一个对象之后schema也随之产生，只要user下存在对象，schema就一定存在，user下如果不存在对象，schema也不存在；这一点类似于temp tablespace group，另外也可以通过oem来观察，如果创建一个新用户，该用户下如果没有对象则schema不存在，如果创建一个对象则和用户同名的schema也随之产生。</p>
+<h4 id="4-schema和用户及对象关系图："><a href="#4-schema和用户及对象关系图：" class="headerlink" title="4.schema和用户及对象关系图："></a>4.schema和用户及对象关系图：</h4><p><img src="https://i.imgur.com/ef0iQDH.png" alt="schema和用户"></p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/12/24/netty简介/" title= "netty简介">
+                    <div class="prevTitle">netty简介</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、创建表空间语法及给用户表空间"><span class="toc-number">1.</span> <span class="toc-text">一、创建表空间语法及给用户表空间</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-查看管理员用户使用的表空间名称列表"><span class="toc-number">1.0.1.</span> <span class="toc-text">0.查看管理员用户使用的表空间名称列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-创建临时表空间-duke-temp"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.创建临时表空间: duke_temp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-创建数据表空间-duke-data"><span class="toc-number">1.0.3.</span> <span class="toc-text">2.创建数据表空间: duke_data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-创建用户并指定表空间"><span class="toc-number">1.0.4.</span> <span class="toc-text">3.创建用户并指定表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-修改用户默认和临时表空间"><span class="toc-number">1.0.5.</span> <span class="toc-text">4.修改用户默认和临时表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-删除空间表"><span class="toc-number">1.0.6.</span> <span class="toc-text">5.删除空间表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-给用户授权登录和撤销权限"><span class="toc-number">1.0.7.</span> <span class="toc-text">6.给用户授权登录和撤销权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-查看表空间使用情况"><span class="toc-number">1.0.8.</span> <span class="toc-text">7.查看表空间使用情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-查看普通用户属于哪个表空间"><span class="toc-number">1.0.9.</span> <span class="toc-text">8.查看普通用户属于哪个表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-查看所有表空间"><span class="toc-number">1.0.10.</span> <span class="toc-text">9.查看所有表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-查看表空间下所有用户"><span class="toc-number">1.0.11.</span> <span class="toc-text">10.查看表空间下所有用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-查看当前用户的表属于哪个表空间"><span class="toc-number">1.0.12.</span> <span class="toc-text">11.查看当前用户的表属于哪个表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-查看用户的默认表空间和临时表空间"><span class="toc-number">1.0.13.</span> <span class="toc-text">12.查看用户的默认表空间和临时表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#默认表空间"><span class="toc-number">1.0.14.</span> <span class="toc-text">默认表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-系统表空间dba-tablespaces和用户表空间user-tablespaces"><span class="toc-number">1.0.15.</span> <span class="toc-text">13.系统表空间dba_tablespaces和用户表空间user_tablespaces</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-查看表空间数据文件的存放路径："><span class="toc-number">1.0.16.</span> <span class="toc-text">14.查看表空间数据文件的存放路径：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-修改表空间的状态-联机-脱机、只读-读写"><span class="toc-number">1.0.17.</span> <span class="toc-text">15.修改表空间的状态(联机/脱机、只读/读写)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-修改表空间的数据文件"><span class="toc-number">1.0.18.</span> <span class="toc-text">16.修改表空间的数据文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-删除表空间"><span class="toc-number">1.0.19.</span> <span class="toc-text">17.删除表空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#18-用户表空间限额"><span class="toc-number">1.0.20.</span> <span class="toc-text">18.用户表空间限额</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、oralce-数据库设置表空间的只读-读写模式"><span class="toc-number">2.</span> <span class="toc-text">三、oralce 数据库设置表空间的只读/读写模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-打开cmd输入-进入sqlplus和连接数据库及登录sys。"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.打开cmd输入,进入sqlplus和连接数据库及登录sys。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-更改表空间状态：只读（READ-ONLY）。"><span class="toc-number">2.0.2.</span> <span class="toc-text">2.更改表空间状态：只读（READ ONLY）。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-更改表空间状态为：读写（ONLINE）。"><span class="toc-number">2.0.3.</span> <span class="toc-text">3.更改表空间状态为：读写（ONLINE）。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、Schema和用户"><span class="toc-number">3.</span> <span class="toc-text">四、Schema和用户</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Schema定义："><span class="toc-number">3.1.</span> <span class="toc-text">Schema定义：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-一个用户一般对应一个schema："><span class="toc-number">3.1.1.</span> <span class="toc-text">1.一个用户一般对应一个schema：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-一个用户还可以使用其他的schema"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.一个用户还可以使用其他的schema:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-oracle中的schema就是指一个用户下所有对象的集合"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.oracle中的schema就是指一个用户下所有对象的集合:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-schema和用户及对象关系图："><span class="toc-number">3.1.4.</span> <span class="toc-text">4.schema和用户及对象关系图：</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 51
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/Oracle表空间、Schema、User/" >Oracle表空间、Schema、User</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/netty简介/" >netty简介</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker+Jenkins实现自动化部署/" >Docker+Jenkins实现自动化部署</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker学习/" >Docker笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/04</span><a class="archive-post-title" href= "/2018/12/04/Tomcat/" >Tomcat流程浅析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/23</span><a class="archive-post-title" href= "/2018/11/23/Kotlin初识、及底图切换代码分析/" >Kotlin初识及底图切换代码分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/浅谈跨域——了解跨域的几种方式/" >浅谈跨域——了解跨域的几种方式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span><a class="archive-post-title" href= "/2018/11/16/Android smartTable的简单使用/" >SmartTable的简单使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" >ArcGIS Runtime 100与产品线结合带来的思考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/12</span><a class="archive-post-title" href= "/2018/11/12/ArcEngine开发中一些提高效率技巧/" >ArcEngine开发中一些提高效率技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/CopyOnWriteArrayList介绍/" >CopyOnWriteArrayList介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/Lambda收集器示例/" >Lambda收集器示例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/java8-时间日期api/" >Java 8 之时间日期Api</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/05</span><a class="archive-post-title" href= "/2018/11/05/VC++内存泄漏检测工具浅究/" >VC++内存泄漏检测工具浅究</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/WebApp 开发简单入门/" >WebApp 开发简单入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/Kotlin初探/" >Kotlin初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/JPA的简单介绍/" >JPA的简单介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" >Vue+iView+Webpack环境下IE浏览器兼容处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/DASC笔记/" >DASC笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/CAS笔记/" >CAS笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2018/10/24/Java8 StringJoiner的使用/" >Java 8 之StringJoiner的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java8之Optional/" >Java 8 之Optional</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java之Lambda表达式Stream使用/" >Java 8 之Lambda表达式Stream使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之fail-fast机制-万世威/" >Java 8 之fail-fast机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之collection细节/" >Java 8 之collection细节</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之enum枚举-万世威/" >Java 8 之enum枚举</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
+    
+        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
+    
+        <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
+    
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
+    
+        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+        <span class="sidebar-category-name" data-categories="郑家骜"><span class="iconfont-archer">&#xe60a;</span>郑家骜</span>
+    
+        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+    
+        <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
