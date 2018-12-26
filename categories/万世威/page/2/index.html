@@ -346,28 +346,37 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >
+        <a class="abstract-title" href = "/2018/10/22/Java8之enum枚举-万世威/" >
             
-                <span>React和Vue比较</span>
+                <span>Java 8 之enum枚举</span>
         </a>
         <div class="abstract-content">
-            Vue和React两个JavaScript框架都是当下比较受欢迎的，下面我们来一起探讨下它们的异同和技术选型。
-1. 相同点
+            Enum 枚举123public enum Color &#123;    RED, YELLOW, BLUE;&#125;
+==说明：==
 
-1.1 都使用了虚拟Dom   Virtual DOM是一个映射真实DOM的JavaScript对象，如果需要改变任何元素的状态，那么是先在Virtual DOM上进行改变，而不是直接改变真实的DOM。当有变化产生时，一个新的Virtual DOM对象会被创建并计算新旧Virtual DOM之间的差别。之后这些差别会应用在真实的DOM上。在HTML中的标签在JavaScript中，虚拟Dom可以用对象简单地创造一个针对上面例子的映射当新一项被加进去这个JavaS...
+使用的是enum关键字而不是class
+多个枚举变量之间用 逗号 隔开
+枚举变量名大写，多个单词之间用 _ 隔开。  如。 ALL_NUM…
+定义完枚举变量后， 用分号 结束。如果只有枚举变量，而没有自定义变量，分号可以省略。
+使用  只需要【类名.变量名】就可以了，和使用静态变量一样。 
+
+方法：
+values()
+
+这个方法会返回包括所有枚举变量的数组 
+
+12345678910for (Color color : Color.values(...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "React">React</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Vue">Vue</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
     
 </div>
             
@@ -375,6 +384,10 @@
     </article>
     
     <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/categories/万世威/">&#60; PREV</a><a class="page-number" href="/categories/万世威/">1</a><span class="page-number current">2</span>
+    </nav>
     
 </main>
             <!-- profile -->
