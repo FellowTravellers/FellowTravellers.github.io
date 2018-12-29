@@ -280,7 +280,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">8.1k</span>阅读时长: <span class="post-count reading-time">33 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">10.9k</span>阅读时长: <span class="post-count reading-time">44 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -544,7 +544,7 @@ height:50vh;
 <li>我们再来简单看下如何指定 jsonp 回调函数：<br>以下的例子和解说我搬运自：<a href="https://www.cnblogs.com/chiangchou/p/jsonp.html，看完醍醐灌顶。" target="_blank" rel="noopener">https://www.cnblogs.com/chiangchou/p/jsonp.html，看完醍醐灌顶。</a><br>上代码：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> &lt;%@ page pageEncoding=<span class="string">"utf-8"</span> contentType=<span class="string">"text/html;charset=UTF-8"</span>  language=<span class="string">"java"</span> %&gt;</span><br><span class="line"> <span class="number">2</span> &lt;html&gt;</span><br><span class="line"> <span class="number">3</span> &lt;head&gt;</span><br><span class="line"> <span class="number">4</span>     &lt;title&gt;跨域测试&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"> 5     &lt;script src="js/</span>jquery<span class="number">-1.7</span><span class="number">.2</span>.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string"> 6     &lt;script&gt;</span></span><br><span class="line"><span class="string"> 7 </span></span><br><span class="line"><span class="string"> 8         function showData (data) &#123;</span></span><br><span class="line"><span class="string"> 9             console.info("</span>调用showData<span class="string">");</span></span><br><span class="line"><span class="string">10 </span></span><br><span class="line"><span class="string">11             var result = JSON.stringify(data);</span></span><br><span class="line">12             $("#text").val(result);</span><br><span class="line"><span class="number">13</span>         &#125;</span><br><span class="line"><span class="number">14</span> </span><br><span class="line"><span class="number">15</span>         $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">16</span> </span><br><span class="line"><span class="number">17</span> <span class="comment">//            window.showData = function  (data) &#123;</span></span><br><span class="line"><span class="number">18</span> <span class="comment">//                console.info("调用showData");</span></span><br><span class="line"><span class="number">19</span> <span class="comment">//</span></span><br><span class="line"><span class="number">20</span> <span class="comment">//                var result = JSON.stringify(data);</span></span><br><span class="line"><span class="number">21</span> <span class="comment">//                $("#text").val(result);</span></span><br><span class="line"><span class="number">22</span> <span class="comment">//            &#125;</span></span><br><span class="line"><span class="number">23</span> </span><br><span class="line"><span class="number">24</span>             $(<span class="string">"#btn"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">25</span> </span><br><span class="line"><span class="number">26</span>                 $.ajax(&#123;</span><br><span class="line"><span class="number">27</span>                     url: <span class="string">"http://localhost:9090/student"</span>,</span><br><span class="line"><span class="number">28</span>                     type: <span class="string">"GET"</span>,</span><br><span class="line"><span class="number">29</span>                     dataType: <span class="string">"jsonp"</span>,  <span class="comment">//指定服务器返回的数据类型</span></span><br><span class="line"><span class="number">30</span>                     jsonpCallback: <span class="string">"showData"</span>,  <span class="comment">//指定回调函数名称</span></span><br><span class="line"><span class="number">31</span>                     success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line"><span class="number">32</span>                         <span class="built_in">console</span>.info(<span class="string">"调用success"</span>);</span><br><span class="line"><span class="number">33</span>                     &#125;</span><br><span class="line"><span class="number">34</span>                 &#125;);</span><br><span class="line"><span class="number">35</span>             &#125;);</span><br><span class="line"><span class="number">36</span> </span><br><span class="line"><span class="number">37</span>         &#125;);</span><br><span class="line"><span class="number">38</span>     &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">39 &lt;/</span>head&gt;</span><br><span class="line"><span class="number">40</span> &lt;body&gt;</span><br><span class="line"><span class="number">41</span>     &lt;input id=<span class="string">"btn"</span> type=<span class="string">"button"</span> value=<span class="string">"跨域获取数据"</span> /&gt;</span><br><span class="line"><span class="number">42</span>     &lt;textarea id=<span class="string">"text"</span> style=<span class="string">"width: 400px; height: 100px;"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span></span><br><span class="line"><span class="number">43</span> </span><br><span class="line"><span class="number">44</span> &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">45 &lt;/</span>html&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>回调函数可以写到&lt;script&gt;里（默认属于window对象），或者指明写到window对象里，看jQuery源码，可以看到jQuery调用回调函数时，是调用的window.callback。代码如上，看调用结果发现，请求时带的参数是callback=showData,然后再调用了success【2，文末注解】。所以success是返回成功以后必定会调的函数。</p>
+<p>回调函数可以写到&lt;script&gt;里（默认属于window对象），或者指明写到window对象里，看jQuery源码，可以看到jQuery调用回调函数时，是调用的window.callback。代码如上，看调用结果发现，请求时带的参数是callback=showData,然后再调用了success，后台先将参数放进回调函数里，本质上前端是插入了一个脚本，放入数据，就等于执行了那个回调方法，再进行网络请求的响应处理，所以回调函数先拿到了数据，success再走。success是返回成功以后必定会调的函数。</p>
 <p>如果想要更改 callback 这个参数的名称，参考以下代码第23行。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> &lt;%@ page pageEncoding=<span class="string">"utf-8"</span> contentType=<span class="string">"text/html;charset=UTF-8"</span>  language=<span class="string">"java"</span> %&gt;</span><br><span class="line"> <span class="number">2</span> &lt;html&gt;</span><br><span class="line"> <span class="number">3</span> &lt;head&gt;</span><br><span class="line"> <span class="number">4</span>     &lt;title&gt;跨域测试&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"> 5     &lt;script src="js/</span>jquery<span class="number">-1.7</span><span class="number">.2</span>.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string"> 6     &lt;script&gt;</span></span><br><span class="line"><span class="string"> 7 </span></span><br><span class="line"><span class="string"> 8         function showData (data) &#123;</span></span><br><span class="line"><span class="string"> 9             console.info("</span>调用showData<span class="string">");</span></span><br><span class="line"><span class="string">10 </span></span><br><span class="line"><span class="string">11             var result = JSON.stringify(data);</span></span><br><span class="line">12             $("#text").val(result);</span><br><span class="line"><span class="number">13</span>         &#125;</span><br><span class="line"><span class="number">14</span> </span><br><span class="line"><span class="number">15</span>         $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">16</span> </span><br><span class="line"><span class="number">17</span>             $(<span class="string">"#btn"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="number">18</span> </span><br><span class="line"><span class="number">19</span>                 $.ajax(&#123;</span><br><span class="line"><span class="number">20</span>                     url: <span class="string">"http://localhost:9090/student"</span>,</span><br><span class="line"><span class="number">21</span>                     type: <span class="string">"GET"</span>,</span><br><span class="line"><span class="number">22</span>                     dataType: <span class="string">"jsonp"</span>,  <span class="comment">//指定服务器返回的数据类型</span></span><br><span class="line"><span class="number">23</span>                     jsonp: <span class="string">"theFunction"</span>,   <span class="comment">//指定参数名称</span></span><br><span class="line"><span class="number">24</span>                     jsonpCallback: <span class="string">"showData"</span>,  <span class="comment">//指定回调函数名称</span></span><br><span class="line"><span class="number">25</span>                     success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line"><span class="number">26</span>                         <span class="built_in">console</span>.info(<span class="string">"调用success"</span>);</span><br><span class="line"><span class="number">27</span>                     &#125;</span><br><span class="line"><span class="number">28</span>                 &#125;);</span><br><span class="line"><span class="number">29</span>             &#125;);</span><br><span class="line"><span class="number">30</span> </span><br><span class="line"><span class="number">31</span>         &#125;);</span><br><span class="line"><span class="number">32</span>     &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">33 &lt;/</span>head&gt;</span><br><span class="line"><span class="number">34</span> &lt;body&gt;</span><br><span class="line"><span class="number">35</span>     &lt;input id=<span class="string">"btn"</span> type=<span class="string">"button"</span> value=<span class="string">"跨域获取数据"</span> /&gt;</span><br><span class="line"><span class="number">36</span>     &lt;textarea id=<span class="string">"text"</span> style=<span class="string">"width: 400px; height: 100px;"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span></span><br><span class="line"><span class="number">37</span> </span><br><span class="line"><span class="number">38</span> &lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">39 &lt;/</span>html&gt;</span><br></pre></td></tr></table></figure></p>
 <p>如此以来后台也要跟着改变，找到我前面的例子<strong>jQuery 的 jsonp 方式跨域请求</strong>中后台代码，找到下图对应位置并作出修改：</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/3402395-523d94f4102f5dae.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="后台修改代码提示"></p>
@@ -562,13 +562,97 @@ height:50vh;
 <li>由于是 script 标签，b 网站返回的字符串会被当成js解析执行，相当于调用到了 callback 方法;</li>
 <li>主要利用了 script（img, iframe等有src属性的标签）可以跨站点访问的特性，且只能用 GET 请求，需要服务端做点配合，并且需要信任服务器(安全考虑)。jquery 的 jsonp ajax 只是封装了这个过程，让你看上去和普通 ajax 没什么区别，其实却一点关系都没有。</li>
 </ol>
+<p>友情提示：axios 不支持 jsonp ,要用的话，可以装插件或者使用原生实现。</p>
 <h2 id="二、跨域资源共享"><a href="#二、跨域资源共享" class="headerlink" title="二、跨域资源共享"></a>二、跨域资源共享</h2><p><strong>跨域资源共享（CORS）是一种网络浏览器的技术规范，它为web服务器定义了一种方式，允许网页从不同的域访问资源。CORS就是为了让AJAX可以实现可控的跨域访问而生的。</strong></p>
-<h4 id="CORS-与-JSONP-的比较"><a href="#CORS-与-JSONP-的比较" class="headerlink" title="CORS 与 JSONP  的比较:"></a>CORS 与 JSONP  的比较:</h4><ul>
-<li><p>jsonp只能实现 GET 请求，而cors支持所有类型的http请求；</p>
+<h4 id="1、内部机制讲解"><a href="#1、内部机制讲解" class="headerlink" title="1、内部机制讲解"></a>1、内部机制讲解</h4><h6 id="1-简介"><a href="#1-简介" class="headerlink" title="1) 简介"></a>1) 简介</h6><p>通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。</p>
+<p>CORS 需要浏览器和服务器同时支持。目前所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
+<p>整个 CORS 通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS 通信与同源的 AJAX 通信没有差别，代码完全一样。浏览器一旦发现 AJAX 请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</p>
+<p>因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
+<h6 id="2-两种请求"><a href="#2-两种请求" class="headerlink" title="2) 两种请求"></a>2) 两种请求</h6><p>浏览器将 cors 请求分为两种请求：简单请求 和 非简单请求。简单请求就是使用设定的请求方式请求数据<br>而非简单请求则是在使用设定的请求方式请求数据之前,先发送一个OPTIONS请求,看服务端是否允许客户端发送非简单请求.只有”预检”通过后才会再发送一次请求用于数据传输。（例子，get、put 请求方式的区别）。</p>
+<p>只要同时满足以下两大条件，就属于简单请求。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">（<span class="number">1</span>) 请求方法是以下三种方法之一：</span><br><span class="line">    HEAD</span><br><span class="line">    GET</span><br><span class="line">    POST</span><br><span class="line">（<span class="number">2</span>）HTTP的头信息不超出以下几种字段：</span><br><span class="line">    Accept</span><br><span class="line">    Accept-Language</span><br><span class="line">    Content-Language</span><br><span class="line">    Last-Event-ID</span><br><span class="line">    Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</span><br></pre></td></tr></table></figure>
+<p>凡是不同时满足上面两个条件，就属于非简单请求。</p>
+<p>浏览器对这两种请求的处理，是不一样的。</p>
+<h6 id="3-简单请求："><a href="#3-简单请求：" class="headerlink" title="3) 简单请求："></a>3) 简单请求：</h6><p>浏览器对于简单的请求，直接发起 cors 请求。具体的说，就是在请求头加上 Origin 字段。比如截取规划小智请求的报头信息：（这个请求不是真的简单请求，只是找了实例为了方便查看结果关键的头信息）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Accept:*/*</span></span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.8</span><br><span class="line"><span class="attribute">Cache-Control:no-cache</span></span><br><span class="line"><span class="attribute">Connection:keep-alive</span></span><br><span class="line"><span class="attribute">Content-Length:630</span></span><br><span class="line"><span class="attribute">content-type:application/json</span></span><br><span class="line"><span class="attribute">Host:server.guihuaxiaozhi.com</span></span><br><span class="line"><span class="attribute">Origin:http://127.0.0.1:33284</span></span><br><span class="line"><span class="attribute">Pragma:no-cache</span></span><br><span class="line"><span class="attribute">Referer:https://servicewechat.com/wx3e0ec267606ff974/devtools/page-frame.html</span></span><br><span class="line">User-Agent:Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1812180 MicroMessenger/6.7.3 Language/zh_CN webview/ token/9c8817cf1182bd6804aab2b7ad0a756a</span><br></pre></td></tr></table></figure>
+<p>上面的头信息中，<code>Origin</code>字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。</p>
+<p>如果<code>Origin</code>指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含<code>Access-Control-Allow-Origin</code>字段（详见下文），就知道出错了，从而抛出一个错误，被<code>XMLHttpRequest</code>的<code>onerror</code>回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。（ps: 我理解具体就是请求的回应状态为200，但是会在控制台提示错误信息，access-origin-check）</p>
+<p>如果<code>Origin</code>指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Access-Control-Allow-Credentials:true</span></span><br><span class="line"><span class="attribute">Access-Control-Allow-Origin:http://127.0.0.1:33284</span></span><br><span class="line"><span class="attribute">Access-Control-Expose-Headers:Set-Cookie</span></span><br><span class="line"><span class="attribute">Connection:keep-alive</span></span><br><span class="line">Content-Type:application/json;charset=UTF-8</span><br><span class="line">Date:Thu, 27 Dec 2018 02:24:44 GMT</span><br><span class="line"><span class="attribute">Server:nginx/1.10.2</span></span><br><span class="line">Set-Cookie:SESSION=243e9e07-c7f9-4cb5-b896-e8807ecbb695; Path=/bdp-webconsumer/; HttpOnly</span><br><span class="line"><span class="attribute">Transfer-Encoding:chunked</span></span><br><span class="line"><span class="attribute">Vary:Origin</span></span><br></pre></td></tr></table></figure>
+<p>上面的头信息之中，有三个与CORS请求相关的字段，都以<code>Access-Control-</code>开头。注意这几个是响应头里的，由服务器端设置。</p>
+<ul>
+<li><p><strong>Access-Control-Allow-Origin</strong> </p>
+<p>该字段是必须的。它的值要么是请求时<code>Origin</code>字段的值，指定域名的请求; 要么是一个<code>*</code>，表示接受任意域名的请求。</p>
 </li>
-<li><p>使用cors，开发者可以使用XMLHttpRequest发起请求和获得响应，可以有更好的错误处理；</p>
+<li><p><strong>Access-Control-Allow-Credentials</strong></p>
+<p>该字段可选。它的值是一个布尔值，表示是否允许发送 Cookie。默认情况下，Cookie 不包括在CORS请求之中。设为<code>true</code>，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为<code>true</code>，如果服务器不要浏览器发送Cookie，删除该字段即可。</p>
 </li>
-<li><p>jsonp 主要被老的浏览器支持，但它们往往不支持cors，而绝大多数现代浏览器都已经支持了cors。</p>
+<li><p><strong>Access-Control-Expose-Headers</strong></p>
+<p>该字段可选。CORS请求时，<code>XMLHttpRequest</code>对象的<code>getResponseHeader()</code>方法只能拿到6个基本字段：<code>Cache-Control</code>、<code>Content-Language</code>、<code>Content-Type</code>、<code>Expires</code>、<code>Last-Modified</code>、<code>Pragma</code>。如果想拿到其他字段，就必须在<code>Access-Control-Expose-Headers</code>里面指定。上面的例子指定，<code>getResponseHeader(&#39;Set-Cookie&#39;)</code>可以返回<code>Set-Cookie</code>(服务器为浏览器设置cookie)字段的值。</p>
+</li>
+</ul>
+<p>上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定<code>Access-Control-Allow-Credentials</code>字段。另一方面，需要前端，在请求的时候设置<code>withCredentials</code>属性，才能让浏览器处理携带 cookie 发起请求。</p>
+<p>注意：</p>
+<p>如果要发送Cookie，<code>Access-Control-Allow-Origin</code>就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的<code>document.cookie</code>也无法读取服务器域名下的Cookie。</p>
+<h6 id="4）非简单请求"><a href="#4）非简单请求" class="headerlink" title="4）非简单请求"></a>4）非简单请求</h6><ul>
+<li><p>预检请求</p>
+<p>非简单请求是那种对服务器有特殊要求的请求，比如请求方法是<code>PUT</code>或<code>DELETE</code>，或者<code>Content-Type</code>字段的类型是<code>application/json</code>。</p>
+<p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。</p>
+<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的<code>XMLHttpRequest</code>请求，否则就报错。</p>
+<p>下面是一段浏览器的JavaScript脚本。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> url = <span class="string">'http://api.alice.com/cors'</span>;</span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'PUT'</span>, url, <span class="literal">true</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'X-Custom-Header'</span>, <span class="string">'value'</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+<p>上面代码中，HTTP请求的方法是<code>PUT</code>，并且发送一个自定义头信息<code>X-Custom-Header</code>。</p>
+<p>浏览器发现，这是一个非简单请求，就自动发出一个”预检”请求，要求服务器确认可以这样请求。下面是这个”预检”请求的HTTP头信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS /cors HTTP/1.1</span><br><span class="line">Origin: http://api.bob.com</span><br><span class="line">Access-Control-Request-Method: PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.alice.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
+<p>“预检”请求用的请求方法是<code>OPTIONS</code>，表示这个请求是用来询问的。头信息里面，关键字段是<code>Origin</code>，表示请求来自哪个源。</p>
+<p>除了<code>Origin</code>字段，”预检”请求的头信息包括两个特殊字段。</p>
+<ul>
+<li><strong>Access-Control-Request-Method</strong></li>
+</ul>
+<p>该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法，上例是<code>PUT</code>。</p>
+<ul>
+<li><strong>Access-Control-Request-Headers</strong></li>
+</ul>
+<p>该字段是一个逗号分隔的字符串，指定浏览器CORS请求会额外发送的头信息字段，上例是<code>X-Custom-Header</code>。</p>
+</li>
+<li><p>预检请求的回应(仍以上面的例子来说明)</p>
+<p>服务器收到”预检”请求以后，检查了<code>Origin</code>、<code>Access-Control-Request-Method</code>和<code>Access-Control-Request-Headers</code>字段以后，确认允许跨源请求，就可以做出回应。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Date</span>: Mon, 01 Dec 2008 01:15:39 GMT</span><br><span class="line"><span class="attribute">Server</span>: Apache/2.0.61 (Unix)</span><br><span class="line"><span class="attribute">Access-Control-Allow-Origin</span>: http://api.bob.com</span><br><span class="line"><span class="attribute">Access-Control-Allow-Methods</span>: GET, POST, PUT</span><br><span class="line"><span class="attribute">Access-Control-Allow-Headers</span>: X-Custom-Header</span><br><span class="line"><span class="attribute">Content-Type</span>: text/html; charset=utf-8</span><br><span class="line"><span class="attribute">Content-Encoding</span>: gzip</span><br><span class="line"><span class="attribute">Content-Length</span>: 0</span><br><span class="line"><span class="attribute">Keep-Alive</span>: timeout=2, max=100</span><br><span class="line"><span class="attribute">Connection</span>: Keep-Alive</span><br><span class="line"><span class="attribute">Content-Type</span>: text/plain</span><br></pre></td></tr></table></figure>
+<p>上面的HTTP回应中，关键的是<code>Access-Control-Allow-Origin</code>字段，表示<code>http://api.bob.com</code>可以请求数据。该字段也可以设为星号(*)，表示同意任意跨源请求。注意的点在简单请求里有提到，这里类似。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Access-Control-Allow-Origin</span>: *</span><br></pre></td></tr></table></figure>
+<p>如果浏览器否定了”预检”请求，会返回一个正常的HTTP回应，但是没有任何CORS相关的头信息字段。这时，浏览器就会认定，服务器不同意预检请求，因此触发一个错误，被<code>XMLHttpRequest</code>对象的<code>onerror</code>回调函数捕获。控制台会打印出如下的报错信息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">XMLHttpRequest cannot load http:<span class="comment">//api.alice.com.</span></span><br><span class="line">Origin http:<span class="comment">//api.bob.com is not allowed by Access-Control-Allow-Origin.</span></span><br></pre></td></tr></table></figure>
+<p>服务器回应的其他CORS相关字段如下。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Access-Control-Allow-Methods</span>: GET, POST, PUT</span><br><span class="line"><span class="attribute">Access-Control-Allow-Headers</span>: X-Custom-Header</span><br><span class="line"><span class="attribute">Access-Control-Allow-Credentials</span>: true</span><br><span class="line"><span class="attribute">Access-Control-Max-Age</span>: 1728000</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Access-Control-Allow-Methods</strong></li>
+</ul>
+<p>该字段必需，它的值是逗号分隔的一个字符串，表明服务器支持的所有跨域请求的方法。注意，返回的是所有支持的方法，而不单是浏览器请求的那个方法。这是为了避免多次”预检”请求。</p>
+<ul>
+<li><strong>Access-Control-Allow-Headers</strong></li>
+</ul>
+<p>如果浏览器请求包括<code>Access-Control-Request-Headers</code>字段，则<code>Access-Control-Allow-Headers</code>字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段，不限于浏览器在”预检”中请求的字段。</p>
+<ul>
+<li><strong>Access-Control-Allow-Credentials</strong></li>
+</ul>
+<p>该字段与简单请求时的含义相同。</p>
+<ul>
+<li><strong>Access-Control-Max-Age</strong></li>
+</ul>
+<p>该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。</p>
+</li>
+<li><p>浏览器的正常请求和回应</p>
+<p>一旦服务器通过了”预检”请求，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个<code>Origin</code>头信息字段。服务器的回应，也都会有一个<code>Access-Control-Allow-Origin</code>头信息字段。</p>
+<p>下面是”预检”请求之后，浏览器的正常CORS请求。</p>
+<blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; PUT /cors HTTP/1.1</span><br><span class="line">&gt; Origin: http://api.bob.com</span><br><span class="line">&gt; Host: api.alice.com</span><br><span class="line">&gt; X-Custom-Header: value</span><br><span class="line">&gt; Accept-Language: en-US</span><br><span class="line">&gt; Connection: keep-alive</span><br><span class="line">&gt; User-Agent: Mozilla/5.0...</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>上面头信息的<code>Origin</code>字段是浏览器自动添加的。</p>
+<p>下面是服务器正常的回应。</p>
+<blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; Access-Control-Allow-Origin: http://api.bob.com</span><br><span class="line">&gt; Content-Type: text/html; charset=utf-8</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>上面头信息中，<code>Access-Control-Allow-Origin</code>字段是每次回应都必定包含的。</p>
 </li>
 </ul>
 <h4 id="如何实现-CORS"><a href="#如何实现-CORS" class="headerlink" title="如何实现 CORS"></a>如何实现 CORS</h4><p>只需要在后台中加上配置来允许跨域请求。如果还需要携带cookie在前端被请求的Response header中加入允许携带配置，就可以实现跨域访问了！</p>
@@ -580,6 +664,17 @@ height:50vh;
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端设置</span></span><br><span class="line">“withCredentials”: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>Vue 框架 axios 配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.withCredentials = true</span><br></pre></td></tr></table></figure></p>
 <p>如果前端访问成功，则说明后台配置正确，反之，说明后台配置失败。</p>
+<h4 id="CORS-与-JSONP-的比较"><a href="#CORS-与-JSONP-的比较" class="headerlink" title="CORS 与 JSONP  的比较:"></a>CORS 与 JSONP  的比较:</h4><ul>
+<li><p>jsonp只能实现 GET 请求，而cors支持所有类型的http请求；</p>
+</li>
+<li><p>使用cors，开发者可以使用XMLHttpRequest发起请求和获得响应，可以有更好的错误处理；</p>
+</li>
+<li><p>jsonp 主要被老的浏览器支持，但它们往往不支持cors，而绝大多数现代浏览器都已经支持了cors。</p>
+</li>
+</ul>
+<h4 id="4、CORS主要应用场景："><a href="#4、CORS主要应用场景：" class="headerlink" title="4、CORS主要应用场景："></a>4、CORS主要应用场景：</h4><ul>
+<li>后台使用 restful API 架构，前后台不在同一服务器，需要用到。</li>
+</ul>
 <h2 id="三、nginx-反向代理接口跨域"><a href="#三、nginx-反向代理接口跨域" class="headerlink" title="三、nginx 反向代理接口跨域"></a>三、nginx 反向代理接口跨域</h2><p>有反向代理，那就肯定有正向代理。我们先来简单说说这个正、反向代理是个啥。</p>
 <h3 id="正向代理原理"><a href="#正向代理原理" class="headerlink" title="正向代理原理"></a>正向代理原理</h3><p>正向代理类似一个跳板机，把浏览器访问过程委托给代理去做，代理访问外部资源。<br><img src="https://upload-images.jianshu.io/upload_images/3402395-ba20a909839d2336.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="正向代理原理示意图"></p>
 <p>举个例子：<br>我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器能访问那个我不能访问的网站，于是我先连上代理服务器,告诉他我需要那个无法访问网站的内容，代理服务器去取回来,然后返回给我。从目标网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。<br>类似场景比如我们在外网去访问公司内网服务器B，我们先设置VPN，通过VPN将我们的请求转发到内网的A服务器，然后A把请求发到B上，响应内容返回到A，再由A通过VPN返回到我们。<br>工作流程可以描述为：<br>用户设置代理服务器，用户访问url，代理服务器代替用户访问并将网页内容返回。</p>
@@ -598,7 +693,7 @@ height:50vh;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#服务器的集群</span><br><span class="line">    upstream  rj.nginx.com &#123;  #服务器集群名字	</span><br><span class="line">		server    127.0.0.1:8001  weight=1;#服务器配置   weight是权重的意思，权重越大，分配的概率越大。</span><br><span class="line">		server    127.0.0.1:8002  weight=2;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	#当前的Nginx的配置</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80; #监听80端口，可以改成其他端口</span><br><span class="line">        server_name  localhost; # 当前服务的域名</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://rj.nginx.com;</span><br><span class="line">            proxy_redirect default;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>修改后代码：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80; #监听80端口，可以改成其他端口</span><br><span class="line">        server_name  localhost; # 当前服务的域名</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://localhost:81;</span><br><span class="line">            proxy_redirect default;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		location /apis &#123; #添加访问目录为/apis的代理配置</span><br><span class="line">			rewrite  ^/apis/(.*)$ /$1 break;</span><br><span class="line">			proxy_pass   http://localhost:82;</span><br><span class="line">       &#125;</span><br><span class="line"> 以下配置省略</span><br></pre></td></tr></table></figure></p>
+<p>修改后代码：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80; #监听80端口，可以改成其他端口</span><br><span class="line">        server_name  localhost; # 当前服务的域名</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">		#这里是单一代理，也可以配置多个，多代理</span><br><span class="line">		location /apis &#123; #添加访问目录为/apis的代理配置</span><br><span class="line">			rewrite  ^/apis/(.*)$ /$1 break;</span><br><span class="line">			proxy_pass   http://localhost:82;</span><br><span class="line">       &#125;</span><br><span class="line"> 以下配置省略</span><br></pre></td></tr></table></figure></p>
 <p>如果要实现前端跨域携带cookie的则在 location中另外配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 当用webpack-dev-server等中间件代理接口访问nignx时，此时无浏览器参与，故没有同源限制，下面的跨域配置可不启用</span><br><span class="line"> add_header Access-Control-Allow-Origin http://www.domain1.com;  #当前端只跨域不带cookie时，可为*</span><br><span class="line"> add_header Access-Control-Allow-Credentials true;</span><br></pre></td></tr></table></figure></p>
 <p>如果是在浏览器中访问，项目访问地址需要和nginx代理同源，可以在同一个站点或者对nginx实现cors相关配置。<br>修改代码片段解析：</p>
 <ol>
@@ -660,7 +755,13 @@ height:50vh;
 </li>
 </ul>
 <p>其他的没有详细描述。在使用过程中就能够知晓很明确的使用场景，后续我再陆续补充。</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a><br><a href="https://www.cnblogs.com/chiangchou/p/jsonp.html" target="_blank" rel="noopener">jQuery jsonp跨域请求</a><br>如果有没理解的也可以去这里找找灵感~~</p>
+<p>#参考链接<br><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a><br><a href="https://www.cnblogs.com/chiangchou/p/jsonp.html" target="_blank" rel="noopener">jQuery jsonp跨域请求</a></p>
+<p><a href="https://blog.csdn.net/qq_24520119/article/details/70154369" target="_blank" rel="noopener">script 标签加载文件</a> </p>
+<p><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法-阮一峰</a> </p>
+<p><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">cors跨域解析-阮一峰</a> </p>
+<p><a href="https://cloud.tencent.com/developer/section/1189898" target="_blank" rel="noopener">http header 的一些含义</a></p>
+<p>还有关于 iframe 等相关的可以参考阮一峰的 <a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a></p>
+<p>如果有没理解的也可以去这些博客找找灵感~~</p>
 <hr>
 <p>【注解1】使用XMLHttpRequest (XHR)对象可以与服务器交互。您可以从URL获取数据，而无需让整个的页面刷新。这使得Web页面可以只更新页面的局部，而不影响用户的操作。</p>
 <p>尽管名称如此，XMLHttpRequest可以用于获取任何类型的数据，而不仅仅是XML，它还支持   <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="noopener">HTTP</a>以外的协议(包括文件和ftp)。</p>
@@ -754,7 +855,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">同源策略是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的跨域场景有哪些？"><span class="toc-number">1.3.</span> <span class="toc-text">常见的跨域场景有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解更多："><span class="toc-number">1.3.0.1.</span> <span class="toc-text">了解更多：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">1.4.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跨域的几种解决方案"><span class="toc-number">2.</span> <span class="toc-text">跨域的几种解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、jsonp-方式"><span class="toc-number">2.1.</span> <span class="toc-text">一、jsonp 方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jsonp-产生："><span class="toc-number">2.1.0.1.</span> <span class="toc-text">jsonp 产生：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#举例："><span class="toc-number">2.1.0.2.</span> <span class="toc-text">举例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">2.1.0.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、跨域资源共享"><span class="toc-number">2.2.</span> <span class="toc-text">二、跨域资源共享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CORS-与-JSONP-的比较"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">CORS 与 JSONP  的比较:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何实现-CORS"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">如何实现 CORS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、nginx-反向代理接口跨域"><span class="toc-number">2.3.</span> <span class="toc-text">三、nginx 反向代理接口跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正向代理原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">正向代理原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向代理服务器工作原理"><span class="toc-number">2.3.2.</span> <span class="toc-text">反向代理服务器工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-nginx-反向代理解决跨域"><span class="toc-number">2.3.3.</span> <span class="toc-text">使用 nginx 反向代理解决跨域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、nodejs-中间件代理跨域"><span class="toc-number">2.4.</span> <span class="toc-text">四、nodejs 中间件代理跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、WebSocket协议跨域"><span class="toc-number">2.5.</span> <span class="toc-text">五、WebSocket协议跨域</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结尾"><span class="toc-number">3.</span> <span class="toc-text">结尾</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考链接"><span class="toc-number">4.</span> <span class="toc-text">参考链接</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言部分"><span class="toc-number">1.</span> <span class="toc-text">前言部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">跨域是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">同源策略是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的跨域场景有哪些？"><span class="toc-number">1.3.</span> <span class="toc-text">常见的跨域场景有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解更多："><span class="toc-number">1.3.0.1.</span> <span class="toc-text">了解更多：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">1.4.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#跨域的几种解决方案"><span class="toc-number">2.</span> <span class="toc-text">跨域的几种解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、jsonp-方式"><span class="toc-number">2.1.</span> <span class="toc-text">一、jsonp 方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jsonp-产生："><span class="toc-number">2.1.0.1.</span> <span class="toc-text">jsonp 产生：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#举例："><span class="toc-number">2.1.0.2.</span> <span class="toc-text">举例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">2.1.0.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、跨域资源共享"><span class="toc-number">2.2.</span> <span class="toc-text">二、跨域资源共享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、内部机制讲解"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">1、内部机制讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-简介"><span class="toc-number">2.2.0.1.0.1.</span> <span class="toc-text">1) 简介</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-两种请求"><span class="toc-number">2.2.0.1.0.2.</span> <span class="toc-text">2) 两种请求</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-简单请求："><span class="toc-number">2.2.0.1.0.3.</span> <span class="toc-text">3) 简单请求：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4）非简单请求"><span class="toc-number">2.2.0.1.0.4.</span> <span class="toc-text">4）非简单请求</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何实现-CORS"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">如何实现 CORS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CORS-与-JSONP-的比较"><span class="toc-number">2.2.0.3.</span> <span class="toc-text">CORS 与 JSONP  的比较:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、CORS主要应用场景："><span class="toc-number">2.2.0.4.</span> <span class="toc-text">4、CORS主要应用场景：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、nginx-反向代理接口跨域"><span class="toc-number">2.3.</span> <span class="toc-text">三、nginx 反向代理接口跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正向代理原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">正向代理原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向代理服务器工作原理"><span class="toc-number">2.3.2.</span> <span class="toc-text">反向代理服务器工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-nginx-反向代理解决跨域"><span class="toc-number">2.3.3.</span> <span class="toc-text">使用 nginx 反向代理解决跨域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、nodejs-中间件代理跨域"><span class="toc-number">2.4.</span> <span class="toc-text">四、nodejs 中间件代理跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、WebSocket协议跨域"><span class="toc-number">2.5.</span> <span class="toc-text">五、WebSocket协议跨域</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结尾"><span class="toc-number">3.</span> <span class="toc-text">结尾</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -767,6 +868,76 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1865,17 +2036,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
-        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
-    
-        <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
-    
-        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
-    
         <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
     
@@ -1891,9 +2062,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
-        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
-    
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
+    
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
     
         <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
@@ -1932,31 +2103,31 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
-    
-        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
-    
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
-        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
+    
+        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
     
         <span class="sidebar-category-name" data-categories="郑家骜"><span class="iconfont-archer">&#xe60a;</span>郑家骜</span>
     
