@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>正则表达式基础 · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">正则表达式基础</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            正则表达式基础
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "HTML5">HTML5</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "黄震">黄震</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.9k</span>阅读时长: <span class="post-count reading-time">20 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/01/03</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="正则表达式-Regular-Expressions-学习笔记"><a href="#正则表达式-Regular-Expressions-学习笔记" class="headerlink" title="正则表达式(Regular Expressions)学习笔记"></a>正则表达式(Regular Expressions)学习笔记</h1><p><em>文章来源:<a href="https://juejin.im/post/5bda4e6fe51d45681f245274" target="_blank" rel="noopener">掘金|JsTheGreat</a> , <a href="http://es6.ruanyifeng.com/#docs/regex" target="_blank" rel="noopener">ECMAScript6入门–阮一峰</a></em> , <a href="https://baike.baidu.com/item/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="noopener">百度百科</a></p>
+<p>正则表达式三个特点: 提取文本, 强大, 难学 </p>
+<h2 id="–语法"><a href="#–语法" class="headerlink" title="–语法"></a>–语法</h2><h3 id="检索普通字符"><a href="#检索普通字符" class="headerlink" title="检索普通字符"></a>检索普通字符</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'hello 😀 regexp'</span>.match(<span class="regexp">/😀/</span>);</span><br><span class="line"><span class="comment">// ["😀", index: 6, input: "hello 😀 regexp", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h3 id="开始与结束"><a href="#开始与结束" class="headerlink" title="开始与结束"></a>开始与结束</h3><p><strong>^</strong> 字符(脱字符),在正则中属于元字符,表示文本的开始,即如果它是正则主体的第一个符号,那么紧跟它的字符必须是被匹配文本的第一个字符.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'regexp'</span>.match(<span class="regexp">/^r/</span>);</span><br><span class="line"><span class="comment">// ["r", index: 0, input: "regexp", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'regexp'</span>.match(<span class="regexp">/a^r/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+<p>注意点: </p>
+<ul>
+<li>作为匹配文本开始元字符的时候必须是正则主体的第一个符号,否则正则无效</li>
+<li>它匹配的是一个位置,不是具体的文本</li>
+<li>在其他规则中存在另外的含义</li>
+</ul>
+<p><strong>$</strong>字符与<strong>^</strong>正好相反,它代表文本的结束,必须是正则主体的最后一个符号.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'regexp'</span>.match(<span class="regexp">/p$/</span>);</span><br><span class="line"><span class="comment">// ["p", index: 5, input: "regexp", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h3 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h3><p>正则中存在很多元字符,这些元字符本身也是字符,如果我们想要匹配他们本身时,就需要使用转义<strong>\</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'price: $3.6'</span>.match(<span class="regexp">/\$[0-9]+\.[0-9]+$/</span>);</span><br><span class="line"><span class="comment">// ["$3.6", index: 7, input: "price: $3.6", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p><strong>\</strong>本身也是元字符,它后面跟随其他元字符就可以还原那个元字符本来的含义</p>
+<p>当<strong>\</strong> <strong>\</strong> 时,表示转义<strong>\</strong>本身,当出现三个时,我们可以把它们分成两段去理解,以此类推</p>
+<p>当普通字符前跟<strong>\</strong>时,还是普通字符</p>
+<h3 id="带反斜杠的元字符"><a href="#带反斜杠的元字符" class="headerlink" title="带反斜杠的元字符"></a>带反斜杠的元字符</h3><p>一般来说,普通字符前加反斜杠还是普通字符,但是有些普通字符,添加反斜杠后会变成元字符</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配一个非单词边界</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配一个数字字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配一个空白字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配一个非空白字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配一个字母或者一个数字或者一个下划线</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配一个字母、数字和下划线之外的字符</td>
+</tr>
+</tbody>
+</table>
+<p>大写代表反义</p>
+<ul>
+<li><p><strong>\b元字符</strong></p>
+<p><strong>\b</strong>匹配的也是单个位置,而不是字符.单词和空格之间的位置,就是单词边界,单词边界对中文等其他语言是无效的.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'hello regexp'</span>.match(<span class="regexp">/\bregexp$/</span>);</span><br><span class="line"><span class="comment">// ["regexp", index: 6, input: "hello regexp", groups: undefined]</span></span><br><span class="line"><span class="string">'hello regexp'</span>.match(<span class="regexp">/\Bregexp$/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'jiangshuying huge liuhuaqiang'</span>.match(<span class="regexp">/\huge\b/</span>);</span><br><span class="line"><span class="comment">// ["huge", index: 13, input: "jiangshuying huge liuhuaqiang", groups: undefined]</span></span><br><span class="line"><span class="string">'江疏影 胡歌 刘华强'</span>.match(<span class="regexp">/\b胡歌\b/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>\d元字符</strong></p>
+<p><strong>\d</strong>匹配单个数字</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'123'</span>.match(<span class="regexp">/\d/</span>);</span><br><span class="line"><span class="comment">// ["1", index: 0, input: "123", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>\s元字符</strong></p>
+<p><strong>\s</strong>匹配单个空白字符,包括 <strong>空格\f\n\r\t\v</strong> ,如果不需要区分空格和换行,可以直接使用<strong>\s</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a b'</span>.match(<span class="regexp">/\w\s\w/</span>);</span><br><span class="line"><span class="comment">// ["a b", index: 0, input: "a b", groups: undefined]</span></span><br><span class="line"><span class="string">'a b'</span>.match(<span class="regexp">/\w\f\w/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">'a b'</span>.match(<span class="regexp">/\w\n\w/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">'a b'</span>.match(<span class="regexp">/\w\r\w/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">'a b'</span>.match(<span class="regexp">/\w\t\w/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">'a b'</span>.match(<span class="regexp">/\w\v\w/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">'a b'</span>.match(<span class="regexp">/\w \w/</span>);</span><br><span class="line"><span class="comment">// ["a b", index: 0, input: "a b", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>\w元字符</strong></p>
+<p><strong>\w</strong>匹配单个字母数字下划线</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'正则'</span>.match(<span class="regexp">/\w/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="“-”字符"><a href="#“-”字符" class="headerlink" title="“.”字符"></a>“.”字符</h3><p>匹配除换行符之外的任意单个字符</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'@regexp'</span>.match(<span class="regexp">/./</span>);</span><br><span class="line"><span class="comment">// ["@", index: 0, input: "@regexp", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h3 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h3><p>上面介绍了很多元字符,都只能匹配单个字符,当我们要匹配多个时,该怎么办呢?</p>
+<table>
+<thead>
+<tr>
+<th>量词</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>重复0次或一次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>重复一次或者多此,至少一次</td>
+</tr>
+<tr>
+<td>*</td>
+<td>重复0次或多此,即任意次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>重复n次或者更多次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>重复n次到m次之间的次数，包含n次和m次</td>
+</tr>
+</tbody>
+</table>
+<p>说明: </p>
+<ul>
+<li><strong>?</strong>在诸如匹配http协议时很有用,如<strong>/http(s)?/</strong></li>
+<li>使用<strong>/.*/</strong>匹配对我们没有用的文本,表示<strong>若干除换行符之外的字符</strong></li>
+<li><strong>{n,m}</strong>之间不能有空格,空格在正则中是有含义的</li>
+</ul>
+<p><strong><em>量词重复紧贴在它前面的某个集合</em></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'gooooogle'</span>.match(<span class="regexp">/go&#123;2,5&#125;gle/</span>);</span><br><span class="line"><span class="comment">// ["gooooogle", index: 0, input: "gooooogle", groups: undefined]</span></span><br><span class="line"><span class="comment">//一个量词不能紧贴在另一个量词后面</span></span><br><span class="line"><span class="string">'gooooogle'</span>.match(<span class="regexp">/go&#123;2,5&#125;+gle/</span>);</span><br><span class="line"><span class="comment">// Uncaught SyntaxError: Invalid regular expression: /go&#123;2,5&#125;+gle/: Nothing to repeat</span></span><br></pre></td></tr></table></figure>
+<h3 id="贪婪模式和非贪婪模式"><a href="#贪婪模式和非贪婪模式" class="headerlink" title="贪婪模式和非贪婪模式"></a>贪婪模式和非贪婪模式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'https'</span>.match(<span class="regexp">/http(s)?/</span>);</span><br><span class="line"><span class="comment">// ["https", "s", index: 0, input: "https", groups: undefined]</span></span><br><span class="line"><span class="string">'https'</span>.match(<span class="regexp">/http(s)??/</span>);</span><br><span class="line"><span class="comment">// ["http", undefined, index: 0, input: "https", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>紧跟在<strong>?</strong>后面的<strong>?</strong>不是一个量词,而是一个模式切换符,从贪婪模式切换到非贪婪模式.</p>
+<p>贪婪模式在正则中是默认模式,就是在既定规则下匹配尽可能多的文本.紧跟在量词后面加上<strong>?</strong>就是开启非贪婪模式(匹配到结果就结束),这里要特别注意:<strong>?</strong>必须紧跟量词,不然就自己变成量词了.</p>
+<h3 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h3><p>正则中的普通字符只能匹配它自己,如果我们不能确定一个普通字符是什么,该怎么办呢?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'grey or gray'</span>.match(<span class="regexp">/gr[ae]y/</span>);</span><br><span class="line"><span class="comment">// ["grey", index: 0, input: "grey or gray", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>方括号在正则中表示一个区间,我们称之为字符组.</p>
+<ul>
+<li><p>字符组中的字符集合只是所有的可选项,最终只能匹配一个字符</p>
+</li>
+<li><p>字符组是独立的,字符组内部的元字符不需要转义</p>
+</li>
+<li><p><strong>^</strong>和<strong>-</strong>在字符组中存在特殊含义</p>
+<p><strong>^</strong>在字符组中表示取反,<strong>-</strong>不再是普通字符,而是表示连字符(匹配范围在它左边字符和右边字符之间的字符),如果要表示普通字符,使用<strong>\</strong>转义符</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'$'</span>.match(<span class="regexp">/[$&amp;@]/</span>);</span><br><span class="line"><span class="comment">// ["$", index: 0, input: "$", groups: undefined]</span></span><br><span class="line"><span class="string">'regexp'</span>.match(<span class="regexp">/[^abc]/</span>);<span class="comment">//匹配不是abc的字符</span></span><br><span class="line"><span class="comment">// ["r", index: 0, input: "regexp", groups: undefined]</span></span><br><span class="line"><span class="string">'13'</span>.match(<span class="regexp">/[1-9]3/</span>);</span><br><span class="line"><span class="comment">// ["13", index: 0, input: "13", groups: undefined]</span></span><br><span class="line"><span class="string">'abc-3'</span>.match(<span class="regexp">/[0-z]/</span>);</span><br><span class="line"><span class="comment">// ["a", index: 0, input: "abc-3", groups: undefined]</span></span><br><span class="line"><span class="string">'xyz-3'</span>.match(<span class="regexp">/[0-c]/</span>);</span><br><span class="line"><span class="comment">// ["3", index: 4, input: "xyz-3", groups: undefined]</span></span><br><span class="line"><span class="string">'xyz-3'</span>.match(<span class="regexp">/[0-$]/</span>);</span><br><span class="line"><span class="comment">// Uncaught SyntaxError: Invalid regular expression: /[0-$]/: Range out of order in character class</span></span><br></pre></td></tr></table></figure>
+<p>只有两种字符是可以用连字符的：英文字母和数字。而且英文字母可以和数字连起来，英文字母的顺序在后面.</p>
+<h3 id="捕获组-具名组-和非捕获组-ES2018"><a href="#捕获组-具名组-和非捕获组-ES2018" class="headerlink" title="捕获组(具名组)和非捕获组[ES2018]"></a>捕获组(具名组)和非捕获组[ES2018]</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'i love you very very very much'</span>.match(<span class="regexp">/i love you (very )+much/</span>);</span><br><span class="line"><span class="comment">// ["i love you very very very much", "very ", index: 0, input: "i love you very very very much", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>圆括号的意思是将它其中的字符集合打包成一个整体,然后量词就可以操作这个整体了.</p>
+<h4 id="正则内捕获"><a href="#正则内捕获" class="headerlink" title="正则内捕获"></a>正则内捕获</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'&lt;App&gt;hello regexp&lt;/App&gt;'</span>.match(<span class="regexp">/&lt;([a-zA-Z]+)&gt;.*&lt;\/\1&gt;/</span>);</span><br><span class="line"><span class="comment">// ["&lt;App&gt;hello regexp&lt;/App&gt;", "App", index: 0, input: "&lt;App&gt;hello regexp&lt;/App&gt;", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>正则内捕获使用<strong>\数字</strong>的形式,分别对应前面的圆括号捕获的内容,这种捕获的引用也称为反向引用.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'&lt;App&gt;hello regexp&lt;/App&gt;&lt;p&gt;A&lt;/p&gt;&lt;p&gt;hello regexp&lt;/p&gt;'</span>.match(<span class="regexp">/&lt;((A|a)pp)&gt;(hello regexp)+&lt;\/\1&gt;&lt;p&gt;\2&lt;\/p&gt;&lt;p&gt;\3&lt;\/p&gt;/</span>);</span><br><span class="line"><span class="comment">// ["&lt;App&gt;hello regexp&lt;/App&gt;&lt;p&gt;A&lt;/p&gt;&lt;p&gt;hello regexp&lt;/p&gt;", "App", "A", "hello regexp", index: 0, input: "&lt;App&gt;hello regexp&lt;/App&gt;&lt;p&gt;A&lt;/p&gt;&lt;p&gt;hello regexp&lt;/p&gt;", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>如果有嵌套的圆括号,那么捕获的引用是先递归,然后才是下一个顶级捕获.</p>
+<h4 id="正则外捕获"><a href="#正则外捕获" class="headerlink" title="正则外捕获"></a>正则外捕获</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'@abc'</span>.match(<span class="regexp">/@(abc)/</span>);</span><br><span class="line"><span class="comment">// ["@abc", "abc", index: 0, input: "@abc", groups: undefined]</span></span><br><span class="line"><span class="string">'@xyz'</span>.match(<span class="regexp">/@(xyz)/</span>);</span><br><span class="line"><span class="comment">// ["@xyz", "xyz", index: 0, input: "@xyz", groups: undefined]</span></span><br><span class="line"><span class="built_in">RegExp</span>.$<span class="number">1</span>;</span><br><span class="line"><span class="comment">// "xyz"</span></span><br><span class="line"><span class="string">'hello **regexp**'</span>.replace(<span class="regexp">/\*&#123;2&#125;(.*)\*&#123;2&#125;/</span>, <span class="string">'&lt;strong&gt;$1&lt;/strong&gt;'</span>);</span><br><span class="line"><span class="comment">// "hello &lt;strong&gt;regexp&lt;/strong&gt;"</span></span><br></pre></td></tr></table></figure>
+<p><strong>RegExp</strong>是构造正则表达式的构造函数,如果有捕获组,它的实例属性<strong>$数字</strong>会显示对应的引用,如果有多个正则捕获组,则显示最后一个正则的捕获.</p>
+<h4 id="非捕获组"><a href="#非捕获组" class="headerlink" title="非捕获组"></a>非捕获组</h4><p>当我们需要匹配捕获组,但是又不需要捕获组结果时,我们可以使用非捕获组(?:pattern)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'industry'</span>.match(<span class="regexp">/industr(?:y|ies)/</span>);</span><br><span class="line"><span class="comment">// ["industry", index: 0, input: "industry", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h4 id="捕获命名"><a href="#捕获命名" class="headerlink" title="捕获命名"></a>捕获命名</h4><p>使用<strong>\数字</strong>引用捕获必须保证捕获组的顺序不变,在ES2018中,增加了捕获命名的新特性,使引用更加确定.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'&lt;App&gt;hello regexp&lt;/App&gt;'</span>.match(<span class="regexp">/&lt;(?&lt;tag&gt;[a-zA-Z]+)&gt;.*&lt;\/\k&lt;tag&gt;&gt;/</span>);</span><br><span class="line"><span class="comment">// ["&lt;App&gt;hello regexp&lt;/App&gt;", "App", index: 0, input: "&lt;App&gt;hello regexp&lt;/App&gt;", groups: &#123;tag: "App"&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> RE_DATE = <span class="regexp">/(?&lt;year&gt;\d&#123;4&#125;)-(?&lt;month&gt;\d&#123;2&#125;)-(?&lt;day&gt;\d&#123;2&#125;)/</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> matchObj = RE_DATE.exec(<span class="string">'1999-12-31'</span>);</span><br><span class="line"><span class="keyword">const</span> year = matchObj.groups.year; <span class="comment">// 1999</span></span><br><span class="line"><span class="keyword">const</span> month = matchObj.groups.month; <span class="comment">// 12</span></span><br><span class="line"><span class="keyword">const</span> day = matchObj.groups.day; <span class="comment">// 31</span></span><br></pre></td></tr></table></figure>
+<p>在捕获组内部最前面加上<strong>?<key></key></strong>,它就被命名了,使用<strong>\k<key></key></strong>语法就可以引用已经命名的捕获组.</p>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>如果我们需要在正则中使用<strong>或者</strong>,那么我们就需要使用<strong>|</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'江疏影'</span>.match(<span class="regexp">/江疏影|刘华强/</span>);</span><br><span class="line"><span class="comment">// ["江疏影", index: 0, input: "江疏影", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>字符组也是一个多选结构,但是与分支不同.字符组最终只能匹配一个字符,而分支匹配的是<strong>|</strong>左边所有的字符或者右边所有的字符.</p>
+</li>
+</ul>
+<h3 id="零宽断言😂"><a href="#零宽断言😂" class="headerlink" title="零宽断言😂"></a>零宽断言😂</h3><p>零宽: 它匹配一个位置,本身没有宽度</p>
+<p>断言: 一种判断,断言之前或者之后应该有什么或应该没有什么</p>
+<h4 id="零宽肯定先行断言"><a href="#零宽肯定先行断言" class="headerlink" title="零宽肯定先行断言(?=)"></a>零宽肯定先行断言(?=)</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'CoffeeScript JavaScript javascript'</span>.match(<span class="regexp">/\b\w&#123;4&#125;(?=Script\b)/</span>);</span><br><span class="line"><span class="comment">// ["Java", index: 13, input: "CoffeeScript JavaScript javascript", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>人话: 要匹配一段文本,这段文本后面必须紧跟另一段特定的文本,即要满足断言前面的条件,也要满足后面的条件,但是返回结果只要前面部分的文本.</p>
+<h4 id="零宽肯定后行断言-lt-ES2018"><a href="#零宽肯定后行断言-lt-ES2018" class="headerlink" title="零宽肯定后行断言(?&lt;=)[ES2018]"></a>零宽肯定后行断言(?&lt;=)[ES2018]</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'演员高圆圆 将军霍去病 演员霍思燕'</span>.match(<span class="regexp">/(?&lt;=演员)霍\S+/</span>);</span><br><span class="line"><span class="comment">// ["霍思燕", index: 14, input: "演员高圆圆 将军霍去病 演员霍思燕", groups: undefined]</span></span><br><span class="line"><span class="string">'演员高圆圆 将军霍去病 演员霍思燕'</span>.match(<span class="regexp">/(?&lt;=演员)霍.+?(?=\s|$)/</span>);</span><br><span class="line"><span class="comment">// ["霍思燕", index: 14, input: "演员高圆圆 将军霍去病 演员霍思燕", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>匹配一段文本,这段文本前面必须紧跟另一段特定的文本,只取后面的文本</p>
+<h4 id="零宽否定先行断言"><a href="#零宽否定先行断言" class="headerlink" title="零宽否定先行断言(?!)"></a>零宽否定先行断言(?!)</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'TypeScript Perl JavaScript'</span>.match(<span class="regexp">/\b\w&#123;4&#125;(?!Script\b)/</span>);</span><br><span class="line"><span class="comment">// ["Perl", index: 11, input: "TypeScript Perl JavaScript", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>否定就是没有,就是要求一段文本,后面一定不要紧跟一段指定文本</p>
+<h4 id="零宽否定后行断言-lt-ES2018"><a href="#零宽否定后行断言-lt-ES2018" class="headerlink" title="零宽否定后行断言(?&lt;!)[ES2018]"></a>零宽否定后行断言(?&lt;!)[ES2018]</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'演员高圆圆 将军霍去病 演员霍思燕'</span>.match(<span class="regexp">/(?&lt;!演员)霍\S+/</span>);</span><br><span class="line"><span class="comment">// ["霍去病", index: 8, input: "演员高圆圆 将军霍去病 演员霍思燕", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<p>要求一段文本,前面一定不跟某一段指定文本</p>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>语法: 将修饰符放在正则主题的末尾,如: <strong>/abc/gi</strong></p>
+<h4 id="g修饰符-global"><a href="#g修饰符-global" class="headerlink" title="g修饰符(global)"></a>g修饰符(global)</h4><p>默认情况下,正则从左向右匹配,只要匹配到结果就会结束,g修饰符会开启全局匹配模式,找到所有的匹配结果</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'演员高圆圆 将军霍去病 演员霍思燕'</span>.match(<span class="regexp">/(?&lt;=演员)\S+/</span>);</span><br><span class="line"><span class="comment">// ["高圆圆", index: 2, input: "演员高圆圆 将军霍去病 演员霍思燕", groups: undefined]</span></span><br><span class="line"><span class="string">'演员高圆圆 将军霍去病 演员霍思燕'</span>.match(<span class="regexp">/(?&lt;=演员)\S+/g</span>);</span><br><span class="line"><span class="comment">// ["高圆圆", "霍思燕"]</span></span><br></pre></td></tr></table></figure>
+<h4 id="i修饰符-ignoreCase"><a href="#i修饰符-ignoreCase" class="headerlink" title="i修饰符(ignoreCase)"></a>i修饰符(ignoreCase)</h4><p>默认情况话,正则是区分大小写的,i修饰符的作用是可以全局忽略大小写.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript is great'</span>.match(<span class="regexp">/JavaScript/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">'javascript is great'</span>.match(<span class="regexp">/JavaScript/i</span>);</span><br><span class="line"><span class="comment">// ["javascript", index: 0, input: "javascript is great", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h4 id="m修饰符-multiline"><a href="#m修饰符-multiline" class="headerlink" title="m修饰符(multiline)"></a>m修饰符(multiline)</h4><p>默认情况下，<strong>^</strong>和<strong>$</strong>匹配的是文本的开始和结束，加上<strong>m</strong>修饰符，它们的含义就变成了行的开始和结束</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`</span></span><br><span class="line"><span class="string">abc</span></span><br><span class="line"><span class="string">xyz</span></span><br><span class="line"><span class="string">`</span>.match(<span class="regexp">/xyz/</span>);</span><br><span class="line"><span class="comment">// ["xyz", index: 5, input: "↵abc↵xyz↵", groups: undefined]</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="string">abc</span></span><br><span class="line"><span class="string">xyz</span></span><br><span class="line"><span class="string">`</span>.match(<span class="regexp">/^xyz$/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="string">abc</span></span><br><span class="line"><span class="string">xyz</span></span><br><span class="line"><span class="string">`</span>.match(<span class="regexp">/^xyz$/m</span>);</span><br><span class="line"><span class="comment">// ["xyz", index: 5, input: "↵abc↵xyz↵", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h4 id="y修饰符-sticky-ES6"><a href="#y修饰符-sticky-ES6" class="headerlink" title="y修饰符(sticky)[ES6]"></a>y修饰符(sticky)[ES6]</h4><p>y修饰符有和g修饰符重合的功能，它们都是全局匹配,不同在于,g修饰符对文本位置没有要求,匹配完一个接着匹配下一个,而y修饰符要求必须从文本的开始匹配,并且要求匹配到的文本的下一个字符就是下一次文本匹配的开始.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a bag with a tag has a mag'</span>.match(<span class="regexp">/\wag/g</span>);</span><br><span class="line"><span class="comment">// ["bag", "tag", "mag"]</span></span><br><span class="line"><span class="string">'a bag with a tag has a mag'</span>.match(<span class="regexp">/\wag/y</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">'bagtagmag'</span>.match(<span class="regexp">/\wag/y</span>);</span><br><span class="line"><span class="comment">// ["bag", index: 0, input: "bagtagmag", groups: undefined]</span></span><br><span class="line"><span class="string">'bagtagmag'</span>.match(<span class="regexp">/\wag/gy</span>);</span><br><span class="line"><span class="comment">// ["bag", "tag", "mag"]</span></span><br></pre></td></tr></table></figure>
+<p>❓不是说y是全局匹配吗,为什么上面第三条语句没有全局匹配.</p>
+<h5 id="lastIndex"><a href="#lastIndex" class="headerlink" title="lastIndex"></a>lastIndex</h5><p>针对上面的问题,我们不得不讲一下正则表达式的lastIndex属性了.</p>
+<p>JS中,正则表达式使用方式有两种,一种是正则表达式对象的方法,一种是字符串对象的方法,前者有exec(str),test(str)两个方法,后者match(regexp)、replace(regexp)、search(regexp)、split(search)四个方法.当作为正则表达式对象的方法使用时,需要特别注意lastIndex的属性.</p>
+<p>lastIndex从字面上来讲就是最后一个索引，实际上它的意思是正则表达式开始下一次查找的索引位置，第一次的时候总是为0的，第一次查找完了的时候会把lastIndex的值设为匹配到得字符串的最后一个字符的索引位置加1，第二次查找的时候会从lastIndex这个位置开始，后面的以此类推。如果没有找到，则会把lastIndex重置为0。要注意的是，lastIndex属性只有在有全局标志正则表达式中才有作用.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/\wag/y</span>;</span><br><span class="line">reg.exec(<span class="string">'bagtagmag'</span>);</span><br><span class="line"><span class="comment">// ["bag", index: 0, input: "bagtagmag", groups: undefined]</span></span><br><span class="line">reg.exec(<span class="string">'bagtagmag'</span>);</span><br><span class="line"><span class="comment">// ["tag", index: 3, input: "bagtagmag", groups: undefined]</span></span><br><span class="line">reg.exec(<span class="string">'bagtagmag'</span>);</span><br><span class="line"><span class="comment">// ["mag", index: 6, input: "bagtagmag", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h4 id="s修饰符-singleline-ES2018"><a href="#s修饰符-singleline-ES2018" class="headerlink" title="s修饰符(singleline)[ES2018]"></a>s修饰符(singleline)[ES2018]</h4><p><strong>s</strong>修饰符的作用是让<strong>.</strong>可以匹配任意单个字符.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`</span></span><br><span class="line"><span class="string">abc</span></span><br><span class="line"><span class="string">xyz</span></span><br><span class="line"><span class="string">`</span>.match(<span class="regexp">/c.x/</span>);</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="string">abc</span></span><br><span class="line"><span class="string">xyz</span></span><br><span class="line"><span class="string">`</span>.match(<span class="regexp">/c.x/</span>s);</span><br><span class="line"><span class="comment">// ["c↵x", index: 3, input: "↵abc↵xyz↵", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<h4 id="u修饰符-unicode-ES6"><a href="#u修饰符-unicode-ES6" class="headerlink" title="u修饰符(unicode)[ES6]"></a>u修饰符(unicode)[ES6]</h4><p>有些Unicode字符超过一个字节,正则无法正确识别,可用u修饰符来处理.</p>
+<h2 id="–方法"><a href="#–方法" class="headerlink" title="–方法"></a>–方法</h2><h3 id="RegExp类型"><a href="#RegExp类型" class="headerlink" title="RegExp类型"></a>RegExp类型</h3><p>JavaScript通过RegExp类型来支持正则表达式(var exp = / pattern / flags)</p>
+<p>其中的模式(pattern)部分可以是任何简单或复杂的正则表达式,修饰符(flags)可以是一个或多个,表明正则表达式的行为.</p>
+<p>我们还可以通过构造函数来创建正则表达式.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">new RegExp(&apos;abc&apos;); // /abc/</span><br><span class="line">new RegExp(&apos;abc&apos;,&apos;gi&apos;); // /abc/gi</span><br><span class="line">new RegExp(/abc/gi); // /abc/gi</span><br><span class="line">new RegExp(/abc/m,&apos;gi&apos;); // /abc/gi</span><br></pre></td></tr></table></figure>
+<p>构造函数接收两个参数:第一个参数是匹配模式或者是正则表达式,第二个参数是修饰符.</p>
+<p>如果第一个参数的正则表达式定义了修饰符,第二个参数又有值,则以第二个参数定义的修饰符为准.[ES6]</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>正则表达式是用来匹配字符串的,所以String实例中天生带有几个可以使用正则匹配的方法(match,replace,search,split)</p>
+<ol>
+<li>match方法</li>
+</ol>
+<p>作用: 根据参数返回匹配结果,接收正则表达式作为唯一参数,如果参数是字符串,match方法内部会隐式调用new RegExp()方法进行转换</p>
+<p>返回结果: </p>
+<table>
+<thead>
+<tr>
+<th>结果</th>
+<th>返回值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>匹配失败</td>
+<td>null</td>
+<td></td>
+</tr>
+<tr>
+<td>非全局匹配</td>
+<td>数组</td>
+<td>数组第一个值为匹配结果  数组中有一个index属性,标明匹配结果在文本中的起始位置</td>
+</tr>
+<tr>
+<td>全局匹配</td>
+<td>数组</td>
+<td>数组中会列出所有的匹配结果,其他信息(index等)则不显示了.</td>
+</tr>
+</tbody>
+</table>
+<pre><code>2. replace方法
+</code></pre><p>作用: 用给定字符串替换匹配结果,并返回新的替换后的文本,源字符串不会改变.接收两个参数:第一个参数为字符串或者正则表达式,如果参数是字符串,匹配替换只会执行一次,第二个参数可以是字符串或函数,用于替换.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc-xyz-abc'</span>.replace(<span class="string">'abc'</span>, <span class="string">'biu'</span>); <span class="comment">// "biu-xyz-abc"</span></span><br><span class="line"><span class="string">'abc-xyz-abc'</span>.replace(<span class="regexp">/abc/</span>, <span class="string">'biu'</span>); <span class="comment">// "biu-xyz-abc"</span></span><br><span class="line"><span class="string">'abc-xyz-abc'</span>.replace(<span class="regexp">/abc/g</span>, <span class="string">'biu'</span>); <span class="comment">// "biu-xyz-biu"</span></span><br></pre></td></tr></table></figure>
+<p>第二个参数如果是字符串时,<code>$</code>字符具有特殊含义</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>替换文本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1 、$2 、$3</td>
+<td>与正则中的第1到第3个子表达式相匹配的文本</td>
+</tr>
+<tr>
+<td>$&amp;</td>
+<td>与正则相匹配的结果</td>
+</tr>
+<tr>
+<td>$`</td>
+<td>位于匹配结果左侧的文本</td>
+</tr>
+<tr>
+<td>$’</td>
+<td>位于匹配结果右侧的文本</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>$符号本身,第一个相当于时转义</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'@abc-xyz-$abc'</span>.replace(<span class="regexp">/([^-]+)abc/g</span>, <span class="string">'$1biu'</span>); <span class="comment">//"@biu-xyz-$biu"</span></span><br><span class="line"><span class="string">'@abc-xyz-$abc'</span>.replace(<span class="regexp">/([^-]+)abc/g</span>, <span class="string">'&#123;$&amp;&#125;'</span>); <span class="comment">//"&#123;@abc&#125;-xyz-&#123;$abc&#125;"</span></span><br><span class="line"><span class="string">'@abc-xyz-$abc'</span>.replace(<span class="regexp">/([^-]+)abc/g</span>, <span class="string">'&#123;$`&#125;'</span>); <span class="comment">//"&#123;&#125;-xyz-&#123;@abc-xyz-&#125;"</span></span><br><span class="line"><span class="string">'@abc-xyz-$abc'</span>.replace(<span class="regexp">/([^-]+)abc/g</span>, <span class="string">"&#123;$'&#125;"</span>); <span class="comment">//"&#123;-xyz-$abc&#125;-xyz-&#123;&#125;"</span></span><br><span class="line"><span class="string">'@abc-xyz-$abc'</span>.replace(<span class="regexp">/([^-]+)abc/g</span>, <span class="string">'$$biu'</span>); <span class="comment">//"$biu-xyz-$biu"</span></span><br></pre></td></tr></table></figure>
+<p>当第二个参数是函数时,每一个匹配都会调用该函数,它返回的字符串作为替换文本使用.该函数的第一个参数是匹配模式的字符串,接下来的参数分别是\$1,\$2,\$3这样的与子表达式匹配的字符串,接下来的参数是一个整数,声明匹配在文本中开始的位置,最后一个参数是文本本身.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">'aaa bbb ccc'</span>;</span><br><span class="line">uw=name.replace(<span class="regexp">/\b\w+\b/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">word</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> word.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+word.substring(<span class="number">1</span>);&#125;</span><br><span class="line">  );<span class="comment">// "Aaa Bbb Ccc"</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>search方法</li>
+</ol>
+<p>作用: 找出 <strong>首次</strong> 匹配项的索引,匹配失败返回-1,接收一个正则表达式作为唯一参数,如果传入字符串,也会隐式调用new RegExp()方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc-xyz-abc'</span>.search(<span class="regexp">/xyz/</span>); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>split方法</li>
+</ol>
+<p>作用: 根据传入的分隔符切割源字符串,返回一个被切割单元组成的数组.</p>
+<p>接收两个参数,第一个参数可以是字符串或者正则表达式,作为分隔符,第二个参数可选,限制数组返回长度.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc-def_mon+xyz'</span>.split(<span class="regexp">/[-_+]/</span>);<span class="comment">//  ["abc", "def", "mon", "xyz"]</span></span><br></pre></td></tr></table></figure>
+<p>RegExp实例也带有几个正则方法(exec,test)</p>
+<ol>
+<li>exec方法</li>
+</ol>
+<p>作用: 根据参数返回匹配结果,和match相似.只有当参数为空时,exec返回null.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/xyz/.exec(<span class="string">'abc-xyz-abc'</span>);</span><br><span class="line"><span class="comment">//["xyz", index: 4, input: "abc-xyz-abc", groups: undefined]</span></span><br><span class="line">/xyz/.exec(); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+<p>RegExp实例有一个lastIndex属性,每匹配一次,这个属性就更新为下一次匹配开始的位置,exec根据这个属性来进行全局匹配.如果有多个匹配结果,多次执行能够获取所有匹配结果,所以exec一般用于循环语句中.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reg = <span class="regexp">/abc/g</span>;</span><br><span class="line">reg.lastIndex; <span class="comment">// 0</span></span><br><span class="line">reg.exec(<span class="string">'abc-xyz-abc'</span>); <span class="comment">// ["abc", index: 0, input: "abc-xyz-abc", groups: undefined]</span></span><br><span class="line">reg.lastIndex;<span class="comment">// 3</span></span><br><span class="line">reg.exec(<span class="string">'abc-xyz-abc'</span>); <span class="comment">// ["abc", index: 8, input: "abc-xyz-abc", groups: undefined]</span></span><br><span class="line">reg.lastIndex;<span class="comment">// 11</span></span><br><span class="line">reg.exec(<span class="string">'abc-xyz-abc'</span>); <span class="comment">// null</span></span><br><span class="line">reg.lastIndex;<span class="comment">// 0</span></span><br><span class="line">reg.exec(<span class="string">'abc-xyz-abc'</span>); <span class="comment">// ["abc", index: 0, input: "abc-xyz-abc", groups: undefined]</span></span><br><span class="line">reg.lastIndex;<span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="string">'abc-xyz-abc'</span>.match(reg); <span class="comment">// ["abc", "abc"]</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>test方法</li>
+</ol>
+<p>作用: 找出源文本中是否有匹配项,与字符串方法search类似,多用于表单验证.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/abc/.test(<span class="string">'abc-xyz-abc'</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>由于时正则实例方法,全局匹配时也需要考虑lastIndex的更新问题.</p>
+<h2 id="–ES6新变化"><a href="#–ES6新变化" class="headerlink" title="–ES6新变化"></a>–ES6新变化</h2><p>ES6中,将字符串的4个正则方法(match,replace,search,split)在语言内部全部调用RegExp的实例方法,从而做到所有与正则相关的方法,全部定义在RegExp对象上.</p>
+<h2 id="–常用正则表达式"><a href="#–常用正则表达式" class="headerlink" title="–常用正则表达式"></a>–常用正则表达式</h2><ol>
+<li><p>手机号码检查: 最简单的判断为11位数字就行(/^\d{11}$/)</p>
+</li>
+<li><p>email检查:   <code>/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/</code></p>
+</li>
+<li><p>url地址参数获取:  <code>new RegExp(&quot;(^|&amp;)&quot; + name + &quot;=([^&amp;]*)(&amp;|$)&quot;)</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'?aaa=22112&amp;b=sasa'</span>.match(<span class="regexp">/(^|&amp;)b=([^&amp;]*)(&amp;|$)/</span>)</span><br><span class="line"><span class="comment">// ["&amp;b=sasa", "&amp;", "sasa", "", index: 10, input: "?aaa=22112&amp;b=sasa", groups: undefined]</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>密码强度检查:  <code>/^(?=.*[0-9].*)(?=.*[A-Za-z].*)(?=.*[~!@#$%^&amp;*].*).{8,}$/</code>,密码必须由字母数字特殊字符(~!@#$%^&amp;*)组成,且不少于8个字符</li>
+</ol>
+</li>
+</ol>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/12/26/可扩展XML-Schema机制/" title= "可扩展XML-Schema机制">
+                    <div class="prevTitle">可扩展XML-Schema机制</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式-Regular-Expressions-学习笔记"><span class="toc-number">1.</span> <span class="toc-text">正则表达式(Regular Expressions)学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#–语法"><span class="toc-number">1.1.</span> <span class="toc-text">–语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检索普通字符"><span class="toc-number">1.1.1.</span> <span class="toc-text">检索普通字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始与结束"><span class="toc-number">1.1.2.</span> <span class="toc-text">开始与结束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转义"><span class="toc-number">1.1.3.</span> <span class="toc-text">转义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带反斜杠的元字符"><span class="toc-number">1.1.4.</span> <span class="toc-text">带反斜杠的元字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“-”字符"><span class="toc-number">1.1.5.</span> <span class="toc-text">“.”字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#量词"><span class="toc-number">1.1.6.</span> <span class="toc-text">量词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#贪婪模式和非贪婪模式"><span class="toc-number">1.1.7.</span> <span class="toc-text">贪婪模式和非贪婪模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符组"><span class="toc-number">1.1.8.</span> <span class="toc-text">字符组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获组-具名组-和非捕获组-ES2018"><span class="toc-number">1.1.9.</span> <span class="toc-text">捕获组(具名组)和非捕获组[ES2018]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正则内捕获"><span class="toc-number">1.1.9.1.</span> <span class="toc-text">正则内捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正则外捕获"><span class="toc-number">1.1.9.2.</span> <span class="toc-text">正则外捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非捕获组"><span class="toc-number">1.1.9.3.</span> <span class="toc-text">非捕获组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#捕获命名"><span class="toc-number">1.1.9.4.</span> <span class="toc-text">捕获命名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分支"><span class="toc-number">1.1.10.</span> <span class="toc-text">分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#零宽断言😂"><span class="toc-number">1.1.11.</span> <span class="toc-text">零宽断言😂</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#零宽肯定先行断言"><span class="toc-number">1.1.11.1.</span> <span class="toc-text">零宽肯定先行断言(?=)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#零宽肯定后行断言-lt-ES2018"><span class="toc-number">1.1.11.2.</span> <span class="toc-text">零宽肯定后行断言(?&lt;=)[ES2018]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#零宽否定先行断言"><span class="toc-number">1.1.11.3.</span> <span class="toc-text">零宽否定先行断言(?!)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#零宽否定后行断言-lt-ES2018"><span class="toc-number">1.1.11.4.</span> <span class="toc-text">零宽否定后行断言(?&lt;!)[ES2018]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修饰符"><span class="toc-number">1.1.12.</span> <span class="toc-text">修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#g修饰符-global"><span class="toc-number">1.1.12.1.</span> <span class="toc-text">g修饰符(global)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#i修饰符-ignoreCase"><span class="toc-number">1.1.12.2.</span> <span class="toc-text">i修饰符(ignoreCase)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#m修饰符-multiline"><span class="toc-number">1.1.12.3.</span> <span class="toc-text">m修饰符(multiline)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#y修饰符-sticky-ES6"><span class="toc-number">1.1.12.4.</span> <span class="toc-text">y修饰符(sticky)[ES6]</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#lastIndex"><span class="toc-number">1.1.12.4.1.</span> <span class="toc-text">lastIndex</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#s修饰符-singleline-ES2018"><span class="toc-number">1.1.12.5.</span> <span class="toc-text">s修饰符(singleline)[ES2018]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u修饰符-unicode-ES6"><span class="toc-number">1.1.12.6.</span> <span class="toc-text">u修饰符(unicode)[ES6]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#–方法"><span class="toc-number">1.2.</span> <span class="toc-text">–方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RegExp类型"><span class="toc-number">1.2.1.</span> <span class="toc-text">RegExp类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法"><span class="toc-number">1.2.2.</span> <span class="toc-text">方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#–ES6新变化"><span class="toc-number">1.3.</span> <span class="toc-text">–ES6新变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#–常用正则表达式"><span class="toc-number">1.4.</span> <span class="toc-text">–常用正则表达式</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 53
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2019/01/03/正则表达式基础/" >正则表达式基础</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2018/12/26/可扩展XML-Schema机制/" >可扩展XML-Schema机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/Oracle表空间、Schema、User/" >Oracle表空间、Schema、User</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/netty简介/" >netty简介</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker+Jenkins实现自动化部署/" >Docker+Jenkins实现自动化部署</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker学习/" >Docker笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/04</span><a class="archive-post-title" href= "/2018/12/04/Tomcat/" >Tomcat流程浅析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/23</span><a class="archive-post-title" href= "/2018/11/23/Kotlin初识、及底图切换代码分析/" >Kotlin初识及底图切换代码分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/浅谈跨域——了解跨域的几种方式/" >浅谈跨域——了解跨域的几种方式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span><a class="archive-post-title" href= "/2018/11/16/Android smartTable的简单使用/" >SmartTable的简单使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" >ArcGIS Runtime 100与产品线结合带来的思考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/12</span><a class="archive-post-title" href= "/2018/11/12/ArcEngine开发中一些提高效率技巧/" >ArcEngine开发中一些提高效率技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/CopyOnWriteArrayList介绍/" >CopyOnWriteArrayList介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/Lambda收集器示例/" >Lambda收集器示例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/java8-时间日期api/" >Java 8 之时间日期Api</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/05</span><a class="archive-post-title" href= "/2018/11/05/VC++内存泄漏检测工具浅究/" >VC++内存泄漏检测工具浅究</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/WebApp 开发简单入门/" >WebApp 开发简单入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/Kotlin初探/" >Kotlin初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/JPA的简单介绍/" >JPA的简单介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" >Vue+iView+Webpack环境下IE浏览器兼容处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/DASC笔记/" >DASC笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/CAS笔记/" >CAS笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2018/10/24/Java8 StringJoiner的使用/" >Java 8 之StringJoiner的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java8之Optional/" >Java 8 之Optional</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java之Lambda表达式Stream使用/" >Java 8 之Lambda表达式Stream使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之fail-fast机制-万世威/" >Java 8 之fail-fast机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之collection细节/" >Java 8 之collection细节</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之enum枚举-万世威/" >Java 8 之enum枚举</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
+    
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
+    
+        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
+    
+        <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+    
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
+    
+        <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
+    
+        <span class="sidebar-category-name" data-categories="郑家骜"><span class="iconfont-archer">&#xe60a;</span>郑家骜</span>
+    
+        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+    
+        <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
+    
+        <span class="sidebar-category-name" data-categories="黄震"><span class="iconfont-archer">&#xe60a;</span>黄震</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
