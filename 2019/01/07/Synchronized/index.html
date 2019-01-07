@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>地名、专题、场景收藏 · Fellow Travellers</title>
+    <title>Synchronized · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Fellow Travellers</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">地名、专题、场景收藏</a>
+                <a href="#" class="post-name">Synchronized</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            地名、专题、场景收藏
+            Synchronized
             <!-- 404 -->
             
         </h1>
@@ -266,7 +266,7 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
     
 </div>
                 
@@ -274,18 +274,18 @@ height:50vh;
                 
                     <div class= post-intro-categories >
     
-        <a class="post-categorie" data-tags = "刘小标">刘小标</a>
+        <a class="post-categorie" data-tags = "万世威">万世威</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">468</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2017/04/21</span>
+                    <span class="post-intro-time">2019/01/07</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -409,101 +409,103 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="一、-收藏模型"><a href="#一、-收藏模型" class="headerlink" title="一、    收藏模型"></a>一、    收藏模型</h1><h2 id="1、收藏类型"><a href="#1、收藏类型" class="headerlink" title="1、收藏类型"></a>1、收藏类型</h2><pre><code>enum FavoriteType: Int {
-   case Theme = 0     // 专题
-   case Scene = 1     // 场景
-   case Place = 2     // 地名
- }
-</code></pre><h2 id="2、收藏数据模型"><a href="#2、收藏数据模型" class="headerlink" title="2、收藏数据模型"></a>2、收藏数据模型</h2><pre><code>class Archive: NSObject, NSCoding {
-    var type: FavoriteType?
-    var ID: String?
-    var name: String?
-    var createDate: String?
-    var pointX: Double?
-    var pointY: Double?
-    var zoomScale: Double?
-    var visibleLayerArray: NSMutableArray = NSMutableArray()
-    var graphicArray: NSMutableArray = NSMutableArray()
-}
-</code></pre><p>解析：</p>
-<pre><code>type：收藏类型。上传到服务器上为Int型数据。
-ID:    标识一条收藏记录唯一值。
-name:收藏的名称。
-createDate:记录收藏的具体时间。
-pointX: 当前底图场景的中心点X坐标。
-pointY：当前底图场景的中心点Y坐标。
-zoomScale：当前底图场景的缩放比例。
-visibleLayerArray：当前专题显示的图层IDs。
-graphicArray：当前收藏的所有标注。
-</code></pre><h1 id="二、-场景收藏"><a href="#二、-场景收藏" class="headerlink" title="二、    场景收藏"></a>二、    场景收藏</h1><p>场景包含内容：</p>
-<pre><code>1、    显示的专题图层
-2、    绘制的标注
-3、    当前地图中心位置
-4、    当前地图缩放比例
-</code></pre><p><img src="https://i.imgur.com/mvdbfwc.jpg" alt=""><br><br><br><br>代码如下：</p>
-<pre><code>private func addToFavoriteViewForScene(name: String) {
-    let centerPt = CGPoint(x: self.mapView.center.x, y: self.mapView.center.y)
-    let archiveItem = Archive()
-    archiveItem.ID = Globe.newUUID()
+        <h1 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h1><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>​    以一种简单的策略来防止线程干扰和内存一致性错误，如果一个对象对多个线程可见，该对象变量的所有读取或写入都是通过同步方法完成的。</p>
+<p>​    即：能够保证在同一时刻最多只有一个线程执行该段代码，达到保证并发安全的效果。</p>
+<ul>
+<li><p>Synchronized是Java的关键字，被Java原生支持。</p>
+</li>
+<li><p>是最基本的互斥同步手段。</p>
+</li>
+</ul>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><ul>
+<li>对象锁<ul>
+<li>方法锁（锁对象为this当前实例对象）</li>
+<li>同步代码锁（自己指定锁对象）</li>
+</ul>
+</li>
+<li>类锁：只有一个Class对象<ul>
+<li>synchronized修饰静态方法</li>
+<li>指定锁为Class对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="多线程访问同步方法的7种情况"><a href="#多线程访问同步方法的7种情况" class="headerlink" title="多线程访问同步方法的7种情况"></a>多线程访问同步方法的7种情况</h3><p>1、两个线程同时访问一个对象的同步方法</p>
+<p>​    串行执行</p>
+<p>2、两个线程访问的是两个对象的同步方法</p>
+<p>​    并行执行，不是一个对象。</p>
+<p>3、两个线程访问的是synchronized的静态方法</p>
+<p>​    串行执行，只有一个Class对象</p>
+<p>4、同时访问同步方法和非同步方法</p>
+<p>​    串行执行</p>
+<p>5、访问同一个对象的不同的普通同步方法</p>
+<p>​    串行，this是同一个</p>
+<p>6、同时访问静态synchronized和非静态的synchronized方法</p>
+<p>​    并行执行，锁对象不是同一个</p>
+<p>7、方法抛出异常后，释放锁</p>
+<p>​    synchronized会自动释放，Lock等不会</p>
+<h3 id="三个核心思想"><a href="#三个核心思想" class="headerlink" title="三个核心思想"></a>三个核心思想</h3><ol>
+<li>一把锁只能同时被一个线程获取，没有拿到锁的线程必须等待（对应第1、5种情况）</li>
+<li>每个实例都对应有自己的一把锁，不同实例之前互不影响；<br>例外：锁对象是*.class以及synchronized修饰的是static方法的时候，所有对象共用同一把类锁（对应2、3、4、6种情况）</li>
+<li>无论是方法正常执行完毕或者方法抛出异常，都会释放锁（对应第7种情况）</li>
+</ol>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p>1、可重入：</p>
+<p>​    同一个线程的外层函数获取锁后，内层函数可以直接再次获取该锁。</p>
+<p>2、不可中断</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>1、加锁和释放锁的原理：Monitor</p>
+<p>2、可重入原理：加锁次数计数器</p>
+<p>3、可见性原理：内存模型</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1、效率低</p>
+<ul>
+<li>锁的释放情况少</li>
+<li>视图获取锁时不能设置超时时间</li>
+<li>不能中断一个正在视图获取锁的线程</li>
+</ul>
+<p>2、灵活度较差</p>
+<ul>
+<li>加锁和释放锁的时机单一</li>
+<li>每个锁仅有单一的对象</li>
+</ul>
+<p>3、无法知道是否成功获取到锁</p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>1、锁对象不能为空、作用域不宜过大、避免死锁</p>
+<p>2、尽量使用JUC包下的类，再考虑Synchronized，再考虑Lock</p>
+<h2 id="Monitor是什么"><a href="#Monitor是什么" class="headerlink" title="Monitor是什么"></a>Monitor是什么</h2><ul>
+<li>是一种用来实现同步的工具</li>
+<li>与每个Java对象相互关联，：每个java对象都有一个Monitor相对应</li>
+<li>Monitor是实现Sychronized的基础</li>
+</ul>
+<h2 id="Monitor与Java对象和线程之间关联"><a href="#Monitor与Java对象和线程之间关联" class="headerlink" title="Monitor与Java对象和线程之间关联"></a>Monitor与Java对象和线程之间关联</h2><ul>
+<li>如果一个java对象被某个线程锁住，则该java对象的Mark Word字段中LockWord指向monitor的起始地址</li>
+<li>Monitor的Owner字段会存放拥有相关联对象锁的线程id</li>
+</ul>
+<p><strong>说明：</strong>  </p>
+<p>java对象在堆中的基本内存结构，分为三个部分：</p>
+<p>1、对象头(header)：包括Mark Word(标记字段)和Class Pointer(类型指针)</p>
+<p>2、实例数据(instance data)：对象真正存储的有效信息，即代码中定义的各种类型的字段内容</p>
+<p>3、对齐填充(padding)：由HotSpot虚拟机定义对象起始地址必须是8字节整数倍，当不是整数倍时，需要填充数据补齐，因为对补齐的数据访问只需要一次内存访问即可</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8694380-ac10c2a5c942c0f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="img"></p>
+<h2 id="Monitor的结构"><a href="#Monitor的结构" class="headerlink" title="Monitor的结构"></a>Monitor的结构</h2><ul>
+<li>_count：记录owner线程获取锁的次数。这决定了synchronized是可重入的。</li>
+<li>_owner：初始时为NULL表示当前没有任何线程拥有该monitor record，当线程成功拥有该锁后保存线程唯一标识，当锁被释放时又设置为NULL。</li>
+<li>_WaitSet：存放处于wait状态的线程队列</li>
+<li>_EntryList：存放等待锁而被block的线程队列</li>
+</ul>
+<h2 id="Monitor的具体实现"><a href="#Monitor的具体实现" class="headerlink" title="Monitor的具体实现"></a>Monitor的具体实现</h2><ul>
+<li>Monitor是在jvm底层实现的，底层代码是c++</li>
+<li>Monitor的enter方法：获取锁</li>
+<li>Monitor的exit方法：释放锁</li>
+<li>Monitor的wait方法：为java的Object的wait方法提供支持</li>
+<li>Monitor的notify方法：为java的Object的notify方法提供支持</li>
+<li>Monitor的notifyAll方法：为java的Object的notifyAll方法提供支持</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">syncTask</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>javap -verbose SynchronizedTest.class</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">syncTask</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">3</span>, locals=<span class="number">3</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         <span class="number">1</span>: dup</span><br><span class="line">         <span class="number">2</span>: astore_1</span><br><span class="line">         <span class="comment">// 进入同步方法</span></span><br><span class="line">         <span class="number">3</span>: monitorenter</span><br><span class="line">         <span class="number">4</span>: aload_0</span><br><span class="line">         <span class="number">5</span>: dup</span><br><span class="line">         6: getfield      #2                  // Field i:I</span><br><span class="line">         <span class="number">9</span>: iconst_1</span><br><span class="line">        <span class="number">10</span>: iadd</span><br><span class="line">        11: putfield      #2                  // Field i:I</span><br><span class="line">        <span class="number">14</span>: aload_1</span><br><span class="line">        <span class="comment">// 退出同步方法</span></span><br><span class="line">        <span class="number">15</span>: monitorexit</span><br><span class="line">        <span class="number">16</span>: goto          <span class="number">24</span></span><br><span class="line">        <span class="number">19</span>: astore_2</span><br><span class="line">        <span class="number">20</span>: aload_1</span><br><span class="line">        <span class="number">21</span>: monitorexit</span><br><span class="line">        <span class="number">22</span>: aload_2</span><br><span class="line">        <span class="number">23</span>: athrow</span><br><span class="line">        <span class="number">24</span>: <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>存在两个 monitorexit，为了保证在异常时能够释放锁。</p>
+<p>另一种形式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">syncTask</span><span class="params">()</span></span>&#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>采用：ACC_SYNCHRONIZED 标识。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">syncTask</span><span class="params">()</span></span>;</span><br><span class="line">   descriptor: ()V</span><br><span class="line">   flags: ACC_PUBLIC, ACC_SYNCHRONIZED</span><br><span class="line">   Code:</span><br><span class="line">     stack=<span class="number">3</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">        <span class="number">0</span>: aload_0</span><br><span class="line">        <span class="number">1</span>: dup</span><br><span class="line">        2: getfield      #2                  // Field i:I</span><br><span class="line">        <span class="number">5</span>: iconst_1</span><br><span class="line">        <span class="number">6</span>: iadd</span><br><span class="line">        7: putfield      #2                  // Field i:I</span><br><span class="line">       <span class="number">10</span>: <span class="keyword">return</span></span><br><span class="line">     LineNumberTable:</span><br><span class="line">       line <span class="number">10</span>: <span class="number">0</span></span><br><span class="line">       line <span class="number">11</span>: <span class="number">10</span></span><br></pre></td></tr></table></figure>
 
-    if self.annotaionToolBar != nil {
-        let num = self.annotaionToolBar.savedJsonGraphics.count
-        if num &gt; 0  {
-            archiveItem.graphicArray = NSMutableArray(array: self.annotaionToolBar.savedJsonGraphics)
-        }
-    }
-
-    archiveItem.type = FavoriteType.Scene
-    archiveItem.name = name
-    archiveItem.createDate = Archive.now()
-    archiveItem.pointX = self.mapView.toMapPoint(centerPt).x
-    archiveItem.pointY = self.mapView.toMapPoint(centerPt).y
-    archiveItem.zoomScale = self.mapView.mapScale
-
-
-    archiveItem.visibleLayerArray = NSMutableArray(array: self.getVisibleTopicIDs())
-    self.saveFavorite(archiveItem)
-}
-</code></pre><h1 id="三、-专题收藏"><a href="#三、-专题收藏" class="headerlink" title="三、    专题收藏"></a>三、    专题收藏</h1><p>专题收藏包含内容：<br></p>
-<h2 id="专题图层"><a href="#专题图层" class="headerlink" title="专题图层:"></a>专题图层:<br></h2><p><img src="https://i.imgur.com/I49afET.jpg" alt=""><br><br><br><br>代码如下：</p>
-<pre><code>private func addToFavoriteViewForTheme(name: String,item: OMBaseItem) {
-
-    let archiveItem = Archive()
-    archiveItem.ID = Globe.newUUID()
-    archiveItem.type = FavoriteType.Theme
-    archiveItem.name = name
-    archiveItem.createDate = Archive.now()
-    archiveItem.pointX = 0
-    archiveItem.pointY = 0
-    archiveItem.zoomScale = 0
-
-    archiveItem.visibleLayerArray = NSMutableArray(object: item.id!)
-    self.saveFavorite(archiveItem)
-}
-</code></pre><h1 id="四、-地名收藏"><a href="#四、-地名收藏" class="headerlink" title="四、    地名收藏"></a>四、    地名收藏</h1><p>地名收藏，简单的可以理解为单要素收藏。<br><br><br><img src="https://i.imgur.com/nfKCnz5.jpg" alt=""><br><br><br><br>代码如下：</p>
-<pre><code>private func addToFavoriteViewForPlace(name: String, graphic: AGSGraphic) {
-
-    let archiveItem = Archive()
-    archiveItem.ID = Globe.newUUID()
-    archiveItem.type = FavoriteType.Place
-    archiveItem.name = name
-    archiveItem.createDate = Archive.now()
-    archiveItem.pointX = 0
-    archiveItem.pointY = 0
-    archiveItem.zoomScale = 0
-    if graphic.fromSearch {
-        var dict = graphic.encodeToJSON()
-        dict[&quot;fromSearch&quot;] = true
-        archiveItem.graphicArray.addObject(dict)
-    } else {
-        var dict = graphic.encodeToJSON()
-        dict[&quot;fromSearch&quot;] = false
-        archiveItem.graphicArray.addObject(dict)
-    }
-    archiveItem.visibleLayerArray = NSMutableArray()
-    self.saveFavorite(archiveItem)
-}
-</code></pre>
     </article>
     <!-- license  -->
     
@@ -511,17 +513,12 @@ graphicArray：当前收藏的所有标注。
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" title= "多级List View的实现">
-                    <div class="nextTitle">多级List View的实现</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2017/03/31/Android简单使用及快速入门/" title= "Android 简单使用及快速入门">
-                    <div class="prevTitle">Android 简单使用及快速入门</div>
+                <a href= "/2019/01/03/正则表达式基础/" title= "正则表达式基础">
+                    <div class="prevTitle">正则表达式基础</div>
                 </a>
             
         </li>
@@ -589,7 +586,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、-收藏模型"><span class="toc-number">1.</span> <span class="toc-text">一、    收藏模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、收藏类型"><span class="toc-number">1.1.</span> <span class="toc-text">1、收藏类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、收藏数据模型"><span class="toc-number">1.2.</span> <span class="toc-text">2、收藏数据模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、-场景收藏"><span class="toc-number">2.</span> <span class="toc-text">二、    场景收藏</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、-专题收藏"><span class="toc-number">3.</span> <span class="toc-text">三、    专题收藏</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#专题图层"><span class="toc-number">3.1.</span> <span class="toc-text">专题图层:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、-地名收藏"><span class="toc-number">4.</span> <span class="toc-text">四、    地名收藏</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Synchronized"><span class="toc-number">1.</span> <span class="toc-text">Synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">1.0.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用法"><span class="toc-number">1.0.2.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多线程访问同步方法的7种情况"><span class="toc-number">1.0.3.</span> <span class="toc-text">多线程访问同步方法的7种情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三个核心思想"><span class="toc-number">1.0.4.</span> <span class="toc-text">三个核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性质"><span class="toc-number">1.0.5.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.0.6.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">1.0.7.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意点"><span class="toc-number">1.0.8.</span> <span class="toc-text">注意点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitor是什么"><span class="toc-number">1.1.</span> <span class="toc-text">Monitor是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitor与Java对象和线程之间关联"><span class="toc-number">1.2.</span> <span class="toc-text">Monitor与Java对象和线程之间关联</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitor的结构"><span class="toc-number">1.3.</span> <span class="toc-text">Monitor的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitor的具体实现"><span class="toc-number">1.4.</span> <span class="toc-text">Monitor的具体实现</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
