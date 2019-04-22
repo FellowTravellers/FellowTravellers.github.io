@@ -359,6 +359,73 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/04/22/Listener/" >
+            
+                <span>Listener</span>
+        </a>
+        <div class="abstract-content">
+            Listener接口12345678public interface EventListener &#123;&#125;public interface ServletContextListener extends EventListener &#123;    // 初始化    void contextInitialized(ServletContextEvent sce);    // 销毁    void contextDestroyed(ServletContextEvent sce);&#125;
+Listener注入
+org.apache.catalina.core.St...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/04/22/Filter/" >
+            
+                <span>Filter</span>
+        </a>
+        <div class="abstract-content">
+            Filter说明
+filter 是 Servlet 规范
+
+filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之前执行
+
+
+接口12345package javax.servlet;public interface FilterChain &#123;    void doFilter(ServletRequest request, ServletResponse response)            throws IOException, ServletException;&#125;
+实现123456789101112131415161...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2019/02/22/负载均衡/" >
             
                 <span>负载均衡 常用算法</span>
@@ -637,72 +704,6 @@ ADD jdk-8u171-linux-x64.tar.gz /usr/local/java/
         <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "CI">CI</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/24/Docker学习/" >
-            
-                <span>Docker笔记</span>
-        </a>
-        <div class="abstract-content">
-            一、Docker简介由于在项目部署的时候经常会出现在本机上运行是好使的，但是部署到服务器上时出现各种问题，而这种问题的原因经常是因为环境的问题，所以Docker出现了。
-Docker 是基于Go语言实现的开源项目。
-Docker是在Linux容器技术的基础上发展出来的。我们可以将应用运行在Docker容器上，而Docker容器在任何操作系统上都是一致的。
-Docker主要通过对应用组件的封装、分发、部署、运行等进行管理，来实现用户的app及其运行环境能够做到一次封装，到处运行。
-二、Docker的安装1、安装Docker1234567891011121314151617181920212...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >
-            
-                <span>BS运维后期重构思路</span>
-        </a>
-        <div class="abstract-content">
-            BS运维后期重构思路主要从以下几个方面进行。
-
-1.统一代码风格，因为当前运维有两种编码方式，一种是有状态的类编程，一种是无状态的函数式编程，最后要统一成官方推荐的有状态的类编程方式；
-2.Dva(状态管理优化)，当前运维页面虽然可以对通过Dva进行状态变化的快速渲染，但是当改页面消失时，一些不需要的状态依然在运行内存中未被释放，而且model的reducers中更新的方法重复，完全可以使用一个方法进行替换；
-3.WebSocket接入，考虑到移动模块接入设备管理和消息推送后，当有新申请的设备要授权时前端要提醒运维使用者及时进行授权处理，推送消息给应用端；因此可以考虑做个消息接收和推送的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "BS运维">BS运维</a>
     
 </div>
             
@@ -1722,9 +1723,41 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 57
+        Total : 59
         </div>
         <!-- search  -->
         
@@ -1737,6 +1770,16 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Listener/" >Listener</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Filter/" >Filter</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2046,9 +2089,9 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
-    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
@@ -2056,33 +2099,33 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
-        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
-    
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
     
         <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
     
         <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
     
-        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
-    
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
-        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
+        <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
     
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -2119,13 +2162,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
-    
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
@@ -2137,17 +2180,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
-        <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
-    
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
+        <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
+    
         <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
     
-        <span class="sidebar-category-name" data-categories="郑家骜"><span class="iconfont-archer">&#xe60a;</span>郑家骜</span>
-    
         <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+    
+        <span class="sidebar-category-name" data-categories="郑家骜"><span class="iconfont-archer">&#xe60a;</span>郑家骜</span>
     
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
