@@ -346,27 +346,25 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/24/Docker学习/" >
+        <a class="abstract-title" href = "/2019/04/22/12、Linux安装软件/" >
             
-                <span>Docker笔记</span>
+                <span>12、Linux安装软件</span>
         </a>
         <div class="abstract-content">
-            一、Docker简介由于在项目部署的时候经常会出现在本机上运行是好使的，但是部署到服务器上时出现各种问题，而这种问题的原因经常是因为环境的问题，所以Docker出现了。
-Docker 是基于Go语言实现的开源项目。
-Docker是在Linux容器技术的基础上发展出来的。我们可以将应用运行在Docker容器上，而Docker容器在任何操作系统上都是一致的。
-Docker主要通过对应用组件的封装、分发、部署、运行等进行管理，来实现用户的app及其运行环境能够做到一次封装，到处运行。
-二、Docker的安装1、安装Docker1234567891011121314151617181920212...
+            Linux安装软件Java解压文件123// 放在 /usr 目录下 用户都可以访问tar zxvf jdk-8u171-linux-x64.tar.gzmv jdk1.8.0_171/ /usr/local/java/
+修改配置文件12345678vim ~/.bashrcexport JAVA_HOME=/home/wansw/jdk8export JRE_HOME=$JAVA_HOME/jreexport CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/libexport PATH=$PATH:$JAVA_HOME/binsource ~/.bashrc
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/24</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
     
 </div>
             
@@ -379,61 +377,42 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >
+        <a class="abstract-title" href = "/2019/04/22/11、Linux中Shell/" >
             
-                <span>BS运维后期重构思路</span>
+                <span>11、Linux中Shell</span>
         </a>
         <div class="abstract-content">
-            BS运维后期重构思路主要从以下几个方面进行。
+            Linux中ShellShell是什么​    Shell是一个命令行解释器，为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序，可以用Shell来启动、挂起、停止、编写一些程序。
+Shell脚本的执行方式脚本格式要求
+脚本以  #!/bin/bash 开头
+脚本需要有 执行权限
 
-1.统一代码风格，因为当前运维有两种编码方式，一种是有状态的类编程，一种是无状态的函数式编程，最后要统一成官方推荐的有状态的类编程方式；
-2.Dva(状态管理优化)，当前运维页面虽然可以对通过Dva进行状态变化的快速渲染，但是当改页面消失时，一些不需要的状态依然在运行内存中未被释放，而且model的reducers中更新的方法重复，完全可以使用一个方法进行替换；
-3.WebSocket接入，考虑到移动模块接入设备管理和消息推送后，当有新申请的设备要授权时前端要提醒运维使用者及时进行授权处理，推送消息给应用端；因此可以考虑做个消息接收和推送的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "BS运维">BS运维</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >
-            
-                <span>React和Vue比较</span>
-        </a>
-        <div class="abstract-content">
-            Vue和React两个JavaScript框架都是当下比较受欢迎的，下面我们来一起探讨下它们的异同和技术选型。
-1. 相同点
+范例12#!/bin/bashecho "hello world!"
+执行方式
+方式一
+给  xx.sh  赋予 +x 的权限
+执行脚本
 
-1.1 都使用了虚拟Dom   Virtual DOM是一个映射真实DOM的JavaScript对象，如果需要改变任何元素的状态，那么是先在Virtual DOM上进行改变，而不是直接改变真实的DOM。当有变化产生时，一个新的Virtual DOM对象会被创建并计算新旧Virtual DOM之间的差别。之后这些差别会应用在真实的DOM上。在HTML中的标签在JavaScript中，虚拟Dom可以用对象简单地创造一个针对上面例子的映射当新一项被加进去这个JavaS...
+
+方式二
+sh xx.sh
+
+
+
+Shell变量
+变量分为：系统变量和自定义变量。
+系统变量：【\$HOME]、​\$PWD 、\$USER 等 ： 区...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "React">React</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Vue">Vue</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
     
 </div>
             
@@ -446,22 +425,19 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/04/Tomcat/" >
+        <a class="abstract-title" href = "/2019/04/22/Listener/" >
             
-                <span>Tomcat流程浅析</span>
+                <span>Listener</span>
         </a>
         <div class="abstract-content">
-            Tomcat整体架构图
-​    Tomcat 中最顶层的容器叫 Server（代表整个服务器），Server中包含至少一个Service（用于提供服务）。        
-​    Service主要包含两个部分：Connector和Container。他们的作用如下：
-1、Connector用于处理连接相关的事情，并提供Socket与Request和Response相关的转化; 
-2、Container用于封装和管理Servlet，以及具体处理Request请求；
-一个Tomcat只有一个Server，一个Server可以包含多个Service，一个Service只有一个Contai...
+            Listener接口12345678public interface EventListener &#123;&#125;public interface ServletContextListener extends EventListener &#123;    // 初始化    void contextInitialized(ServletContextEvent sce);    // 销毁    void contextDestroyed(ServletContextEvent sce);&#125;
+Listener注入
+org.apache.catalina.core.St...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/04</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
             </div>
             <!-- tags  -->
             
@@ -480,24 +456,30 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/23/Kotlin初识、及底图切换代码分析/" >
+        <a class="abstract-title" href = "/2019/04/22/Filter/" >
             
-                <span>Kotlin初识及底图切换代码分析</span>
+                <span>Filter</span>
         </a>
         <div class="abstract-content">
-            Kotlin初识、及底图切换代码分析
-简介Kotlin是一种在 Java 虚拟机上运行的静态类型编程语言，被称之为 Android 世界的Swift，由 JetBrains 设计开发并开源。在Kotlin 语言出现之前，几乎所有的安卓应用程序都是使用Java语言编写的。但在2017年5月，google宣布Kotlin成为安卓的官方语言后，经过半年的发展，使用Kotlin 的开发者中5%增长到了15%，并且还在呈现上升趋势。2017年9月29日，1.2Beta版发布。并宣布 Kotlin 成为 Android 官方开发语言。它即可以编译成Java字节码，也可以编译成 JavaScript，...
+            Filter说明
+filter 是 Servlet 规范
+
+filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之前执行
+
+
+接口12345package javax.servlet;public interface FilterChain &#123;    void doFilter(ServletRequest request, ServletResponse response)            throws IOException, ServletException;&#125;
+实现123456789101112131415161...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/23</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
     
 </div>
             
@@ -510,28 +492,129 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/19/浅谈跨域——了解跨域的几种方式/" >
+        <a class="abstract-title" href = "/2019/02/22/负载均衡/" >
             
-                <span>浅谈跨域——了解跨域的几种方式</span>
+                <span>负载均衡 常用算法</span>
         </a>
         <div class="abstract-content">
-            前言部分跨域是什么？跨域是指一个域下的文档或脚本试图去请求另一个域下的资源（广义的）。
-广义的跨域场景有以下几种：
-
-资源的跳转：A链接、重定向、表单提交；
-
-资源嵌入：&lt;link&gt;、&lt;script&gt;、&lt;img&gt;、&lt;iframe&gt; 等DOM标签，还有样式中 background:url()、@font-face()等文件外链；
-
-脚本请求： js发起的ajax请求、dom和js对象的跨域操作等；
-
-
-我们通常所说的跨域是狭义的，是由浏览器同源策略限制的一类请求场景。
-同源策略是什么？同源策略/SOP（Same origin policy）是...
+            负载均衡数据集
+123456789101112131415161718192021222324252627public class ServerIps &#123;    public static List&lt;String&gt; ipList = new ArrayList&lt;&gt;();    static &#123;        ipList.add("192.168.0.1");        ipList.add("192.168.0.2");        ipList.add("192.168.0.3");        ipList.add("192.16...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/19</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/02/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Dubbo">Dubbo</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/01/17/HashMap浅析/" >
+            
+                <span>hashMap浅析</span>
+        </a>
+        <div class="abstract-content">
+            HashMap原理浅析手写一个简单的hashmap12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394public class MyHashMap&lt;K, V&gt; &#123;    private Entry[] table;               //定义一个Entry...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/17</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/01/07/Synchronized/" >
+            
+                <span>Synchronized</span>
+        </a>
+        <div class="abstract-content">
+            Synchronized作用​    以一种简单的策略来防止线程干扰和内存一致性错误，如果一个对象对多个线程可见，该对象变量的所有读取或写入都是通过同步方法完成的。
+​    即：能够保证在同一时刻最多只有一个线程执行该段代码，达到保证并发安全的效果。
+
+Synchronized是Java的关键字，被Java原生支持。
+
+是最基本的互斥同步手段。
+
+
+用法
+对象锁
+方法锁（锁对象为this当前实例对象）
+同步代码锁（自己指定锁对象）
+
+
+类锁：只有一个Class对象
+synchronized修饰静态方法
+指定锁为Class对象
+
+
+
+多线程访问同步方法的7种情况1、两个线程同时访问一个对...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/07</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/01/03/正则表达式基础/" >
+            
+                <span>正则表达式基础</span>
+        </a>
+        <div class="abstract-content">
+            正则表达式(Regular Expressions)学习笔记文章来源:掘金|JsTheGreat , ECMAScript6入门–阮一峰 , 百度百科
+正则表达式三个特点: 提取文本, 强大, 难学 
+–语法检索普通字符12'hello 😀 regexp'.match(/😀/);// ["😀", index: 6, input: "hello 😀 regexp", groups: undefined]
+开始与结束^ 字符(脱字符),在正则中属于元字符,表示文本的开始,即如果它是正则主体的第一个符号,那么紧跟它的字符必须是被匹配文本的第一个字符.
+12'regexp'.match(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/03</span>
             </div>
             <!-- tags  -->
             
@@ -550,174 +633,18 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/16/Android smartTable的简单使用/" >
+        <a class="abstract-title" href = "/2018/12/26/可扩展XML-Schema机制/" >
             
-                <span>SmartTable的简单使用</span>
+                <span>可扩展XML-Schema机制</span>
         </a>
         <div class="abstract-content">
-            一.smartTable简介1.简单介绍它的功能：具体使用方法不再赘述，可以去 GitHub 去查看：https://github.com/huangyanbin/smartTable
-
-快速配置自动生成表格；
-自动计算表格宽高；
-表格列标题组合；
-表格固定左序列、顶部序列、第一行、列标题、统计行；
-自动统计，排序（自定义统计规则）；
-表格图文、序列号、列标题格式化；
-表格各组成背景、文字、网格、padding等配置；
-表格批注；
-表格内容、列标题点击事件；
-缩放模式和滚动模式；
-注解模式；
-内容多行显示；
-分页模式；
-首尾动态添加数据;
-丰富的格式化;
-支持二维数组展示（用于类似日程表...
+            可扩展XML-Schema机制扩展流程
+实例XSD文件12345678910111213141516171819&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;xsd:schema        xmlns=&quot;http://www.demo.com/schema/people&quot;        xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;        xmlns:beans=&quot;http://www.sprin...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/16</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" >
-            
-                <span>ArcGIS Runtime 100与产品线结合带来的思考</span>
-        </a>
-        <div class="abstract-content">
-            前言因为产品线也一直也在提要不要将ArcGIS For Android 版本从10.2.9版本过渡到100.*版本，也有过尝试，也就是Kotlin+ArcGIS 100.2版本的基线产品研发。慢慢这个方面交到了我手上，交到我手上的时候大部分功能都已经完善了，我只是进行了一些小的模块开发而已。目前这个产品已经具备了基线的基本功能与使用。回顾看来，新老版本差异也比较大。所以写这么一篇文章来对比较关注的部分进行简单的比较与讲解。这篇文章的大多数来源于ArcGIS官网的一些向导和ArcGIS博客的一些文章，部分链接需要自备梯子。
-https://developers.arcgis.com/arc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/12/ArcEngine开发中一些提高效率技巧/" >
-            
-                <span>ArcEngine开发中一些提高效率技巧</span>
-        </a>
-        <div class="abstract-content">
-            
-ArcEngine开发中一些提高效率技巧一 .  查询篇1.  AE的三种查询方式概述在使用ArcEngine查询空间数据库的时候主要使用三种查询接口：
-
-IQueryFilter
-ISpatialFilter
-IQueryDef
-
-三种接口使用场景总结如下表：
-
-
-
-要求
-IQueryFilter
-ISpatialFilter
-IQueryDef
-
-
-
-
-属性约束
-True
-True
-True
-
-
-空间约束
-False
-True
-False
-
-
-查询结果包括多个表的字段
-False
-False
-True
-
-
-查询结果返回一个游标
-True
-True
-True
-
-
-对象可以从结果中创建...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/12</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ArcEngine">ArcEngine</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "C#">C#</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/06/CopyOnWriteArrayList介绍/" >
-            
-                <span>CopyOnWriteArrayList介绍</span>
-        </a>
-        <div class="abstract-content">
-            CopyOnWriteArrayList介绍​    CopyOnWrite容器即写时复制的容器。通俗的理解是当我们往一个容器添加元素的时候，不直接往当前容器添加，而是先将当前容器进行Copy，复制出一个新的容器，然后新的容器里添加元素，添加完元素之后，再将原容器的引用指向新的容器。 
-​    CopyOnWrite容器也是一种读写分离的思想，读和写不同的容器。 
-在 集合的安全失败机制“fail-safe” 提到使用 CopyOnWriteArrayList 可以解决此问题，
-在 com.mysql.jdbc.Driver 下会使用到，即： class.forName(“com.my...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/26</span>
             </div>
             <!-- tags  -->
             
@@ -730,10 +657,49 @@ True
         </div>
     </article>
     
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/12/25/Oracle表空间、Schema、User/" >
+            
+                <span>Oracle表空间、Schema、User</span>
+        </a>
+        <div class="abstract-content">
+            表空间
+什么是表空间：Oracle中的用户都有属于自己的默认的表空间，在一段内存空间中存储的大部分是表，所以称为表空间。
+用户的表空间
+1,系统用户的表空间 
+2,普通用户的表空间
+为什么要给普通用户创建属于自己的表空间那？
+项目中很可能与其他项目使用同一个数据库，
+多个用户在使用同一个数据库的时候有可能访问同一个数据库文件，
+就会造成资源争用问题，给不同的用户指定不同的表空间，就可以让他们
+使用不同的数据文件，解决争用问题。
+用户有一个缺省的表空间，但是该用户还可以使用其他的表空间，如果我们在创建对象时不指定表空间，则对象存储在缺省表空间中，要想让对象存储在其他表空间中，我们需要在创建...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/25</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Oracle">Oracle</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/3/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/8/">8</a><a class="extend next" rel="next" href="/archives/page/3/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1693,9 +1659,247 @@ True
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 59
+        Total : 71
         </div>
         <!-- search  -->
         
@@ -1708,6 +1912,66 @@ True
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/10、Linux实用指令/" >10、Linux实用指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/12、Linux安装软件/" >12、Linux安装软件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/5、Linux用户管理命令/" >5、Linux用户管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/8、Linux磁盘分区和挂载/" >8、Linux磁盘分区和挂载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/6、Linux组管理和权限管理/" >6、Linux组管理和权限管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1775,12 +2039,12 @@ True
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
@@ -2027,6 +2291,8 @@ True
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
@@ -2049,13 +2315,13 @@ True
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
-    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
@@ -2098,11 +2364,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
-    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2117,8 +2385,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     

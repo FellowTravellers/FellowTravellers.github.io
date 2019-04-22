@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="xiaoshuiz">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="xiaoshuiz">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>10、Linux实用指令 · Fellow Travellers</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/logo.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Fellow Travellers</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">10、Linux实用指令</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Fellow Travellers</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            10、Linux实用指令
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+    
+</div>
+                
+                <!-- 文章作者  -->
+                
+                    <div class= post-intro-categories >
+    
+        <a class="post-categorie" data-tags = "万世威">万世威</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/22</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Linux实用指令"><a href="#Linux实用指令" class="headerlink" title="Linux实用指令"></a>Linux实用指令</h1><h2 id="Rpm-amp-Yum"><a href="#Rpm-amp-Yum" class="headerlink" title="Rpm&amp;Yum"></a>Rpm&amp;Yum</h2><p>​    一种用于互联网下载包的打包和安装工具，它包含某些Linux分发版中，它生产具有 .rpm 扩展名的文件。RPM 是 RedHat Package Manager（RedHat软件包管理工具）的缩写。</p>
+<h4 id="查询指令"><a href="#查询指令" class="headerlink" title="查询指令"></a>查询指令</h4><p>rpm -qa 【| grep 名字】 ：查询所有/过滤条件</p>
+<p>jansson-2.10-1.el7.x86_64</p>
+<p>名称：jansson</p>
+<p>版本号：2.10-1</p>
+<p>适用操作系统：el7.x86_64：centos7</p>
+<p>系统位数：x86_64:64位、【i686、i386:32位】、noarch：通用</p>
+<ul>
+<li>rpm -qa</li>
+<li>rpm -qa | more</li>
+<li>rpm -qa | grep X [rpm -qa | grep openssh]</li>
+<li>rpm -q 软件包名：查询软件包是否安装 【rpm -q openssh】</li>
+<li>rpm -qi 软件包名：查询软件包信息</li>
+<li>rpm -ql 软件包名：查询软件包中的文件</li>
+<li>rpm -qf：查询文件所属的软件包 【rpm -qf /etc/passwd】</li>
+</ul>
+<h4 id="卸载rpm包"><a href="#卸载rpm包" class="headerlink" title="卸载rpm包"></a>卸载rpm包</h4><ul>
+<li>rpm -e 包名<ul>
+<li>rpm -e –nodeps 包名：强制删除，可能导致依赖的软件无法使用</li>
+</ul>
+</li>
+</ul>
+<h4 id="安装rpm包"><a href="#安装rpm包" class="headerlink" title="安装rpm包"></a>安装rpm包</h4><ul>
+<li>rpm -ivh 包全名</li>
+</ul>
+<p>-i：install 安装</p>
+<p>-v：verbose 提示信息</p>
+<p>-h：hash 进度条</p>
+<h3 id="YUM"><a href="#YUM" class="headerlink" title="YUM"></a>YUM</h3><p>​    是一个Shell前端软件包管理器，基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以==自动处理依赖性关系==，并且一次性安装所有依赖的软件包。</p>
+<p>基本指令</p>
+<ul>
+<li>查询是否有需要安装的软件<ul>
+<li>yum list 【| grep xx软件】</li>
+</ul>
+</li>
+<li>安装指定的yum包<ul>
+<li>yum install xx名字</li>
+</ul>
+</li>
+</ul>
+<h2 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h2><p><strong>依据不同数据类型进行排序，默认为升序</strong></p>
+<p>-b：忽略每行开始的空格</p>
+<p>-c：检查文件是否已按顺序排列</p>
+<p>-f：排列时忽略大小写字母</p>
+<p>-n：按数值大小排序</p>
+<p>-o&lt;输出文件&gt;：将排序后的结果存入指定文件中</p>
+<p>-r：以相反顺序排序</p>
+<p>例如：</p>
+<p>sort seq.txt：按ASCII码值进行比较并排序，最后将它们按升序输出</p>
+<p>sort -u seq.txt：按ASCII码值进行比较、排序、去重复，最后将它们按升序输出</p>
+<p>sort -r seq.txt：前面是升序，加个-r就变成降序了</p>
+<p>sort -r number.txt -o number.txt：把number.txt中的内容反向排序后覆盖number.txt，若是别的文件名则直接输出至指定文件中</p>
+<p>sort -n number.txt：以数值排序number.txt中的数值，这样就不会出现10&lt;2的情况了</p>
+<p>sort -n -k 2 -t ‘:’ fruit.txt：将fruit.txt中的每行内容以’:’分隔，并以第2列为基准按数值排序</p>
+<h2 id="Wget"><a href="#Wget" class="headerlink" title="Wget"></a>Wget</h2><p><strong>用于从网络上下载资源，若不指定目录，则下载资源默认为当前目录。wget支持：</strong></p>
+<p><strong>1、断点下载</strong></p>
+<p><strong>2、同时支持FTP与HTTP</strong></p>
+<p><strong>3、支持代理服务器</strong></p>
+<p><strong>4、设置简单</strong></p>
+<p>-b：启动后转入后台执行</p>
+<p>-o：把记录写到文件中</p>
+<p>-a：把记录追加到文件中</p>
+<p>-tries=NUMBER：设定最大尝试连接次数，0表示无限制，默认为20次</p>
+<p>-timeout=SECOND：设定响应超时的秒数</p>
+<p>例如：</p>
+<p>wget URL：使用wget从URL下载单个文件，会有进度条</p>
+<p>wget -O abc.zip URL：下载一个文件并以abc.zip命名</p>
+<p>wget –limit-rate=300k URL：限制下载速率为300K下载某个文件</p>
+<p>wget -c URL：断点续传某文件，防止下载大文件时的网络中断 </p>
+<p>wget -b URL：后台下载某文件，可用tail -f wget-log查看下载进度</p>
+<p>wget –user-agent=”XXX” URL：使用伪代理名称下载</p>
+<p>wget –tries=40 URL：下载一个文件，失败可重试40次</p>
+<p>wget –reject=gif URL：下载一个文件，但不下载gif文件，用于过滤指定格式</p>
+<p>wget -o download.log URL：将下载日志写入download.log</p>
+<p>wget –ftp-user=USERNAME –ftp-password=PASSWORD URL：指定用户名、密码，使用ftp下载某文件</p>
+<h2 id="Vi-amp-Vim"><a href="#Vi-amp-Vim" class="headerlink" title="Vi&amp;Vim"></a>Vi&amp;Vim</h2><h3 id="运行模式"><a href="#运行模式" class="headerlink" title="运行模式"></a>运行模式</h3><p>正常模式：打开一个文件就直接进去了正常模式（默认模式），等待编辑命令输入</p>
+<p>插入模式：编辑模式下，输入 <code>i</code> 进入插入模式，插入文本信息</p>
+<p>命令模式：在编辑模式下，输入 <code>:</code> 进行命令模式</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p><code>:q</code> 直接退出vi</p>
+<p><code>:wq</code> 保存后退出vi ，并可以新建文件</p>
+<p><code>:q!</code> 强制退出</p>
+<p><code>:w file</code> 将当前内容保存成某个文件</p>
+<h4 id="命令行模式下："><a href="#命令行模式下：" class="headerlink" title="命令行模式下："></a>命令行模式下：</h4><p><code>yy</code> 拷贝当前行</p>
+<p><code>5yy</code> 拷贝当前向下的 5 行</p>
+<p><code>p</code> 粘贴</p>
+<p><code>dd</code> 删除当前行</p>
+<p><code>5dd</code> 删除当前向下的 5 行</p>
+<p><code>/关键字</code> 回车进行查找，输入  n 查找下一个</p>
+<p><code>:set number</code> 在编辑文件显示行号</p>
+<p><code>:set nonumber</code>    在编辑文件不显示行号</p>
+<p><code>G</code> 跳转文件末行</p>
+<p><code>gg</code> 跳转文件首行</p>
+<p><code>u</code> 插入模式下 新增字符，命令行模式下 次命令 撤销 新增字符</p>
+<p><code>n shift+g</code> 光标移动到第n行</p>
+<p><img src="https://xdata.dist.com.cn/appstore/imgDir/20160712110935064.png" alt="">  </p>
+<h2 id="压缩和解压缩"><a href="#压缩和解压缩" class="headerlink" title="压缩和解压缩"></a>压缩和解压缩</h2><p><strong>tar，用来压缩和解压文件，tar本身不具备压缩功能，它是调用压缩功能实现的。</strong></p>
+<p>-c：建立新的压缩文件</p>
+<p>-d：记录文件差别</p>
+<p>-r：添加文件到已压缩的文件中</p>
+<p>-x：从压缩的文件中提取文件</p>
+<p>-t：显示压缩的文件内容</p>
+<p>-z：支持gzip解压文件</p>
+<p>-v：显示操作过程</p>
+<p>-f：指定压缩文件</p>
+<p>例如：</p>
+<p>tar -cvf log.tar log1.log：仅把log1.log打包成log.tar，不压缩</p>
+<p>tar -zcvf log.tar.gz log1.log：把log1.log打包成log.tar.gz，并指出gzip压缩</p>
+<p>tar -ztvf log.tar.gz：查阅log.tar.gz中的内容，因log.tar.gz是以gzip压缩的，所以要加上z</p>
+<p>tar -zcvf log30.tar.gz log1.log log2.log：把多个文件打包压缩成一个文件</p>
+<p>tar -zxvf log30.tar.gz log2015.log：把log30.tar.gz中的log2015.log解压出来</p>
+<h3 id="gzip和gunzip"><a href="#gzip和gunzip" class="headerlink" title="gzip和gunzip"></a>gzip和gunzip</h3><p>-d：解压缩</p>
+<p>-l：对每个压缩文件，显示压缩文件的大小，未压缩文件的大小，压缩比，未压缩文件的名字</p>
+<p>-v：对每一个压缩和解压的文件，显示文件名和压缩比</p>
+<p>-num：用指定的数字num调整压缩的速度，-1或–fast表示最快压缩方法（低压缩比），-9或–best表示最慢压缩方法（高压缩比）。系统缺省值为6</p>
+<p><strong>示例：</strong></p>
+<p>gzip 1.txt ：会产生一个1.txt.gz文件、1.txt <strong>原文件会删除</strong>。 </p>
+<p>gunzip 1.txt.gz：产生一个1.txt文件，删除原文件。</p>
+<p><strong>说明</strong>：压缩文件后缀为 gz。</p>
+<h3 id="bzip2"><a href="#bzip2" class="headerlink" title="bzip2"></a>bzip2</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>语法</th>
+<th>参数</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bzip2</td>
+<td>bzip2 [-cdz]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>-d</td>
+<td>解压缩</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>-z</td>
+<td>压缩参数</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>-num</td>
+<td>用指定的数字num调整压缩的速度，-1或–fast表示最快压缩方法（低压缩比），-9或–best表示最慢压缩方法（高压缩比）。系统缺省值为6</td>
+</tr>
+</tbody>
+</table>
+<p>说明：压缩文件后缀为 bz2。</p>
+<h3 id="zip和unzip"><a href="#zip和unzip" class="headerlink" title="zip和unzip"></a>zip和unzip</h3><p>zip 【选项】 xxx.zip：压缩文件和目录</p>
+<p>​    -r：递归压缩，压缩目录</p>
+<p>zip -r mypackage.zip /home/：对home目录下文件压缩成 mypackage.zip 包。</p>
+<p>unzip：</p>
+<p>​    -d 目录：解压后的文件的存放目录</p>
+<p>unzip filename.zip</p>
+<p>unzip -d /opt/tmp/ mypackage.zip：解压mypackage.zip 到 /opt/tmp/目录下。</p>
+<h2 id="开关机命令"><a href="#开关机命令" class="headerlink" title="开关机命令"></a>开关机命令</h2><h3 id="Shutdown"><a href="#Shutdown" class="headerlink" title="Shutdown"></a>Shutdown</h3><p>-t：单位：s，在 t 秒后关机。</p>
+<p>-r：重启机器</p>
+<p>-h：关机后停机</p>
+<p>-c：取消shutdown指令</p>
+<p>说明：不管关机还是重启、首先运行Sync命令，把内存中的数据写到磁盘中。</p>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><ul>
+<li>reboot                重启</li>
+<li>shutdown -r now        立刻重启</li>
+<li>shutdown -r 10        10分钟后重启(root使用)</li>
+<li>shutdown -r 20:35    在20:35重启</li>
+</ul>
+<h3 id="关机"><a href="#关机" class="headerlink" title="关机"></a>关机</h3><ul>
+<li>halt                    立刻关机</li>
+<li>poweroff            立刻关机</li>
+<li>shutdown -h now        立刻关机(root使用)</li>
+<li>shutdown -h 10        10分钟后关机</li>
+</ul>
+<h2 id="日期时间命令"><a href="#日期时间命令" class="headerlink" title="日期时间命令"></a>日期时间命令</h2><p><strong>date，显示当前日期，</strong>+ 号不能少</p>
+<ul>
+<li>date：Wed Feb 20 23:08:00 CST 2019</li>
+<li>date “+%Y-%m-%d”：年月日</li>
+<li>date “+%Y-%m-%d %H-%M-%S”：年月日 时分秒</li>
+</ul>
+<p><strong>设置日期</strong></p>
+<ul>
+<li>date -s “2019-02-20 11:11:11”</li>
+</ul>
+<p><strong>cal指令，查看日历指令</strong></p>
+<ul>
+<li>cal：查看当前月份日历</li>
+<li>cal 2020：查看2020年所有日历</li>
+</ul>
+<h2 id="服务管理命令"><a href="#服务管理命令" class="headerlink" title="服务管理命令"></a>服务管理命令</h2><p>​    服务的本质也是进程，是在后台运行的，通常会监听某个端口，等待其它程序的请求，又称之为–守护进程。</p>
+<p>​    systemctl   【start|stop|restart|reload|status】 服务名</p>
+<ul>
+<li>查看防火墙状态<ul>
+<li>systemctl status firewalld</li>
+</ul>
+</li>
+<li>关闭防火墙<ul>
+<li>systemctl stop firewalld</li>
+</ul>
+</li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/04/22/2、Linux文件目录命令/" title= "2、Linux文件目录命令">
+                    <div class="nextTitle">2、Linux文件目录命令</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/04/22/1、Linux基本介绍/" title= "1、Linux基本介绍">
+                    <div class="prevTitle">1、Linux基本介绍</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
+        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
+        placeholder: "旅人，要说些什么嘛...",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux实用指令"><span class="toc-number">1.</span> <span class="toc-text">Linux实用指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Rpm-amp-Yum"><span class="toc-number">1.1.</span> <span class="toc-text">Rpm&amp;Yum</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查询指令"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">查询指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#卸载rpm包"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">卸载rpm包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装rpm包"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">安装rpm包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YUM"><span class="toc-number">1.1.1.</span> <span class="toc-text">YUM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sort"><span class="toc-number">1.2.</span> <span class="toc-text">Sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wget"><span class="toc-number">1.3.</span> <span class="toc-text">Wget</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vi-amp-Vim"><span class="toc-number">1.4.</span> <span class="toc-text">Vi&amp;Vim</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#运行模式"><span class="toc-number">1.4.1.</span> <span class="toc-text">运行模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-number">1.4.2.</span> <span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#命令行模式下："><span class="toc-number">1.4.2.1.</span> <span class="toc-text">命令行模式下：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压缩和解压缩"><span class="toc-number">1.5.</span> <span class="toc-text">压缩和解压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gzip和gunzip"><span class="toc-number">1.5.1.</span> <span class="toc-text">gzip和gunzip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bzip2"><span class="toc-number">1.5.2.</span> <span class="toc-text">bzip2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zip和unzip"><span class="toc-number">1.5.3.</span> <span class="toc-text">zip和unzip</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开关机命令"><span class="toc-number">1.6.</span> <span class="toc-text">开关机命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Shutdown"><span class="toc-number">1.6.1.</span> <span class="toc-text">Shutdown</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重启"><span class="toc-number">1.6.2.</span> <span class="toc-text">重启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关机"><span class="toc-number">1.6.3.</span> <span class="toc-text">关机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期时间命令"><span class="toc-number">1.7.</span> <span class="toc-text">日期时间命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务管理命令"><span class="toc-number">1.8.</span> <span class="toc-text">服务管理命令</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 71
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/10、Linux实用指令/" >10、Linux实用指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/12、Linux安装软件/" >12、Linux安装软件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/5、Linux用户管理命令/" >5、Linux用户管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/8、Linux磁盘分区和挂载/" >8、Linux磁盘分区和挂载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/6、Linux组管理和权限管理/" >6、Linux组管理和权限管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Listener/" >Listener</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Filter/" >Filter</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span><a class="archive-post-title" href= "/2019/02/22/负载均衡/" >负载均衡 常用算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/2019/01/17/HashMap浅析/" >hashMap浅析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2019/01/07/Synchronized/" >Synchronized</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2019/01/03/正则表达式基础/" >正则表达式基础</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2018/12/26/可扩展XML-Schema机制/" >可扩展XML-Schema机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2018/12/25/Oracle表空间、Schema、User/" >Oracle表空间、Schema、User</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/netty简介/" >netty简介</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker+Jenkins实现自动化部署/" >Docker+Jenkins实现自动化部署</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2018/12/24/Docker学习/" >Docker笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/04</span><a class="archive-post-title" href= "/2018/12/04/Tomcat/" >Tomcat流程浅析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/23</span><a class="archive-post-title" href= "/2018/11/23/Kotlin初识、及底图切换代码分析/" >Kotlin初识及底图切换代码分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2018/11/19/浅谈跨域——了解跨域的几种方式/" >浅谈跨域——了解跨域的几种方式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span><a class="archive-post-title" href= "/2018/11/16/Android smartTable的简单使用/" >SmartTable的简单使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" >ArcGIS Runtime 100与产品线结合带来的思考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/12</span><a class="archive-post-title" href= "/2018/11/12/ArcEngine开发中一些提高效率技巧/" >ArcEngine开发中一些提高效率技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/CopyOnWriteArrayList介绍/" >CopyOnWriteArrayList介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/Lambda收集器示例/" >Lambda收集器示例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/2018/11/06/java8-时间日期api/" >Java 8 之时间日期Api</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/05</span><a class="archive-post-title" href= "/2018/11/05/VC++内存泄漏检测工具浅究/" >VC++内存泄漏检测工具浅究</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2018/11/02/WebApp 开发简单入门/" >WebApp 开发简单入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/Kotlin初探/" >Kotlin初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/01</span><a class="archive-post-title" href= "/2018/11/01/JPA的简单介绍/" >JPA的简单介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" >Vue+iView+Webpack环境下IE浏览器兼容处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/DASC笔记/" >DASC笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2018/10/30/CAS笔记/" >CAS笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/2018/10/24/Java8 StringJoiner的使用/" >Java 8 之StringJoiner的使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java8之Optional/" >Java 8 之Optional</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2018/10/23/Java之Lambda表达式Stream使用/" >Java 8 之Lambda表达式Stream使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之fail-fast机制-万世威/" >Java 8 之fail-fast机制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之collection细节/" >Java 8 之collection细节</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/Java8之enum枚举-万世威/" >Java 8 之enum枚举</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/19</span><a class="archive-post-title" href= "/2018/10/19/20181019-XML解析-陈广禄/" >XML解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >DIST-Vue-SuperMap</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/12</span><a class="archive-post-title" href= "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >MPAndroidChart的简单使用以及心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/offlineremote/" >移动离线督察功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2018/09/24/legendfilter/" >移动图例过滤功能</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2018/09/16/Android Gis开发经验分享/" >Android GIS开发经验分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/16</span><a class="archive-post-title" href= "/2018/08/16/移动一张图专题分析-陈广禄/" >移动一张图专题分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/2018/08/13/landanalysis/" >移动用地分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >在线缓存功能开发分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/2018/07/01/Android性能分析工具/" >Android 性能分析工具</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/android优化方案/" >Android 优化方案</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >Retrofit简单封装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span><a class="archive-post-title" href= "/2018/02/22/Dubbo中负载均衡/" >Dubbo中使用的负载均衡实现解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >产品分析与代码监管之工具使用</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/Android性能优化的分析/" >Android 性能优化的分析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span><a class="archive-post-title" href= "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >Cesium技术分享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >矢量切片 & MMPK</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/23</span><a class="archive-post-title" href= "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >消息推送(iOS)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span><a class="archive-post-title" href= "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >多级List View的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span><a class="archive-post-title" href= "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >地名、专题、场景收藏</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2017/03/31/Android简单使用及快速入门/" >Android 简单使用及快速入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/03</span><a class="archive-post-title" href= "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >移动在线缓存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span><a class="archive-post-title" href= "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >Jenkins For iOS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span><a class="archive-post-title" href= "/2017/02/17/AndroidRecyclerView使用解析/" >Android Recycler View 使用解析</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
+    
+        <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
+    
+        <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
+    
+        <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
+    
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
+        <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
+    
+        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+    
+        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+    
+        <span class="sidebar-category-name" data-categories="郑家骜"><span class="iconfont-archer">&#xe60a;</span>郑家骜</span>
+    
+        <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
+    
+        <span class="sidebar-category-name" data-categories="黄震"><span class="iconfont-archer">&#xe60a;</span>黄震</span>
+    
+        <span class="sidebar-category-name" data-categories="于福豪"><span class="iconfont-archer">&#xe60a;</span>于福豪</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "xiaoshuiz"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

@@ -346,36 +346,28 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/09/16/Android Gis开发经验分享/" >
+        <a class="abstract-title" href = "/2018/10/30/CAS笔记/" >
             
-                <span>Android GIS开发经验分享</span>
+                <span>CAS笔记</span>
         </a>
         <div class="abstract-content">
-            Android Gis开发经验分享
-概述
-一、地图坐标系的认识
+            一、cas 简介：1.1 Architecture 图
 
-二、地图管理类的认识
 
-三、Gis开发熟知
-
-四、Gis开发平台差异化注意事项
-
-一、地图坐标系的认识
-1. WGS84坐标系一种国际上采用的地心坐标系.  
-
-2.    WGS84 Web墨卡托Web墨卡托是2005年谷歌在谷歌地图中首次使用的,如今主流的Web地图几乎都是使用的Web墨卡托,如：国内的百度地图、高德地图、腾讯地图和天地图等也是基于Web墨卡托（国内地图有加密要求，有两种情况，一种是在 Web墨卡托的基础上经过国家标准加密的国标02坐标系，熟称“火星坐标系”；另一种是在国标的02坐标系下进一步进行加密，...
+1.2 系统组件
+cas 服务端和cas 客户端是通过多种协议交互的物理组件。即由服务端和客户端两部分构成。(The CAS server and clients comprise the two physical components of the CAS system architecture that communicate by means of various protocols.) 
+cas 服务端：cas server 是基于spring框架的 java servlet，主要是为了实现用户校验以及授权访问CAS嵌入...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/16</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/30</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
     
 </div>
             
@@ -388,26 +380,245 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/16/移动一张图专题分析-陈广禄/" >
+        <a class="abstract-title" href = "/2018/10/24/Java8 StringJoiner的使用/" >
             
-                <span>移动一张图专题分析</span>
+                <span>Java 8 之StringJoiner的使用</span>
         </a>
         <div class="abstract-content">
-            移动一张图专题分析
-
-简介[专题模块为整个项目中的重要组成部分，也是不可或缺之一。用户可通过专题信息查看其主要层级结构和内部构造划分。对主要层级可进行收藏展示，便于直观查看。可手动点击某一层级结构打开对应图层，查看详细信息。]
-
-列表主要分为两种结构，一种为树状结构、一种为层级结构。以相同的数据模型展示不同的列表结构，便于用户选择。
-
-逻辑列表项包括三角号小图标、收藏按钮和点击开关的按钮。根据不同情境分别设置相应的展示状态。
-
-
-当为树状结构时：首先初始化专题列表，通过Id展示最新列表。当点击Item项时，我们会记录专题的id,通过id找到子集列表数据，查看子集的type类型是否为“ca...
+            Java8–StringJoiner的使用示例一12345678910public class StringJoinerTest1 &#123;    public static void main(String[] args) &#123;        StringJoiner joiner = new StringJoiner("--", "[[[_ ", "_]]]");        System.out.println(joiner.toString());        System.out.println(joiner.length());    &#125;&#125;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/16</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/24</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/23/Java8之Optional/" >
+            
+                <span>Java 8 之Optional</span>
+        </a>
+        <div class="abstract-content">
+            Java8–Optional一、基本示例​    Optional 是 Java8 提供的了 为了解决 Null 安全问题的一个 API 。善用Optional可以使我们代码中很多繁琐、丑陋的设计变得十分优雅 。
+看一个示例：
+12345public static String getName(User u) &#123;    if (u == null)        return "Unknown";    return u.name;&#125;
+改写成下面的形式和上面的没有什么太大区别。
+123456public static String getName(User u) &#...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/23</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/23/Java之Lambda表达式Stream使用/" >
+            
+                <span>Java 8 之Lambda表达式Stream使用</span>
+        </a>
+        <div class="abstract-content">
+            Lambda表达式Stream使用==来自 【 Java8 In Action】  一书==
+四种方法引用类型
+
+
+类型
+示例
+
+
+
+
+引用静态方法
+ContainingClass::staticMethodName
+
+
+引用某个对象的实例方法
+containingObject::instanceMethodName
+
+
+引用某个类型的任意对象的实例方法
+ContainingType::methodName
+
+
+引用构造方法
+ClassName::new
+
+
+
+筛选和切片：
+去重：
+
+截取：
+
+跳过元素：
+对流中每个元素应用函数：
+流的扁平化（合并流）：给 定 单 词 列 表[“Hell...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/23</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/22/Java8之fail-fast机制-万世威/" >
+            
+                <span>Java 8 之fail-fast机制</span>
+        </a>
+        <div class="abstract-content">
+            Fail-fast机制一、简介fail-fast 机制是java集合(Collection)中的一种错误机制。当多个线程对同一个集合的内容进行操作时，就可能会产生fail-fast事件。例如：当某一个线程A通过iterator去遍历某集合的过程中，若该集合的内容被其他线程所改变了；那么线程A访问集合时，就会抛出ConcurrentModificationException异常，产生fail-fast事件。
+二、示例1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/22/Java8之collection细节/" >
+            
+                <span>Java 8 之collection细节</span>
+        </a>
+        <div class="abstract-content">
+            Collection细节一、指定初始容量二、asList的缺陷2.1 避免使用基本数据类型数组转换为列表12345678public class Test &#123;	public static void main(String[] args) &#123;        		int[] ints = &#123;1,2,3,4,5&#125;;        		List list = Arrays.asList(ints);        		System.out.println("list'size：" + list.size());    	&#125;&#125;outPut...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/22/Java8之enum枚举-万世威/" >
+            
+                <span>Java 8 之enum枚举</span>
+        </a>
+        <div class="abstract-content">
+            Enum 枚举123public enum Color &#123;    RED, YELLOW, BLUE;&#125;
+==说明：==
+
+使用的是enum关键字而不是class
+多个枚举变量之间用 逗号 隔开
+枚举变量名大写，多个单词之间用 _ 隔开。  如。 ALL_NUM…
+定义完枚举变量后， 用分号 结束。如果只有枚举变量，而没有自定义变量，分号可以省略。
+使用  只需要【类名.变量名】就可以了，和使用静态变量一样。 
+
+方法：
+values()
+
+这个方法会返回包括所有枚举变量的数组 
+
+12345678910for (Color color : Color.values(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/19/20181019-XML解析-陈广禄/" >
+            
+                <span>XML解析</span>
+        </a>
+        <div class="abstract-content">
+            Java中xml解析
+#概述一般情况下服务器端返回给客户端的数据主要包括三种类型，字符串，此处输入代码xml，json，什么是XML？可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。特点，可读性强，传输效率低。它只有字典一种数据格式，是一种树型存储结构，必须有根节点，逐级嵌套（用树的思想来思考），不像JSON一样是键值对存储数据，不过也稍微有那样的意思，XML是用标签和值来存储数据。XML数据写入（保存）文件可以数据的持久性，便于网络传输。实际应用场景比较少，相反json解析用的比较广泛。目前还有一些免费的接口还是会返回xml形式数据，因此学习xm...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/19</span>
             </div>
             <!-- tags  -->
             
@@ -426,40 +637,41 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/13/landanalysis/" >
+        <a class="abstract-title" href = "/2018/10/12/2018-10-12-DIstVueSuperMap-汪洋/" >
             
-                <span>移动用地分析</span>
+                <span>DIST-Vue-SuperMap</span>
         </a>
         <div class="abstract-content">
-               移动用地分析功能
-
-
-
-简介用地分析是指在对地区各自然要素进行综合分析研究的基础上，按照城市规划和建设要求、用地整备工程技术的可能性和经济性，对城市规划用地进行适用性分析评定，以划出城市用地的不同等级。另外用于查清村和农、林、牧、渔场，居民点及其以外的独立工矿企事业单位土地权属界线和村以上各级行政界线，查清各类用地面积、分布和利用状况。在本文中，用地分析主要实现为对所选中区域进行土地类别、面积和分布的识别与判断，计算其中各个层级占其父级的百分比以及面积情况。
-
+            DIST VUE SUPERMAP
+基于 VUE 2.x 的 SuperMap iClient 3D for WebGL(built on Cesium)组件
 
 
 
 
-实现逻辑略析
-可视化与相关功能操作窗口的基本实现
+1. 介绍SuperMap iClient 3D for WebGL 一款在服务式 GIS 架构体系中， 无任何插件，跨浏览器的客户端产品。它基于Cesium开源框架,面向 HTML 5 的三维应用开发，快速构建内容丰富、响应迅速、体验流畅的三维真空间应用。支持加载：
 
 
-加载功能基础的地图底图与分析操作图层
-
-
-分析区域的选择并获...
+SuperMap iServer 服务
+地图服务
+数据服务
+量算服务
+查询服务
+空间关系服务
+专题图服务
+空间分析服务类
+SuperMap 云服务
+OG...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/13</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/12</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "3D">3D</a>
     
 </div>
             
@@ -472,235 +684,25 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >
+        <a class="abstract-title" href = "/2018/10/12/20181012-MPAndroidChart-万峥嵘/" >
             
-                <span>在线缓存功能开发分享</span>
+                <span>MPAndroidChart的简单使用以及心得</span>
         </a>
         <div class="abstract-content">
-            
-1. 简介
-离线在线一体化数据存储在企业级地理数据库中，通过Arcgis桌面加载后配图处理，并发布到Arcgis for Server中，供移动端设备编辑使用，并可以同步回传版本化存档。
-应用场景在没有网络的情况下我们需要用到在线的地图数据进行操作，这些数据需要有一定的时效性，如果采用，打包离线包的方式提前做好离线数据，那时效性相对较差。所以，用在线缓存技术可以支持这一点。
+            1.MPAndroidChart简介
+Github:https://github.com/PhilJay/MPAndroidChart
+A powerful Android chart view / graph view library, supporting line- bar- pie- radar- bubble- and candlestick charts as well as scaling, dragging and animations.
 
 
-2. 在线缓存的实现逻辑思路
-在地图上选定区域，作为需要下载对应离线数据的地图范围（可以设定范围，也可以自定义）
-获取下载滴地图服务所需要的具体参数
-在本地创建文件，存放下载的数据，以供使用
-
-
-3. 用到的核...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/01/Android性能分析工具/" >
-            
-                <span>Android 性能分析工具</span>
-        </a>
-        <div class="abstract-content">
-            一、官方工具  一般来说, 学习一门新的技术, 最应该做的就是阅读其官方文档, 那是最权威的。Android本身给我们提供了很多App性能测试和分析工具, 而且大部分都集成到Android Studio或DDMS中，非常方便使用。
-1.StrictMode  说明：       顾名思义, “严格模式”，主要用来限制应用做一些不符合性能规范的事情。一般用来检测主线程中的耗 时操作和阻塞。开启StrictMode后, 如果线程中做一些诸如读写文件, 网络访问等操作, 将会在Log console输出一些警告, 警告信息包含Stack Trace来显示哪个地方出了问题。  作用：    主要...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/05/18/android优化方案/" >
-            
-                <span>Android 优化方案</span>
-        </a>
-        <div class="abstract-content">
-            一.优化目的1.优化方向：简化操作、提升性能、界面调优、体验度调整。2.在原有的基础上对程序的布局、性能、网络、架构的重整：2.1、布局调整：界面刷新无延迟、控件加载更高效。
-2.2、性能：操作流畅、毫秒级响应速度。
-2.3、网络：响应速度快、秒级展示。
-2.4、架构：MVC转MVP架构清晰。
-二.优化内容内容概要：布局调整、功能模块化、架构整理。1.布局调整：   减少布局层级，字体、UI界面调整。
-2.模块化：功能模块单独提取，进行单独管理。   
-3.代码逻辑处理：3.1、高内聚、低耦合：一个类专注于一件事、对象与类之间降低耦合度，使代码的更新迁移方便快捷。
-3.2、功能模块化：每...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/18</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >
-            
-                <span>Retrofit简单封装</span>
-        </a>
-        <div class="abstract-content">
-            #Retrofit简单封装
-1 简介一个Restful的HTTP网络请求框架（基于OKHttp）
-1.1 功能
-基于OKHttp &amp; 遵循Restful API设计风格
-通过注解配置网络请求参数
-支持同步 &amp; 异步网络请求
-支持多种数据的解析 &amp; 序列化格式(Gson、JSON、XML、Protobuf)
-提供 RxJava支持
-
-1.2 优点
-简洁易用：通过注解配置网络请求参数、采用大量设计模式简化使用
-可拓展性好：功能模块高度封装、解耦彻底，如自定义Converters等
-功能强大： 支持同步异步，支持各种数据解析，支持RxJava
-
-1.3 本质Retrof...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/02/22/Dubbo中负载均衡/" >
-            
-                <span>Dubbo中使用的负载均衡实现解析</span>
-        </a>
-        <div class="abstract-content">
-            Dubbo中负载均衡官方文档http://dubbo.apache.org/zh-cn/docs/user/demos/loadbalance.html
-http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
-简介​    LoadBalance ，它的职责是将网络请求，或者其他形式的负载“均摊”到不同的机器上。避免集群中部分服务器压力过大，而另一些服务器比较空闲的情况，解决大量并发访问服务问题。通过负载均衡，可以让每台服务器获取到适合自己处理能力的负载。在为高负载服务器分流的同时，还可以避免资源浪费。
+2.MPAndroidChart之折线图（LineChart）1.效果图
+2. 基本组成元素
+x轴（最大/最小值 颜色 高宽等）
 ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/02/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Dubbo">Dubbo</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/01/11/20180111-产品分析与代码监管之工具使用-张泉/" >
-            
-                <span>产品分析与代码监管之工具使用</span>
-        </a>
-        <div class="abstract-content">
-            一、    Sonarqube–代码检查工具1.    Sonarqube的安装（1）    下载sonarqube之后，解压打开bin目录，找到对应OS目录下的StartSonar。我电脑是win64位系统，则打开的是：（2）    启动浏览器，访问http://localhost:9000，如出现下图则表示安装成功。
-2.    Sonarqube的配置（1）    首先数据库的配置，这次我使用的是mysql。那么在mysql中新建一个数据库。（2）    打开安装目录下/conf/sonar.properties文件（3）    重启sonarqube服务，再次访问http://l...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/01/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/08/Android性能优化的分析/" >
-            
-                <span>Android 性能优化的分析</span>
-        </a>
-        <div class="abstract-content">
-            性能分析概述  编辑不合标准的应用程序性能会产生软件或网络问题。为确保软件满足或超过设计的期望值，有必要分析应用程序的性能以发现潜在的问题。这个过程被称为“性能分析”。它包括检查应用程序以确保每个组件有效地工作，并根据设计密切注视处理器的使用、网络和系统服务、存储和输入/输出(I/O)。
-1.Android App优化之性能分析工具图例：
-&lt;img src=http://thyrsi.com/t6/378/1538286566x-1404793035.png /&gt;
-2.Android App优化之提升App启动速度之理论基础不同专题加载方式启动速度对比：
-&lt;img sr...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/08</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/12</span>
             </div>
             <!-- tags  -->
             
@@ -716,7 +718,7 @@ http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/page/4/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/6/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/page/4/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><a class="extend next" rel="next" href="/archives/page/6/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1676,9 +1678,247 @@ http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 59
+        Total : 71
         </div>
         <!-- search  -->
         
@@ -1691,6 +1931,66 @@ http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/10、Linux实用指令/" >10、Linux实用指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/12、Linux安装软件/" >12、Linux安装软件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/5、Linux用户管理命令/" >5、Linux用户管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/8、Linux磁盘分区和挂载/" >8、Linux磁盘分区和挂载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/6、Linux组管理和权限管理/" >6、Linux组管理和权限管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1758,12 +2058,12 @@ http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
@@ -2010,6 +2310,8 @@ http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
@@ -2032,13 +2334,13 @@ http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
-    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
@@ -2081,11 +2383,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
-    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2100,8 +2404,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     

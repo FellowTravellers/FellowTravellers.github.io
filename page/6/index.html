@@ -359,117 +359,66 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/09/01/2017-09-01Cesium技术分享-刘小标/" >
+        <a class="abstract-title" href = "/2018/09/24/offlineremote/" >
             
-                <span>Cesium技术分享</span>
+                <span>移动离线督察功能</span>
         </a>
         <div class="abstract-content">
             
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/09/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "3D">3D</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/23/20170616-消息推送（IOS）-孙俊祥/" >
-            
-                <span>消息推送(iOS)</span>
-        </a>
-        <div class="abstract-content">
-            APNS的推送机制首先我们看一下苹果官方给出的对IOS推送机制的解释。如下图
 
-Provider就是我们自己程序的后台服务器，APNS是Apple Push Notification Service的缩写，也就是苹果的推送服务器。上图可以分为三个阶段：第一阶段：应用程序的服务器端把要发送的消息、目的iPhone的标识打包，发给APNS。第二阶段：APNS在自身的已注册Push服务的iPhone列表中，查找有相应标识的iPhone，并把消息发送到iPhone。第三阶段：iPhone把发来的消息传递给相应的应用程序，并且按照设定弹出Push通知。
-APNS推送通知的详细工作流程下面这张图是说...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/08/23/20170823-矢量切片MMPK-汪洋/" >
-            
-                <span>矢量切片 &amp; MMPK</span>
-        </a>
-        <div class="abstract-content">
-            矢量切片 &amp; MMPK基于ArcGIS SDK100 的新特性1. 矢量切片1.1 定义1.1.0 栅格数据以二维矩阵的形式来表示地理空间信息的数据结构，其中数据的最小存在单元是以像素的形式存在，可以理解为和图片的组织结构类似，以分辨率等特征作为精度的定义标准。
 
-1.1.1 矢量数据试图利用点、线、面等几何要素来表现这个世界，其数据结构紧凑精准，数据图形质量好，有利于地理信息检索与网络传输等。其中矢量数据的最小单元是以点的形式存在，点构成线，线组成面，面构造出体
+目录
 
-1.1.2 传统金字塔
-1.1.3 矢量切片
-1.2 矢量切片优势1.2.1 矢量与栅格根据数据组织结构方式的不同...
+
+
+
+
+
+为什么做离线督察？
+
+
+怎么做离线督察？
+
+
+应用流程
+
+
+为什么做离线督察？
+离线督察优点：
+
+
+不接后台，摆脱网络问题a.是否将内网映射到外网   b.是否需要挂VPN
+
+
+响应速度问题报脱了等待后台相应的问题，释放等待时间，一键响应。
+
+
+安全问题摆脱信息传输安全问题，不用担心信息被抓走。
+
+
+离线督察优点：
+
+
+数据传输数据传输只能靠物理拷贝。增加了数据传输的不方便性。
+
+
+数据管理需要后台操作与存储的问题现在则需要前端来处理，还需要数据管理的部分。
+
+
+怎么做离线督察？1.设备验证与用户管理
+在线的设备注册可以请求后台
+
+
+公钥可以请求获取
+
+
+登录可...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/08/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/06/23/20170623-多级ListView的实现-王凯伟/" >
-            
-                <span>多级List View的实现</span>
-        </a>
-        <div class="abstract-content">
-            1. 摘要走查主题：Android 多级ListView的设计与实现主讲人员：王凯伟参加人员：杨龙、万峥嵘、汪洋。走查时间：2017年6月23日星期五下午16:00到17：30走查地点：公司负一楼
-2. 走查内容2.1常规做法ListView为多级的显示方式，与此类似的有文件系统、省市区分级等等，类似于B树。最新效果图如下：其中通过Adapter适配到ListView上的数据结构大致如下：
-2.2一般会有两种数据存储形式A.  通过索引连接树的节点：某一点通过索引将所有点联系，类似于链表，任何两点间没有直接关系，如果要得到某个点需要算法和当前表/总表来遍历。存储效率高但遍历较耗时。
-&l...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/06/23</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/24</span>
             </div>
             <!-- tags  -->
             
@@ -488,58 +437,24 @@ APNS推送通知的详细工作流程下面这张图是说...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/04/21/20170421-地名、专题、场景收藏-刘小标/" >
+        <a class="abstract-title" href = "/2018/09/24/legendfilter/" >
             
-                <span>地名、专题、场景收藏</span>
+                <span>移动图例过滤功能</span>
         </a>
         <div class="abstract-content">
-            一、    收藏模型1、收藏类型enum FavoriteType: Int {
-   case Theme = 0     // 专题
-   case Scene = 1     // 场景
-   case Place = 2     // 地名
- }
-2、收藏数据模型class Archive: NSObject, NSCoding {
-    var type: FavoriteType?
-    var ID: String?
-    var name: String?
-    var createDate: String?
-    var pointX: Double?
-   ...
+             
+   移动图例过滤功能
+
+
+—– &emsp; xiaoshuiz&emsp;  &emsp;&emsp;&emsp; 
+简介图例过滤是对于多图例图层的一种查看方式，这种查看方式方便对特定类型的图块进行统一查看。多图例图层一般为DynamicLayer与FeatureLayer,而且单个图例的图层与多个图例的图层，其渲染器也是不同的，单个图例的为SimpleRenderer，多个图例为UniqueValueRenderer。在本文中，图例过滤主要为对图例进行特定过滤达到多图层互斥过滤的效果，另外对于在线图例过滤使用了Layer Definition进行图层Visible控制问题。
+
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/04/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/03/31/Android简单使用及快速入门/" >
-            
-                <span>Android 简单使用及快速入门</span>
-        </a>
-        <div class="abstract-content">
-            开发前的准备：1.配置java环境2.下载安装jdk、下载sdk3.下载开发工具：android studio 、eclipse4.项目运行设备：模拟器、手机、平板电脑5.Android基本常识：比如：四大组件的了解等…自行补脑!开发场景：1.新建项目启动流程2.项目维护常用步骤android studio 项目结构 ：
-&lt;img src=http://thyrsi.com/t6/377/1538203420x-1404781090.png /&gt;  eclipse 项目结构: &lt;img src=http://thyrsi.com/t6/377/1538203534x-1...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/03/31</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/24</span>
             </div>
             <!-- tags  -->
             
@@ -558,26 +473,36 @@ APNS推送通知的详细工作流程下面这张图是说...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/03/03/20170303-在线缓存(iOS)-汪洋/" >
+        <a class="abstract-title" href = "/2018/09/16/Android Gis开发经验分享/" >
             
-                <span>移动在线缓存</span>
+                <span>Android GIS开发经验分享</span>
         </a>
         <div class="abstract-content">
-            移动在线缓存一.在线缓存的必要性   众所周知，移动一张图目前包含两个应用场景：在线和离线。在线场景中，多用户共用数据，与云服务同步，实时性较强。而后者为单用户使用数据，无实时性要求，不常更新，需要数据拷贝，数据也能保证一定的隐秘性。那么在线缓存的应用场景突出在哪里呢？
-###1.在线离线一体化目前移动一张图的在线离线需要在登录时用户手动切换。而数据方面二者并不是同步的，在数据管理方面存在一定的弊端。而通过在线缓存即可实现多用户同步数据，具有较强的数据实时性,数据也便于云端管理。
-###2. 方便用户操作。
-用户在在线与离线的应用场景中可以自由切换,比如在线过程中，临时切换，并不需要返回...
+            Android Gis开发经验分享
+概述
+一、地图坐标系的认识
+
+二、地图管理类的认识
+
+三、Gis开发熟知
+
+四、Gis开发平台差异化注意事项
+
+一、地图坐标系的认识
+1. WGS84坐标系一种国际上采用的地心坐标系.  
+
+2.    WGS84 Web墨卡托Web墨卡托是2005年谷歌在谷歌地图中首次使用的,如今主流的Web地图几乎都是使用的Web墨卡托,如：国内的百度地图、高德地图、腾讯地图和天地图等也是基于Web墨卡托（国内地图有加密要求，有两种情况，一种是在 Web墨卡托的基础上经过国家标准加密的国标02坐标系，熟称“火星坐标系”；另一种是在国标的02坐标系下进一步进行加密，...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/03/03</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/09/16</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
     
 </div>
             
@@ -590,58 +515,262 @@ APNS推送通知的详细工作流程下面这张图是说...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2017/02/24/20170224-Jenkins for iOS-刘小标/" >
+        <a class="abstract-title" href = "/2018/08/16/移动一张图专题分析-陈广禄/" >
             
-                <span>Jenkins For iOS</span>
+                <span>移动一张图专题分析</span>
         </a>
         <div class="abstract-content">
-            Jenkins for iOS with Fastlane and SVN
-一、搭建环境Jenkins的安装需要JDK环境，JDK安装方法自行参考网络。Jenkins的安装有两种方式，一种是java包安装，另一种是pkg可执行程序（两种安装后的配置一样，pkg安装会在电脑上多出一个用户）。本文采用war包 + tomcat安装方法。
-1   安装Java环境，请自行下载安装
-2   安装tomcat,打开官网地址
-2.1    将下载的zip包解压（可以重命名），把解压后的文件夹放到 /Library下。
-2.2    在终端启动Tomcat服务器，这里首先cd到Tomcat的bin目录...
+            移动一张图专题分析
+
+简介[专题模块为整个项目中的重要组成部分，也是不可或缺之一。用户可通过专题信息查看其主要层级结构和内部构造划分。对主要层级可进行收藏展示，便于直观查看。可手动点击某一层级结构打开对应图层，查看详细信息。]
+
+列表主要分为两种结构，一种为树状结构、一种为层级结构。以相同的数据模型展示不同的列表结构，便于用户选择。
+
+逻辑列表项包括三角号小图标、收藏按钮和点击开关的按钮。根据不同情境分别设置相应的展示状态。
+
+
+当为树状结构时：首先初始化专题列表，通过Id展示最新列表。当点击Item项时，我们会记录专题的id,通过id找到子集列表数据，查看子集的type类型是否为“ca...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/02/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "iOS">iOS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2017/02/17/AndroidRecyclerView使用解析/" >
-            
-                <span>Android Recycler View 使用解析</span>
-        </a>
-        <div class="abstract-content">
-            移动应用团队代码走查（20170217）1 摘要走查主题：Android RecyclerView  使用解析主讲人员：肖健参加人员：杨龙、万峥嵘、汪洋。走查时间：2017年2月17日星期五下午16:00到17：30走查地点：公司负一楼2 走查内容2.1 RecyclerView简介  在android L的预览版中，最新的v7支持包新添加了两个控件：RecyclerView和CardView。今天讲解的RecyclerView是经典的ListView的进化与升          华，与ListView比起来具有高度的解耦、更加灵活的特性，但也因此引入了一定的复杂性。
-2.2 Recyc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/02/17</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/16</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/08/13/landanalysis/" >
+            
+                <span>移动用地分析</span>
+        </a>
+        <div class="abstract-content">
+               移动用地分析功能
+
+
+
+简介用地分析是指在对地区各自然要素进行综合分析研究的基础上，按照城市规划和建设要求、用地整备工程技术的可能性和经济性，对城市规划用地进行适用性分析评定，以划出城市用地的不同等级。另外用于查清村和农、林、牧、渔场，居民点及其以外的独立工矿企事业单位土地权属界线和村以上各级行政界线，查清各类用地面积、分布和利用状况。在本文中，用地分析主要实现为对所选中区域进行土地类别、面积和分布的识别与判断，计算其中各个层级占其父级的百分比以及面积情况。
+
+
+
+
+
+实现逻辑略析
+可视化与相关功能操作窗口的基本实现
+
+
+加载功能基础的地图底图与分析操作图层
+
+
+分析区域的选择并获...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/13</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/08/05/在线缓存功能开发分享-万峥嵘/" >
+            
+                <span>在线缓存功能开发分享</span>
+        </a>
+        <div class="abstract-content">
+            
+1. 简介
+离线在线一体化数据存储在企业级地理数据库中，通过Arcgis桌面加载后配图处理，并发布到Arcgis for Server中，供移动端设备编辑使用，并可以同步回传版本化存档。
+应用场景在没有网络的情况下我们需要用到在线的地图数据进行操作，这些数据需要有一定的时效性，如果采用，打包离线包的方式提前做好离线数据，那时效性相对较差。所以，用在线缓存技术可以支持这一点。
+
+
+2. 在线缓存的实现逻辑思路
+在地图上选定区域，作为需要下载对应离线数据的地图范围（可以设定范围，也可以自定义）
+获取下载滴地图服务所需要的具体参数
+在本地创建文件，存放下载的数据，以供使用
+
+
+3. 用到的核...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/08/05</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/07/01/Android性能分析工具/" >
+            
+                <span>Android 性能分析工具</span>
+        </a>
+        <div class="abstract-content">
+            一、官方工具  一般来说, 学习一门新的技术, 最应该做的就是阅读其官方文档, 那是最权威的。Android本身给我们提供了很多App性能测试和分析工具, 而且大部分都集成到Android Studio或DDMS中，非常方便使用。
+1.StrictMode  说明：       顾名思义, “严格模式”，主要用来限制应用做一些不符合性能规范的事情。一般用来检测主线程中的耗 时操作和阻塞。开启StrictMode后, 如果线程中做一些诸如读写文件, 网络访问等操作, 将会在Log console输出一些警告, 警告信息包含Stack Trace来显示哪个地方出了问题。  作用：    主要...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/01</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/05/18/android优化方案/" >
+            
+                <span>Android 优化方案</span>
+        </a>
+        <div class="abstract-content">
+            一.优化目的1.优化方向：简化操作、提升性能、界面调优、体验度调整。2.在原有的基础上对程序的布局、性能、网络、架构的重整：2.1、布局调整：界面刷新无延迟、控件加载更高效。
+2.2、性能：操作流畅、毫秒级响应速度。
+2.3、网络：响应速度快、秒级展示。
+2.4、架构：MVC转MVP架构清晰。
+二.优化内容内容概要：布局调整、功能模块化、架构整理。1.布局调整：   减少布局层级，字体、UI界面调整。
+2.模块化：功能模块单独提取，进行单独管理。   
+3.代码逻辑处理：3.1、高内聚、低耦合：一个类专注于一件事、对象与类之间降低耦合度，使代码的更新迁移方便快捷。
+3.2、功能模块化：每...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/18</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/05/11/20180511-Retrofit简单封装-汪洋/" >
+            
+                <span>Retrofit简单封装</span>
+        </a>
+        <div class="abstract-content">
+            #Retrofit简单封装
+1 简介一个Restful的HTTP网络请求框架（基于OKHttp）
+1.1 功能
+基于OKHttp &amp; 遵循Restful API设计风格
+通过注解配置网络请求参数
+支持同步 &amp; 异步网络请求
+支持多种数据的解析 &amp; 序列化格式(Gson、JSON、XML、Protobuf)
+提供 RxJava支持
+
+1.2 优点
+简洁易用：通过注解配置网络请求参数、采用大量设计模式简化使用
+可拓展性好：功能模块高度封装、解耦彻底，如自定义Converters等
+功能强大： 支持同步异步，支持各种数据解析，支持RxJava
+
+1.3 本质Retrof...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/11</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/02/22/Dubbo中负载均衡/" >
+            
+                <span>Dubbo中使用的负载均衡实现解析</span>
+        </a>
+        <div class="abstract-content">
+            Dubbo中负载均衡官方文档http://dubbo.apache.org/zh-cn/docs/user/demos/loadbalance.html
+http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html
+简介​    LoadBalance ，它的职责是将网络请求，或者其他形式的负载“均摊”到不同的机器上。避免集群中部分服务器压力过大，而另一些服务器比较空闲的情况，解决大量并发访问服务问题。通过负载均衡，可以让每台服务器获取到适合自己处理能力的负载。在为高负载服务器分流的同时，还可以避免资源浪费。
+...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/02/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Dubbo">Dubbo</a>
     
 </div>
             
@@ -651,7 +780,7 @@ APNS推送通知的详细工作流程下面这张图是说...
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/5/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+        <a class="extend prev" rel="prev" href="/page/5/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1693,9 +1822,247 @@ APNS推送通知的详细工作流程下面这张图是说...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 59
+        Total : 71
         </div>
         <!-- search  -->
         
@@ -1708,6 +2075,66 @@ APNS推送通知的详细工作流程下面这张图是说...
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/10、Linux实用指令/" >10、Linux实用指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/12、Linux安装软件/" >12、Linux安装软件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/5、Linux用户管理命令/" >5、Linux用户管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/8、Linux磁盘分区和挂载/" >8、Linux磁盘分区和挂载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/6、Linux组管理和权限管理/" >6、Linux组管理和权限管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1775,12 +2202,12 @@ APNS推送通知的详细工作流程下面这张图是说...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
@@ -2027,6 +2454,8 @@ APNS推送通知的详细工作流程下面这张图是说...
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
@@ -2049,13 +2478,13 @@ APNS推送通知的详细工作流程下面这张图是说...
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
-    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
@@ -2098,11 +2527,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
-    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2117,8 +2548,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     

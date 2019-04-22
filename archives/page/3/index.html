@@ -346,60 +346,33 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/06/Lambda收集器示例/" >
+        <a class="abstract-title" href = "/2018/12/24/netty简介/" >
             
-                <span>Lambda收集器示例</span>
+                <span>netty简介</span>
         </a>
         <div class="abstract-content">
-            Lambda收集器示例Collectors常用方法
+            1、Netty简介Netty是一个 异步 事件驱动 的网络应用程序框架 用于快速开发可维护的高性能协议服务器和客户端。
+
+异步：当一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者。
+
+事件驱动：事件驱动模型是基于发布-订阅模式的编程模型。（下面的图rabbitMQ是不是有点像）
 
 
-工厂方法
-返回类型
-作用
+SEDA：SEDA(Staged Event-Driven Architecture)的核心思想是把一个请求处理过程分成几个Stage，不同资源消耗的Stage使用不同数量的线程来处理，Stage间使用事件驱动的异步通信模式。
 
 
-
-
-toSet
-Set
-把流中所有项目收集到一个 Set，删除重复项
-
-
-toList
-List
-收集到一个 List 集合中
-
-
-toCollection
-Collection
-把流中所有项目收集到给定的供应源创建的集合menuStream.collect(toCollection(), ArrayList::new)
-
-
-counting
-Long
-计算流中元素的个数
-
-
-summingInt
-Integer
-对流中项目的一个整数属性求和
-
-
-averagingInt
-Double
-计算流中项目 I...
+Netty是一...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/24</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "WebSocket">WebSocket</a>
     
 </div>
             
@@ -412,34 +385,35 @@ Double
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/06/java8-时间日期api/" >
+        <a class="abstract-title" href = "/2018/12/24/Docker+Jenkins实现自动化部署/" >
             
-                <span>Java 8 之时间日期Api</span>
+                <span>Docker+Jenkins实现自动化部署</span>
         </a>
         <div class="abstract-content">
-            Java8-时间日期API对比
-线程不安全：java.util.Date 这个类线程不安全，而且所有日期类都是可变的。 
-时间处理麻烦：默认的开始日期从1900年，不支持国际化，不提供时区支持 。
-容易导错包。（java.util 和 java.sql）
-月份从0开始。
-
-新API介绍
-Instant——它代表的是时间戳
-LocalDate——不包含具体时间的日期，比如2014-01-14
-LocalTime——它代表的是不含日期的时间
-LocalDateTime——它包含了日期及时间
-ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量是以UTC/格林威治时间为基准的...
+            1、使用dockerfile构建镜像1.1 创建目录1mkdir -p ~/docker_jdk1.8/	# 创建一个存放dockerfile和jdk的地方
+1.2 下载JDK8，将其copy到刚刚创建的目录中1.3 创建dockerfile#依赖镜像名称和ID
+FROM centos:7
+#指定镜像创建者信息
+MAINTAINER ITCAST
+#切换工作目录
+WORKDIR /usr
+RUN mkdir /usr/local/java
+#ADD 是相对路径jar,把java添加到容器中
+ADD jdk-8u171-linux-x64.tar.gz /usr/local/java/
+#...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/24</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "CI">CI</a>
     
 </div>
             
@@ -452,24 +426,27 @@ ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/05/VC++内存泄漏检测工具浅究/" >
+        <a class="abstract-title" href = "/2018/12/24/Docker学习/" >
             
-                <span>VC++内存泄漏检测工具浅究</span>
+                <span>Docker笔记</span>
         </a>
         <div class="abstract-content">
-            VC++内存泄漏检测工具浅究前言内存泄漏，即未能正确释放以前分配的内存，是 C/C++ 应用程序中最难以捉摸也最难以检测到的 Bug 之一。 最初少量内存泄漏可能不引人注目，但随着时间的推移，内存泄漏越来越多，就会出现一些征兆，包括性能下降，在应用程序内存不足时发生崩溃。 更严重的是，占用了所有可用内存的泄漏应用程序可能会导致其他应用程序崩溃，从而无法确定问题出在哪个应用程序。 即使看似无害的内存泄漏也可能说明存在其他问题应当纠正。本文以VLD（visual leak detector）工具及C 运行库 (CRT) 调试堆函数作为研究对象。
-正文VLD（visual leak detec...
+            一、Docker简介由于在项目部署的时候经常会出现在本机上运行是好使的，但是部署到服务器上时出现各种问题，而这种问题的原因经常是因为环境的问题，所以Docker出现了。
+Docker 是基于Go语言实现的开源项目。
+Docker是在Linux容器技术的基础上发展出来的。我们可以将应用运行在Docker容器上，而Docker容器在任何操作系统上都是一致的。
+Docker主要通过对应用组件的封装、分发、部署、运行等进行管理，来实现用户的app及其运行环境能够做到一次封装，到处运行。
+二、Docker的安装1、安装Docker1234567891011121314151617181920212...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/05</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/24</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "C++">C++</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Docker">Docker</a>
     
 </div>
             
@@ -482,36 +459,27 @@ ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/02/WebApp 开发简单入门/" >
+        <a class="abstract-title" href = "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >
             
-                <span>WebApp 开发简单入门</span>
+                <span>BS运维后期重构思路</span>
         </a>
         <div class="abstract-content">
-            一、概述目前市面的移动应用很多大致分为三类：
+            BS运维后期重构思路主要从以下几个方面进行。
 
-   1.Native_App: 原生APP 具有最佳用户体验、可访问本地资源，调用移动硬件设备。
-
-   2.Hybrid_App：混合APP 
-
-   3.Web_App ：  基于web系统和应用，运行于网络和浏览器之上，具备无需要安装包、节约手机空间、低成本开发的优势。
-
-   4.其他：wep_app、uni_app等。
-二、WebApp开发基础准备  1.知识储备：HTML/HTML5、CSS/CSS3基础知识，了解JS开发。
-  推荐学习网站：http://www.w3school.com.cn/h.asp
-
-
-2.开发工具：...
+1.统一代码风格，因为当前运维有两种编码方式，一种是有状态的类编程，一种是无状态的函数式编程，最后要统一成官方推荐的有状态的类编程方式；
+2.Dva(状态管理优化)，当前运维页面虽然可以对通过Dva进行状态变化的快速渲染，但是当改页面消失时，一些不需要的状态依然在运行内存中未被释放，而且model的reducers中更新的方法重复，完全可以使用一个方法进行替换；
+3.WebSocket接入，考虑到移动模块接入设备管理和消息推送后，当有新申请的设备要授权时前端要提醒运维使用者及时进行授权处理，推送消息给应用端；因此可以考虑做个消息接收和推送的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/02</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "BS运维">BS运维</a>
     
 </div>
             
@@ -524,30 +492,86 @@ ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/Kotlin初探/" >
+        <a class="abstract-title" href = "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >
             
-                <span>Kotlin初探</span>
+                <span>React和Vue比较</span>
         </a>
         <div class="abstract-content">
-            Kotlin初探本文只起抛砖引玉之用，详细教程请谷歌百度
-Kotlin 简述特点与优势
-基于JVM的新的编程语言
-由JetBrains开发（Java IDE 之父）
-谷歌官方宣布使用
-易学习，轻量级，函数式编程，语法简洁
-100%兼容java入手从变量开始来了解下Kotlin。常量与变量编程语言中，我们熟知的常量与变量是最基本的数据形式。常量
-十进制：123
-长整型以大写的 L 结尾：123L
-16 进制以 0x 开头：0x0F
-2 进制以 0b 开头：0b00001011
-Doubles 默认写法: 123.5, 123.5e10
-Floats 使用 f 或者 F 后缀：123.5f
-...
+            Vue和React两个JavaScript框架都是当下比较受欢迎的，下面我们来一起探讨下它们的异同和技术选型。
+1. 相同点
+
+1.1 都使用了虚拟Dom   Virtual DOM是一个映射真实DOM的JavaScript对象，如果需要改变任何元素的状态，那么是先在Virtual DOM上进行改变，而不是直接改变真实的DOM。当有变化产生时，一个新的Virtual DOM对象会被创建并计算新旧Virtual DOM之间的差别。之后这些差别会应用在真实的DOM上。在HTML中的标签在JavaScript中，虚拟Dom可以用对象简单地创造一个针对上面例子的映射当新一项被加进去这个JavaS...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "React">React</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Vue">Vue</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/12/04/Tomcat/" >
+            
+                <span>Tomcat流程浅析</span>
+        </a>
+        <div class="abstract-content">
+            Tomcat整体架构图
+​    Tomcat 中最顶层的容器叫 Server（代表整个服务器），Server中包含至少一个Service（用于提供服务）。        
+​    Service主要包含两个部分：Connector和Container。他们的作用如下：
+1、Connector用于处理连接相关的事情，并提供Socket与Request和Response相关的转化; 
+2、Container用于封装和管理Servlet，以及具体处理Request请求；
+一个Tomcat只有一个Server，一个Server可以包含多个Service，一个Service只有一个Contai...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/04</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/11/23/Kotlin初识、及底图切换代码分析/" >
+            
+                <span>Kotlin初识及底图切换代码分析</span>
+        </a>
+        <div class="abstract-content">
+            Kotlin初识、及底图切换代码分析
+简介Kotlin是一种在 Java 虚拟机上运行的静态类型编程语言，被称之为 Android 世界的Swift，由 JetBrains 设计开发并开源。在Kotlin 语言出现之前，几乎所有的安卓应用程序都是使用Java语言编写的。但在2017年5月，google宣布Kotlin成为安卓的官方语言后，经过半年的发展，使用Kotlin 的开发者中5%增长到了15%，并且还在呈现上升趋势。2017年9月29日，1.2Beta版发布。并宣布 Kotlin 成为 Android 官方开发语言。它即可以编译成Java字节码，也可以编译成 JavaScript，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/23</span>
             </div>
             <!-- tags  -->
             
@@ -566,63 +590,32 @@ Floats 使用 f 或者 F 后缀：123.5f
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/JPA的简单介绍/" >
+        <a class="abstract-title" href = "/2018/11/19/浅谈跨域——了解跨域的几种方式/" >
             
-                <span>JPA的简单介绍</span>
+                <span>浅谈跨域——了解跨域的几种方式</span>
         </a>
         <div class="abstract-content">
-            JPA的简单介绍简介jpa定义JPA(Java Persistence API)是Sun官方提出的Java持久化规范。它为Java开发人员制订了一些规范，提供了一些编程的API接口来管理Java应用中的关系数据。 
-jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用于规范现有的ORM技术，它不能取代现有的Hibernate等ORM框架，相反，采用JPA开发时，我们仍将使用这些ORM框架，只是此时开发出来的应用不在依赖于某个持久化提供商。应用可以在不修改代码的情况下在任何JPA环境下运行，真正做到低耦合，可扩展的程序设计。类似于JDBC，在JDBC出现以前，我们的程序针...
+            前言部分跨域是什么？跨域是指一个域下的文档或脚本试图去请求另一个域下的资源（广义的）。
+广义的跨域场景有以下几种：
+
+资源的跳转：A链接、重定向、表单提交；
+
+资源嵌入：&lt;link&gt;、&lt;script&gt;、&lt;img&gt;、&lt;iframe&gt; 等DOM标签，还有样式中 background:url()、@font-face()等文件外链；
+
+脚本请求： js发起的ajax请求、dom和js对象的跨域操作等；
+
+
+我们通常所说的跨域是狭义的，是由浏览器同源策略限制的一类请求场景。
+同源策略是什么？同源策略/SOP（Same origin policy）是...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/19</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" >
-            
-                <span>Vue+iView+Webpack环境下IE浏览器兼容处理</span>
-        </a>
-        <div class="abstract-content">
-            Vue + iview + webpack ie 浏览器兼容简单处理环境介绍：vue: ^2.5.2
-iview: ^3.1.0
-Webpack: ^3.8.1
-前情提要：
-ie 浏览器不支持 ES6 Promise 的语法。
-
-ie8 及以下对 html5 标签不兼容（可以通过引入html5shiv包解决，本文不处理IE11的更低版本，故不提及此法）。
-
-ie9 以下 对 CSS3 的不兼容，各种不兼容的细节比较多，这里不说明。
-
-ie10 及以下浏览器中不支持 dataset 方法（经学习实践发现ie11也是不支持的），而我在项目中使用了 iview, iview 的一些组件用到了这...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Vue">Vue</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "HTML5">HTML5</a>
     
@@ -637,33 +630,40 @@ ie10 及以下浏览器中不支持 dataset 方法（经学习实践发现ie11�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/30/DASC笔记/" >
+        <a class="abstract-title" href = "/2018/11/16/Android smartTable的简单使用/" >
             
-                <span>DASC笔记</span>
+                <span>SmartTable的简单使用</span>
         </a>
         <div class="abstract-content">
-            dasc 服务端部署：
-一、windows 部署环境 成都：三台服务器– 172.24.16.1 tomcat 8.1   80801234webapp   |-多归   |-遥感   |-指标
-– 172.24.16.2 
+            一.smartTable简介1.简单介绍它的功能：具体使用方法不再赘述，可以去 GitHub 去查看：https://github.com/huangyanbin/smartTable
 
-计算服务
-
-– 172.24.16.3
-
-zookeeper
-综合服务框架
-apache-tomcat-8.5.31   8090需要修改的配置文件123456789101112131415161718192021222324webapp    |-dasc        |-WEB-INF            |-classes                ...
+快速配置自动生成表格；
+自动计算表格宽高；
+表格列标题组合；
+表格固定左序列、顶部序列、第一行、列标题、统计行；
+自动统计，排序（自定义统计规则）；
+表格图文、序列号、列标题格式化；
+表格各组成背景、文字、网格、padding等配置；
+表格批注；
+表格内容、列标题点击事件；
+缩放模式和滚动模式；
+注解模式；
+内容多行显示；
+分页模式；
+首尾动态添加数据;
+丰富的格式化;
+支持二维数组展示（用于类似日程表...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/30</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/16</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
     
 </div>
             
@@ -676,57 +676,26 @@ apache-tomcat-8.5.31   8090需要修改的配置文件12345678910111213141516171
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/30/CAS笔记/" >
+        <a class="abstract-title" href = "/2018/11/13/ArcGIS Runtime 100与产品线结合带来的思考/" >
             
-                <span>CAS笔记</span>
+                <span>ArcGIS Runtime 100与产品线结合带来的思考</span>
         </a>
         <div class="abstract-content">
-            一、cas 简介：1.1 Architecture 图
-
-
-1.2 系统组件
-cas 服务端和cas 客户端是通过多种协议交互的物理组件。即由服务端和客户端两部分构成。(The CAS server and clients comprise the two physical components of the CAS system architecture that communicate by means of various protocols.) 
-cas 服务端：cas server 是基于spring框架的 java servlet，主要是为了实现用户校验以及授权访问CAS嵌入...
+            前言因为产品线也一直也在提要不要将ArcGIS For Android 版本从10.2.9版本过渡到100.*版本，也有过尝试，也就是Kotlin+ArcGIS 100.2版本的基线产品研发。慢慢这个方面交到了我手上，交到我手上的时候大部分功能都已经完善了，我只是进行了一些小的模块开发而已。目前这个产品已经具备了基线的基本功能与使用。回顾看来，新老版本差异也比较大。所以写这么一篇文章来对比较关注的部分进行简单的比较与讲解。这篇文章的大多数来源于ArcGIS官网的一些向导和ArcGIS博客的一些文章，部分链接需要自备梯子。
+https://developers.arcgis.com/arc...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/30</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/13</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
     
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/24/Java8 StringJoiner的使用/" >
-            
-                <span>Java 8 之StringJoiner的使用</span>
-        </a>
-        <div class="abstract-content">
-            Java8–StringJoiner的使用示例一12345678910public class StringJoinerTest1 &#123;    public static void main(String[] args) &#123;        StringJoiner joiner = new StringJoiner("--", "[[[_ ", "_]]]");        System.out.println(joiner.toString());        System.out.println(joiner.length());    &#125;&#125;...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "GIS">GIS</a>
     
 </div>
             
@@ -736,7 +705,7 @@ cas 服务端：cas server 是基于spring框架的 java servlet，主要是为�
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/page/2/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/4/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/page/2/">&#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/8/">8</a><a class="extend next" rel="next" href="/archives/page/4/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -1696,9 +1665,247 @@ cas 服务端：cas server 是基于spring框架的 java servlet，主要是为�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 59
+        Total : 71
         </div>
         <!-- search  -->
         
@@ -1711,6 +1918,66 @@ cas 服务端：cas server 是基于spring框架的 java servlet，主要是为�
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/10、Linux实用指令/" >10、Linux实用指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/12、Linux安装软件/" >12、Linux安装软件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/5、Linux用户管理命令/" >5、Linux用户管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/8、Linux磁盘分区和挂载/" >8、Linux磁盘分区和挂载</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/6、Linux组管理和权限管理/" >6、Linux组管理和权限管理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1778,12 +2045,12 @@ cas 服务端：cas server 是基于spring框架的 java servlet，主要是为�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
@@ -2030,6 +2297,8 @@ cas 服务端：cas server 是基于spring框架的 java servlet，主要是为�
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
@@ -2052,13 +2321,13 @@ cas 服务端：cas server 是基于spring框架的 java servlet，主要是为�
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
-    
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
@@ -2101,11 +2370,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
-    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2120,8 +2391,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
