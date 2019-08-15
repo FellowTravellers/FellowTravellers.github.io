@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Kotlin初探 · Fellow Travellers</title>
+    <title>Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Fellow Travellers</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Kotlin初探</a>
-            </div>
-    </div>
     
     <a class="home-link" href=/>Fellow Travellers</a>
 </header>
@@ -231,82 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/travellers.png)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            Kotlin初探
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
-    
-</div>
-                
-                <!-- 文章作者  -->
-                
-                    <div class= post-intro-categories >
-    
-        <a class="post-categorie" data-tags = "汪洋">汪洋</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/11/01</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -407,93 +338,41 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <h1 id="Kotlin初探"><a href="#Kotlin初探" class="headerlink" title="Kotlin初探"></a>Kotlin初探</h1><pre><code>本文只起抛砖引玉之用，详细教程请谷歌百度
-</code></pre><h2 id="Kotlin-简述"><a href="#Kotlin-简述" class="headerlink" title="Kotlin 简述"></a>Kotlin 简述</h2><h3 id="特点与优势"><a href="#特点与优势" class="headerlink" title="特点与优势"></a>特点与优势</h3><ul>
-<li>基于JVM的新的编程语言</li>
-<li>由JetBrains开发（Java IDE 之父）</li>
-<li>谷歌官方宣布使用</li>
-<li>易学习，轻量级，函数式编程，语法简洁</li>
-<li>100%兼容java<h2 id="入手"><a href="#入手" class="headerlink" title="入手"></a>入手</h2>从变量开始来了解下Kotlin。<h3 id="常量与变量"><a href="#常量与变量" class="headerlink" title="常量与变量"></a>常量与变量</h3>编程语言中，我们熟知的常量与变量是最基本的数据形式。<h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4></li>
-<li>十进制：123</li>
-<li>长整型以大写的 L 结尾：123L</li>
-<li>16 进制以 0x 开头：0x0F</li>
-<li>2 进制以 0b 开头：0b00001011</li>
-<li>Doubles 默认写法: 123.5, 123.5e10</li>
-<li><p>Floats 使用 f 或者 F 后缀：123.5f</p>
-<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>  可变变量定义：var 关键字</p>
-<p>  不可变变量定义：val 关键字，只能赋值一次的变量(类似Java中final修饰的变量)<br>常量与变量都可以没有初始化值,但是在引用前必须初始化</p>
-</li>
-</ul>
-<p>编译器支持自动类型判断,即声明时可以不指定类型,由编译器判断。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val a: Int = 1</span><br><span class="line">val b = 1       // 系统自动推断变量类型为Int</span><br><span class="line">val c: Int      // 如果不在声明时初始化则必须提供变量类型</span><br><span class="line">c = 1           // 明确赋值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var x = 5        // 系统自动推断变量类型为Int</span><br><span class="line">x += 1           // 变量可修改</span><br></pre></td></tr></table></figure></p>
-<h3 id="Null-检查机制"><a href="#Null-检查机制" class="headerlink" title="Null 检查机制"></a>Null 检查机制</h3><p>Kotlin的空安全设计对于声明可为空的参数，在使用时要进行空判断处理，有两种处理方式，字段后加!!像Java一样抛出空异常，另一种字段后加?可不做处理返回值为 null或配合?:做空判断处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//类型后面加?表示可为空</span><br><span class="line">var age: String? = &quot;23&quot; </span><br><span class="line">//抛出空指针异常</span><br><span class="line">val ages = age!!.toInt()</span><br><span class="line">//不做处理返回 null</span><br><span class="line">val ages1 = age?.toInt()</span><br><span class="line">//age为空返回-1</span><br><span class="line">val ages2 = age?.toInt() ?: -1</span><br></pre></td></tr></table></figure></p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>我们可以看到Kotlin有自动类型检测，但这仅限于一些常规的类型，当一个变量类型是函数的时候，Kotlin把它叫做匿名函数（lambda）</p>
-<h4 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h4><p>函数定义使用关键字 fun，参数格式为：参数 : 类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun sum(a: Int, b: Int): Int &#123;   // Int 参数，返回值 Int</span><br><span class="line">    return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="可变长参数函数"><a href="#可变长参数函数" class="headerlink" title="可变长参数函数"></a>可变长参数函数</h4><p>函数的变长参数可以用 vararg 关键字进行标识：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun vars(vararg v:Int)&#123;</span><br><span class="line">    for(vt in v)&#123;</span><br><span class="line">        print(vt)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    vars(1,2,3,4,5)  // 输出12345</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="lambda-匿名函数"><a href="#lambda-匿名函数" class="headerlink" title="lambda(匿名函数)"></a>lambda(匿名函数)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 测试</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val sumLambda: (Int, Int) -&gt; Int = &#123;x,y -&gt; x+y&#125;</span><br><span class="line">    println(sumLambda(1,2))  // 输出 3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h3><pre><code>糖嘛，好吃就行
-</code></pre><p>当我们以变量来看上面的sumLambda的时候，最后一行的含义不言而喻。任何函数都能看成一个变量，自然都能够作为一个参数传递。</p>
-<h4 id="函数传递"><a href="#函数传递" class="headerlink" title="函数传递"></a>函数传递</h4><p><code>max(strings, {a,b -&gt; a.length &lt; b.length})</code></p>
-<h4 id="链式编程"><a href="#链式编程" class="headerlink" title="链式编程"></a>链式编程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">strings.filter&#123;it.length == 5&#125;</span><br><span class="line">.sortedBy&#123;it&#125;</span><br><span class="line">.map&#123;it.toUpperCase()&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="区间"><a href="#区间" class="headerlink" title="区间"></a>区间</h4><p>区间表达式由具有操作符形式 .. 的 rangeTo 函数辅以 in 和 !in 形成。</p>
-<p>区间是为任何可比较类型定义的，但对于整型原生类型，它有一个优化的实现。以下是使用区间的一些示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">for (i in 1..4) print(i) // 输出“1234”</span><br><span class="line"></span><br><span class="line">for (i in 4..1) print(i) // 什么都不输出</span><br><span class="line"></span><br><span class="line">if (i in 1..10) &#123; // 等同于 1 &lt;= i &amp;&amp; i &lt;= 10</span><br><span class="line">    println(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用 step 指定步长</span><br><span class="line">for (i in 1..4 step 2) print(i) // 输出“13”</span><br><span class="line"></span><br><span class="line">for (i in 4 downTo 1 step 2) print(i) // 输出“42”</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 使用 until 函数排除结束元素</span><br><span class="line">for (i in 1 until 10) &#123;   // i in [1, 10) 排除了 10</span><br><span class="line">     println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Kotlin-实践"><a href="#Kotlin-实践" class="headerlink" title="Kotlin 实践"></a>Kotlin 实践</h2><pre><code>Kotlin当然还有很多新的特性：泛型，对象表达式，匿名内部类等。可以参考博客中的Kotlin实践篇。本文不再详谈。
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kotlin基于JVM开发，所以它适用于很多平台：服务端，安卓，JavaScript，原生，协成。</p>
-<p>语言只是工具。锋利的新刀与顺手的老刀，看你选择了。</p>
-
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/04/19/断点续传/" >
+            
+                <span>断点续传</span>
+        </a>
+        <div class="abstract-content">
+            断点续传总结一、背景断点续传是指在上传或者下载的过程中,将文件人为的划分为多个部分,每一部分采用一个线程进行上传或者下载,如果碰到网络故障,则可以从已经上传或下载的部分开始继续上传下载未完成的内容,而不必从头开始上传下载,节约时间,提高速度(百度百科).
+由于断点续传需要对文件进行分割和拼接,以前都是客户端软件专属技能(web网页受浏览器安全限制,不能直接操作文件),后来在HTML5标准中,W3C添加了新的api(File.prototype.slice)可以实现文件的分割,于是,前端也有了实现断点续传的基础,但是断点下载依然不行.
+由于使用HTML5的api,所以只有现代浏览器才能支持...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/19</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "JavaScript">JavaScript</a>
+    
+</div>
+            
+        </div>
     </article>
-    <!-- license  -->
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/11/02/WebApp 开发简单入门/" title= "WebApp 开发简单入门">
-                    <div class="nextTitle">WebApp 开发简单入门</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/11/01/JPA的简单介绍/" title= "JPA的简单介绍">
-                    <div class="prevTitle">JPA的简单介绍</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <div id="comment"></div>
-    <script>
-    new Valine({
-        el: '#comment' ,
-        notify:false, 
-        verify:false, 
-        appId: "S2h32n3EAENyX33sycePF6d0-gzGzoHsz",
-        appKey: "PPwQb83BTCAhYt39aNTjrKR2",
-        placeholder: "旅人，要说些什么嘛...",
-        path:window.location.pathname, 
-        avatar:'mm' 
-    });
-    </script>
-
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -511,24 +390,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kotlin初探"><span class="toc-number">1.</span> <span class="toc-text">Kotlin初探</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kotlin-简述"><span class="toc-number">1.1.</span> <span class="toc-text">Kotlin 简述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特点与优势"><span class="toc-number">1.1.1.</span> <span class="toc-text">特点与优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#入手"><span class="toc-number">1.2.</span> <span class="toc-text">入手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常量与变量"><span class="toc-number">1.2.1.</span> <span class="toc-text">常量与变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常量"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#变量"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Null-检查机制"><span class="toc-number">1.2.2.</span> <span class="toc-text">Null 检查机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">1.2.3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数定义"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">函数定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可变长参数函数"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">可变长参数函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lambda-匿名函数"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">lambda(匿名函数)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#语法糖"><span class="toc-number">1.2.4.</span> <span class="toc-text">语法糖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数传递"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">函数传递</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#链式编程"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">链式编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区间"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">区间</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kotlin-实践"><span class="toc-number">1.3.</span> <span class="toc-text">Kotlin 实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -2236,8 +2097,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
