@@ -346,25 +346,28 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/9、Linux定时任务调度/" >
+        <a class="abstract-title" href = "/2019/04/22/2、Linux文件目录命令/" >
             
-                <span>9、Linux定时任务调度</span>
+                <span>2、Linux文件目录命令</span>
         </a>
         <div class="abstract-content">
-            Linux定时任务调度crond任务调度​    系统在某个时间段执行特定的命令或程序。
-1、数据库的定时备份操作。
-2、系统一些重复工作，病毒扫描等。
-用法crontab 【选项】
--e：编辑crontab定时任务
--l：查询crontab任务
--f：删除当前用户所有的crontab任务
--r：终止任务调度
-service crond restart：重启任务调度
-12crontab -e*/1 * * * * ls -l /etc &gt; /tmp/to.txt  -- 每小时的每分钟执行
+            Linux文件目录命令pwd，查看当前工作目录的完整路径
 
-第一个*：一小时中的第几分钟【0-59】
-第二个*：一天中的第几个小时【0-23】
-第三个...
+pwd：/root
+
+ls，用来打印当前目录的清单，可以指定其他目录
+-a：列出目录下所有的文件，包括以”.”开头的隐藏文件
+-l：除了文件名外，还列出文件权限、所有者、大小等详细信息
+-r：反向次序排列
+-t：以文件修改时间排序
+-g：类似-l，但是不列出所有者
+-h：以容易理解的文件格式列出（如1K、234M、2G）
+例如：
+ls -l t*：列出所有文件名以”t”开头的文件信息
+cd，切换文件目录至dirName
+例如：
+cd /：进入系统根目录
+cd aa/bb/cc：跳转到指定目录，注意这里”aa”前没有”/“，指从当...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -388,21 +391,25 @@ service crond restart：重启任务调度
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/10、Linux实用指令/" >
+        <a class="abstract-title" href = "/2019/04/22/1、Linux基本介绍/" >
             
-                <span>10、Linux实用指令</span>
+                <span>1、Linux基本介绍</span>
         </a>
         <div class="abstract-content">
-            Linux实用指令Rpm&amp;Yum​    一种用于互联网下载包的打包和安装工具，它包含某些Linux分发版中，它生产具有 .rpm 扩展名的文件。RPM 是 RedHat Package Manager（RedHat软件包管理工具）的缩写。
-查询指令rpm -qa 【| grep 名字】 ：查询所有/过滤条件
-jansson-2.10-1.el7.x86_64
-名称：jansson
-版本号：2.10-1
-适用操作系统：el7.x86_64：centos7
-系统位数：x86_64:64位、【i686、i386:32位】、noarch：通用
+            Linux介绍​    Linux 是一种自由和开放源码的类 UNIX 操作系统，使用 Linux 内核。只要遵循 GNU 通用公共许可证,任何人和机构都可以自由地使用 Linux 的所有底层源代码，也可以自由地修改和再发布。
+​    目前市面上较知名的发行版有：Ubuntu、RedHat、CentOS、Debian、Fedora、SuSE、OpenSUSE、TurboLinux、BluePoint、RedFlag、Xterm、SlackWare等
+Linux和Win比较
 
-rpm -qa
-rpm -qa | mo...
+
+比较
+Windows
+Linux
+
+
+
+
+界面
+界面统一，外壳程序固定所有 Windows 程序菜单几乎一致，...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1642,9 +1649,60 @@ rpm -qa | mo...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 72
+        Total : 75
         </div>
         <!-- search  -->
         
@@ -1660,12 +1718,22 @@ rpm -qa | mo...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/loadrunner 并发测试/" >loadrunner 并发测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/JMeter 接口测试/" >Jmeter 接口测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/断点续传/" >断点续传</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/hibernate-validate-full/" >hibernate 参数校验</a>
         </li>
     
     
@@ -1675,7 +1743,17 @@ rpm -qa | mo...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Listener/" >Listener</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Filter/" >Filter</a>
         </li>
     
     
@@ -1690,27 +1768,12 @@ rpm -qa | mo...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
         </li>
     
     
@@ -1725,12 +1788,22 @@ rpm -qa | mo...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Listener/" >Listener</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Filter/" >Filter</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
         </li>
     
     
@@ -2041,19 +2114,21 @@ rpm -qa | mo...
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
-    
-        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
@@ -2076,6 +2151,8 @@ rpm -qa | mo...
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
@@ -2116,19 +2193,21 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
-    
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
@@ -2137,8 +2216,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
     

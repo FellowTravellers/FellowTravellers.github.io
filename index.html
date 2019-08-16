@@ -359,6 +359,99 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/08/15/loadrunner 并发测试/" >
+            
+                <span>loadrunner 并发测试</span>
+        </a>
+        <div class="abstract-content">
+            一、实验测试：1.1 LoadRunner
+Mercury Interaction 公司开发一款成熟的性能测试工具，LoadRunner 作为
+性能测试的实现者，涉及性能测试流程、性能测试技术和软件体系架构等众多方面的知识点 。
+
+性能测试的基准大体有以下几方面：
+
+响应时间
+从应用系统发出请求开始，到客户端接收到最后一个字节数据为止所消耗的时间。合
+
+
+理的响应时间取决于实际的用户需求。
+
+并发用户数
+一般是指同一时间段内访问系统的用户数量。
+
+吞吐量
+指单位时间内系统处理的客户请求数量。
+
+性能计数器
+描述服务器或操作系统性能的一些数据指标，比如Windows 系统资源管理器。
+
+
+...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/08/15</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "loadrunner">loadrunner</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/08/15/JMeter 接口测试/" >
+            
+                <span>Jmeter 接口测试</span>
+        </a>
+        <div class="abstract-content">
+            一、JMeter 接口性能测试
+官网下载地址：http://jmeter.apache.org/download_jmeter.cgi
+https://blog.csdn.net/u012111923/article/details/80705141
+
+1.1 接口地址：http://192.168.2.15:8080/web/logout/zyp
+
+请求参数无
+
+chrome：编码方式，utf-8
+
+
+1.2 resposesuccess
+1.3 JMeter 设置
+123456789101112线程组参数详解： 1. Number of Threads：虚拟用户数。一个虚拟用户占用一...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/08/15</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Jmeter">Jmeter</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2019/08/14/断点续传/" >
             
                 <span>断点续传</span>
@@ -390,25 +483,51 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/9、Linux定时任务调度/" >
+        <a class="abstract-title" href = "/2019/08/14/hibernate-validate-full/" >
             
-                <span>9、Linux定时任务调度</span>
+                <span>hibernate 参数校验</span>
         </a>
         <div class="abstract-content">
-            Linux定时任务调度crond任务调度​    系统在某个时间段执行特定的命令或程序。
-1、数据库的定时备份操作。
-2、系统一些重复工作，病毒扫描等。
-用法crontab 【选项】
--e：编辑crontab定时任务
--l：查询crontab任务
--f：删除当前用户所有的crontab任务
--r：终止任务调度
-service crond restart：重启任务调度
-12crontab -e*/1 * * * * ls -l /etc &gt; /tmp/to.txt  -- 每小时的每分钟执行
+            Hibernate Validator 6.0.17.Final - JSR380 Reference Implementation   2019-06-13如何阅读官方文档
+Bean Validate 是规范， Hibernate Validate 是其实现和拓展
+章节十四阅读更多demo
+章节二声明和校验Bean 约束
+章节三使用Bean约束对方法执行前后传参和返回值进行校验
+章节六自定义约束
 
-第一个*：一小时中的第几分钟【0-59】
-第二个*：一天中的第几个小时【0-23】
-第三个...
+Chapter 1. Getting started1.1. 项目启动maven 工程 使用 Hibernate Validator只需添加如下依赖：
+12345&lt;dependency...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/08/14</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/04/22/12、Linux安装软件/" >
+            
+                <span>12、Linux安装软件</span>
+        </a>
+        <div class="abstract-content">
+            Linux安装软件Java解压文件123// 放在 /usr 目录下 用户都可以访问tar zxvf jdk-8u171-linux-x64.tar.gzmv jdk1.8.0_171/ /usr/local/java/
+修改配置文件12345678vim ~/.bashrcexport JAVA_HOME=/home/wansw/jdk8export JRE_HOME=$JAVA_HOME/jreexport CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/libexport PATH=$PATH:$JAVA_HOME/binsource ~/.bashrc
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -420,6 +539,37 @@ service crond restart：重启任务调度
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/04/22/Listener/" >
+            
+                <span>Listener</span>
+        </a>
+        <div class="abstract-content">
+            Listener接口12345678public interface EventListener &#123;&#125;public interface ServletContextListener extends EventListener &#123;    // 初始化    void contextInitialized(ServletContextEvent sce);    // 销毁    void contextDestroyed(ServletContextEvent sce);&#125;
+Listener注入
+org.apache.catalina.core.St...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
     
 </div>
             
@@ -480,25 +630,19 @@ Shell变量
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/1、Linux基本介绍/" >
+        <a class="abstract-title" href = "/2019/04/22/Filter/" >
             
-                <span>1、Linux基本介绍</span>
+                <span>Filter</span>
         </a>
         <div class="abstract-content">
-            Linux介绍​    Linux 是一种自由和开放源码的类 UNIX 操作系统，使用 Linux 内核。只要遵循 GNU 通用公共许可证,任何人和机构都可以自由地使用 Linux 的所有底层源代码，也可以自由地修改和再发布。
-​    目前市面上较知名的发行版有：Ubuntu、RedHat、CentOS、Debian、Fedora、SuSE、OpenSUSE、TurboLinux、BluePoint、RedFlag、Xterm、SlackWare等
-Linux和Win比较
+            Filter说明
+filter 是 Servlet 规范
+
+filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之前执行
 
 
-比较
-Windows
-Linux
-
-
-
-
-界面
-界面统一，外壳程序固定所有 Windows 程序菜单几乎一致，...
+接口12345package javax.servlet;public interface FilterChain &#123;    void doFilter(ServletRequest request, ServletResponse response)            throws IOException, ServletException;&#125;
+实现123456789101112131415161...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -509,7 +653,7 @@ Linux
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
     
 </div>
             
@@ -560,238 +704,25 @@ rpm -qa | mo...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/12、Linux安装软件/" >
+        <a class="abstract-title" href = "/2019/04/22/9、Linux定时任务调度/" >
             
-                <span>12、Linux安装软件</span>
+                <span>9、Linux定时任务调度</span>
         </a>
         <div class="abstract-content">
-            Linux安装软件Java解压文件123// 放在 /usr 目录下 用户都可以访问tar zxvf jdk-8u171-linux-x64.tar.gzmv jdk1.8.0_171/ /usr/local/java/
-修改配置文件12345678vim ~/.bashrcexport JAVA_HOME=/home/wansw/jdk8export JRE_HOME=$JAVA_HOME/jreexport CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/libexport PATH=$PATH:$JAVA_HOME/binsource ~/.bashrc
-...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/2、Linux文件目录命令/" >
-            
-                <span>2、Linux文件目录命令</span>
-        </a>
-        <div class="abstract-content">
-            Linux文件目录命令pwd，查看当前工作目录的完整路径
+            Linux定时任务调度crond任务调度​    系统在某个时间段执行特定的命令或程序。
+1、数据库的定时备份操作。
+2、系统一些重复工作，病毒扫描等。
+用法crontab 【选项】
+-e：编辑crontab定时任务
+-l：查询crontab任务
+-f：删除当前用户所有的crontab任务
+-r：终止任务调度
+service crond restart：重启任务调度
+12crontab -e*/1 * * * * ls -l /etc &gt; /tmp/to.txt  -- 每小时的每分钟执行
 
-pwd：/root
-
-ls，用来打印当前目录的清单，可以指定其他目录
--a：列出目录下所有的文件，包括以”.”开头的隐藏文件
--l：除了文件名外，还列出文件权限、所有者、大小等详细信息
--r：反向次序排列
--t：以文件修改时间排序
--g：类似-l，但是不列出所有者
--h：以容易理解的文件格式列出（如1K、234M、2G）
-例如：
-ls -l t*：列出所有文件名以”t”开头的文件信息
-cd，切换文件目录至dirName
-例如：
-cd /：进入系统根目录
-cd aa/bb/cc：跳转到指定目录，注意这里”aa”前没有”/“，指从当...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/3、Linux搜索查找指令/" >
-            
-                <span>3、Linux搜索查找指令</span>
-        </a>
-        <div class="abstract-content">
-            Linux搜索查找指令find，用于在文件树中查找文件并作相应的处理
--name：按照文件名查找文件
--perm：按照文件权限查找文件
--user：按照文件属主来查找文件
--size：按照指定的文件大小查找文件【+n：大于，-n：小于，n：等于】
--group：按照文件所属的组来查找文件
--mtime&lt;+n&gt;：按照文件更改时间来查找文件，-n表示n天之内，+n表示n天以前
--newer file1 file2：查找更改时间在file1和file2之间的文件
-例如：
-
-find -mtime -2：查找48小时修改过的文件
-
-find -name “.log”：查找当前目录以”...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/5、Linux用户管理命令/" >
-            
-                <span>5、Linux用户管理命令</span>
-        </a>
-        <div class="abstract-content">
-            Linux用户管理命令
-Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，必须先向管理员申请一个账号。
-Linux的用户至少要属于一个组。
-
-添加用户基本语法​    useradd 【选项】 用户名
-示例​    useradd xiaoming
-说明
-当创建用户成功后，会自动创建和用户同名的家目录。
-可以通过 -d 参数指定目录
-
-添加新的用户账号，只有root账户可以操作
--d 目录：指定用户主目录（默认在home下），若此目录不存在可同时使用-m创建主目录
--g 用户组：指定用户所属的用户组
--G 用户组：指定用户所属的附加组
--s shell文件：指定用...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/4、Linux系统管理命令/" >
-            
-                <span>4、Linux系统管理命令</span>
-        </a>
-        <div class="abstract-content">
-            Linux系统管理命令
-
-
-命令
-说明
-
-
-
-
-stat
-显示指定文件的相关信息,比ls命令显示内容更多
-
-
-who
-显示在线登录用户
-
-
-hostname
-显示主机名称
-
-
-uname
-显示系统信息
-
-
-top
-显示当前系统中耗费资源最多的进程
-
-
-ps
-显示瞬间的进程状态
-
-
-du
-显示指定的文件（目录）已使用的磁盘空间的总量
-
-
-df
-显示文件系统磁盘空间的使用情况
-
-
-free
-显示当前内存和交换空间的使用情况
-
-
-ifconfig
-显示网络接口信息
-
-
-ping
-测试网络的连通性
-
-
-netstat
-显示网络状态信息
-
-
-clear
-清屏
-
-
-kill
-杀死一个进程
-
-
-
-ps...
+第一个*：一小时中的第几分钟【0-59】
+第二个*：一天中的第几个小时【0-23】
+第三个...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2113,9 +2044,60 @@ ps...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 72
+        Total : 75
         </div>
         <!-- search  -->
         
@@ -2131,12 +2113,22 @@ ps...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/loadrunner 并发测试/" >loadrunner 并发测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/JMeter 接口测试/" >Jmeter 接口测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/断点续传/" >断点续传</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/hibernate-validate-full/" >hibernate 参数校验</a>
         </li>
     
     
@@ -2146,7 +2138,17 @@ ps...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Listener/" >Listener</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Filter/" >Filter</a>
         </li>
     
     
@@ -2161,27 +2163,12 @@ ps...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/7、Linux之进程管理/" >7、Linux之进程管理</a>
         </li>
     
     
@@ -2196,12 +2183,22 @@ ps...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Listener/" >Listener</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/4、Linux系统管理命令/" >4、Linux系统管理命令</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Filter/" >Filter</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/3、Linux搜索查找指令/" >3、Linux搜索查找指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/2、Linux文件目录命令/" >2、Linux文件目录命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/1、Linux基本介绍/" >1、Linux基本介绍</a>
         </li>
     
     
@@ -2512,19 +2509,21 @@ ps...
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
-    
-        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
@@ -2547,6 +2546,8 @@ ps...
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
@@ -2587,19 +2588,21 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+    
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
-    
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
@@ -2608,8 +2611,6 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
-    
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
     
