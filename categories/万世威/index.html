@@ -530,29 +530,25 @@ rpm -qa | mo...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/8、Linux磁盘分区和挂载/" >
+        <a class="abstract-title" href = "/2019/04/22/9、Linux定时任务调度/" >
             
-                <span>8、Linux磁盘分区和挂载</span>
+                <span>9、Linux定时任务调度</span>
         </a>
         <div class="abstract-content">
-            Linux磁盘分区和挂载分区分区的方式：
-mbr分区
-最多支持4个主分区
-系统只能安装到主分区上
-扩展分区要占用一个主分区
-MBR最大支持2TB，但拥有最好的兼容性
+            Linux定时任务调度crond任务调度​    系统在某个时间段执行特定的命令或程序。
+1、数据库的定时备份操作。
+2、系统一些重复工作，病毒扫描等。
+用法crontab 【选项】
+-e：编辑crontab定时任务
+-l：查询crontab任务
+-f：删除当前用户所有的crontab任务
+-r：终止任务调度
+service crond restart：重启任务调度
+12crontab -e*/1 * * * * ls -l /etc &gt; /tmp/to.txt  -- 每小时的每分钟执行
 
-
-gtp分区
-支持无线多个主分区（操作系统可能限制）
-最大支持18EB的大容量（1EB=1024PB、1PB=1024TB）
-
-
-
-Linux分区
-Linux无论有几个分区，分给哪一目录使用，还是只有一个根目录，一个独立且唯一的文件结构，Linux每个分区都是用来组成整个文件系统的一部分。
-
-Linux采用一种叫 ‘载入’ 的处理方法，它的整个文件系统中包含一整套的文件和目录，且将一个分区和目录联系起来，这时要载入对的一个...
+第一个*：一小时中的第几分钟【0-59】
+第二个*：一天中的第几个小时【0-23】
+第三个...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -576,25 +572,29 @@ Linux采用一种叫 ‘载入’ 的处理方法，它的整个文件系统中�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/9、Linux定时任务调度/" >
+        <a class="abstract-title" href = "/2019/04/22/8、Linux磁盘分区和挂载/" >
             
-                <span>9、Linux定时任务调度</span>
+                <span>8、Linux磁盘分区和挂载</span>
         </a>
         <div class="abstract-content">
-            Linux定时任务调度crond任务调度​    系统在某个时间段执行特定的命令或程序。
-1、数据库的定时备份操作。
-2、系统一些重复工作，病毒扫描等。
-用法crontab 【选项】
--e：编辑crontab定时任务
--l：查询crontab任务
--f：删除当前用户所有的crontab任务
--r：终止任务调度
-service crond restart：重启任务调度
-12crontab -e*/1 * * * * ls -l /etc &gt; /tmp/to.txt  -- 每小时的每分钟执行
+            Linux磁盘分区和挂载分区分区的方式：
+mbr分区
+最多支持4个主分区
+系统只能安装到主分区上
+扩展分区要占用一个主分区
+MBR最大支持2TB，但拥有最好的兼容性
 
-第一个*：一小时中的第几分钟【0-59】
-第二个*：一天中的第几个小时【0-23】
-第三个...
+
+gtp分区
+支持无线多个主分区（操作系统可能限制）
+最大支持18EB的大容量（1EB=1024PB、1PB=1024TB）
+
+
+
+Linux分区
+Linux无论有几个分区，分给哪一目录使用，还是只有一个根目录，一个独立且唯一的文件结构，Linux每个分区都是用来组成整个文件系统的一部分。
+
+Linux采用一种叫 ‘载入’ 的处理方法，它的整个文件系统中包含一整套的文件和目录，且将一个分区和目录联系起来，这时要载入对的一个...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1948,80 +1948,6 @@ Linux的用户至少要属于一个组。
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 75
@@ -2085,12 +2011,12 @@ Linux的用户至少要属于一个组。
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/8、Linux磁盘分区和挂载/" >8、Linux磁盘分区和挂载</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/9、Linux定时任务调度/" >9、Linux定时任务调度</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/8、Linux磁盘分区和挂载/" >8、Linux磁盘分区和挂载</a>
         </li>
     
     
@@ -2184,12 +2110,12 @@ Linux的用户至少要属于一个组。
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
@@ -2436,11 +2362,11 @@ Linux的用户至少要属于一个组。
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
@@ -2515,17 +2441,17 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
-    
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
-        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
-    
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
