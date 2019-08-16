@@ -359,78 +359,6 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/Kotlin初探/" >
-            
-                <span>Kotlin初探</span>
-        </a>
-        <div class="abstract-content">
-            Kotlin初探本文只起抛砖引玉之用，详细教程请谷歌百度
-Kotlin 简述特点与优势
-基于JVM的新的编程语言
-由JetBrains开发（Java IDE 之父）
-谷歌官方宣布使用
-易学习，轻量级，函数式编程，语法简洁
-100%兼容java入手从变量开始来了解下Kotlin。常量与变量编程语言中，我们熟知的常量与变量是最基本的数据形式。常量
-十进制：123
-长整型以大写的 L 结尾：123L
-16 进制以 0x 开头：0x0F
-2 进制以 0b 开头：0b00001011
-Doubles 默认写法: 123.5, 123.5e10
-Floats 使用 f 或者 F 后缀：123.5f
-...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/01/JPA的简单介绍/" >
-            
-                <span>JPA的简单介绍</span>
-        </a>
-        <div class="abstract-content">
-            JPA的简单介绍简介jpa定义JPA(Java Persistence API)是Sun官方提出的Java持久化规范。它为Java开发人员制订了一些规范，提供了一些编程的API接口来管理Java应用中的关系数据。 
-jpa/orm二者间的关系JPA不是一种新的ORM框架，它的出现只是用于规范现有的ORM技术，它不能取代现有的Hibernate等ORM框架，相反，采用JPA开发时，我们仍将使用这些ORM框架，只是此时开发出来的应用不在依赖于某个持久化提供商。应用可以在不修改代码的情况下在任何JPA环境下运行，真正做到低耦合，可扩展的程序设计。类似于JDBC，在JDBC出现以前，我们的程序针...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/01</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2018/10/31/Vue + iView + Webpack环境下IE 浏览器兼容处理/" >
             
                 <span>Vue+iView+Webpack环境下IE浏览器兼容处理</span>
@@ -717,6 +645,79 @@ ClassName::new
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/22/Java8之enum枚举-万世威/" >
+            
+                <span>Java 8 之enum枚举</span>
+        </a>
+        <div class="abstract-content">
+            Enum 枚举123public enum Color &#123;    RED, YELLOW, BLUE;&#125;
+==说明：==
+
+使用的是enum关键字而不是class
+多个枚举变量之间用 逗号 隔开
+枚举变量名大写，多个单词之间用 _ 隔开。  如。 ALL_NUM…
+定义完枚举变量后， 用分号 结束。如果只有枚举变量，而没有自定义变量，分号可以省略。
+使用  只需要【类名.变量名】就可以了，和使用静态变量一样。 
+
+方法：
+values()
+
+这个方法会返回包括所有枚举变量的数组 
+
+12345678910for (Color color : Color.values(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2018/10/19/20181019-XML解析-陈广禄/" >
+            
+                <span>XML解析</span>
+        </a>
+        <div class="abstract-content">
+            Java中xml解析
+#概述一般情况下服务器端返回给客户端的数据主要包括三种类型，字符串，此处输入代码xml，json，什么是XML？可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。特点，可读性强，传输效率低。它只有字典一种数据格式，是一种树型存储结构，必须有根节点，逐级嵌套（用树的思想来思考），不像JSON一样是键值对存储数据，不过也稍微有那样的意思，XML是用标签和值来存储数据。XML数据写入（保存）文件可以数据的持久性，便于网络传输。实际应用场景比较少，相反json解析用的比较广泛。目前还有一些免费的接口还是会返回xml形式数据，因此学习xm...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/19</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
     
 </div>
             
@@ -2078,9 +2079,19 @@ ClassName::new
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 75
+        Total : 73
         </div>
         <!-- search  -->
         
@@ -2093,16 +2104,6 @@ ClassName::new
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/loadrunner 并发测试/" >loadrunner 并发测试</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/JMeter 接口测试/" >Jmeter 接口测试</a>
-        </li>
     
     
         <li class="archive-post-item">
@@ -2492,9 +2493,9 @@ ClassName::new
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
@@ -2505,8 +2506,6 @@ ClassName::new
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
@@ -2529,8 +2528,6 @@ ClassName::new
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
-    
-        <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
@@ -2571,13 +2568,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
-    
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2585,13 +2582,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
-    
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     

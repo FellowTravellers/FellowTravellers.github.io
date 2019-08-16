@@ -346,125 +346,6 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/8、Linux磁盘分区和挂载/" >
-            
-                <span>8、Linux磁盘分区和挂载</span>
-        </a>
-        <div class="abstract-content">
-            Linux磁盘分区和挂载分区分区的方式：
-mbr分区
-最多支持4个主分区
-系统只能安装到主分区上
-扩展分区要占用一个主分区
-MBR最大支持2TB，但拥有最好的兼容性
-
-
-gtp分区
-支持无线多个主分区（操作系统可能限制）
-最大支持18EB的大容量（1EB=1024PB、1PB=1024TB）
-
-
-
-Linux分区
-Linux无论有几个分区，分给哪一目录使用，还是只有一个根目录，一个独立且唯一的文件结构，Linux每个分区都是用来组成整个文件系统的一部分。
-
-Linux采用一种叫 ‘载入’ 的处理方法，它的整个文件系统中包含一整套的文件和目录，且将一个分区和目录联系起来，这时要载入对的一个...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/7、Linux之进程管理/" >
-            
-                <span>7、Linux之进程管理</span>
-        </a>
-        <div class="abstract-content">
-            Linux之进程管理
-在Linux中，每个执行的程序都称为一个进程，每个进程都分配一个ID。
-
-每一个进程，都有对应一个父进程，这个父进程可以复制多个子进程。
-
-每个进程都可能以两种方式存在：
-屏幕上可操作的
-后台运行
-
-
-
-显示系统执行的进程ps 命令是用来查看目前系统中，进程相关信息。
-
-
-
-字段
-说明
-
-
-
-
-PID
-进程识别号
-
-
-TTY
-终端机号
-
-
-TIME
-此进程所消耗CPU 时间
-
-
-CMD
-正在执行的命令或进程名
-
-
-
-
-ps -a：显示当前终端的所有进程信息
-5757    pts/1    00:00:00 ps
-
-
-ps -u：以用户的格式显示进程信息
-ps -x...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2019/04/22/6、Linux组管理和权限管理/" >
             
                 <span>6、Linux组管理和权限管理</span>
@@ -823,10 +704,92 @@ Linux
         </div>
     </article>
     
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/01/07/Synchronized/" >
+            
+                <span>Synchronized</span>
+        </a>
+        <div class="abstract-content">
+            Synchronized作用​    以一种简单的策略来防止线程干扰和内存一致性错误，如果一个对象对多个线程可见，该对象变量的所有读取或写入都是通过同步方法完成的。
+​    即：能够保证在同一时刻最多只有一个线程执行该段代码，达到保证并发安全的效果。
+
+Synchronized是Java的关键字，被Java原生支持。
+
+是最基本的互斥同步手段。
+
+
+用法
+对象锁
+方法锁（锁对象为this当前实例对象）
+同步代码锁（自己指定锁对象）
+
+
+类锁：只有一个Class对象
+synchronized修饰静态方法
+指定锁为Class对象
+
+
+
+多线程访问同步方法的7种情况1、两个线程同时访问一个对...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/07</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/01/03/正则表达式基础/" >
+            
+                <span>正则表达式基础</span>
+        </a>
+        <div class="abstract-content">
+            正则表达式(Regular Expressions)学习笔记文章来源:掘金|JsTheGreat , ECMAScript6入门–阮一峰 , 百度百科
+正则表达式三个特点: 提取文本, 强大, 难学 
+–语法检索普通字符12'hello 😀 regexp'.match(/😀/);// ["😀", index: 6, input: "hello 😀 regexp", groups: undefined]
+开始与结束^ 字符(脱字符),在正则中属于元字符,表示文本的开始,即如果它是正则主体的第一个符号,那么紧跟它的字符必须是被匹配文本的第一个字符.
+12'regexp'.match(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/03</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "HTML5">HTML5</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2019/">&#60; PREV</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/page/3/">NEXT &#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/2019/">&#60; PREV</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
     </nav>
     
 </main>
@@ -2096,9 +2059,19 @@ Linux
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 75
+        Total : 73
         </div>
         <!-- search  -->
         
@@ -2111,16 +2084,6 @@ Linux
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/loadrunner 并发测试/" >loadrunner 并发测试</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/JMeter 接口测试/" >Jmeter 接口测试</a>
-        </li>
     
     
         <li class="archive-post-item">
@@ -2510,9 +2473,9 @@ Linux
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
@@ -2523,8 +2486,6 @@ Linux
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
@@ -2547,8 +2508,6 @@ Linux
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
-    
-        <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
@@ -2589,13 +2548,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
-    
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2603,13 +2562,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
-    
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     

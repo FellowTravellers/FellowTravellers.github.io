@@ -463,48 +463,6 @@ rpm -qa | mo...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/22/9、Linux定时任务调度/" >
-            
-                <span>9、Linux定时任务调度</span>
-        </a>
-        <div class="abstract-content">
-            Linux定时任务调度crond任务调度​    系统在某个时间段执行特定的命令或程序。
-1、数据库的定时备份操作。
-2、系统一些重复工作，病毒扫描等。
-用法crontab 【选项】
--e：编辑crontab定时任务
--l：查询crontab任务
--f：删除当前用户所有的crontab任务
--r：终止任务调度
-service crond restart：重启任务调度
-12crontab -e*/1 * * * * ls -l /etc &gt; /tmp/to.txt  -- 每小时的每分钟执行
-
-第一个*：一小时中的第几分钟【0-59】
-第二个*：一天中的第几个小时【0-23】
-第三个...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2019/04/22/8、Linux磁盘分区和挂载/" >
             
                 <span>8、Linux磁盘分区和挂载</span>
@@ -528,6 +486,48 @@ Linux分区
 Linux无论有几个分区，分给哪一目录使用，还是只有一个根目录，一个独立且唯一的文件结构，Linux每个分区都是用来组成整个文件系统的一部分。
 
 Linux采用一种叫 ‘载入’ 的处理方法，它的整个文件系统中包含一整套的文件和目录，且将一个分区和目录联系起来，这时要载入对的一个...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/04/22/9、Linux定时任务调度/" >
+            
+                <span>9、Linux定时任务调度</span>
+        </a>
+        <div class="abstract-content">
+            Linux定时任务调度crond任务调度​    系统在某个时间段执行特定的命令或程序。
+1、数据库的定时备份操作。
+2、系统一些重复工作，病毒扫描等。
+用法crontab 【选项】
+-e：编辑crontab定时任务
+-l：查询crontab任务
+-f：删除当前用户所有的crontab任务
+-r：终止任务调度
+service crond restart：重启任务调度
+12crontab -e*/1 * * * * ls -l /etc &gt; /tmp/to.txt  -- 每小时的每分钟执行
+
+第一个*：一小时中的第几分钟【0-59】
+第二个*：一天中的第几个小时【0-23】
+第三个...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2109,9 +2109,19 @@ find -name “.log”：查找当前目录以”...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 75
+        Total : 73
         </div>
         <!-- search  -->
         
@@ -2124,16 +2134,6 @@ find -name “.log”：查找当前目录以”...
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/loadrunner 并发测试/" >loadrunner 并发测试</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/JMeter 接口测试/" >Jmeter 接口测试</a>
-        </li>
     
     
         <li class="archive-post-item">
@@ -2523,9 +2523,9 @@ find -name “.log”：查找当前目录以”...
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
@@ -2536,8 +2536,6 @@ find -name “.log”：查找当前目录以”...
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
-    
-        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
@@ -2560,8 +2558,6 @@ find -name “.log”：查找当前目录以”...
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
-    
-        <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
@@ -2602,13 +2598,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
-    
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2616,13 +2612,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
-    
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
