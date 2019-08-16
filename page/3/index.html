@@ -359,6 +359,88 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/01/07/Synchronized/" >
+            
+                <span>Synchronized</span>
+        </a>
+        <div class="abstract-content">
+            Synchronized作用​    以一种简单的策略来防止线程干扰和内存一致性错误，如果一个对象对多个线程可见，该对象变量的所有读取或写入都是通过同步方法完成的。
+​    即：能够保证在同一时刻最多只有一个线程执行该段代码，达到保证并发安全的效果。
+
+Synchronized是Java的关键字，被Java原生支持。
+
+是最基本的互斥同步手段。
+
+
+用法
+对象锁
+方法锁（锁对象为this当前实例对象）
+同步代码锁（自己指定锁对象）
+
+
+类锁：只有一个Class对象
+synchronized修饰静态方法
+指定锁为Class对象
+
+
+
+多线程访问同步方法的7种情况1、两个线程同时访问一个对...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/07</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2019/01/03/正则表达式基础/" >
+            
+                <span>正则表达式基础</span>
+        </a>
+        <div class="abstract-content">
+            正则表达式(Regular Expressions)学习笔记文章来源:掘金|JsTheGreat , ECMAScript6入门–阮一峰 , 百度百科
+正则表达式三个特点: 提取文本, 强大, 难学 
+–语法检索普通字符12'hello 😀 regexp'.match(/😀/);// ["😀", index: 6, input: "hello 😀 regexp", groups: undefined]
+开始与结束^ 字符(脱字符),在正则中属于元字符,表示文本的开始,即如果它是正则主体的第一个符号,那么紧跟它的字符必须是被匹配文本的第一个字符.
+12'regexp'.match(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/03</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "HTML5">HTML5</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2018/12/26/可扩展XML-Schema机制/" >
             
                 <span>可扩展XML-Schema机制</span>
@@ -541,6 +623,39 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >
+            
+                <span>BS运维后期重构思路</span>
+        </a>
+        <div class="abstract-content">
+            BS运维后期重构思路主要从以下几个方面进行。
+
+1.统一代码风格，因为当前运维有两种编码方式，一种是有状态的类编程，一种是无状态的函数式编程，最后要统一成官方推荐的有状态的类编程方式；
+2.Dva(状态管理优化)，当前运维页面虽然可以对通过Dva进行状态变化的快速渲染，但是当改页面消失时，一些不需要的状态依然在运行内存中未被释放，而且model的reducers中更新的方法重复，完全可以使用一个方法进行替换；
+3.WebSocket接入，考虑到移动模块接入设备管理和消息推送后，当有新申请的设备要授权时前端要提醒运维使用者及时进行授权处理，推送消息给应用端；因此可以考虑做个消息接收和推送的...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "BS运维">BS运维</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >
             
                 <span>React和Vue比较</span>
@@ -575,39 +690,6 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >
-            
-                <span>BS运维后期重构思路</span>
-        </a>
-        <div class="abstract-content">
-            BS运维后期重构思路主要从以下几个方面进行。
-
-1.统一代码风格，因为当前运维有两种编码方式，一种是有状态的类编程，一种是无状态的函数式编程，最后要统一成官方推荐的有状态的类编程方式；
-2.Dva(状态管理优化)，当前运维页面虽然可以对通过Dva进行状态变化的快速渲染，但是当改页面消失时，一些不需要的状态依然在运行内存中未被释放，而且model的reducers中更新的方法重复，完全可以使用一个方法进行替换；
-3.WebSocket接入，考虑到移动模块接入设备管理和消息推送后，当有新申请的设备要授权时前端要提醒运维使用者及时进行授权处理，推送消息给应用端；因此可以考虑做个消息接收和推送的...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "BS运维">BS运维</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2018/12/04/Tomcat/" >
             
                 <span>Tomcat流程浅析</span>
@@ -630,76 +712,6 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/23/Kotlin初识、及底图切换代码分析/" >
-            
-                <span>Kotlin初识及底图切换代码分析</span>
-        </a>
-        <div class="abstract-content">
-            Kotlin初识、及底图切换代码分析
-简介Kotlin是一种在 Java 虚拟机上运行的静态类型编程语言，被称之为 Android 世界的Swift，由 JetBrains 设计开发并开源。在Kotlin 语言出现之前，几乎所有的安卓应用程序都是使用Java语言编写的。但在2017年5月，google宣布Kotlin成为安卓的官方语言后，经过半年的发展，使用Kotlin 的开发者中5%增长到了15%，并且还在呈现上升趋势。2017年9月29日，1.2Beta版发布。并宣布 Kotlin 成为 Android 官方开发语言。它即可以编译成Java字节码，也可以编译成 JavaScript，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Kotlin">Kotlin</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/19/浅谈跨域——了解跨域的几种方式/" >
-            
-                <span>浅谈跨域——了解跨域的几种方式</span>
-        </a>
-        <div class="abstract-content">
-            前言部分跨域是什么？跨域是指一个域下的文档或脚本试图去请求另一个域下的资源（广义的）。
-广义的跨域场景有以下几种：
-
-资源的跳转：A链接、重定向、表单提交；
-
-资源嵌入：&lt;link&gt;、&lt;script&gt;、&lt;img&gt;、&lt;iframe&gt; 等DOM标签，还有样式中 background:url()、@font-face()等文件外链；
-
-脚本请求： js发起的ajax请求、dom和js对象的跨域操作等；
-
-
-我们通常所说的跨域是狭义的，是由浏览器同源策略限制的一类请求场景。
-同源策略是什么？同源策略/SOP（Same origin policy）是...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/19</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "HTML5">HTML5</a>
     
 </div>
             
@@ -2043,37 +2055,9 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 73
+        Total : 75
         </div>
         <!-- search  -->
         
@@ -2089,6 +2073,16 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/loadrunner 并发测试/" >loadrunner 并发测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/2019/08/15/JMeter 接口测试/" >Jmeter 接口测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2019/08/14/断点续传/" >断点续传</a>
         </li>
     
@@ -2099,22 +2093,22 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/2019/04/23/Listener/" >Listener</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/2019/04/23/Filter/" >Filter</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/12、Linux安装软件/" >12、Linux安装软件</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Listener/" >Listener</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/11、Linux中Shell/" >11、Linux中Shell</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href= "/2019/04/22/Filter/" >Filter</a>
         </li>
     
     
@@ -2223,12 +2217,12 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
@@ -2475,9 +2469,9 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
@@ -2488,6 +2482,8 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
         <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
@@ -2510,6 +2506,8 @@ Docker主要通过对应用组件的封装、分发、部署、运行等进行�
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
         <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
@@ -2550,13 +2548,13 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
-    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+        <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2564,13 +2562,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
+    
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
-    
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
