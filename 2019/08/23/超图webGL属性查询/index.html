@@ -415,7 +415,7 @@ height:50vh;
 <ul>
 <li>点查询，适用于单一图层数据，通过点击获取对象id来进行属性查询。</li>
 <li>拉框查询，适用于多图层数据，通过设置查询范围构建查询体，与图层进行空间分析获取对象id来进行属性查询。</li>
-<li>通用sql查询，适用于通过设置数据属性字段条件来进行查询的情况。<h2 id="二、-属性查询流程"><a href="#二、-属性查询流程" class="headerlink" title="二、    属性查询流程"></a>二、    属性查询流程</h2><img src="https://note.youdao.com/yws/public/resource/5e4ada70c6cf602260d9486491951bed/xmlnote/OFFICE50B813806D904215985C0E553C36AE2B/522" alt="image"><h2 id="三、-属性查询实现过程"><a href="#三、-属性查询实现过程" class="headerlink" title="三、    属性查询实现过程"></a>三、    属性查询实现过程</h2><h5 id="3-1-点选初始化"><a href="#3-1-点选初始化" class="headerlink" title="3.1 点选初始化"></a>3.1 点选初始化</h5>&emsp;&emsp;以点选（buffer）初始化为例，多图层点选采用拉框查询的流程，根据点选位置生成缓冲区来模拟拉框的范围来进行查询。主要初始变量包括：</li>
+<li>通用sql查询，适用于通过设置数据属性字段条件来进行查询的情况。<h2 id="二、-属性查询流程"><a href="#二、-属性查询流程" class="headerlink" title="二、    属性查询流程"></a>二、    属性查询流程</h2><img src="https://xdata.dist.com.cn/appstore/imgDir/TIM%E5%9B%BE%E7%89%8720190823141923.png" alt="image"><h2 id="三、-属性查询实现过程"><a href="#三、-属性查询实现过程" class="headerlink" title="三、    属性查询实现过程"></a>三、    属性查询实现过程</h2><h5 id="3-1-点选初始化"><a href="#3-1-点选初始化" class="headerlink" title="3.1 点选初始化"></a>3.1 点选初始化</h5>&emsp;&emsp;以点选（buffer）初始化为例，多图层点选采用拉框查询的流程，根据点选位置生成缓冲区来模拟拉框的范围来进行查询。主要初始变量包括：</li>
 <li>baseUrl：基础服务地址。</li>
 <li><p>infos：所有打开的图层信息集合，通过与基础服务地址进行组装来构成查询地址。具体结构如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0:</span><br><span class="line">    caption: &quot;用地规划&quot;      //图层标题</span><br><span class="line">    dataName: &quot;BZY_YDGH_PY&quot;  //图层所在数据源名称</span><br><span class="line">    dataSource: &quot;aa&quot;         //图层所在数据集名称</span><br><span class="line">    dataTitle: &quot;XYZTGH-qxn&quot;  //图层所在工作空间服务名称</span><br><span class="line">    layerName: &quot;BZY_YDGH_PY@aa#1&quot; //图层名称</span><br></pre></td></tr></table></figure>
@@ -609,6 +609,10 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
     
     
     
@@ -2202,25 +2206,25 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
-        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
-    
         <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
     
         <span class="sidebar-tag-name" data-tags="C#"><span class="iconfont-archer">&#xe606;</span>C#</span>
     
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
-    
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
     
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+    
         <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
-        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
-    
         <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
     
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
@@ -2228,11 +2232,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
+    
         <span class="sidebar-tag-name" data-tags="WebGL"><span class="iconfont-archer">&#xe606;</span>WebGL</span>
     
         <span class="sidebar-tag-name" data-tags="SuperMap"><span class="iconfont-archer">&#xe606;</span>SuperMap</span>
-    
-        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -2281,29 +2285,29 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
-    
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
+    
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
-        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
-    
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
-        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
+        <span class="sidebar-category-name" data-categories="张永朋"><span class="iconfont-archer">&#xe60a;</span>张永朋</span>
     
         <span class="sidebar-category-name" data-categories="于佳鑫"><span class="iconfont-archer">&#xe60a;</span>于佳鑫</span>
     
-        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+        <span class="sidebar-category-name" data-categories="殷萧鹏"><span class="iconfont-archer">&#xe60a;</span>殷萧鹏</span>
     
         <span class="sidebar-category-name" data-categories="郑家骜"><span class="iconfont-archer">&#xe60a;</span>郑家骜</span>
     
+        <span class="sidebar-category-name" data-categories="白青壮"><span class="iconfont-archer">&#xe60a;</span>白青壮</span>
+    
         <span class="sidebar-category-name" data-categories="陈伟红"><span class="iconfont-archer">&#xe60a;</span>陈伟红</span>
     
-        <span class="sidebar-category-name" data-categories="吴伟豪"><span class="iconfont-archer">&#xe60a;</span>吴伟豪</span>
-    
         <span class="sidebar-category-name" data-categories="黄震"><span class="iconfont-archer">&#xe60a;</span>黄震</span>
+    
+        <span class="sidebar-category-name" data-categories="吴伟豪"><span class="iconfont-archer">&#xe60a;</span>吴伟豪</span>
     
         <span class="sidebar-category-name" data-categories="于福豪"><span class="iconfont-archer">&#xe60a;</span>于福豪</span>
     
