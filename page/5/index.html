@@ -359,6 +359,46 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2018/11/06/java8-时间日期api/" >
+            
+                <span>Java 8 之时间日期Api</span>
+        </a>
+        <div class="abstract-content">
+            Java8-时间日期API对比
+线程不安全：java.util.Date 这个类线程不安全，而且所有日期类都是可变的。 
+时间处理麻烦：默认的开始日期从1900年，不支持国际化，不提供时区支持 。
+容易导错包。（java.util 和 java.sql）
+月份从0开始。
+
+新API介绍
+Instant——它代表的是时间戳
+LocalDate——不包含具体时间的日期，比如2014-01-14
+LocalTime——它代表的是不含日期的时间
+LocalDateTime——它包含了日期及时间
+ZonedDateTime——这是一个包含时区的完整的日期时间，偏移量是以UTC/格林威治时间为基准的...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2018/11/05/VC++内存泄漏检测工具浅究/" >
             
                 <span>VC++内存泄漏检测工具浅究</span>
@@ -656,69 +696,6 @@ cas 服务端：cas server 是基于spring框架的 java servlet，主要是为�
 12345public static String getName(User u) &#123;    if (u == null)        return "Unknown";    return u.name;&#125;
 改写成下面的形式和上面的没有什么太大区别。
 123456public static String getName(User u) &#...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/23/Java之Lambda表达式Stream使用/" >
-            
-                <span>Java 8 之Lambda表达式Stream使用</span>
-        </a>
-        <div class="abstract-content">
-            Lambda表达式Stream使用==来自 【 Java8 In Action】  一书==
-四种方法引用类型
-
-
-类型
-示例
-
-
-
-
-引用静态方法
-ContainingClass::staticMethodName
-
-
-引用某个对象的实例方法
-containingObject::instanceMethodName
-
-
-引用某个类型的任意对象的实例方法
-ContainingType::methodName
-
-
-引用构造方法
-ClassName::new
-
-
-
-筛选和切片：
-去重：
-
-截取：
-
-跳过元素：
-对流中每个元素应用函数：
-流的扁平化（合并流）：给 定 单 词 列 表[“Hell...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2007,9 +1984,20 @@ ClassName::new
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 77
+        Total : 78
         </div>
         <!-- search  -->
         
@@ -2022,6 +2010,11 @@ ClassName::new
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/04</span><a class="archive-post-title" href= "/2019/09/04/GitLab+Jenkins自动化/" >GitLab+Jenkins自动化</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2457,13 +2450,13 @@ ClassName::new
     
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
-        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
-    
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
-    
         <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
+        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
+    
         <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
     
@@ -2518,8 +2511,6 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
-    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
@@ -2527,6 +2518,8 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
+    
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
