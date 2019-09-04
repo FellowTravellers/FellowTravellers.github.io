@@ -280,7 +280,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">292</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">291</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -409,26 +409,15 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="GitLab-Jenkins-自动化打包"><a href="#GitLab-Jenkins-自动化打包" class="headerlink" title="GitLab+Jenkins 自动化打包"></a>GitLab+Jenkins 自动化打包</h2><h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><pre><code>完善流程，简化工作，提升效率。
-
-集成目的：
-</code></pre><p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/purpose.jpg" alt="jenkins"></p>
-<pre><code>工作流程：
-</code></pre><p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/process.png" alt="jenkins"></p>
+        <h2 id="GitLab-Jenkins-自动化打包"><a href="#GitLab-Jenkins-自动化打包" class="headerlink" title="GitLab+Jenkins 自动化打包"></a>GitLab+Jenkins 自动化打包</h2><h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><h4 id="完善流程，简化工作，提升效率"><a href="#完善流程，简化工作，提升效率" class="headerlink" title="完善流程，简化工作，提升效率"></a>完善流程，简化工作，提升效率</h4><h4 id="集成目的"><a href="#集成目的" class="headerlink" title="集成目的"></a>集成目的</h4><p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/purpose.jpg" alt="jenkins"></p>
+<h4 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h4><p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/process.png" alt="jenkins"></p>
 <h3 id="一、环境搭建"><a href="#一、环境搭建" class="headerlink" title="一、环境搭建"></a>一、环境搭建</h3><p>&emsp;&emsp;<a href="https://blog.csdn.net/qq_36785118/article/details/85337556" target="_blank" rel="noopener">windows 搭建Android自动打包测试环境 1</a> <br><br>&emsp;&emsp;<a href="https://www.jianshu.com/p/25f2e9ee7c8a" target="_blank" rel="noopener">windows 搭建Android自动打包测试环境 2</a></p>
 <p>&emsp;&emsp;<a href="https://fellowtravellers.github.io/2017/02/24/20170224-Jenkins%20for%20iOS-%E5%88%98%E5%B0%8F%E6%A0%87/" target="_blank" rel="noopener">mac 搭建打包测试环境</a></p>
-<h3 id="二、Jenkins部署"><a href="#二、Jenkins部署" class="headerlink" title="二、Jenkins部署"></a>二、Jenkins部署</h3><pre><code>Jenkins =&gt; 新建任务 =&gt; 输入任务名称 =&gt; 选择构建自由风格的软件项目 =&gt;复制已存在的任务(已配置好的项目) 或直接点ok创建=&gt; 个性配置 =&gt; 保存
-
-新建任务:
-</code></pre><p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/newTask1.png" alt="新建任务"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/newTask2.png" alt="新建任务"></p>
+<h3 id="二、Jenkins部署"><a href="#二、Jenkins部署" class="headerlink" title="二、Jenkins部署"></a>二、Jenkins部署</h3><h4 id="Jenkins-gt-新建任务-gt-输入任务名称-gt-选择构建自由风格的软件项目-gt-复制已存在的任务-已配置好的项目-或直接点ok创建-gt-个性配置-gt-保存"><a href="#Jenkins-gt-新建任务-gt-输入任务名称-gt-选择构建自由风格的软件项目-gt-复制已存在的任务-已配置好的项目-或直接点ok创建-gt-个性配置-gt-保存" class="headerlink" title="Jenkins =&gt; 新建任务 =&gt; 输入任务名称 =&gt; 选择构建自由风格的软件项目 =&gt;复制已存在的任务(已配置好的项目) 或直接点ok创建=&gt; 个性配置 =&gt; 保存"></a>Jenkins =&gt; 新建任务 =&gt; 输入任务名称 =&gt; 选择构建自由风格的软件项目 =&gt;复制已存在的任务(已配置好的项目) 或直接点ok创建=&gt; 个性配置 =&gt; 保存</h4><h4 id="新建任务"><a href="#新建任务" class="headerlink" title="新建任务"></a>新建任务</h4><p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/newTask1.png" alt="新建任务"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/newTask2.png" alt="新建任务"></p>
 <p>&emsp;任务配置:</p>
 <p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/generalConfig.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/codeManager.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gradleBuild1.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gradleBuild2.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gradle.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/email1.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/email2.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/email3.png" alt="配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/email4.png" alt="配置"></p>
 <p>jenkins配置完成。</p>
-<h3 id="三、GitLab配置触发构建"><a href="#三、GitLab配置触发构建" class="headerlink" title="三、GitLab配置触发构建"></a>三、GitLab配置触发构建</h3><pre><code>GitLab关联Jenkins实现gitLab触发构建。
-
-创建tag或者gitLab提交 =&gt; 触发jenkins构建 =&gt; 打包应用 =&gt; 邮件发送通知。
-</code></pre><p>  GitLab配置:</p>
-<p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gitLabToken.png" alt="gitLab配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gitLabToken2.png" alt="gitLab配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gitLabToken2.png" alt="gitLab配置"></p>
+<h3 id="三、GitLab配置触发构建"><a href="#三、GitLab配置触发构建" class="headerlink" title="三、GitLab配置触发构建"></a>三、GitLab配置触发构建</h3><h4 id="GitLab关联Jenkins实现gitLab触发构建"><a href="#GitLab关联Jenkins实现gitLab触发构建" class="headerlink" title="GitLab关联Jenkins实现gitLab触发构建"></a>GitLab关联Jenkins实现gitLab触发构建</h4><h4 id="创建tag或者gitLab提交-gt-触发jenkins构建-gt-打包应用-gt-邮件发送通知"><a href="#创建tag或者gitLab提交-gt-触发jenkins构建-gt-打包应用-gt-邮件发送通知" class="headerlink" title="创建tag或者gitLab提交 =&gt; 触发jenkins构建 =&gt; 打包应用 =&gt; 邮件发送通知"></a>创建tag或者gitLab提交 =&gt; 触发jenkins构建 =&gt; 打包应用 =&gt; 邮件发送通知</h4><h4 id="GitLab配置"><a href="#GitLab配置" class="headerlink" title="GitLab配置"></a>GitLab配置</h4><p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gitLabToken.png" alt="gitLab配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gitLabToken2.png" alt="gitLab配置"><br><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/gitLabToken2.png" alt="gitLab配置"></p>
 <p>  Jenkins关联GitLab:</p>
 <p><img src="https://xdata.dist.com.cn/appstore/imgDir/jenkins/jenkinsToken.png" alt="jenkins系统配置">  </p>
 <h3 id="四、注意事项"><a href="#四、注意事项" class="headerlink" title="四、注意事项"></a>四、注意事项</h3><h4 id="emsp-1-jenkins邮箱配置中使用的是授权码而非密码"><a href="#emsp-1-jenkins邮箱配置中使用的是授权码而非密码" class="headerlink" title="&emsp;1.jenkins邮箱配置中使用的是授权码而非密码"></a>&emsp;1.jenkins邮箱配置中使用的是授权码而非密码</h4><p>&emsp;系统管理=&gt;系统设置=&gt;Extended E-mail Notification</p>
@@ -514,7 +503,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GitLab-Jenkins-自动化打包"><span class="toc-number">1.</span> <span class="toc-text">GitLab+Jenkins 自动化打包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、概述"><span class="toc-number">1.1.</span> <span class="toc-text">一、概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、环境搭建"><span class="toc-number">1.2.</span> <span class="toc-text">一、环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、Jenkins部署"><span class="toc-number">1.3.</span> <span class="toc-text">二、Jenkins部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、GitLab配置触发构建"><span class="toc-number">1.4.</span> <span class="toc-text">三、GitLab配置触发构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、注意事项"><span class="toc-number">1.5.</span> <span class="toc-text">四、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#emsp-1-jenkins邮箱配置中使用的是授权码而非密码"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 1.jenkins邮箱配置中使用的是授权码而非密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#emsp-2-gitLab触发构建方式进行修改后jenkins需要重新配置，否则可能导致配置无效"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 2.gitLab触发构建方式进行修改后jenkins需要重新配置，否则可能导致配置无效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#emsp-3-邮箱配置修改需要jenkins重启，否则容易导致邮件发送失败"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 3.邮箱配置修改需要jenkins重启，否则容易导致邮件发送失败</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GitLab-Jenkins-自动化打包"><span class="toc-number">1.</span> <span class="toc-text">GitLab+Jenkins 自动化打包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、概述"><span class="toc-number">1.1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#完善流程，简化工作，提升效率"><span class="toc-number">1.1.1.</span> <span class="toc-text">完善流程，简化工作，提升效率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#集成目的"><span class="toc-number">1.1.2.</span> <span class="toc-text">集成目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#工作流程"><span class="toc-number">1.1.3.</span> <span class="toc-text">工作流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、环境搭建"><span class="toc-number">1.2.</span> <span class="toc-text">一、环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、Jenkins部署"><span class="toc-number">1.3.</span> <span class="toc-text">二、Jenkins部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Jenkins-gt-新建任务-gt-输入任务名称-gt-选择构建自由风格的软件项目-gt-复制已存在的任务-已配置好的项目-或直接点ok创建-gt-个性配置-gt-保存"><span class="toc-number">1.3.1.</span> <span class="toc-text">Jenkins =&gt; 新建任务 =&gt; 输入任务名称 =&gt; 选择构建自由风格的软件项目 =&gt;复制已存在的任务(已配置好的项目) 或直接点ok创建=&gt; 个性配置 =&gt; 保存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新建任务"><span class="toc-number">1.3.2.</span> <span class="toc-text">新建任务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、GitLab配置触发构建"><span class="toc-number">1.4.</span> <span class="toc-text">三、GitLab配置触发构建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitLab关联Jenkins实现gitLab触发构建"><span class="toc-number">1.4.1.</span> <span class="toc-text">GitLab关联Jenkins实现gitLab触发构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建tag或者gitLab提交-gt-触发jenkins构建-gt-打包应用-gt-邮件发送通知"><span class="toc-number">1.4.2.</span> <span class="toc-text">创建tag或者gitLab提交 =&gt; 触发jenkins构建 =&gt; 打包应用 =&gt; 邮件发送通知</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GitLab配置"><span class="toc-number">1.4.3.</span> <span class="toc-text">GitLab配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、注意事项"><span class="toc-number">1.5.</span> <span class="toc-text">四、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#emsp-1-jenkins邮箱配置中使用的是授权码而非密码"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 1.jenkins邮箱配置中使用的是授权码而非密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#emsp-2-gitLab触发构建方式进行修改后jenkins需要重新配置，否则可能导致配置无效"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 2.gitLab触发构建方式进行修改后jenkins需要重新配置，否则可能导致配置无效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#emsp-3-邮箱配置修改需要jenkins重启，否则容易导致邮件发送失败"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 3.邮箱配置修改需要jenkins重启，否则容易导致邮件发送失败</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -527,12 +516,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1870,12 +1853,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
@@ -2130,13 +2113,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
+    
         <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
-    
-        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
@@ -2148,13 +2131,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
-    
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
         <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
     
@@ -2162,9 +2145,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
-        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
-    
         <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
+    
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
@@ -2209,6 +2192,8 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
@@ -2217,11 +2202,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
-    
-        <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
