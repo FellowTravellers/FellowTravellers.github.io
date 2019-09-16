@@ -416,10 +416,12 @@ height:50vh;
 
 
 
-<h2 id="环境差异"><a href="#环境差异" class="headerlink" title="环境差异"></a><font size="6" face="黑体" color="#005432"><strong>环境差异</strong></font></h2><h3 id="1-角色主体标识差异"><a href="#1-角色主体标识差异" class="headerlink" title="1.角色主体标识差异"></a>1.<font size="5" face="黑体"><strong>角色主体标识差异</strong></font><br></h3><font size="4">首先是微信，微信的生态环境中，角色使用OpenId与UnionId进行角色标识以及不同应用中的角色管理，以及小程序的登陆与服务号的推送等。</font><br><br><br><font size="4">而在企业微信环境中，角色使用UserId进行角色标识，与外界应用交互使用OpenId，OpenId可与Userid 通过Token进行相互转换，但是这个OpenId与微信的OpenId是没有丝毫关系的。</font>
+<h2 id="环境差异"><a href="#环境差异" class="headerlink" title="环境差异"></a><font size="6" face="黑体" color="#005432"><strong>环境差异</strong></font></h2><h3 id="1-角色主体标识差异"><a href="#1-角色主体标识差异" class="headerlink" title="1.角色主体标识差异"></a>1.<font size="5" face="黑体"><strong>角色主体标识差异</strong></font></h3><p><br></p>
+<font size="4">首先是微信，微信的生态环境中，角色使用OpenId与UnionId进行角色标识以及不同应用中的角色管理，以及小程序的登陆与服务号的推送等。</font><br><br><br><font size="4">而在企业微信环境中，角色使用UserId进行角色标识，与外界应用交互使用OpenId，OpenId可与Userid 通过Token进行相互转换，但是这个OpenId与微信的OpenId是没有丝毫关系的。</font>
 
 <p><br></p>
-<h3 id="2-接口差异"><a href="#2-接口差异" class="headerlink" title="2.接口差异"></a>2.<font size="5" face="黑体"><strong>接口差异</strong></font><br></h3><font size="4">企业微信专有接口是指企业微信在微信小程序基础库的基础上进行的二次能力扩展，主要在逻辑层扩展，渲染层与微信小程序基本保持一致。</font><br><br><br><font size="4">扩展的接口可以让小程序在企业微信环境运行时获得更多和企业微信相关的能力，比如微信小程序提供了wx.login接口用于获取用户在微信环境中的用户openid信息，企业微信提供了wx.qy.login接口用于获取Code，这样使得一个小程序在企业微信与微信消息互通的场景中，可以根据运行环境获得两种身份态。</font><br><br><br><font size="4">小程序在微信环境中运行时，不支持调用企业微信专有接口，需要进行对应的兼容处理。</font><br><br><br>企业微信API<a href="https://work.weixin.qq.com/api/doc#90000/90135/90664" title="企业微信API" target="_blank" rel="noopener">点这里</a><br><br><br>企业微信专有接口<a href="https://developers.weixin.qq.com/miniprogram/dev/dev_wxwork/dev-doc/qywx-api.html" title="企业微信专有接口" target="_blank" rel="noopener">点这里</a><br><br><br><br><br><br>## <font size="6" face="黑体" color="#005432"><strong>重要思考点</strong></font>
+<h3 id="2-接口差异"><a href="#2-接口差异" class="headerlink" title="2.接口差异"></a>2.<font size="5" face="黑体"><strong>接口差异</strong></font></h3><p><br></p>
+<font size="4">企业微信专有接口是指企业微信在微信小程序基础库的基础上进行的二次能力扩展，主要在逻辑层扩展，渲染层与微信小程序基本保持一致。</font><br><br><br><font size="4">扩展的接口可以让小程序在企业微信环境运行时获得更多和企业微信相关的能力，比如微信小程序提供了wx.login接口用于获取用户在微信环境中的用户openid信息，企业微信提供了wx.qy.login接口用于获取Code，这样使得一个小程序在企业微信与微信消息互通的场景中，可以根据运行环境获得两种身份态。</font><br><br><br><font size="4">小程序在微信环境中运行时，不支持调用企业微信专有接口，需要进行对应的兼容处理。</font><br><br><br>企业微信API<a href="https://work.weixin.qq.com/api/doc#90000/90135/90664" title="企业微信API" target="_blank" rel="noopener">点这里</a><br><br><br>企业微信专有接口<a href="https://developers.weixin.qq.com/miniprogram/dev/dev_wxwork/dev-doc/qywx-api.html" title="企业微信专有接口" target="_blank" rel="noopener">点这里</a><br><br><br><br><br><br>## <font size="6" face="黑体" color="#005432"><strong>重要思考点</strong></font>
 
 
 <ol>
@@ -444,14 +446,16 @@ height:50vh;
 
 
 
-<h2 id="问题点解决"><a href="#问题点解决" class="headerlink" title="问题点解决"></a><font size="6" face="黑体" color="#005432"><strong>问题点解决</strong></font></h2><h3 id="1-获取企业微信环境"><a href="#1-获取企业微信环境" class="headerlink" title="1.获取企业微信环境"></a>1.<font size="5" face="黑体"><strong>获取企业微信环境</strong></font><br></h3><font size="4">这里操作主要是为了兼容微信环境下没有企业微信环境下的接口，避免错误调用不存在的接口导致出错。</font><br><br><br><font size="4">首先调用</font>
+<h2 id="问题点解决"><a href="#问题点解决" class="headerlink" title="问题点解决"></a><font size="6" face="黑体" color="#005432"><strong>问题点解决</strong></font></h2><h3 id="1-获取企业微信环境"><a href="#1-获取企业微信环境" class="headerlink" title="1.获取企业微信环境"></a>1.<font size="5" face="黑体"><strong>获取企业微信环境</strong></font></h3><p><br></p>
+<font size="4">这里操作主要是为了兼容微信环境下没有企业微信环境下的接口，避免错误调用不存在的接口导致出错。</font><br><br><br><font size="4">首先调用</font>
 
 <pre><code>wx.getSystemInfo()
 </code></pre><font size="4">返回结果中，企业微信会额外有Environment参数。值为wxwork。</font>
 
 
 <p><br></p>
-<h3 id="2-获取Token"><a href="#2-获取Token" class="headerlink" title="2.获取Token"></a>2.<font size="5" face="黑体"><strong>获取Token</strong></font><br></h3><font size="4">企业微信环境下，所需要的一切去企业微信资源有关的接口都需要该企业微信的Token。<font color="red">注意事项见最后其他内容。</font></font>
+<h3 id="2-获取Token"><a href="#2-获取Token" class="headerlink" title="2.获取Token"></a>2.<font size="5" face="黑体"><strong>获取Token</strong></font></h3><p><br></p>
+<font size="4">企业微信环境下，所需要的一切去企业微信资源有关的接口都需要该企业微信的Token。<font color="red">注意事项见最后其他内容。</font></font>
 
 
 
@@ -481,7 +485,8 @@ https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ID&amp;corpsecret=SECRET
 </tbody>
 </table>
 <p><br></p>
-<h3 id="3-获取UserId"><a href="#3-获取UserId" class="headerlink" title="3.获取UserId"></a>3.<font size="5" face="黑体"><strong>获取UserId</strong></font><br></h3><font size="4">企业微信环境下，调用</font>
+<h3 id="3-获取UserId"><a href="#3-获取UserId" class="headerlink" title="3.获取UserId"></a>3.<font size="5" face="黑体"><strong>获取UserId</strong></font></h3><p><br></p>
+<font size="4">企业微信环境下，调用</font>
 
 <pre><code>wx.qy.login（）
 </code></pre><font size="4">获取到Code。然后与Token一起获取UserId。</font>
@@ -533,7 +538,8 @@ https://qyapi.weixin.qq.com/cgi-bin/miniprogram/jscode2session?access_token=ACCE
 </tbody>
 </table>
 <p><br></p>
-<h3 id="4-企业微信推送"><a href="#4-企业微信推送" class="headerlink" title="4.企业微信推送"></a>4.<font size="5" face="黑体"><strong>企业微信推送</strong></font><br></h3><font size="4">根据企业微信<a href="https://work.weixin.qq.com/api/doc#90000/90135/90236" target="_blank" rel="noopener">官方API文档</a>，我们可以通过调用其API发送一个消息，消息类型为miniprogram_notice，即小程序通知消息，其大致概况内容如下：<br><br></font>
+<h3 id="4-企业微信推送"><a href="#4-企业微信推送" class="headerlink" title="4.企业微信推送"></a>4.<font size="5" face="黑体"><strong>企业微信推送</strong></font></h3><p><br></p>
+<font size="4">根据企业微信<a href="https://work.weixin.qq.com/api/doc#90000/90135/90236" target="_blank" rel="noopener">官方API文档</a>，我们可以通过调用其API发送一个消息，消息类型为miniprogram_notice，即小程序通知消息，其大致概况内容如下：<br><br></font>
 
 
 <font size="3">小程序通知消息只允许小程序应用发送，之前，消息会通过统一的会话【小程序通知】发送给用户。</font><br><br><br><font size="3" color="#999999"><br>从2019年6月28日起，用户收到的小程序通知会出现在各个独立的小程序应用中。<br>小程序应用仅支持发送小程序通知消息，暂不支持文本、图片、语音、视频、图文等其他类型的消息。<br>不支持@all全员发送<br></font>
@@ -580,8 +586,9 @@ https://qyapi.weixin.qq.com/cgi-bin/miniprogram/jscode2session?access_token=ACCE
 }
 </code></pre><font size="4" color="red">截止到这里，一个简单的企业微信推送流程就算完成了。以下更多是为满足业务需求所需要解决的一些问题。</font>
 
-
-<h3 id="5-无法直接获取企业微信Id问题"><a href="#5-无法直接获取企业微信Id问题" class="headerlink" title="5.无法直接获取企业微信Id问题"></a>5.<font size="5" face="黑体"><strong>无法直接获取企业微信Id问题</strong></font><br></h3><font size="4">由于特殊的小程序应用场景，当前小程序应用了一个微信和N个企业微信环境，但是微信并没有考虑这种场景，官方默认的为开发者是直接知道当前该企业微信的Id与Secret，也就是一对一，一个应用的企业Id与secret只会用在一个后台，那对于多个企业微信你的的场景，我怎么知道我当前登陆的是哪个企业微信呢？<br><br><br><br><br>为了后台需额外一张表（或者之前与租户有关的表）来记录每个租户对应的企业Id与secret，然后通过传入租户信息，来匹配企业取出企业Id与secret，获取token之后去解析code，拿到企业Id与传入租户的企业Id进行比对判定。获取流程如下：</font><br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/oidvaoidvoianfefinaoibvnxoidn.png" alt="wxworkAppRunnuable"><br><br><br><br><br><br>### 6.<font size="5" face="黑体"><strong>多企业微信下Token验证问题</strong></font>
+<p><br></p>
+<h3 id="5-无法直接获取企业微信Id问题"><a href="#5-无法直接获取企业微信Id问题" class="headerlink" title="5.无法直接获取企业微信Id问题"></a>5.<font size="5" face="黑体"><strong>无法直接获取企业微信Id问题</strong></font></h3><p><br></p>
+<font size="4">由于特殊的小程序应用场景，当前小程序应用了一个微信和N个企业微信环境，但是微信并没有考虑这种场景，官方默认的为开发者是直接知道当前该企业微信的Id与Secret，也就是一对一，一个应用的企业Id与secret只会用在一个后台，那对于多个企业微信你的的场景，我怎么知道我当前登陆的是哪个企业微信呢？<br><br><br><br><br>为了后台需额外一张表（或者之前与租户有关的表）来记录每个租户对应的企业Id与secret，然后通过传入租户信息，来匹配企业取出企业Id与secret，获取token之后去解析code，拿到企业Id与传入租户的企业Id进行比对判定。获取流程如下：</font><br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/oidvaoidvoianfefinaoibvnxoidn.png" alt="wxworkAppRunnuable"><br><br><br><br><br><br>### 6.<font size="5" face="黑体"><strong>多企业微信下Token验证问题</strong></font>
 
 <p><br></p>
 <font size="4">由于多个企业微信会具有多个企业Id与secret，也就是有不同的Token，前端传入一个code只能被消费一次，万一不是当前code，是不是要来回通讯遍历所有的租户信息来看是不是对应的企业微信？<br><br><br><br><br>这里有两种解决方法:<br><br>首先是传入一个code，通过任意一个企业微信信息获取的token来解析，拿到企业Id，再去查询所有的企业Id表，找到匹配的租户与企业微信名称来确定，并返回前端当前是哪个企业微信登入的。<br><br><br>另一种就是让用户自己去选择租户，每次操作后，后台会返回给他当前操作的租户与企业微信是否匹配以获取推送相关的参数。也就是当用户自己决定要打开的时候再去获取他的数据参数并返回他是否匹配正确并且打开成功了。</font><br><br><br><br>### 7.<font size="5" face="黑体"><strong>微信验证模式问题</strong></font>
@@ -595,6 +602,7 @@ https://qyapi.weixin.qq.com/cgi-bin/miniprogram/jscode2session?access_token=ACCE
 <p><br></p>
 <font size="4">其实将问题8的逻辑理出来之后，根据相应关系梳理出来每个角色所具备的所有模板推送即可，例如一个角色拥有1个微信服务号中的5个模板推送，以及3个企业微信的各5个推送，那我进行这1x5+3x5=20个推送的管理即可。将推送相需要的参数根据对应关系存下来，便可以进行这些类型的推送管理，如果模板推送的类型相同，则可以通过一些字段（wx,qyId）+模板类型，快捷的找到指定的推送设置进行下一步操作。<br><br><br><br><br><hr><br><br><br>## <font size="6" face="黑体" color="#005432"><strong>其他</strong></font>
 
+<p><br></p>
 <h3 id="1-企业微信绑定小程序"><a href="#1-企业微信绑定小程序" class="headerlink" title="1.企业微信绑定小程序"></a>1.<font size="5" face="黑体"><strong>企业微信绑定小程序</strong></font></h3><p><br></p>
 <font size="4">登陆企业微信后台，选择绑定公众平台，使用小程序管理员微信进行扫描验证，选择要绑定的小程序，进行授权，企业微信后台获取到小程序Secret，以供使用。</font>
 
@@ -697,10 +705,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
     
     
     
@@ -2308,9 +2312,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
-        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
-    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
@@ -2350,9 +2354,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
     
-        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
-    
         <span class="sidebar-tag-name" data-tags="MiniProgram"><span class="iconfont-archer">&#xe606;</span>MiniProgram</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
         <span class="sidebar-tag-name" data-tags="WebGL"><span class="iconfont-archer">&#xe606;</span>WebGL</span>
     
@@ -2393,13 +2397,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
-        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
-    
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
+        <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
