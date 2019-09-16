@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>CopyOnWriteArrayList介绍 · Fellow Travellers</title>
+    <title>小程序实现微信与多企业微信联动通知管理 · Fellow Travellers</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Fellow Travellers</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">CopyOnWriteArrayList介绍</a>
+                <a href="#" class="post-name">小程序实现微信与多企业微信联动通知管理</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            CopyOnWriteArrayList介绍
+            小程序实现微信与多企业微信联动通知管理
             <!-- 404 -->
             
         </h1>
@@ -266,7 +266,7 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "MiniProgram">MiniProgram</a>
     
 </div>
                 
@@ -274,18 +274,18 @@ height:50vh;
                 
                     <div class= post-intro-categories >
     
-        <a class="post-categorie" data-tags = "万世威">万世威</a>
+        <a class="post-categorie" data-tags = "张泉">张泉</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">499</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">3.3k</span>阅读时长: <span class="post-count reading-time">12 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2018/11/06</span>
+                    <span class="post-intro-time">2019/09/16</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -409,28 +409,186 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="CopyOnWriteArrayList介绍"><a href="#CopyOnWriteArrayList介绍" class="headerlink" title="CopyOnWriteArrayList介绍"></a><strong>CopyOnWriteArrayList</strong>介绍</h1><p>​    CopyOnWrite容器即写时复制的容器。通俗的理解是当我们往一个容器添加元素的时候，不直接往当前容器添加，而是先将当前容器进行Copy，复制出一个新的容器，然后新的容器里添加元素，添加完元素之后，再将原容器的引用指向新的容器。 </p>
-<p>​    CopyOnWrite容器也是一种读写分离的思想，读和写不同的容器。 </p>
-<p>在 <strong>集合的安全失败机制“fail-safe”</strong> 提到使用 CopyOnWriteArrayList 可以解决此问题，</p>
-<p>在 com.mysql.jdbc.Driver 下会使用到，即： class.forName(“com.mysql.jdbc.Driver”)会执行以下代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> <span class="keyword">extends</span> <span class="title">NonRegisteringDriver</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">sql</span>.<span class="title">Driver</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">         DriverManager.registerDriver(<span class="keyword">new</span> Driver());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DriverManager</span> </span>&#123;</span><br><span class="line">    <span class="comment">// List of registered JDBC drivers</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> CopyOnWriteArrayList&lt;DriverInfo&gt; registeredDrivers = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>查看该类所在位置：</p>
-<p>​    CopyOnWriteArrayList 位于 java.util.concurrent 包下，可知：该类为 并发而设计。</p>
-<p>看示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Integer&gt; list = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">		list.add(<span class="number">1</span>);</span><br><span class="line">		list.add(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CopyOnWriteArrayList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">transient</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** The array, accessed only via getArray/setArray. */</span></span><br><span class="line">     <span class="comment">// 使用 Object 数组 存储数据。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Object[] array;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock；</span><br><span class="line">	lock.lock();<span class="comment">// 加锁，保证线程安全</span></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		Object[] elements = getArray();</span><br><span class="line">		<span class="keyword">int</span> len = elements.length;</span><br><span class="line">		Object[] newElements = Arrays.copyOf(elements, len + <span class="number">1</span>);</span><br><span class="line">		newElements[len] = e;</span><br><span class="line">		setArray(newElements);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">		lock.unlock();<span class="comment">// 释放锁</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>步骤：</p>
-<p>1、加锁。</p>
-<p>2、获取原数组（getArray()方法），得到新数组（newElements，原数组+1）。</p>
-<p>3、把原数组的元素复制到新数组中去 。</p>
-<p>4、新元素添加到新数组中。</p>
-<p>5、array引用新数组。</p>
-<p>6、释放锁。</p>
-<p>其它操作【remvoe、clear、set】都和add 方法类似。每一次的操作都是以对Object[] array进行一次复制为基础的。</p>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>1、由于写操作的时候，需要拷贝数组，会消耗内存。</p>
-<p>2、不能用于==实时读==的场景 ，只是做到了==最终一致性==。</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><font size="6" face="黑体" color="#005432"><strong>简介</strong></font></h2><font size="4">小程序是一种新的开放能力，开发者可以快速地开发一个小程序。小程序可以在微信内被便捷地获取和传播，同时具有出色的使用体验。</font><br><br><br><font size="4">它是在微信的生态基础上衍生出来的轻应用，有着当前移动发展的前沿理念，是一种不需要下载安装即可使用的应用，它实现了应用“触手可及”的梦想，用户扫一扫或搜一下即可打开应用。开发者可以便携的使用微信生态中提供的资源，但是在企业微信的来临之际，去企业相关的小程序则需要第一时间去思考与构建wechat-wxWork环境关联与交互响应，从而对于服务企业的小程序提供有更好的应用场景。</font><br><br><br><font color="#664499" size="4">在本文中，首先会着重说明一个小程序对于一个微信+N个企业微信的生态环境下的联动交互问题，以及简单介绍下企业微信下与微信环境的差异。对于微信服务号推送相关为之前功能点，这里就不详细解说了。</font>
 
+
+<hr>
+
+
+
+<h2 id="环境差异"><a href="#环境差异" class="headerlink" title="环境差异"></a><font size="6" face="黑体" color="#005432"><strong>环境差异</strong></font></h2><h3 id="1-角色主体标识差异"><a href="#1-角色主体标识差异" class="headerlink" title="1.角色主体标识差异"></a>1.<font size="5" face="黑体"><strong>角色主体标识差异</strong></font><br></h3><font size="4">首先是微信，微信的生态环境中，角色使用OpenId与UnionId进行角色标识以及不同应用中的角色管理，以及小程序的登陆与服务号的推送等。</font><br><br><br><font size="4">而在企业微信环境中，角色使用UserId进行角色标识，与外界应用交互使用OpenId，OpenId可与Userid 通过Token进行相互转换，但是这个OpenId与微信的OpenId是没有丝毫关系的。</font>
+
+<p><br></p>
+<h3 id="2-接口差异"><a href="#2-接口差异" class="headerlink" title="2.接口差异"></a>2.<font size="5" face="黑体"><strong>接口差异</strong></font><br></h3><font size="4">企业微信专有接口是指企业微信在微信小程序基础库的基础上进行的二次能力扩展，主要在逻辑层扩展，渲染层与微信小程序基本保持一致。</font><br><br><br><font size="4">扩展的接口可以让小程序在企业微信环境运行时获得更多和企业微信相关的能力，比如微信小程序提供了wx.login接口用于获取用户在微信环境中的用户openid信息，企业微信提供了wx.qy.login接口用于获取Code，这样使得一个小程序在企业微信与微信消息互通的场景中，可以根据运行环境获得两种身份态。</font><br><br><br><font size="4">小程序在微信环境中运行时，不支持调用企业微信专有接口，需要进行对应的兼容处理。</font><br><br><br>企业微信API<a href="https://work.weixin.qq.com/api/doc#90000/90135/90664" title="企业微信API" target="_blank" rel="noopener">点这里</a><br><br><br>企业微信专有接口<a href="https://developers.weixin.qq.com/miniprogram/dev/dev_wxwork/dev-doc/qywx-api.html" title="企业微信专有接口" target="_blank" rel="noopener">点这里</a><br><br><br><br><br><br>## <font size="6" face="黑体" color="#005432"><strong>重要思考点</strong></font>
+
+
+<ol>
+<li>差异化环境捕获<br></li>
+</ol>
+<ol start="2">
+<li><font color="#664499">企业环境下无直接获取企业Id的多企业判断问题</font><br></li>
+</ol>
+<ol start="3">
+<li><font color="#664499">code只能消费一次情况下，多Token验证问题</font><br></li>
+</ol>
+<ol start="4">
+<li><font color="#664499">微信验证模式（权限解析）不是锁钥匹配下Code被消费问题</font><br></li>
+</ol>
+<ol start="5">
+<li><font color="#664499">微信角色、企业微信角色、第三方平台角色匹配问题</font><br></li>
+</ol>
+<ol start="6">
+<li><font color="#664499">企业微信推送小程序消息</font><br></li>
+</ol>
+<hr>
+
+
+
+<h2 id="问题点解决"><a href="#问题点解决" class="headerlink" title="问题点解决"></a><font size="6" face="黑体" color="#005432"><strong>问题点解决</strong></font></h2><h3 id="1-获取企业微信环境"><a href="#1-获取企业微信环境" class="headerlink" title="1.获取企业微信环境"></a>1.<font size="5" face="黑体"><strong>获取企业微信环境</strong></font><br></h3><font size="4">这里操作主要是为了兼容微信环境下没有企业微信环境下的接口，避免错误调用不存在的接口导致出错。</font><br><br><br><font size="4">首先调用</font>
+
+<pre><code>wx.getSystemInfo()
+</code></pre><font size="4">返回结果中，企业微信会额外有Environment参数。值为wxwork。</font>
+
+
+<p><br></p>
+<h3 id="2-获取Token"><a href="#2-获取Token" class="headerlink" title="2.获取Token"></a>2.<font size="5" face="黑体"><strong>获取Token</strong></font><br></h3><font size="4">企业微信环境下，所需要的一切去企业微信资源有关的接口都需要该企业微信的Token。<font color="red">注意事项见最后其他内容。</font></font>
+
+
+
+<p><a href="https://work.weixin.qq.com/api/doc#90000/90135/91039" target="_blank" rel="noopener">查看官方文档</a></p>
+<pre><code> 请求方式 GET（HTTPS）
+ 请求地址： 
+https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ID&amp;corpsecret=SECRET
+</code></pre><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>corpid</td>
+<td>是</td>
+<td>企业ID，获取方式参考：<a href="https://work.weixin.qq.com/api/doc#14953/corpid" target="_blank" rel="noopener">术语说明-corpid</a></td>
+</tr>
+<tr>
+<td>corpsecret</td>
+<td>是</td>
+<td>应用的凭证密钥，获取方式参考：<a href="https://work.weixin.qq.com/api/doc#14953/secret" target="_blank" rel="noopener">术语说明-secret</a></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="3-获取UserId"><a href="#3-获取UserId" class="headerlink" title="3.获取UserId"></a>3.<font size="5" face="黑体"><strong>获取UserId</strong></font><br></h3><font size="4">企业微信环境下，调用</font>
+
+<pre><code>wx.qy.login（）
+</code></pre><font size="4">获取到Code。然后与Token一起获取UserId。</font>
+
+
+<p><a href="https://developers.weixin.qq.com/miniprogram/dev/dev_wxwork/dev-doc/qywx-api/login/code2session.html" target="_blank" rel="noopener">查看官方文档</a></p>
+<pre><code>  请求方式 GET（HTTPS）
+  请求地址： 
+https://qyapi.weixin.qq.com/cgi-bin/miniprogram/jscode2session?access_token=ACCESS_TOKEN&amp;js_code=CODE&amp;grant_type=authorization_code
+</code></pre><p>请求示例：</p>
+<pre><code>{
+&quot;access_token&quot;:&quot;YeAz*********6_JdDKYMyOv_RJRA&quot;,
+&quot;js_code&quot;:&quot;DdAomHsyxKZ***************O01iI&quot;
+&quot;grant_type&quot;:&quot;authorization_code&quot;
+}
+</code></pre><p>返回：</p>
+<pre><code>{
+     &quot;userid&quot;: &quot;zha*********n&quot;,//所需要的userId
+     &quot;session_key&quot;: &quot;ioQ*****0HqsdIhGYawg==&quot;,
+     &quot;corpid&quot;: &quot;wwcef6*****388445f&quot;,//验证是否与获取token的企业id是否相同
+     &quot;deviceid&quot;: &quot;&quot;,
+     &quot;errcode&quot;: 0,
+     &quot;errmsg&quot;: &quot;ok&quot;
+}
+</code></pre><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>是</td>
+<td>调用接口凭证</td>
+</tr>
+<tr>
+<td>js_code</td>
+<td>是</td>
+<td>通过wx.qy.login获取的code</td>
+</tr>
+<tr>
+<td>grant_type</td>
+<td>是</td>
+<td>这里固定是authorization_code</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="4-企业微信推送"><a href="#4-企业微信推送" class="headerlink" title="4.企业微信推送"></a>4.<font size="5" face="黑体"><strong>企业微信推送</strong></font><br></h3><font size="4">根据企业微信<a href="https://work.weixin.qq.com/api/doc#90000/90135/90236" target="_blank" rel="noopener">官方API文档</a>，我们可以通过调用其API发送一个消息，消息类型为miniprogram_notice，即小程序通知消息，其大致概况内容如下：<br><br></font>
+
+
+<font size="3">小程序通知消息只允许小程序应用发送，之前，消息会通过统一的会话【小程序通知】发送给用户。</font><br><br><br><font size="3" color="#999999"><br>从2019年6月28日起，用户收到的小程序通知会出现在各个独立的小程序应用中。<br>小程序应用仅支持发送小程序通知消息，暂不支持文本、图片、语音、视频、图文等其他类型的消息。<br>不支持@all全员发送<br></font>
+
+
+<pre><code>请求方式 POST（HTTPS）
+请求地址：https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN
+</code></pre><p>请求示例：</p>
+<pre><code>{
+&quot;touser&quot; : &quot;zhangsan|lisi&quot;,不必需/说明：成员ID列表（消息接收者，多个接收者用‘|’分隔，最多支持1000个）userId,不是openId
+&quot;toparty&quot;: &quot;1|2&quot;,不必需/说明：部门ID列表，多个接收者用‘|’分隔，最多支持100个。
+&quot;totag&quot;: &quot;1|2&quot;,不必需/说明：标签ID列表，多个接收者用‘|’分隔，最多支持100个。
+&quot;msgtype&quot; : &quot;miniprogram_notice&quot;,必需/说明：消息类型，此时固定为：miniprogram_notice
+&quot;miniprogram_notice&quot; : {
+        &quot;appid&quot;: &quot;wx123123123123123&quot;,必需/说明：小程序appid，必须是与当前小程序应用关联的小程序(与服务号模板推送一致）
+        &quot;page&quot;: &quot;pages/index?userid=zhangsan&amp;orderid=123123123&quot;,
+不必需/说明：点击消息卡片后的小程序页面，仅限本小程序内的页面。该字段不填则消息点击后不跳转。(与服务号模板推送一致）
+        &quot;title&quot;: &quot;会议室预订成功通知&quot;,
+必需/说明：消息标题，长度限制4-12个汉字
+        &quot;description&quot;: &quot;4月27日 16:16&quot;,
+不必需/说明：消息描述，长度限制4-12个汉字
+        &quot;emphasis_first_item&quot;: true,
+不必需/说明：是否放大第一个content_item
+        &quot;content_item&quot;: [不必需/说明：消息内容键值对，最多允许10个item
+
+            {
+                &quot;key&quot;: &quot;会议室&quot;,必需/说明：长度10个汉字以内
+                &quot;value&quot;: &quot;402&quot;必需/说明：长度30个汉字以内
+            },
+            {
+                &quot;key&quot;: &quot;会议地点&quot;,
+                &quot;value&quot;: &quot;广州TIT-402会议室&quot;
+            },
+            {
+                &quot;key&quot;: &quot;会议时间&quot;,
+                &quot;value&quot;: &quot;2018年8月1日 09:00-09:30&quot;
+            },
+            {
+                &quot;key&quot;: &quot;参与人员&quot;,
+                &quot;value&quot;: &quot;周剑轩&quot;
+            }
+        ]
+    }
+}
+</code></pre><font size="4" color="red">截止到这里，一个简单的企业微信推送流程就算完成了。以下更多是为满足业务需求所需要解决的一些问题。</font>
+
+
+<h3 id="5-无法直接获取企业微信Id问题"><a href="#5-无法直接获取企业微信Id问题" class="headerlink" title="5.无法直接获取企业微信Id问题"></a>5.<font size="5" face="黑体"><strong>无法直接获取企业微信Id问题</strong></font><br></h3><font size="4">由于特殊的小程序应用场景，当前小程序应用了一个微信和N个企业微信环境，但是微信并没有考虑这种场景，官方默认的为开发者是直接知道当前该企业微信的Id与Secret，也就是一对一，一个应用的企业Id与secret只会用在一个后台，那对于多个企业微信你的的场景，我怎么知道我当前登陆的是哪个企业微信呢？<br><br><br><br><br>为了后台需额外一张表（或者之前与租户有关的表）来记录每个租户对应的企业Id与secret，然后通过传入租户信息，来匹配企业取出企业Id与secret，获取token之后去解析code，拿到企业Id与传入租户的企业Id进行比对判定。获取流程如下：</font><br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/oidvaoidvoianfefinaoibvnxoidn.png" alt="wxworkAppRunnuable"><br><br><br><br><br>### 6.<font size="5" face="黑体"><strong>多企业微信下Token验证问题</strong></font><br><br><br><br><font size="4">由于多个企业微信会具有多个企业Id与secret，也就是有不同的Token，前端传入一个code只能被消费一次，万一不是当前code，是不是要来回通讯遍历所有的租户信息来看是不是对应的企业微信？<br><br><br><br><br>这里有两种解决方法:<br><br>首先是传入一个code，通过任意一个企业微信信息获取的token来解析，拿到企业Id，再去查询所有的企业Id表，找到匹配的租户与企业微信名称来确定，并返回前端当前是哪个企业微信登入的。<br><br><br>另一种就是让用户自己去选择租户，每次操作后，后台会返回给他当前操作的租户与企业微信是否匹配以获取推送相关的参数。也就是当用户自己决定要打开的时候再去获取他的数据参数并返回他是否匹配正确并且打开成功了。</font><br><br><br>### 7.<font size="5" face="黑体"><strong>微信验证模式问题</strong></font><br><br><br><br><font size="4">这个在我初次看来以为是和手机号以及手机验证码一样的机制，也就是我一个手机发出的验证码仅能匹配到当前手机使用且只能被当前手机验证消费掉，但是经过测试发现，并不是这样。<br><br><br><br><br>企业微信的code并不是验证码，企业微信id与secret也并不是个手机号，他的验证模式更像是权限解析问题，即我code中本身就存在一些信息，也就是我验证成功之后所得到的信息并不是通过企业微信的基本信息中获取的，而是从code中解析出来的，而企业微信id与secret获取的Token更像是一个门禁卡，即你有没有权限去操作解析code的机器，至于是不是自己企业的code，无关紧要。这也就意味着，一个企业微信登陆获取的code可以被任何一个企业id和secret换取的Token解析之后消费掉。也就是我有任意一个合法token就可以解析任意一个Code。由此也就产生了上一个问题中，code被无效消费的问题。</font><br><br><br>### 8.<font size="5" face="黑体"><strong>微信角色 企业微信角色 平台角色匹配问题</strong></font><br><br><br><br><font size="4">这个问题看起来是不是很像是数据库3张表之间的关联关系问题，实际上也就是这个问题。微信角色的唯一标识为OpenId,企业微信角色的唯一标识为UserId，平台角色有自己的UserCode，我们只需要把这些关系理一下。<br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/adfsagvsdvasadsee.png" alt="wxworkAppRunnuable"><br><br><br>首先是微信角色，我们使用手机号与微信号一一对应，然后所有的租户（企业）都可以通过手机号匹配到该微信。微信：租户 = 1:n<br><br><br>然后是租户如企业，租户只有一个企业微信，我们可以通过租户域来和企业Id一一匹配上，租户里的角色和企业微信里的角色也是一一匹配。企业微信：租户 = 1：1<br><br><br>最后是微信与企业微信，通过上面两层我们就可以拿到一个微信角色怎么匹配多个企业微信角色了，一个微信可以通过自己唯一的手机号可以匹配到所以租户中这个手机号的角色对应的企业微信角色，或者加上租户域就能匹配到一个企业微信角色。微信：企业微信 = 1：n</font><br><br><br>### 9.<font size="5" face="黑体"><strong>微信服务号推送 企业推送管理</strong></font><br><br><br><font size="4">其实将问题8的逻辑理出来之后，根据相应关系梳理出来每个角色所具备的所有模板推送即可，例如一个角色拥有1个微信服务号中的5个模板推送，以及3个企业微信的各5个推送，那我进行这1x5+3x5=20个推送的管理即可。将推送相需要的参数根据对应关系存下来，便可以进行这些类型的推送管理，如果模板推送的类型相同，则可以通过一些字段（wx,qyId）+模板类型，快捷的找到指定的推送设置进行下一步操作。<br><br><br><br><br><hr><br><br><br>## <font size="6" face="黑体" color="#005432"><strong>其他</strong></font>
+
+
+
+<h3 id="1-企业微信绑定小程序"><a href="#1-企业微信绑定小程序" class="headerlink" title="1.企业微信绑定小程序"></a>1.<font size="5" face="黑体"><strong>企业微信绑定小程序</strong></font><br></h3><font size="4">登陆企业微信后台，选择绑定公众平台，使用小程序管理员微信进行扫描验证，选择要绑定的小程序，进行授权，企业微信后台获取到小程序Secret，以供使用。</font><br><br><br><br><br><br>### 2.<font size="5" face="黑体"><strong>Token权限问题</strong></font><br><br><br><br><font size="4">获取Token需要两个参数。企业微信管理端会有两个参数（企业Id与secret）。（这里注意：企业微信的secret有好几种，分别是应用secret，通讯录secret，外部用户secret，不同的secret获取的权限是不同的。这里要使用的是小程序里面的那个secret。在企业微信后台对应小程序展开位置可以查看。权限查看地址请点击<a href="https://open.work.weixin.qq.com/devtool/query?e=40029" target="_blank" rel="noopener">这里</a>。<br></font>
+
+<p><br></p>
+</font>
     </article>
     <!-- license  -->
     
@@ -438,17 +596,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/11/12/ArcEngine开发中一些提高效率技巧/" title= "ArcEngine开发中一些提高效率技巧">
-                    <div class="nextTitle">ArcEngine开发中一些提高效率技巧</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/11/06/Lambda收集器示例/" title= "Lambda收集器示例">
-                    <div class="prevTitle">Lambda收集器示例</div>
+                <a href= "/2019/09/04/GitLab+Jenkins自动化/" title= "GitLab+Jenkins自动化">
+                    <div class="prevTitle">GitLab+Jenkins自动化</div>
                 </a>
             
         </li>
@@ -516,7 +669,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CopyOnWriteArrayList介绍"><span class="toc-number">1.</span> <span class="toc-text">CopyOnWriteArrayList介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#缺点"><span class="toc-number">1.1.</span> <span class="toc-text">缺点</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境差异"><span class="toc-number">2.</span> <span class="toc-text">环境差异</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-角色主体标识差异"><span class="toc-number">2.1.</span> <span class="toc-text">1.角色主体标识差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-接口差异"><span class="toc-number">2.2.</span> <span class="toc-text">2.接口差异</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题点解决"><span class="toc-number">3.</span> <span class="toc-text">问题点解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-获取企业微信环境"><span class="toc-number">3.1.</span> <span class="toc-text">1.获取企业微信环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-获取Token"><span class="toc-number">3.2.</span> <span class="toc-text">2.获取Token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-获取UserId"><span class="toc-number">3.3.</span> <span class="toc-text">3.获取UserId</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-企业微信推送"><span class="toc-number">3.4.</span> <span class="toc-text">4.企业微信推送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-无法直接获取企业微信Id问题"><span class="toc-number">3.5.</span> <span class="toc-text">5.无法直接获取企业微信Id问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-企业微信绑定小程序"><span class="toc-number">3.6.</span> <span class="toc-text">1.企业微信绑定小程序</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
