@@ -280,7 +280,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">3.3k</span>阅读时长: <span class="post-count reading-time">12 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">3.4k</span>阅读时长: <span class="post-count reading-time">12 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -581,11 +581,26 @@ https://qyapi.weixin.qq.com/cgi-bin/miniprogram/jscode2session?access_token=ACCE
 </code></pre><font size="4" color="red">截止到这里，一个简单的企业微信推送流程就算完成了。以下更多是为满足业务需求所需要解决的一些问题。</font>
 
 
-<h3 id="5-无法直接获取企业微信Id问题"><a href="#5-无法直接获取企业微信Id问题" class="headerlink" title="5.无法直接获取企业微信Id问题"></a>5.<font size="5" face="黑体"><strong>无法直接获取企业微信Id问题</strong></font><br></h3><font size="4">由于特殊的小程序应用场景，当前小程序应用了一个微信和N个企业微信环境，但是微信并没有考虑这种场景，官方默认的为开发者是直接知道当前该企业微信的Id与Secret，也就是一对一，一个应用的企业Id与secret只会用在一个后台，那对于多个企业微信你的的场景，我怎么知道我当前登陆的是哪个企业微信呢？<br><br><br><br><br>为了后台需额外一张表（或者之前与租户有关的表）来记录每个租户对应的企业Id与secret，然后通过传入租户信息，来匹配企业取出企业Id与secret，获取token之后去解析code，拿到企业Id与传入租户的企业Id进行比对判定。获取流程如下：</font><br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/oidvaoidvoianfefinaoibvnxoidn.png" alt="wxworkAppRunnuable"><br><br><br><br><br>### 6.<font size="5" face="黑体"><strong>多企业微信下Token验证问题</strong></font><br><br><br><br><font size="4">由于多个企业微信会具有多个企业Id与secret，也就是有不同的Token，前端传入一个code只能被消费一次，万一不是当前code，是不是要来回通讯遍历所有的租户信息来看是不是对应的企业微信？<br><br><br><br><br>这里有两种解决方法:<br><br>首先是传入一个code，通过任意一个企业微信信息获取的token来解析，拿到企业Id，再去查询所有的企业Id表，找到匹配的租户与企业微信名称来确定，并返回前端当前是哪个企业微信登入的。<br><br><br>另一种就是让用户自己去选择租户，每次操作后，后台会返回给他当前操作的租户与企业微信是否匹配以获取推送相关的参数。也就是当用户自己决定要打开的时候再去获取他的数据参数并返回他是否匹配正确并且打开成功了。</font><br><br><br>### 7.<font size="5" face="黑体"><strong>微信验证模式问题</strong></font><br><br><br><br><font size="4">这个在我初次看来以为是和手机号以及手机验证码一样的机制，也就是我一个手机发出的验证码仅能匹配到当前手机使用且只能被当前手机验证消费掉，但是经过测试发现，并不是这样。<br><br><br><br><br>企业微信的code并不是验证码，企业微信id与secret也并不是个手机号，他的验证模式更像是权限解析问题，即我code中本身就存在一些信息，也就是我验证成功之后所得到的信息并不是通过企业微信的基本信息中获取的，而是从code中解析出来的，而企业微信id与secret获取的Token更像是一个门禁卡，即你有没有权限去操作解析code的机器，至于是不是自己企业的code，无关紧要。这也就意味着，一个企业微信登陆获取的code可以被任何一个企业id和secret换取的Token解析之后消费掉。也就是我有任意一个合法token就可以解析任意一个Code。由此也就产生了上一个问题中，code被无效消费的问题。</font><br><br><br>### 8.<font size="5" face="黑体"><strong>微信角色 企业微信角色 平台角色匹配问题</strong></font><br><br><br><br><font size="4">这个问题看起来是不是很像是数据库3张表之间的关联关系问题，实际上也就是这个问题。微信角色的唯一标识为OpenId,企业微信角色的唯一标识为UserId，平台角色有自己的UserCode，我们只需要把这些关系理一下。<br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/adfsagvsdvasadsee.png" alt="wxworkAppRunnuable"><br><br><br>首先是微信角色，我们使用手机号与微信号一一对应，然后所有的租户（企业）都可以通过手机号匹配到该微信。微信：租户 = 1:n<br><br><br>然后是租户如企业，租户只有一个企业微信，我们可以通过租户域来和企业Id一一匹配上，租户里的角色和企业微信里的角色也是一一匹配。企业微信：租户 = 1：1<br><br><br>最后是微信与企业微信，通过上面两层我们就可以拿到一个微信角色怎么匹配多个企业微信角色了，一个微信可以通过自己唯一的手机号可以匹配到所以租户中这个手机号的角色对应的企业微信角色，或者加上租户域就能匹配到一个企业微信角色。微信：企业微信 = 1：n</font><br><br><br>### 9.<font size="5" face="黑体"><strong>微信服务号推送 企业推送管理</strong></font><br><br><br><font size="4">其实将问题8的逻辑理出来之后，根据相应关系梳理出来每个角色所具备的所有模板推送即可，例如一个角色拥有1个微信服务号中的5个模板推送，以及3个企业微信的各5个推送，那我进行这1x5+3x5=20个推送的管理即可。将推送相需要的参数根据对应关系存下来，便可以进行这些类型的推送管理，如果模板推送的类型相同，则可以通过一些字段（wx,qyId）+模板类型，快捷的找到指定的推送设置进行下一步操作。<br><br><br><br><br><hr><br><br><br>## <font size="6" face="黑体" color="#005432"><strong>其他</strong></font>
+<h3 id="5-无法直接获取企业微信Id问题"><a href="#5-无法直接获取企业微信Id问题" class="headerlink" title="5.无法直接获取企业微信Id问题"></a>5.<font size="5" face="黑体"><strong>无法直接获取企业微信Id问题</strong></font><br></h3><font size="4">由于特殊的小程序应用场景，当前小程序应用了一个微信和N个企业微信环境，但是微信并没有考虑这种场景，官方默认的为开发者是直接知道当前该企业微信的Id与Secret，也就是一对一，一个应用的企业Id与secret只会用在一个后台，那对于多个企业微信你的的场景，我怎么知道我当前登陆的是哪个企业微信呢？<br><br><br><br><br>为了后台需额外一张表（或者之前与租户有关的表）来记录每个租户对应的企业Id与secret，然后通过传入租户信息，来匹配企业取出企业Id与secret，获取token之后去解析code，拿到企业Id与传入租户的企业Id进行比对判定。获取流程如下：</font><br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/oidvaoidvoianfefinaoibvnxoidn.png" alt="wxworkAppRunnuable"><br><br><br><br><br><br>### 6.<font size="5" face="黑体"><strong>多企业微信下Token验证问题</strong></font>
 
+<p><br></p>
+<font size="4">由于多个企业微信会具有多个企业Id与secret，也就是有不同的Token，前端传入一个code只能被消费一次，万一不是当前code，是不是要来回通讯遍历所有的租户信息来看是不是对应的企业微信？<br><br><br><br><br>这里有两种解决方法:<br><br>首先是传入一个code，通过任意一个企业微信信息获取的token来解析，拿到企业Id，再去查询所有的企业Id表，找到匹配的租户与企业微信名称来确定，并返回前端当前是哪个企业微信登入的。<br><br><br>另一种就是让用户自己去选择租户，每次操作后，后台会返回给他当前操作的租户与企业微信是否匹配以获取推送相关的参数。也就是当用户自己决定要打开的时候再去获取他的数据参数并返回他是否匹配正确并且打开成功了。</font><br><br><br><br>### 7.<font size="5" face="黑体"><strong>微信验证模式问题</strong></font>
 
+<p><br></p>
+<font size="4">这个在我初次看来以为是和手机号以及手机验证码一样的机制，也就是我一个手机发出的验证码仅能匹配到当前手机使用且只能被当前手机验证消费掉，但是经过测试发现，并不是这样。<br><br><br><br><br>企业微信的code并不是验证码，企业微信id与secret也并不是个手机号，他的验证模式更像是权限解析问题，即我code中本身就存在一些信息，也就是我验证成功之后所得到的信息并不是通过企业微信的基本信息中获取的，而是从code中解析出来的，而企业微信id与secret获取的Token更像是一个门禁卡，即你有没有权限去操作解析code的机器，至于是不是自己企业的code，无关紧要。这也就意味着，一个企业微信登陆获取的code可以被任何一个企业id和secret换取的Token解析之后消费掉。也就是我有任意一个合法token就可以解析任意一个Code。由此也就产生了上一个问题中，code被无效消费的问题。</font><br><br><br><br>### 8.<font size="5" face="黑体"><strong>微信角色 企业微信角色 平台角色匹配问题</strong></font>
 
-<h3 id="1-企业微信绑定小程序"><a href="#1-企业微信绑定小程序" class="headerlink" title="1.企业微信绑定小程序"></a>1.<font size="5" face="黑体"><strong>企业微信绑定小程序</strong></font><br></h3><font size="4">登陆企业微信后台，选择绑定公众平台，使用小程序管理员微信进行扫描验证，选择要绑定的小程序，进行授权，企业微信后台获取到小程序Secret，以供使用。</font><br><br><br><br><br><br>### 2.<font size="5" face="黑体"><strong>Token权限问题</strong></font><br><br><br><br><font size="4">获取Token需要两个参数。企业微信管理端会有两个参数（企业Id与secret）。（这里注意：企业微信的secret有好几种，分别是应用secret，通讯录secret，外部用户secret，不同的secret获取的权限是不同的。这里要使用的是小程序里面的那个secret。在企业微信后台对应小程序展开位置可以查看。权限查看地址请点击<a href="https://open.work.weixin.qq.com/devtool/query?e=40029" target="_blank" rel="noopener">这里</a>。<br></font>
+<p><br></p>
+<font size="4">这个问题看起来是不是很像是数据库3张表之间的关联关系问题，实际上也就是这个问题。微信角色的唯一标识为OpenId,企业微信角色的唯一标识为UserId，平台角色有自己的UserCode，我们只需要把这些关系理一下。<br><br><br><br><img src="https://xdata.dist.com.cn/appstore/imgDir/adfsagvsdvasadsee.png" alt="wxworkAppRunnuable"><br><br><br>首先是微信角色，我们使用手机号与微信号一一对应，然后所有的租户（企业）都可以通过手机号匹配到该微信。微信：租户 = 1:n<br><br><br>然后是租户如企业，租户只有一个企业微信，我们可以通过租户域来和企业Id一一匹配上，租户里的角色和企业微信里的角色也是一一匹配。企业微信：租户 = 1：1<br><br><br>最后是微信与企业微信，通过上面两层我们就可以拿到一个微信角色怎么匹配多个企业微信角色了，一个微信可以通过自己唯一的手机号可以匹配到所以租户中这个手机号的角色对应的企业微信角色，或者加上租户域就能匹配到一个企业微信角色。微信：企业微信 = 1：n</font><br><br><br><br><br>### 9.<font size="5" face="黑体"><strong>微信服务号推送 企业推送管理</strong></font>
+
+<p><br></p>
+<font size="4">其实将问题8的逻辑理出来之后，根据相应关系梳理出来每个角色所具备的所有模板推送即可，例如一个角色拥有1个微信服务号中的5个模板推送，以及3个企业微信的各5个推送，那我进行这1x5+3x5=20个推送的管理即可。将推送相需要的参数根据对应关系存下来，便可以进行这些类型的推送管理，如果模板推送的类型相同，则可以通过一些字段（wx,qyId）+模板类型，快捷的找到指定的推送设置进行下一步操作。<br><br><br><br><br><hr><br><br><br>## <font size="6" face="黑体" color="#005432"><strong>其他</strong></font>
+
+<h3 id="1-企业微信绑定小程序"><a href="#1-企业微信绑定小程序" class="headerlink" title="1.企业微信绑定小程序"></a>1.<font size="5" face="黑体"><strong>企业微信绑定小程序</strong></font></h3><p><br></p>
+<font size="4">登陆企业微信后台，选择绑定公众平台，使用小程序管理员微信进行扫描验证，选择要绑定的小程序，进行授权，企业微信后台获取到小程序Secret，以供使用。</font>
+
+<p><br></p>
+<h3 id="2-Token权限问题"><a href="#2-Token权限问题" class="headerlink" title="2.Token权限问题"></a>2.<font size="5" face="黑体"><strong>Token权限问题</strong></font></h3><p><br></p>
+<font size="4">获取Token需要两个参数。企业微信管理端会有两个参数（企业Id与secret）。（这里注意：企业微信的secret有好几种，分别是应用secret，通讯录secret，外部用户secret，不同的secret获取的权限是不同的。这里要使用的是小程序里面的那个secret。在企业微信后台对应小程序展开位置可以查看。权限查看地址请点击<a href="https://open.work.weixin.qq.com/devtool/query?e=40029" target="_blank" rel="noopener">这里</a>。<br></font>
 
 <p><br></p>
 </font>
@@ -669,7 +684,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境差异"><span class="toc-number">2.</span> <span class="toc-text">环境差异</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-角色主体标识差异"><span class="toc-number">2.1.</span> <span class="toc-text">1.角色主体标识差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-接口差异"><span class="toc-number">2.2.</span> <span class="toc-text">2.接口差异</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题点解决"><span class="toc-number">3.</span> <span class="toc-text">问题点解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-获取企业微信环境"><span class="toc-number">3.1.</span> <span class="toc-text">1.获取企业微信环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-获取Token"><span class="toc-number">3.2.</span> <span class="toc-text">2.获取Token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-获取UserId"><span class="toc-number">3.3.</span> <span class="toc-text">3.获取UserId</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-企业微信推送"><span class="toc-number">3.4.</span> <span class="toc-text">4.企业微信推送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-无法直接获取企业微信Id问题"><span class="toc-number">3.5.</span> <span class="toc-text">5.无法直接获取企业微信Id问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-企业微信绑定小程序"><span class="toc-number">3.6.</span> <span class="toc-text">1.企业微信绑定小程序</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境差异"><span class="toc-number">2.</span> <span class="toc-text">环境差异</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-角色主体标识差异"><span class="toc-number">2.1.</span> <span class="toc-text">1.角色主体标识差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-接口差异"><span class="toc-number">2.2.</span> <span class="toc-text">2.接口差异</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题点解决"><span class="toc-number">3.</span> <span class="toc-text">问题点解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-获取企业微信环境"><span class="toc-number">3.1.</span> <span class="toc-text">1.获取企业微信环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-获取Token"><span class="toc-number">3.2.</span> <span class="toc-text">2.获取Token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-获取UserId"><span class="toc-number">3.3.</span> <span class="toc-text">3.获取UserId</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-企业微信推送"><span class="toc-number">3.4.</span> <span class="toc-text">4.企业微信推送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-无法直接获取企业微信Id问题"><span class="toc-number">3.5.</span> <span class="toc-text">5.无法直接获取企业微信Id问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-企业微信绑定小程序"><span class="toc-number">3.6.</span> <span class="toc-text">1.企业微信绑定小程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Token权限问题"><span class="toc-number">3.7.</span> <span class="toc-text">2.Token权限问题</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -682,18 +697,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -2051,12 +2054,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
@@ -2305,19 +2308,19 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
-        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
-    
         <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
+        <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
     
         <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
-    
-        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
     
@@ -2329,13 +2332,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
-        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
-    
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
+        <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
     
         <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
         <span class="sidebar-tag-name" data-tags="Oracle"><span class="iconfont-archer">&#xe606;</span>Oracle</span>
     
@@ -2343,13 +2346,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
-        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
-    
         <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
-        <span class="sidebar-tag-name" data-tags="MiniProgram"><span class="iconfont-archer">&#xe606;</span>MiniProgram</span>
+        <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
     
         <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
+    
+        <span class="sidebar-tag-name" data-tags="MiniProgram"><span class="iconfont-archer">&#xe606;</span>MiniProgram</span>
     
         <span class="sidebar-tag-name" data-tags="WebGL"><span class="iconfont-archer">&#xe606;</span>WebGL</span>
     
@@ -2390,9 +2393,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="万世威"><span class="iconfont-archer">&#xe60a;</span>万世威</span>
     
-        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
-    
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
         <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
@@ -2402,9 +2405,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
-    
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
@@ -2424,9 +2427,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="黄震"><span class="iconfont-archer">&#xe60a;</span>黄震</span>
     
-        <span class="sidebar-category-name" data-categories="于福豪"><span class="iconfont-archer">&#xe60a;</span>于福豪</span>
-    
         <span class="sidebar-category-name" data-categories="吴伟豪"><span class="iconfont-archer">&#xe60a;</span>吴伟豪</span>
+    
+        <span class="sidebar-category-name" data-categories="于福豪"><span class="iconfont-archer">&#xe60a;</span>于福豪</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
