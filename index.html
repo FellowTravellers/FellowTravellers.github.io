@@ -359,6 +359,40 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/10/16/jenkins服务器和应用服务器/" >
+            
+                <span>Jenkins服务器与应用服务器</span>
+        </a>
+        <div class="abstract-content">
+            jenkins服务器和应用服务器是同一台机器实例：Windows版 Jenkins 自动化部署
+流程: 代码上传-&gt;gitlab通知-&gt;服务器-&gt;打包-&gt;本地tomcat-自动发布
+
+基础环境：tomcat、jdk、maven、git好处：相比两台服务减少网络传输消耗，减少构建失败率等等缺点：jenkins服务器占用的内存高，没有做到解耦构建和部署过程适合：两者服务器不能能通信情况，需要把Jenkins和tomcat服务器放在一台服务器上，不建议使用
+
+jenkins服务器和应用服务器不在同一台机器上前提条件：两者服务器能通信jenkins服务器和应用服务器为什么...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/16</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Jenkins">Jenkins</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2019/09/16/小程序实现微信与多企业微信联动通知管理/" >
             
                 <span>小程序实现微信与多企业微信联动通知管理</span>
@@ -663,42 +697,6 @@ Chapter 1. Getting started1.1. 项目启动maven 工程 使用 Hibernate Validat
             Listener接口12345678public interface EventListener &#123;&#125;public interface ServletContextListener extends EventListener &#123;    // 初始化    void contextInitialized(ServletContextEvent sce);    // 销毁    void contextDestroyed(ServletContextEvent sce);&#125;
 Listener注入
 org.apache.catalina.core.St...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/23</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Tomcat">Tomcat</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/23/Filter/" >
-            
-                <span>Filter</span>
-        </a>
-        <div class="abstract-content">
-            Filter说明
-filter 是 Servlet 规范
-
-filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之前执行
-
-
-接口12345package javax.servlet;public interface FilterChain &#123;    void doFilter(ServletRequest request, ServletResponse response)            throws IOException, ServletException;&#125;
-实现123456789101112131415161...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2007,9 +2005,28 @@ filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 79
+        Total : 80
         </div>
         <!-- search  -->
         
@@ -2022,6 +2039,11 @@ filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之�
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/16</span><a class="archive-post-title" href= "/2019/10/16/jenkins服务器和应用服务器/" >Jenkins服务器与应用服务器</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2443,21 +2465,21 @@ filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之�
     
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
-        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
-    
         <span class="sidebar-tag-name" data-tags="3D"><span class="iconfont-archer">&#xe606;</span>3D</span>
+    
+        <span class="sidebar-tag-name" data-tags="iOS"><span class="iconfont-archer">&#xe606;</span>iOS</span>
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
     
-        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
-    
-        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
-    
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
         <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
     
@@ -2467,9 +2489,9 @@ filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之�
     
         <span class="sidebar-tag-name" data-tags="Docker"><span class="iconfont-archer">&#xe606;</span>Docker</span>
     
-        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
-    
         <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
         <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
@@ -2481,13 +2503,15 @@ filter 是在 &lt;请求进入&gt; 容器后，执行 Servlet.service方法之�
     
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
+        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
+    
         <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
     
         <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
-        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
-    
         <span class="sidebar-tag-name" data-tags="MiniProgram"><span class="iconfont-archer">&#xe606;</span>MiniProgram</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
         <span class="sidebar-tag-name" data-tags="WebGL"><span class="iconfont-archer">&#xe606;</span>WebGL</span>
     
@@ -2530,9 +2554,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="刘小标"><span class="iconfont-archer">&#xe60a;</span>刘小标</span>
     
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
-    
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
     
@@ -2540,9 +2564,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="张泉"><span class="iconfont-archer">&#xe60a;</span>张泉</span>
     
-        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
-    
         <span class="sidebar-category-name" data-categories="万峥嵘"><span class="iconfont-archer">&#xe60a;</span>万峥嵘</span>
+    
+        <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
     
