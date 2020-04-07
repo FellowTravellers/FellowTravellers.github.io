@@ -346,28 +346,24 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2019/10/16/jenkins服务器和应用服务器/" >
+        <a class="abstract-title" href = "/2020/04/07/Cookie/" >
             
-                <span>Jenkins服务器与应用服务器</span>
+                <span>Cookie中的SameSite</span>
         </a>
         <div class="abstract-content">
-            jenkins服务器和应用服务器是同一台机器实例：Windows版 Jenkins 自动化部署
-流程: 代码上传-&gt;gitlab通知-&gt;服务器-&gt;打包-&gt;本地tomcat-自动发布
-
-基础环境：tomcat、jdk、maven、git好处：相比两台服务减少网络传输消耗，减少构建失败率等等缺点：jenkins服务器占用的内存高，没有做到解耦构建和部署过程适合：两者服务器不能能通信情况，需要把Jenkins和tomcat服务器放在一台服务器上，不建议使用
-
-jenkins服务器和应用服务器不在同一台机器上前提条件：两者服务器能通信jenkins服务器和应用服务器为什么...
+            Cookie中的SameSite什么是CookieHTTP协议本身是无状态的。什么是无状态呢，即服务器无法判断用户身份。Cookie实际上是一小段的文本信息（key-value格式）。客户端向服务器发起请求，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie。客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户状态。
+第一方cookie和第三方cookie第一方cookie第一方 cookie 指的是由网络用户访问的域创建的 cookie。例如：当用...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/16</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Jenkins">Jenkins</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "JavaScript">JavaScript</a>
     
 </div>
             
@@ -1925,6 +1921,24 @@ org.apache.catalina.core.St...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 80
@@ -1938,13 +1952,22 @@ org.apache.catalina.core.St...
     
     
     
-    <div class="archive-year"> 2019 </div>
+    <div class="archive-year"> 2020 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/16</span><a class="archive-post-title" href= "/2019/10/16/jenkins服务器和应用服务器/" >Jenkins服务器与应用服务器</a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/Cookie/" >Cookie中的SameSite</a>
         </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -2112,12 +2135,12 @@ org.apache.catalina.core.St...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 BS运维后期重构思路-王振州/" >BS运维后期重构思路</a>
+            <span class="archive-post-date">12/14</span><a class="archive-post-title" href= "/2018/12/14/2018-12-14 React和Vue比较-王振州/" >React和Vue比较</a>
         </li>
     
     
@@ -2372,15 +2395,17 @@ org.apache.catalina.core.St...
     
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
+        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
+    
         <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
     
         <span class="sidebar-tag-name" data-tags="Vue"><span class="iconfont-archer">&#xe606;</span>Vue</span>
     
-        <span class="sidebar-tag-name" data-tags="BS运维"><span class="iconfont-archer">&#xe606;</span>BS运维</span>
-    
         <span class="sidebar-tag-name" data-tags="Kotlin"><span class="iconfont-archer">&#xe606;</span>Kotlin</span>
     
         <span class="sidebar-tag-name" data-tags="GIS"><span class="iconfont-archer">&#xe606;</span>GIS</span>
+    
+        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
         <span class="sidebar-tag-name" data-tags="ArcEngine"><span class="iconfont-archer">&#xe606;</span>ArcEngine</span>
     
@@ -2392,9 +2417,9 @@ org.apache.catalina.core.St...
     
         <span class="sidebar-tag-name" data-tags="CI"><span class="iconfont-archer">&#xe606;</span>CI</span>
     
-        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
-    
         <span class="sidebar-tag-name" data-tags="Dubbo"><span class="iconfont-archer">&#xe606;</span>Dubbo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tomcat"><span class="iconfont-archer">&#xe606;</span>Tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="Jmeter"><span class="iconfont-archer">&#xe606;</span>Jmeter</span>
     
@@ -2404,15 +2429,11 @@ org.apache.catalina.core.St...
     
         <span class="sidebar-tag-name" data-tags="HTML5"><span class="iconfont-archer">&#xe606;</span>HTML5</span>
     
-        <span class="sidebar-tag-name" data-tags="Jenkins"><span class="iconfont-archer">&#xe606;</span>Jenkins</span>
-    
         <span class="sidebar-tag-name" data-tags="loadrunner"><span class="iconfont-archer">&#xe606;</span>loadrunner</span>
     
         <span class="sidebar-tag-name" data-tags="WebSocket"><span class="iconfont-archer">&#xe606;</span>WebSocket</span>
     
         <span class="sidebar-tag-name" data-tags="MiniProgram"><span class="iconfont-archer">&#xe606;</span>MiniProgram</span>
-    
-        <span class="sidebar-tag-name" data-tags="JavaScript"><span class="iconfont-archer">&#xe606;</span>JavaScript</span>
     
         <span class="sidebar-tag-name" data-tags="WebGL"><span class="iconfont-archer">&#xe606;</span>WebGL</span>
     
@@ -2457,9 +2478,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="汪洋"><span class="iconfont-archer">&#xe60a;</span>汪洋</span>
     
-        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
-    
         <span class="sidebar-category-name" data-categories="王凯伟"><span class="iconfont-archer">&#xe60a;</span>王凯伟</span>
+    
+        <span class="sidebar-category-name" data-categories="孙俊祥"><span class="iconfont-archer">&#xe60a;</span>孙俊祥</span>
     
         <span class="sidebar-category-name" data-categories="王振州"><span class="iconfont-archer">&#xe60a;</span>王振州</span>
     
@@ -2470,6 +2491,8 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="陈广禄"><span class="iconfont-archer">&#xe60a;</span>陈广禄</span>
     
         <span class="sidebar-category-name" data-categories="肖健"><span class="iconfont-archer">&#xe60a;</span>肖健</span>
+    
+        <span class="sidebar-category-name" data-categories="刘俊"><span class="iconfont-archer">&#xe60a;</span>刘俊</span>
     
         <span class="sidebar-category-name" data-categories="胡飞玲"><span class="iconfont-archer">&#xe60a;</span>胡飞玲</span>
     
